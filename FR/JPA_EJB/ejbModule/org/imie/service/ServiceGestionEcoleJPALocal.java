@@ -8,6 +8,8 @@ import javax.xml.rpc.ServiceException;
 import model.Personne;
 import model.Promotion;
 
+// Commentaire JM
+
 @Local
 public interface ServiceGestionEcoleJPALocal {
 	public List<Personne> rechercherPersonne(Personne personne);
