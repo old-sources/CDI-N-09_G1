@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8" ?>
 <%@page import="model.Personne"%>
 <%@page import="model.Promotion"%>
 <%@page import="java.text.SimpleDateFormat"%>
