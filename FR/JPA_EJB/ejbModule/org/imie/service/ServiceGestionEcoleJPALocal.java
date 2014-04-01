@@ -9,6 +9,7 @@ import model.Personne;
 import model.Promotion;
 
 // Commentaire JM
+// besoin d'annotations documentations et commentaires explicatifs
 
 @Local
 public interface ServiceGestionEcoleJPALocal {
