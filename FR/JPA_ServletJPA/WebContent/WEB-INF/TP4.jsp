@@ -9,12 +9,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr"
 	dir="ltr">
 <head>
+<base href="/JPA_ServletJPA/" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Hello World</title>
 </head>
 <body>
 	<%@ include file="TP13.jsp"%>
-	<a href="/JPA_ServletJPA/TP4_Controller/create">créer un personne</a>
+	<a href="TP4_Controller/create">Créer une personne</a>
 	<table id="tablePersonne">
 		<thead>
 			<tr>
@@ -33,8 +34,8 @@
 			<td><c:out value="${per.prenom}"/></td>
 			<td><fmt:formatDate pattern="dd/MM/yyy" value="${per.dateNaiss}"/></td>
 			<td><c:out value="${per.promotion.libelle}"/></td>
-			<td><a href="/JPA_ServletJPA/TP4_Controller/read/${per.id}">selection </a>
-				<a href="/JPA_ServletJPA/TP4_Controller/delete/${per.id}">suppression </a></td>
+			<td><a href="TP4_Controller/read/${per.id}">selection </a>
+				<a href="TP4_Controller/delete/${per.id}">suppression </a></td>
 			</tr>
 		</c:forEach>
 

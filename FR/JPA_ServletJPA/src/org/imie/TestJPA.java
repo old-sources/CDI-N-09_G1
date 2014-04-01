@@ -1,3 +1,4 @@
+//TEST RICARDO
 package org.imie;
 
 import java.io.IOException;
@@ -14,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.Personne;
 
 import org.imie.service.ServiceGestionEcoleJPALocal;
-
+/// aaa test3 git
 /**
  * Servlet implementation class TestJPA
  */
