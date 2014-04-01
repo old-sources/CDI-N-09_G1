@@ -11,7 +11,7 @@
 <head>
 <base href="/JPA_ServletJPA/" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Hello World</title>
+<title>TP4.jsp</title>
 </head>
 <body>
 	<%@ include file="TP13.jsp"%>
