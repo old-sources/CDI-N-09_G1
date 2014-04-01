@@ -48,6 +48,10 @@ public class TP13_Authent implements Filter {
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		HttpServletResponse httpServletResponse = (HttpServletResponse) response;
 
+		//encodage des trames pour support caracteres accentues
+		httpServletRequest.setCharacterEncoding("UTF-8");
+		httpServletResponse.setCharacterEncoding("UTF-8");
+		
 		Boolean authentified = false;
 		Boolean authentifying = false;
 		Boolean resourceToScan = true;
