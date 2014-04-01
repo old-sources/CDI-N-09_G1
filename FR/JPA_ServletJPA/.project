@@ -3,8 +3,8 @@
 	<name>JPA_ServletJPA</name>
 	<comment></comment>
 	<projects>
-		<project>JPA_PersonneEntity</project>
 		<project>JPA_EJB</project>
+		<project>JPA_PersonneEntity</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
