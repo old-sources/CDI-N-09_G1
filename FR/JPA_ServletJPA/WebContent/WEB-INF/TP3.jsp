@@ -11,50 +11,41 @@
 	dir="ltr">
 
 <head>
+<base href="/JPA_ServletJPA/" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel=stylesheet type="text/css" href="/JPA_ServletJPA/TP5.css">
+<link rel=stylesheet type="text/css" href="TP5.css">
 </head>
 <body>
-	<jsp:useBean id="personneSelected"
-		class="model.Personne" scope="request" />
-	<jsp:useBean id="promotions" class="java.util.ArrayList"
-		scope="request" />
 	<%@ include file="TP13.jsp"%>
-	<%-- TODO inclusion du header --%>
-	<%
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
-				"dd/MM/yyyy");
-	%>
 	<form method="POST">
 		<div id="formPersonne">
 			<div class="row">
 				<div class="cell">
-					<label for="">nom</label>
+					<label for="">Nom</label>
 				</div>
 				<div class="cell">
-					<input type="text" name="inputNom"
-					value="<%=personneSelected.getNom()%>">    
-<%-- 						<c:out value="${personneSelected.getNom()}"/>  --%>
+					<input type="text" name="inputNom" value="${personneSelected.nom}">
 				</div>
 			</div>
 			<div class="row">
 				<div class="cell">
-					<label for="">prenom</label>
+					<label for="">Prenom</label>
 				</div>
 				<div class="cell">
 					<input type="text" name="inputPrenom"
-						value="<%=personneSelected.getPrenom()%>">
+						value="${personneSelected.prenom}">
 				</div>
 
 			</div>
 			<div class="row">
 
 				<div class="cell">
-					<label for="">Date naissance</label>
+					<label for="">Date de naissance</label>
 				</div>
 				<div class="cell">
 					<input type="text" name="inputDateNaiss"
-						value="<%=personneSelected.getDateNaiss()!=null?simpleDateFormat.format(personneSelected.getDateNaiss()):""%>">
+						value="<fmt:formatDate pattern="dd/MM/yyyy"
+							value="${personneSelected.dateNaiss}"/>">
 				</div>
 			</div>
 			<div>
@@ -64,22 +55,18 @@
 				<div class="cell">
 					<select name="inputPromotion">
 						<option value=""></option>
-						<%
-							for (int i = 0; i < promotions.size(); i++) {
-								Promotion promotion = (Promotion) promotions.get(i);
-								Boolean selected = false;
-								if (personneSelected.getPromotion() != null
-										&& personneSelected.getPromotion().getId()
-												.equals(promotion.getId())) {
-									selected = true;
-								}
-						%>
-						<option value="<%=promotion.getId()%>"
-							<%=selected ? "selected" : ""%>>
-							<%=promotion.getLibelle()%></option>
-						<%
-							}
-						%>
+						<c:forEach items="${promotions}" var="promotion">
+							<c:choose>
+								<c:when
+									test="${promotion.id==personneSelected.promotion.id}">
+									<option value="${promotion.id}" selected>
+										${promotion.libelle}</option>
+								</c:when>
+								<c:otherwise>
+									<option value="${promotion.id}">${promotion.libelle}</option>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
 					</select>
 				</div>
 			</div>
@@ -94,11 +81,16 @@
 
 			</div>
 		</div>
-		<input type="hidden" name="inputId"
-			value="<%=personneSelected.getId()%>" /> <input type="submit"
-			name="<%=personneSelected.getId() != null ? "update" : "create"%>"
-			value="Valider" />
+		<input type="hidden" name="inputId" value="${personneSelected.id}" />
+		<c:choose>
+			<c:when test="${empty personneSelected.id}">
+				<input type="submit" name="create" value="Créer" />
+			</c:when>
+			<c:otherwise>
+				<input type="submit" name="update" value="Modifier" />
+			</c:otherwise>
+		</c:choose>
 	</form>
-	<a href="/JPA_ServletJPA/TP4_Controller/read/">retour liste</a>
+	<a href="TP4_Controller/read/">retour liste</a>
 </body>
 </html>
