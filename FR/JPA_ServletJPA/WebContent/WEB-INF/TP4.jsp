@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8" ?>
 <%@page import="java.util.List"%>
 <%@page import="model.Personne"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -11,7 +10,12 @@
 <head>
 <base href="/JPA_ServletJPA/" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<<<<<<< HEAD
 <title>TP4.jsp</title>
+=======
+<link rel=stylesheet type="text/css" href="css/style.css">
+<title>Hello World</title>
+>>>>>>> ae45d89f03438f576d8e1a48acc76932d769685c
 </head>
 <body>
 	<%@ include file="TP13.jsp"%>

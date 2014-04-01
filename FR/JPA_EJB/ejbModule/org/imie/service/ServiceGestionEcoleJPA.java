@@ -144,7 +144,7 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote, Ser
     
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public Personne verifierAuthPersonne(Personne personne) throws ServiceException {
-		Personne retour;
+		Personne retour = null;
 		if ((personne.getNom() == null || personne.getNom().isEmpty())
 				|| (personne.getPassw() == null || personne.getPassw()
 						.isEmpty())) {
@@ -164,7 +164,15 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote, Ser
     	criteria.add(qb.equal(personneRoot.<String>get("passw"), personne.getPassw()));
     	query.where(criteria.toArray(new Predicate[]{}));
 
-    	retour = entityManager.createQuery(query).getSingleResult();
+    	//Verification que la personne existe bien dans la base
+    	List<Personne> resultList = entityManager.createQuery(query).getResultList();
+    	if(resultList.size() == 1){
+    		retour = resultList.get(0);
+    	}
+    	else{
+			throw new ServiceException(
+					"Utilisateur inconnu ou erreur de mot de passe");
+    	}
     	
     	return retour;
 	}
