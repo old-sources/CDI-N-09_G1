@@ -27,7 +27,7 @@ public class Possede implements Serializable {
 
 	//bi-directional many-to-one association to Personne
 	@ManyToOne
-	@JoinColumn(name="id")
+	@JoinColumn(name="pers_id")
 	private Personne personne;
 
 	public Possede() {

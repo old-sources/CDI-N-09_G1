@@ -3,6 +3,7 @@ package model;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -15,6 +16,7 @@ public class Promotion implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="prm_id")
 	private Integer id;
 
 	@Temporal(TemporalType.DATE)
@@ -29,6 +31,10 @@ public class Promotion implements Serializable {
 
 	private String lieu;
 
+	//bi-directional many-to-one association to Personne
+	@OneToMany(mappedBy="promotion")
+	private List<Personne> personnes;
+
 	public Promotion() {
 	}
 
@@ -36,8 +42,8 @@ public class Promotion implements Serializable {
 		return this.id;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setId(Integer prmId) {
+		this.id = prmId;
 	}
 
 	public Date getDateDebut() {
@@ -70,6 +76,28 @@ public class Promotion implements Serializable {
 
 	public void setLieu(String lieu) {
 		this.lieu = lieu;
+	}
+
+	public List<Personne> getPersonnes() {
+		return this.personnes;
+	}
+
+	public void setPersonnes(List<Personne> personnes) {
+		this.personnes = personnes;
+	}
+
+	public Personne addPersonne(Personne personne) {
+		getPersonnes().add(personne);
+		personne.setPromotion(this);
+
+		return personne;
+	}
+
+	public Personne removePersonne(Personne personne) {
+		getPersonnes().remove(personne);
+		personne.setPromotion(null);
+
+		return personne;
 	}
 
 }

@@ -16,6 +16,7 @@ public class Personne implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="pers_id")
 	private Integer id;
 
 	@Temporal(TemporalType.DATE)
@@ -48,7 +49,7 @@ public class Personne implements Serializable {
 	@JoinTable(
 		name="envoyer"
 		, joinColumns={
-			@JoinColumn(name="id")
+			@JoinColumn(name="pers_id")
 			}
 		, inverseJoinColumns={
 			@JoinColumn(name="id_notif")
@@ -56,9 +57,9 @@ public class Personne implements Serializable {
 		)
 	private List<Actionanotifier> actionanotifiers;
 
-	//uni-directional many-to-one association to Promotion
+	//bi-directional many-to-one association to Promotion
 	@ManyToOne
-	@JoinColumn(name="promotionid")
+	@JoinColumn(name="prm_id")
 	private Promotion promotion;
 
 	//uni-directional many-to-one association to Role
@@ -85,16 +86,16 @@ public class Personne implements Serializable {
 		return this.id;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setId(Integer persId) {
+		this.id = persId;
 	}
 
 	public Date getDateNaiss() {
 		return this.dateNaiss;
 	}
 
-	public void setDateNaiss(Date dateNaiss) {
-		this.dateNaiss = dateNaiss;
+	public void setDateNaiss(Date datenaiss) {
+		this.dateNaiss = datenaiss;
 	}
 
 	public Boolean getDisponibilite() {

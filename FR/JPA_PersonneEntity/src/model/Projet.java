@@ -48,7 +48,7 @@ public class Projet implements Serializable {
 
 	//bi-directional many-to-one association to Personne
 	@ManyToOne
-	@JoinColumn(name="id")
+	@JoinColumn(name="pers_id")
 	private Personne personne;
 
 	//bi-directional many-to-many association to Personne
@@ -59,7 +59,7 @@ public class Projet implements Serializable {
 			@JoinColumn(name="proj_id")
 			}
 		, inverseJoinColumns={
-			@JoinColumn(name="id")
+			@JoinColumn(name="pers_id")
 			}
 		)
 	private List<Personne> personnes;
