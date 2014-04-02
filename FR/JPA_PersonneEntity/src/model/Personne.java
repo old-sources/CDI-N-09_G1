@@ -15,6 +15,7 @@ public class Personne implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 
 	@Temporal(TemporalType.DATE)
@@ -55,7 +56,7 @@ public class Personne implements Serializable {
 		)
 	private List<Actionanotifier> actionanotifiers;
 
-	//bi-directional many-to-one association to Promotion
+	//uni-directional many-to-one association to Promotion
 	@ManyToOne
 	@JoinColumn(name="promotionid")
 	private Promotion promotion;
@@ -66,8 +67,8 @@ public class Personne implements Serializable {
 	private Role role;
 
 	//bi-directional many-to-one association to Possede
-//	@OneToMany(mappedBy="personne")
-//	private List<Possede> possedes;
+	@OneToMany(mappedBy="personne")
+	private List<Possede> possedes;
 
 	//bi-directional many-to-one association to Projet
 	@OneToMany(mappedBy="personne")
@@ -206,27 +207,27 @@ public class Personne implements Serializable {
 		this.role = role;
 	}
 
-//	public List<Possede> getPossedes() {
-//		return this.possedes;
-//	}
-//
-//	public void setPossedes(List<Possede> possedes) {
-//		this.possedes = possedes;
-//	}
+	public List<Possede> getPossedes() {
+		return this.possedes;
+	}
 
-//	public Possede addPossede(Possede possede) {
-//		getPossedes().add(possede);
-//		possede.setPersonne(this);
-//
-//		return possede;
-//	}
+	public void setPossedes(List<Possede> possedes) {
+		this.possedes = possedes;
+	}
 
-//	public Possede removePossede(Possede possede) {
-//		getPossedes().remove(possede);
-//		possede.setPersonne(null);
-//
-//		return possede;
-//	}
+	public Possede addPossede(Possede possede) {
+		getPossedes().add(possede);
+		possede.setPersonne(this);
+
+		return possede;
+	}
+
+	public Possede removePossede(Possede possede) {
+		getPossedes().remove(possede);
+		possede.setPersonne(null);
+
+		return possede;
+	}
 
 	public List<Projet> getProjets1() {
 		return this.projets1;

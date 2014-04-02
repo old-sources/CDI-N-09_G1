@@ -12,8 +12,10 @@ import javax.persistence.*;
 public class Possede implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@EmbeddedId
-	private PossedePK id;
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="poss_id")
+	private Integer possId;
 
 	@Column(name="comp_niveau")
 	private Integer compNiveau;
@@ -31,12 +33,12 @@ public class Possede implements Serializable {
 	public Possede() {
 	}
 
-	public PossedePK getId() {
-		return this.id;
+	public Integer getPossId() {
+		return this.possId;
 	}
 
-	public void setId(PossedePK id) {
-		this.id = id;
+	public void setPossId(Integer possId) {
+		this.possId = possId;
 	}
 
 	public Integer getCompNiveau() {

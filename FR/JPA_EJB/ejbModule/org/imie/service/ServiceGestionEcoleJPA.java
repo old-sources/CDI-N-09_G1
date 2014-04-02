@@ -86,7 +86,7 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote, Ser
 	    entityManager.persist(personne2);
 		return personne2;
     }
-    
+     
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void deletePersonne(Personne personne){
     	personne = entityManager.find(Personne.class, personne.getId());

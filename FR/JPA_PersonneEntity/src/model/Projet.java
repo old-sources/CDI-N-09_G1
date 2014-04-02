@@ -15,6 +15,7 @@ public class Projet implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="proj_id")
 	private Integer projId;
 
@@ -40,10 +41,6 @@ public class Projet implements Serializable {
 
 	@Column(name="proj_wiki_membre")
 	private String projWikiMembre;
-
-	//bi-directional many-to-one association to Candidature
-	@OneToMany(mappedBy="projet")
-	private List<Candidature> candidatures;
 
 	//bi-directional many-to-one association to InvitationProjet
 	@OneToMany(mappedBy="projet")
@@ -132,28 +129,6 @@ public class Projet implements Serializable {
 
 	public void setProjWikiMembre(String projWikiMembre) {
 		this.projWikiMembre = projWikiMembre;
-	}
-
-	public List<Candidature> getCandidatures() {
-		return this.candidatures;
-	}
-
-	public void setCandidatures(List<Candidature> candidatures) {
-		this.candidatures = candidatures;
-	}
-
-	public Candidature addCandidature(Candidature candidature) {
-		getCandidatures().add(candidature);
-		candidature.setProjet(this);
-
-		return candidature;
-	}
-
-	public Candidature removeCandidature(Candidature candidature) {
-		getCandidatures().remove(candidature);
-		candidature.setProjet(null);
-
-		return candidature;
 	}
 
 	public List<InvitationProjet> getInvitationProjets() {

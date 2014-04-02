@@ -13,6 +13,7 @@ public class Candidature implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_notif")
 	private Integer idNotif;
 
@@ -21,7 +22,7 @@ public class Candidature implements Serializable {
 	@JoinColumn(name="id_notif")
 	private Actionanotifier actionanotifier;
 
-	//bi-directional many-to-one association to Projet
+	//uni-directional many-to-one association to Projet
 	@ManyToOne
 	@JoinColumn(name="proj_id")
 	private Projet projet;
