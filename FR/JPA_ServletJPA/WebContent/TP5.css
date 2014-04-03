@@ -1,5 +1,10 @@
 @CHARSET "UTF-8";
 
+#BarreId{
+	text-align : right;
+	background-color: #BCF46E;
+}
+
 #tablePersonne tr:nth-child(even) {
 	background-color: green;
 	color: white;
