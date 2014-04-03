@@ -12,7 +12,8 @@
 <head>
 <base href="/JPA_ServletJPA/" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel=stylesheet type="text/css" href="TP5.css">
+<link rel=stylesheet type="text/css" href="css/style.css">
+
 </head>
 <body>
 	<%@ include file="TP13.jsp"%>
