@@ -34,7 +34,7 @@
 			<tr>
 			<td><c:out value="${per.nom}"/></td>
 			<td><c:out value="${per.prenom}"/></td>
-			<td><fmt:formatDate pattern="dd/MM/yyy" value="${per.dateNaiss}"/></td>
+			<td><fmt:formatDate pattern="dd/MM/yyyy" value="${per.dateNaiss}"/></td>
 			<td><c:out value="${per.promotion.libelle}"/></td>
 			<td><a href="TP4_Controller/read/${per.id}">selection </a>
 				<a href="TP4_Controller/delete/${per.id}">suppression </a></td>
