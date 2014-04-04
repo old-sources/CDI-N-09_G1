@@ -36,8 +36,8 @@
 			<td><c:out value="${prm.lieu}"/></td>
 			<td><fmt:formatDate pattern="dd/MM/yyyy" value="${prm.dateDebut}"/></td>
 			<td><fmt:formatDate pattern="dd/MM/yyyy" value="${prm.dateFin}"/></td>
-			<td><a href="TP4_Controller/read/${prm.id}">selection </a>
-				<a href="TP4_Controller/delete/${prm.id}">suppression </a></td>
+			<td><a href="HPromotion/read/${prm.id}">selection </a>
+				<a href="HPromotion/delete/${prm.id}">suppression </a></td>
 			</tr>
 		</c:forEach>
 

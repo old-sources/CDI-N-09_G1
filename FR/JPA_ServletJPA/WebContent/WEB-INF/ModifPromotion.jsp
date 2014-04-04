@@ -70,6 +70,6 @@
 			</c:otherwise>
 		</c:choose>
 	</form>
-	<a href="ListePromotion/read/">retour liste</a>
+	<a href="HPromotion/read/">retour liste</a>
 </body>
 </html>

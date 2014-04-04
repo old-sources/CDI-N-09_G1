@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.Personne;
 import model.Promotion;
 
 import org.imie.service.ServiceGestionEcoleJPALocal;
@@ -80,10 +79,10 @@ public class HPromotion extends HttpServlet {
 			} catch (NumberFormatException e) {
 				// url mal formée : pas de suppression
 			}
-			List<Personne> foundPersonnes = serviceGestionEcole
-					.rechercherPersonne(new Personne());
-			request.setAttribute("foundPersonnes", foundPersonnes);
-			request.getRequestDispatcher("/WEB-INF/ListePromotion.jsp").forward(
+			List<Promotion> foundPromotions = serviceGestionEcole
+					.rechercherPromotion(new Promotion());
+			request.setAttribute("foundPromotions", foundPromotions);
+			request.getRequestDispatcher("/WEB-INF/ModifPromotion.jsp").forward(
 					request, response);
 		}
 		// url en read
@@ -93,7 +92,7 @@ public class HPromotion extends HttpServlet {
 				List<Promotion> foundPromotions = serviceGestionEcole
 						.rechercherPromotion(searchPromotion);
 				if (foundPromotions.size() > 0) {
-					request.setAttribute("personneSelected",
+					request.setAttribute("promotionSelected",
 							foundPromotions.get(0));
 					request.getRequestDispatcher("/WEB-INF/ModifPromotion.jsp").forward(
 							request, response);
@@ -102,7 +101,7 @@ public class HPromotion extends HttpServlet {
 				}
 
 			} catch (NumberFormatException e) {
-				// url mal formée : on renvoie toutes les personnes
+				// url mal formée : on renvoie toutes les promotions
 				List<Promotion> foundPromotions = serviceGestionEcole
 						.rechercherPromotion(searchPromotion);
 				request.setAttribute("foundPromotions", foundPromotions);
@@ -124,7 +123,7 @@ public class HPromotion extends HttpServlet {
 
 	
 		
-		// recherche de la personne à modifier
+		// recherche de la promotion à modifier
 		Promotion updatedPromotion = new Promotion();
 
 		updatedPromotion = serviceGestionEcole.rechercherPromotion(updatedPromotion)
@@ -160,7 +159,7 @@ public class HPromotion extends HttpServlet {
 			serviceGestionEcole.updatePromotion(updatedPromotion);
 		}
 
-		response.sendRedirect("/JPA_ServletJPA/Hpromotion/read/");
+		response.sendRedirect("/JPA_ServletJPA/HPromotion/read/");
 	}
 
 }
