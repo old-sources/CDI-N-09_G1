@@ -18,72 +18,51 @@
 <body>
 	<%@ include file="TP13.jsp"%>
 	<form method="POST">
-		<div id="formPersonne">
+		<div id="formPromotion">
 			<div class="row">
 				<div class="cell">
-					<label for="">Nom</label>
+					<label for="">Libelle</label>
 				</div>
 				<div class="cell">
-					<input type="text" name="inputNom" value="${personneSelected.nom}">
+					<input type="text" name="inputLibelle" value="${promotionSelected.libelle}">
 				</div>
 			</div>
 			<div class="row">
 				<div class="cell">
-					<label for="">Prenom</label>
-				</div>
+					<label for="">Lieu</label>
+				</div>	
 				<div class="cell">
-					<input type="text" name="inputPrenom"
-						value="${personneSelected.prenom}">
+					<input type="text" name="inputLieu"
+						value="${promotionSelected.lieu}">
 				</div>
 
 			</div>
 			<div class="row">
 
 				<div class="cell">
-					<label for="">Date de naissance</label>
+					<label for="">Date de debut</label>
 				</div>
 				<div class="cell">
-					<input type="text" name="inputDateNaiss"
+					<input type="text" name="inputDateDebut"
 						value="<fmt:formatDate pattern="dd/MM/yyyy"
-							value="${personneSelected.dateNaiss}"/>">
+							value="${promotionSelected.dateDebut}"/>">
 				</div>
-			</div>
-			<div>
-				<div class="cell">
-					<label for="">promotion</label>
-				</div>
-				<div class="cell">
-					<select name="inputPromotion">
-						<option value=""></option>
-						<c:forEach items="${promotions}" var="promotion">
-							<c:choose>
-								<c:when
-									test="${promotion.id==personneSelected.promotion.id}">
-									<option value="${promotion.id}" selected>
-										${promotion.libelle}</option>
-								</c:when>
-								<c:otherwise>
-									<option value="${promotion.id}">${promotion.libelle}</option>
-								</c:otherwise>
-							</c:choose>
-						</c:forEach>
-					</select>
-				</div>
-			</div>
 			<div class="row">
 
 				<div class="cell">
-					<label for="">password</label>
+					<label for="">Date de fin</label>
 				</div>
 				<div class="cell">
-					<input type="password" name="inputPassword">
+					<input type="text" name="inputDateFin"
+						value="<fmt:formatDate pattern="dd/MM/yyyy"
+							value="${promotionSelected.dateFin}"/>">
 				</div>
-
 			</div>
+			
 		</div>
-		<input type="hidden" name="inputId" value="${personneSelected.id}" />
+		<input type="hidden" name="inputId" value="${promotionSelected.id}" />
 		<c:choose>
-			<c:when test="${empty personneSelected.id}">
+			<c:when test="${empty promotionSelected.id}">
 				<input type="submit" name="create" value="Créer" />
 			</c:when>
 			<c:otherwise>
@@ -91,6 +70,6 @@
 			</c:otherwise>
 		</c:choose>
 	</form>
-	<a href="TP4_Controller/read/">retour liste</a>
+	<a href="ListePromotion/read/">retour liste</a>
 </body>
 </html>

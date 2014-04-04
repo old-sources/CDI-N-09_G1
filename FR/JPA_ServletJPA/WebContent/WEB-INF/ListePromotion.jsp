@@ -12,32 +12,32 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
 <link rel=stylesheet type="text/css" href="css/style.css">
-<title>Hello World</title>
+<title>Liste Promotion</title>
 
 </head>
 <body>
 	<%@ include file="TP13.jsp"%>
-	<a href="TP4_Controller/create">Créer une personne</a>
-	<table id="tablePersonne">
+	<a href="ListePromotion/create">Créer une promotion</a>
+	<table id="tablePromotion">
 		<thead>
 			<tr>
-				<th>nom</th>
-				<th>prenom</th>
-				<th>date naissance</th>
-				<th>promotion</th>
+				<th>libelle</th>
+				<th>lieu</th>
+				<th>date de debut</th>
+				<th>date de fin</th>
 				<th></th>
 			</tr>
 		</thead>
 		<tbody>
 		
-		<c:forEach items="${foundPersonnes}" var="per">
+		<c:forEach items="${foundPromotions}" var="prm">
 			<tr>
-			<td><c:out value="${per.nom}"/></td>
-			<td><c:out value="${per.prenom}"/></td>
-			<td><fmt:formatDate pattern="dd/MM/yyyy" value="${per.dateNaiss}"/></td>
-			<td><c:out value="${per.promotion.libelle}"/></td>
-			<td><a href="TP4_Controller/read/${per.id}">selection </a>
-				<a href="TP4_Controller/delete/${per.id}">suppression </a></td>
+			<td><c:out value="${prm.libelle}"/></td>
+			<td><c:out value="${prm.lieu}"/></td>
+			<td><fmt:formatDate pattern="dd/MM/yyyy" value="${prm.dateDebut}"/></td>
+			<td><fmt:formatDate pattern="dd/MM/yyyy" value="${prm.dateFin}"/></td>
+			<td><a href="TP4_Controller/read/${prm.id}">selection </a>
+				<a href="TP4_Controller/delete/${prm.id}">suppression </a></td>
 			</tr>
 		</c:forEach>
 
