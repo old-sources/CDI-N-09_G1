@@ -56,7 +56,7 @@ public class TP13_Authent implements Filter {
 		Boolean authentifying = false;
 		Boolean resourceToScan = true;
 		Boolean requestInterupted = false;
-		if (httpServletRequest.getRequestURI().contains("css")) {
+		if (httpServletRequest.getRequestURI().contains("css") || httpServletRequest.getRequestURI().contains("png")) {
 			resourceToScan = false;
 		}
 		if (httpServletRequest.getRequestURI().contains("TP13")) {
