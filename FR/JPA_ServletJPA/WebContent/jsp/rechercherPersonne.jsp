@@ -21,33 +21,37 @@
 </head>
 <body>
 
-
+<%@ include file="/WEB-INF/TP13.jsp"%>
 <SCRIPT type="text/javascript">
 	$(document).ready(
 			function() {
 				$('.actionModifier').button();
 				$('.actionSupprimer').button();
-
-
-
 			});
 </SCRIPT>
+<a href="TP4_Controller/create">Créer une personne</a>
 <TABLE id="tablePersonne">
 	<THEAD>
 		<TR>
 			<TH>Nom</TH>
 			<TH>Prenom</TH>
-			<TH>dateNaiss</TH>
+			<TH>date de naissance</TH>
+			<TH>promotion</TH>
 			<TH></TH>
 			<th></th>
 		</TR>
 	</THEAD>
 	<TBODY>
-		<c:forEach var="personne" items="${personnes}">
+		<c:forEach var="personne" items="${foundPersonnes}">
 			<TR>
 				<TD><c:out value="${personne.nom}" /></TD>
 				<TD><c:out value="${personne.prenom}" /></TD>
-				<TD><c:out value="${personne.dateNaiss}" /></TD>
+				<td><fmt:formatDate pattern="dd/MM/yyyy" value="${personne.dateNaiss}"/></td>
+				<td><c:out value="${personne.promotion.libelle}"/></td>
+			<!--  <td><a href="TP4_Controller/read/${personne.id}">selection </a>
+				<a href="TP4_Controller/delete/${personne.id}">suppression </a></td>
+			-->	
+				
 				<TD><BUTTON class="actionModifier" data-id="${personne.id}">Modifier</BUTTON></TD>
 				<TD><BUTTON class="actionSupprimer" data-id="${personne.id}">Supprimer</BUTTON></TD>
 			</TR>
