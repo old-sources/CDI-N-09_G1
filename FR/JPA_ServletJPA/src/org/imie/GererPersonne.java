@@ -1,32 +1,23 @@
 package org.imie;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
-
-import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.Personne;
-
-import org.imie.service.ServiceGestionEcoleJPALocal;
-
 /**
- * Servlet implementation class TestJPA
+ * Servlet implementation class GererPersonne
  */
-@WebServlet("/RecherchePersonne")
-public class TestJPA extends HttpServlet {
+@WebServlet("/gererPersonne")
+public class GererPersonne extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-	@EJB ServiceGestionEcoleJPALocal serviceGestionEcole;
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TestJPA() {
+    public GererPersonne() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,14 +26,7 @@ public class TestJPA extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		Personne personne = new Personne();
-//		personne.setNom("m");
-		List<Personne> personnes = serviceGestionEcole.rechercherPersonne(new Personne());
-//		PrintWriter writer = response.getWriter();
-//		for (Personne personne : personnes ){
-//			writer.println(personne.getNom());
-//		}
-		
+		request.getRequestDispatcher("/jsp/gererPersonne.jsp").forward(request, response);
 	}
 
 	/**
