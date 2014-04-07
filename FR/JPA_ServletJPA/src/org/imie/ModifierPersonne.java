@@ -55,7 +55,6 @@ public class ModifierPersonne extends HttpServlet {
 
 		if (matcherUpdate.find()) {
 			try {
-				Integer id = Integer.valueOf(matcherUpdate.group(1));
 				searchPersonne.setId(Integer.valueOf(matcherUpdate.group(1)));
 				List<Personne> foundPersonnes = serviceGestionEcole
 						.rechercherPersonne(searchPersonne);
