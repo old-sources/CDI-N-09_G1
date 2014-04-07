@@ -2,10 +2,25 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr"
+	dir="ltr">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<base href="/JPA_ServletJPA/" />
+<link rel=stylesheet type="text/css" href="css/style.css">
+  <link href="css/south-street/jquery-ui-1.10.4.custom.css"
+	rel="stylesheet" type="text/css" /> 
 <script type="text/javascript" src="js/jquery-1.10.2.js"></script>
 <script type="text/javascript" src="js/jquery-ui-1.10.4.custom.js"></script>
-<link href="css/south-street/jquery-ui-1.10.4.custom.css"
-	rel="stylesheet" type="text/css" />
+
+<title>Liste Personne</title>
+
+</head>
+<body>
+
 
 <SCRIPT type="text/javascript">
 	$(document).ready(
@@ -17,12 +32,14 @@
 
 			});
 </SCRIPT>
-<TABLE>
+<TABLE id="tablePersonne">
 	<THEAD>
 		<TR>
 			<TH>Nom</TH>
 			<TH>Prenom</TH>
 			<TH>dateNaiss</TH>
+			<TH></TH>
+			<th></th>
 		</TR>
 	</THEAD>
 	<TBODY>
@@ -37,3 +54,5 @@
 		</c:forEach>
 	</TBODY>
 </TABLE>
+</body>
+</html>

@@ -94,7 +94,7 @@ public class HPromotion extends HttpServlet {
 				if (foundPromotions.size() > 0) {
 					request.setAttribute("promotionSelected",
 							foundPromotions.get(0));
-					request.getRequestDispatcher("/WEB-INF/ModifPromotion.jsp").forward(
+					request.getRequestDispatcher("/WEB-INF/jsp/ModifPromotion.jsp").forward(
 							request, response);
 				} else {
 					response.setStatus(404);
@@ -105,7 +105,7 @@ public class HPromotion extends HttpServlet {
 				List<Promotion> foundPromotions = serviceGestionEcole
 						.rechercherPromotion(searchPromotion);
 				request.setAttribute("foundPromotions", foundPromotions);
-				request.getRequestDispatcher("/WEB-INF/ListePromotion.jsp").forward(
+				request.getRequestDispatcher("/WEB-INF/jsp/ListePromotion.jsp").forward(
 						request, response);
 			}
 		}
