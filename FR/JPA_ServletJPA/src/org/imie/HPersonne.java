@@ -95,7 +95,7 @@ public class HPersonne extends HttpServlet {
 				if (foundPersonnes.size() > 0) {
 					request.setAttribute("personneSelected",
 							foundPersonnes.get(0));
-					request.getRequestDispatcher("/WEB-INF/TP3.jsp").forward(
+					request.getRequestDispatcher("/jsp/ModifierPersonne.jsp").forward(
 							request, response);
 				} else {
 					response.setStatus(404);
@@ -106,7 +106,7 @@ public class HPersonne extends HttpServlet {
 				List<Personne> foundPersonnes = serviceGestionEcole
 						.rechercherPersonne(searchPersonne);
 				request.setAttribute("foundPersonnes", foundPersonnes);
-				request.getRequestDispatcher("/jsp/rechercherPersonne.jsp").forward(
+				request.getRequestDispatcher("/jsp/ListePersonne.jsp").forward(
 						request, response);
 			}
 		}
