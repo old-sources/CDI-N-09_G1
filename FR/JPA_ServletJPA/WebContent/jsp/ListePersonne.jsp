@@ -36,12 +36,18 @@
 
                $('.actionFormulaire').on('click', function(e) {
                    $( "#formulaire" ).dialog("open");
-                   var personne = new Personne();
-  				   personne.id=$(this).attr("data-id");
-  				  // personne=
+                
+  				   
+  				$('#inputNom').val($(this).attr("data-nom"));
+  				$('#inputPrenom').val($(this).attr("data-prenom"));
+  				$('#inputDateNaiss').val($(this).attr("data-dateNaiss"));
+  				$('#inputPromotion').val($(this).attr("data-promotionlibelle")); 
+
+  			
+				  
                 });
 			 $('#actionModifDansForm').on('click', function(e) {
-				 var personne = new Personne();
+				 /* var personne = new Personne();
 				 personne.id=$(this).attr("data-id");
                  var nom = $('#inputNom').val();
                  var prenom = $('#inputPrenom').val();
@@ -54,9 +60,10 @@
                  tableauPersonne.push(newPersonne);
                  //$('#formulaire').hide();
                  //$('#recherche').show();
-                 $( "#formulaire" ).dialog("close");
                  
-                // executerRecherche();
+                 //$('#inputRechercheNom').val(undefined);
+                // executerRecherche(); */
+				 $( "#formulaire" ).dialog("close");
              });
 			 
              
@@ -86,32 +93,58 @@
 				<TD><c:out value="${personne.prenom}" /></TD>
 				<td><fmt:formatDate pattern="dd/MM/yyyy" value="${personne.dateNaiss}"/></td>
 				<td><c:out value="${personne.promotion.libelle}"/></td>
+				
+				
+			</div>
 			<!--  <td><a href="TP4_Controller/read/${personne.id}">selection </a>
 				<a href="TP4_Controller/delete/${personne.id}">suppression </a></td>
 			-->	
 				
-				<TD><BUTTON class="actionFormulaire" data-id="${personne.id}">Modifier</BUTTON></TD>
+				<TD><BUTTON class="actionFormulaire" data-id="${personne.id}" data-nom="${personne.nom}" data-prenom="${personne.prenom}" data-dateNaiss="${personne.dateNaiss}" data-promotionlibelle="${personne.promotion.libelle}"} data-promotionid="${personne.promotion.id}"}>Modifier</BUTTON></TD> 
+				
 				<TD><BUTTON class="actionSupprimer" data-id="${personne.id}">Supprimer</BUTTON></TD>
 			</TR>
 		</c:forEach>
 	</TBODY>
 </TABLE>
+   <form method="POST">
 		<div id="formulaire">
             <div>
-                <label for="inputNom" >nom </label>
+                <label for="inputNom" name="inputNom">nom :</label>
                 <input type="text" id="inputNom">
-            </div>
-            <div>
-                <label for="inputPrenom">prenom</label>
+          	</div>
+                <label for="inputPrenom" name="inputPrenom">prenom :</label>
                 <input type="text" id="inputPrenom">
-            </div>
-            <div>
-                <label for="inputDateNaiss">date de naissance</label>
+          	 <div>
+                <label for="inputDateNaiss" name="inputDateNaiss">date de naissance</label>
                 <input type="text" id="inputDateNaiss">
-            </div>
-            <div>
-                <button id="actionModifDansForm" >Modifier</button>
-            </div>
+        	</div>
+        
+        	<div>
+                <label for="inputPromotion">promotion</label>
+                <input type="text" id="inputPromotion">
+        	</div> 
+        	<div class="cell">
+        			<label for="inputPromotion">promotion</label>
+					<select name="inputPromotion">
+						<option value=""></option>
+						<c:forEach items="${promotions}" var="promotion">
+							<c:choose>
+								<c:when
+									test="${promotion.id==personne.promotion.id}">
+									<option value="${promotion.id}" selected>
+										${promotion.libelle}</option>
+								</c:when>
+								<c:otherwise>
+									<option value="${promotion.id}">${promotion.libelle}</option>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+					</select>
+				</div>
+                <input type="submit" name="update" id="actionModifDansForm" value="Modifier"/>
+           
         </div>
+     </form>
 </body>
 </html>

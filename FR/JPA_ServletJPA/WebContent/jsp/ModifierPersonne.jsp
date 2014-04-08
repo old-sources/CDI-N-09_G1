@@ -142,11 +142,13 @@
 			<LABEL for="inputRechercheNom">nom : </LABEL> <INPUT type="text"
 				id="inputRechercheNom" /> <LABEL for="inputRecherchePrenom">prenom
 				: </LABEL> <INPUT type="text" id="inputRecherchePrenom" />
+				
 			<BUTTON id="actionRechercher">Rechercher</BUTTON>
 			<BUTTON id="actionAjouter">Ajouter</BUTTON>
 		</DIV>
 		<DIV id="resultatRecherche"></DIV>
 	</DIV>
-	<DIV id="formulaire"></DIV>
+	
+	
 </body>
 </html>
