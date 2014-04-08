@@ -36,10 +36,13 @@
 
                $('.actionFormulaire').on('click', function(e) {
                    $( "#formulaire" ).dialog("open");
+                   var personne = new Personne();
+  				   personne.id=$(this).attr("data-id");
+  				  // personne=
                 });
 			 $('#actionModifDansForm').on('click', function(e) {
-				 var personne = new Personne()
-				 personne.id=$(this).attr("data-id")
+				 var personne = new Personne();
+				 personne.id=$(this).attr("data-id");
                  var nom = $('#inputNom').val();
                  var prenom = $('#inputPrenom').val();
                  var dateNaiss = $('#inputDateNaiss').val();
@@ -95,7 +98,7 @@
 </TABLE>
 		<div id="formulaire">
             <div>
-                <label for="inputNom">nom</label>
+                <label for="inputNom" >nom </label>
                 <input type="text" id="inputNom">
             </div>
             <div>
