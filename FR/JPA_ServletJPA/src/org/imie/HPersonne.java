@@ -141,10 +141,10 @@ public class HPersonne extends HttpServlet {
 			throw new RuntimeException(e);
 		}
 
-		String inputPassword = request.getParameter("inputPassword");
-		if (inputPassword != null && !inputPassword.isEmpty()) {
-			updatedPerson.setPassw(inputPassword);
-		}
+//		String inputPassword = request.getParameter("inputPassword");
+//		if (inputPassword != null && !inputPassword.isEmpty()) {
+//			updatedPerson.setPassw(inputPassword);
+//		}
 
 		String inputPromotionString = request.getParameter("inputPromotion");
 		if (!inputPromotionString.isEmpty()) {
