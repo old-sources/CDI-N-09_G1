@@ -37,12 +37,13 @@
                $('.actionFormulaire').on('click', function(e) {
                    $( "#formulaire" ).dialog("open");
                 
-  				   
+                $('#inputId').val($(this).attr("data-id"));   
   				$('#inputNom').val($(this).attr("data-nom"));
   				$('#inputPrenom').val($(this).attr("data-prenom"));
   				$('#inputDateNaiss').val($(this).attr("data-dateNaiss"));
-  				$('#inputPromotion').val($(this).attr("data-promotionlibelle")); 
-				var promotionid = $(this).attr("data-promotionid");
+  			 	$('#inputPromotion').val($(this).attr("data-promotionid"));  
+  	
+				
   			
 				  
                 });
@@ -112,40 +113,28 @@
 </TABLE>
    <form method="POST">
 		<div id="formulaire">
+			<input type="hidden" name="inputId" id="inputId" />
             <div>
                 <label for="inputNom" name="inputNom">nom :</label>
-                <input type="text" id="inputNom">
+                <input type="text" id="inputNom" name="inputNom">
           	</div>
                 <label for="inputPrenom" name="inputPrenom">prenom :</label>
-                <input type="text" id="inputPrenom">
+                <input type="text" id="inputPrenom" name="inputPrenom">
           	 <div>
                 <label for="inputDateNaiss" name="inputDateNaiss">date de naissance</label>
-                <input type="text" id="inputDateNaiss">
+                <input type="text" id="inputDateNaiss" name="inputDateNaiss">
         	</div>
-        
-        <!-- 	<div>
-                <label for="inputPromotion">promotion</label>
-                <input type="text" id="inputPromotion">
-        	</div>  -->
         	<div class="cell">
-        			<label for="inputPromotion">promotion</label>
-					<select name="inputPromotion">
+        			<label for="inputPromotion">promotion : </label>
+					<select name="inputPromotion" id="inputPromotion">
 						<option value=""></option>
 						<c:forEach items="${promotions}" var="promotion">
-							<c:choose>
-								<c:when
-									test="${promotion.id==promotionid}">
-									<option value="${promotion.id}" selected>
-										${promotion.libelle}</option>
-								</c:when>
-								<c:otherwise>
-									<option value="${promotion.id}">${promotion.libelle}</option>
-								</c:otherwise>
-							</c:choose>
+									<option value="${promotion.id}">${promotion.libelle}</option>	
 						</c:forEach>
 					</select>
 				</div>
-                <input type="submit" name="update" id="actionModifDansForm" value="Modifier" data-id="${personne.id}" data-nom="${personne.nom}" data-prenom="${personne.prenom}" data-dateNaiss="${personne.dateNaiss}" data-promotionlibelle="${personne.promotion.libelle}"} data-promotionid="${personne.promotion.id}"}/>
+                <%-- <input type="submit" name="update" id="actionModifDansForm" value="Modifier" data-id="${personne.id}" data-nom="${personne.nom}" data-prenom="${personne.prenom}" data-dateNaiss="${personne.dateNaiss}" data-promotionlibelle="${personne.promotion.libelle}"} data-promotionid="${personne.promotion.id}"}/> --%>
+                 <input type="submit" name="update" id="actionModifDansForm" value="Modifier"/>
            
         </div>
      </form>

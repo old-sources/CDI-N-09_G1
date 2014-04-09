@@ -106,7 +106,7 @@ public class HPersonne extends HttpServlet {
 				List<Personne> foundPersonnes = serviceGestionEcole
 						.rechercherPersonne(searchPersonne);
 				request.setAttribute("foundPersonnes", foundPersonnes);
-				request.getRequestDispatcher("/jsp/ListePersonne.jsp").forward(
+				request.getRequestDispatcher("/jsp/ListePersonne2.jsp").forward(
 						request, response);
 			}
 		}
