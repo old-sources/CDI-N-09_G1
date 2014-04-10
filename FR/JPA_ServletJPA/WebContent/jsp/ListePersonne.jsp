@@ -41,34 +41,22 @@
   				$('#inputNom').val($(this).attr("data-nom"));
   				$('#inputPrenom').val($(this).attr("data-prenom"));
   				$('#inputDateNaiss').val($(this).attr("data-dateNaiss"));
-  				$('#inputPromotion').val($(this).attr("data-promotionlibelle")); 
-				var promotionid = $(this).attr("data-promotionid");
+  				$('#inputPromotion').val($(this).attr("data-promotionid")); 
+	
   			
 				  
                 });
 			 $('#actionModifDansForm').on('click', function(e) {
-				 
-				 /* var personne;
-				 personne.id=$('#inputId').val();
-                 personne.nom = $('#inputNom').val();
-                 personne.prenom = $('#inputPrenom').val();
-                 personne.dateNaiss = $('#inputDateNaiss').val(); 
-                 personne.promotion = $('#inputPromotion').val();*/
-                 /* var newPersonne = new personne({
-                     nom: !nom ? undefined : nom,
-                     prenom: !prenom ? undefined : prenom,
-                     dateNaiss :!dateNaiss ? undefined : dateNaiss
-                 });
-                 tableauPersonne.push(newPersonne); */
-                 //$('#formulaire').hide();
-                 //$('#recherche').show();
-                 
-                 //$('#inputRechercheNom').val(undefined);
-                // executerRecherche(); */
-               //request.setAttribute("updatedPerson","personne");
+	
 				 $( "#formulaire" ).dialog("close");
              });
-			 
+
+			 $('.actionSupprimer').on('click', function(e) {
+				 var id=$(this).attr("data-id");
+				 document.location.href="HPersonne/delete/".concat(id); 
+
+				 // reste a relancer la page, supprimer les lignes avec dépendance ou personneid est foreign key not null 
+			 });
              
 	});
 </SCRIPT>
@@ -98,12 +86,12 @@
 				<td><c:out value="${personne.promotion.libelle}"/></td>
 				
 				
-			</div>
+		
 			<!--  <td><a href="TP4_Controller/read/${personne.id}">selection </a>
 				<a href="TP4_Controller/delete/${personne.id}">suppression </a></td>
 			-->	
 				
-				<TD><BUTTON class="actionFormulaire" data-id="${personne.id}" data-nom="${personne.nom}" data-prenom="${personne.prenom}" data-dateNaiss="${personne.dateNaiss}" data-promotionlibelle="${personne.promotion.libelle}"} data-promotionid="${personne.promotion.id}"}>Modifier</BUTTON></TD> 
+				<TD><BUTTON class="actionFormulaire" data-id="${personne.id}" data-nom="${personne.nom}" data-prenom="${personne.prenom}" data-dateNaiss="${personne.dateNaiss}" data-promotionlibelle="${personne.promotion.libelle}" data-promotionid="${personne.promotion.id}">Modifier</BUTTON></TD> 
 				
 				<TD><BUTTON class="actionSupprimer" data-id="${personne.id}">Supprimer</BUTTON></TD>
 			</TR>
@@ -113,40 +101,26 @@
    <form method="POST">
 		<div id="formulaire">
             <div>
-                <label for="inputNom" name="inputNom">nom :</label>
+                <label for="inputNom">nom :</label>
                 <input type="text" id="inputNom">
           	</div>
-                <label for="inputPrenom" name="inputPrenom">prenom :</label>
+                <label for="inputPrenom">prenom :</label>
                 <input type="text" id="inputPrenom">
           	 <div>
-                <label for="inputDateNaiss" name="inputDateNaiss">date de naissance</label>
+                <label for="inputDateNaiss">date de naissance : </label>
                 <input type="text" id="inputDateNaiss">
         	</div>
-        
-        <!-- 	<div>
-                <label for="inputPromotion">promotion</label>
-                <input type="text" id="inputPromotion">
-        	</div>  -->
+        	
         	<div class="cell">
         			<label for="inputPromotion">promotion</label>
 					<select name="inputPromotion">
 						<option value=""></option>
 						<c:forEach items="${promotions}" var="promotion">
-							<c:choose>
-								<c:when
-									test="${promotion.id==promotionid}">
-									<option value="${promotion.id}" selected>
-										${promotion.libelle}</option>
-								</c:when>
-								<c:otherwise>
 									<option value="${promotion.id}">${promotion.libelle}</option>
-								</c:otherwise>
-							</c:choose>
 						</c:forEach>
 					</select>
-				</div>
-                <input type="submit" name="update" id="actionModifDansForm" value="Modifier" data-id="${personne.id}" data-nom="${personne.nom}" data-prenom="${personne.prenom}" data-dateNaiss="${personne.dateNaiss}" data-promotionlibelle="${personne.promotion.libelle}"} data-promotionid="${personne.promotion.id}"}/>
-           
+			</div>
+                <input type="submit" name="update" id="actionModifDansForm" value="Modifier" data-id="${personne.id}" data-nom="${personne.nom}" data-prenom="${personne.prenom}" data-dateNaiss="${personne.dateNaiss}" data-promotionlibelle="${personne.promotion.libelle}" data-promotionid="${personne.promotion.id}"/>
         </div>
      </form>
 </body>
