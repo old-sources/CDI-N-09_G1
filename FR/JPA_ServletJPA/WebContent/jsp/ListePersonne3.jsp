@@ -47,11 +47,13 @@
 				//$.datepicker.formatDate( "yy-mm-dd", new Date( 2007, 1 - 1, 26 ) );
 // 				var now = new Date();
 // 				alert(now);
-<%-- <% --%>
+
 // Date inputDateNaiss = simpleDateFormat.parse(inputDateNaissString);
-<%-- %> --%>
-				$('#inputDateNaiss').val($(this).attr("data-dateNaiss"));
-// 				$('#inputDateNaiss').val(dateString);
+
+				var dateString = new Date($(this).attr("data-dateNaiss"));
+			//	var dateString2 = dateString.format("dd/MM/yyyy");
+			//	$('#inputDateNaiss').val($(this).attr("data-dateNaiss"));
+ 				$('#inputDateNaiss').val(dateString.toLocaleDateString("fr-FR"));
   			 	$('#inputPromotion').val($(this).attr("data-promotionid"));  
 				});
              
