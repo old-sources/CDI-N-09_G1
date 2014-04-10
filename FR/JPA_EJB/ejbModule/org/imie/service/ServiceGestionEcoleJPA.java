@@ -18,6 +18,7 @@ import javax.persistence.criteria.Root;
 import javax.xml.rpc.ServiceException;
 
 import model.Personne;
+import model.Possede;
 import model.Promotion;
 
 /**
@@ -90,6 +91,13 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote, Ser
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void deletePersonne(Personne personne){
     	personne = entityManager.find(Personne.class, personne.getId());
+//    	Possede possede = new Possede(); 
+//    	do{
+//    		possede = entityManager.find(Possede.class, personne.getId());
+//    		if (possede!=null){
+//    			entityManager.remove(possede);
+//    		}
+//    	}while (possede!=null);
     	entityManager.remove(personne);
     }
     

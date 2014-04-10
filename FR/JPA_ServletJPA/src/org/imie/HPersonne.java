@@ -47,69 +47,75 @@ public class HPersonne extends HttpServlet {
 		Personne searchPersonne = new Personne();
 		request.setAttribute("promotions",
 				serviceGestionEcole.rechercherPromotion(new Promotion()));
-
-		// declaration pattern create
-		Pattern patternCreate = Pattern.compile(".*/HPersonne/create");
-		Matcher matcherCreate = patternCreate.matcher(request.getRequestURL());
-		// declaration pattern read
-		Pattern patternRead = Pattern
-				.compile(".*/HPersonne/read/([0-9]*)");
-		Matcher matcherRead = patternRead.matcher(request.getRequestURL());
-		// declaration pattern delete
-		Pattern patternDelete = Pattern
-				.compile(".*/HPersonne/delete/([0-9]*)");
-		Matcher matcherDelete = patternDelete.matcher(request.getRequestURL());
-
-		// url en create
-		if (matcherCreate.find()) {
-			request.getRequestDispatcher("/WEB-INF/TP3.jsp").forward(request,
-					response);
-		}
-		//url de delete
-		else if (matcherDelete.find()) {
-			try {
-				searchPersonne.setId(Integer.valueOf(matcherDelete.group(1)));
-				List<Personne> foundPersonnes = serviceGestionEcole.rechercherPersonne(searchPersonne);
-				if (foundPersonnes.size() > 0) {
-					serviceGestionEcole.deletePersonne(foundPersonnes.get(0));
-
-				} else {
-					response.setStatus(404);
-				}
-
-			} catch (NumberFormatException e) {
-				// url mal formée : pas de suppression
-			}
-			List<Personne> foundPersonnes = serviceGestionEcole
-					.rechercherPersonne(new Personne());
-			request.setAttribute("foundPersonnes", foundPersonnes);
-			request.getRequestDispatcher("/WEB-INF/TP4.jsp").forward(
-					request, response);
-		}
-		// url en read
-		else if (matcherRead.find()) {
-			try {
-				searchPersonne.setId(Integer.valueOf(matcherRead.group(1)));
-				List<Personne> foundPersonnes = serviceGestionEcole
-						.rechercherPersonne(searchPersonne);
-				if (foundPersonnes.size() > 0) {
-					request.setAttribute("personneSelected",
-							foundPersonnes.get(0));
-					request.getRequestDispatcher("/jsp/ModifierPersonne.jsp").forward(
-							request, response);
-				} else {
-					response.setStatus(404);
-				}
-
-			} catch (NumberFormatException e) {
-				// url mal formée : on renvoie toutes les personnes
-				List<Personne> foundPersonnes = serviceGestionEcole
-						.rechercherPersonne(searchPersonne);
-				request.setAttribute("foundPersonnes", foundPersonnes);
-				request.getRequestDispatcher("/jsp/ListePersonne3.jsp").forward(
-						request, response);
-			}
-		}
+		
+		List<Personne> foundPersonnes = serviceGestionEcole
+				.rechercherPersonne(searchPersonne);
+		request.setAttribute("foundPersonnes", foundPersonnes);
+		request.getRequestDispatcher("/WEB-INF/JPersonne.jsp").forward(
+				request, response);
+//
+//		// declaration pattern create
+//		Pattern patternCreate = Pattern.compile(".*/HPersonne/create");
+//		Matcher matcherCreate = patternCreate.matcher(request.getRequestURL());
+//		// declaration pattern read
+//		Pattern patternRead = Pattern
+//				.compile(".*/HPersonne/read/([0-9]*)");
+//		Matcher matcherRead = patternRead.matcher(request.getRequestURL());
+//		// declaration pattern delete
+//		Pattern patternDelete = Pattern
+//				.compile(".*/HPersonne/delete/([0-9]*)");
+//		Matcher matcherDelete = patternDelete.matcher(request.getRequestURL());
+//
+//		// url en create
+//		if (matcherCreate.find()) {
+//			request.getRequestDispatcher("/WEB-INF/TP3.jsp").forward(request,
+//					response);
+//		}
+//		//url de delete
+//		else if (matcherDelete.find()) {
+//			try {
+//				searchPersonne.setId(Integer.valueOf(matcherDelete.group(1)));
+//				List<Personne> foundPersonnes = serviceGestionEcole.rechercherPersonne(searchPersonne);
+//				if (foundPersonnes.size() > 0) {
+//					serviceGestionEcole.deletePersonne(foundPersonnes.get(0));
+//
+//				} else {
+//					response.setStatus(404);
+//				}
+//
+//			} catch (NumberFormatException e) {
+//				// url mal formée : pas de suppression
+//			}
+//			List<Personne> foundPersonnes = serviceGestionEcole
+//					.rechercherPersonne(new Personne());
+//			request.setAttribute("foundPersonnes", foundPersonnes);
+//			request.getRequestDispatcher("/WEB-INF/TP4.jsp").forward(
+//					request, response);
+//		}
+//		// url en read
+//		else if (matcherRead.find()) {
+//			try {
+//				searchPersonne.setId(Integer.valueOf(matcherRead.group(1)));
+//				List<Personne> foundPersonnes = serviceGestionEcole
+//						.rechercherPersonne(searchPersonne);
+//				if (foundPersonnes.size() > 0) {
+//					request.setAttribute("personneSelected",
+//							foundPersonnes.get(0));
+//					request.getRequestDispatcher("/jsp/ModifierPersonne.jsp").forward(
+//							request, response);
+//				} else {
+//					response.setStatus(404);
+//				}
+//
+//			} catch (NumberFormatException e) {
+//				// url mal formée : on renvoie toutes les personnes
+//				List<Personne> foundPersonnes = serviceGestionEcole
+//						.rechercherPersonne(searchPersonne);
+//				request.setAttribute("foundPersonnes", foundPersonnes);
+//				request.getRequestDispatcher("/WEB-INF/JPersonne.jsp").forward(
+//						request, response);
+//			}
+//		}
 
 	}
 
@@ -128,6 +134,8 @@ public class HPersonne extends HttpServlet {
 		updatedPerson = serviceGestionEcole.rechercherPersonne(updatedPerson)
 				.get(0);
 		// affectation des nouvelles valeurs
+		
+		
 		
 		String inputNom = request.getParameter("inputNom");
 		updatedPerson.setNom(inputNom);
@@ -151,6 +159,30 @@ public class HPersonne extends HttpServlet {
 //			updatedPerson.setPassw(inputPassword);
 //		}
 
+		
+		
+		if (request.getParameter("delete") != null) {
+			System.out.println("HPersonne Post delete");
+			try {
+				Integer inputId = Integer.valueOf(request.getParameter("inputId"));
+				updatedPerson.setId(inputId);
+				System.out.println("id : "+inputId);
+				serviceGestionEcole.deletePersonne(updatedPerson);
+				
+//				List<Personne> foundPersonnes = serviceGestionEcole.rechercherPersonne(updatedPerson);
+//				if (foundPersonnes.size() > 0) {
+//					System.out.println("HPersonne Post delete foundpersonne>0");
+//					serviceGestionEcole.deletePersonne(foundPersonnes.get(0));
+//	
+//				} else {
+//					response.setStatus(404);
+//				}
+			}
+			catch (NumberFormatException e) {
+				// parametres non corrects : pas de suppression
+			}
+		}
+		
 		String inputPromotionString = request.getParameter("inputPromotion");
 		if (!inputPromotionString.isEmpty()) {
 			Integer inputPromotion = Integer.valueOf(inputPromotionString);
@@ -175,7 +207,7 @@ public class HPersonne extends HttpServlet {
 			serviceGestionEcole.updatePersonne(updatedPerson);
 		}
 
-		response.sendRedirect("/JPA_ServletJPA/HPersonne/read/");
+		response.sendRedirect("/JPA_ServletJPA/HPersonne");
 	}
 
 }
