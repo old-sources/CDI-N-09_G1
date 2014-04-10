@@ -41,7 +41,7 @@ public class HPersonne extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-
+		System.out.println("HPersonne Get");
 		// a faire quelque soit le pattern
 
 		Personne searchPersonne = new Personne();
@@ -106,7 +106,7 @@ public class HPersonne extends HttpServlet {
 				List<Personne> foundPersonnes = serviceGestionEcole
 						.rechercherPersonne(searchPersonne);
 				request.setAttribute("foundPersonnes", foundPersonnes);
-				request.getRequestDispatcher("/jsp/ListePersonne2.jsp").forward(
+				request.getRequestDispatcher("/jsp/ListePersonne3.jsp").forward(
 						request, response);
 			}
 		}
@@ -120,7 +120,7 @@ public class HPersonne extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-	
+		System.out.println("HPersonne Post");
 		
 		// recherche de la personne à modifier
 		Personne updatedPerson = new Personne();
@@ -128,12 +128,17 @@ public class HPersonne extends HttpServlet {
 		updatedPerson = serviceGestionEcole.rechercherPersonne(updatedPerson)
 				.get(0);
 		// affectation des nouvelles valeurs
+		
 		String inputNom = request.getParameter("inputNom");
 		updatedPerson.setNom(inputNom);
+		System.out.println("nom : "+inputNom);
+	
 		String inputPrenom = request.getParameter("inputPrenom");
 		updatedPerson.setPrenom(inputPrenom);
+		System.out.println("prenom : "+inputPrenom);
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		String inputDateNaissString = request.getParameter("inputDateNaiss");
+		System.out.println("datenaiss : "+inputDateNaissString);
 		try {
 			Date inputDateNaiss = simpleDateFormat.parse(inputDateNaissString);
 			updatedPerson.setDateNaiss(inputDateNaiss);
@@ -163,7 +168,9 @@ public class HPersonne extends HttpServlet {
 		}
 
 		if (request.getParameter("update") != null) {
+			System.out.println("HPersonne POST update");
 			Integer inputId = Integer.valueOf(request.getParameter("inputId"));
+			System.out.println("InputId = "+inputId);
 			updatedPerson.setId(inputId);
 			serviceGestionEcole.updatePersonne(updatedPerson);
 		}

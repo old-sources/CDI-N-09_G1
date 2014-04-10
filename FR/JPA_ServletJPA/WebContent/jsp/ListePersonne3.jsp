@@ -20,6 +20,7 @@
 <title>Liste Personne</title>
 <SCRIPT type="text/javascript">
 	$(document).ready(function() {
+		
 			$('.actionFormulaire').button();
 			 $('#inputDateNaiss').datepicker();
 			  
@@ -30,7 +31,7 @@
                    duration: 1000
                  },
                  hide: {
-                   effect: "explode",
+                   effect: "blind",
                    duration: 1000
                  }
                })
@@ -54,34 +55,31 @@
   			 	$('#inputPromotion').val($(this).attr("data-promotionid"));  
 				});
              
-			 $('#actionModifDansForm').on('click', function(e) {
-// 				var inputNom = $('#inputNom').val();
-// 				$( "#formFormulaire").submit();
-				 $.ajax({
-						url : 'HPersonne/update/',
-						type : 'POST',
-						data : {
-							inputId : $('#inputId').val(),
-							inputNom : $('#inputNom').val(),
-							inputPrenom : $('#inputPrenom').val(),
-							inputDateNaiss : $('#inputDateNaiss').val(),
-							inputPromotion : $('#inputPromotion').val(),
-							update : 1 
-						},
-						dataType : 'html',
-						success : function(code_html, statut) {
-// 							$('#dataModified').click();
-// 							//$('#formulaire').dialog('close');
-						},
-						error : function(resultat, statut, erreur) {
-						},
-						complete : function(resultat, statut) {
-						}
-					});
-				 
-				 $("#formulaire").hide();
+// 			 $('#actionModifDansForm').on('click', function(e) {
 
-             })
+// 				 $.ajax({
+// 						url : 'HPersonne/update/',
+// 						type : 'POST',
+// 						data : {
+// 							inputId : $('#inputId').val(),
+// 							inputNom : $('#inputNom').val(),
+// 							inputPrenom : $('#inputPrenom').val(),
+// 							inputDateNaiss : $('#inputDateNaiss').val(),
+// 							inputPromotion : $('#inputPromotion').val(),
+// 							update : 1 
+// 						},
+// 						dataType : 'html',
+// 						success : function(code_html, statut) {
+// 						},
+// 						error : function(resultat, statut, erreur) {
+// 						},
+// 						complete : function(resultat, statut) {
+// 						}
+// 					});
+				 
+// 				 $("#formulaire").dialog("close");
+				
+//              })
 			 
  			
 	
@@ -93,7 +91,7 @@
 <body>
 
 <%@ include file="/WEB-INF/TP13.jsp"%>
-
+<div id="liste">
 <a href="TP4_Controller/create">Créer une personne</a>
 <TABLE id="tablePersonne">
 	<THEAD>
@@ -127,8 +125,9 @@
 		</c:forEach>
 	  </TBODY>
 	</TABLE>
+	</div>
 	<div id="formulaire">
-   <form method="POST" name="formFormulaire" id="formFormulaire">
+   <form method="POST" id="formFormulaire">
 		
 
 			<input type="hidden" name="inputId" id="inputId" />
@@ -151,11 +150,11 @@
 						</c:forEach>
 					</select>
 				</div>
-<!--             <input type="submit" name="update" id="actionModifDansForm" form="formFormulaire" value="Modifier"/> -->
-<!-- <!--            <input type="submit" name="update" id="actionModifDansForm" form="formFormulaire" value="Modifier"/>  -->
-<!-- <!-- onclick="myFunction()" --> 
-<!-- --> 
-           <input type="button" name="update" id="actionModifDansForm" value="Modifier">
+            <input type="submit" name="update" id="actionModifDansForm" value="Modifier"/>
+<%--             <input type="submit" name="update" id="actionModifDansForm" form="formFormulaire" value="Modifier"/> 
+onclick="myFunction()" 
+
+           <input type="button" name="update" id="actionModifDansForm" value="Modifier">--%> 
     
      </form>
 </div>

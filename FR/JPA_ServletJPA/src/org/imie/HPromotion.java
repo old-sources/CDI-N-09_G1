@@ -40,7 +40,7 @@ public class HPromotion extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-
+		System.out.println("HPromotion Get");
 		// a faire quelque soit le pattern
 
 		Promotion searchPromotion = new Promotion();
@@ -121,7 +121,7 @@ public class HPromotion extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-	
+		System.out.println("HPromotion Post");
 		
 		// recherche de la promotion à modifier
 		Promotion updatedPromotion = new Promotion();
