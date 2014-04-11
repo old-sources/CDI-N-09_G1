@@ -166,7 +166,7 @@ public class HPromotion extends HttpServlet {
 			serviceGestionEcole.updatePromotion(updatedPromotion);
 		}
 
-		response.sendRedirect("/JPA_ServletJPA/HPromotion/read/");
+		response.sendRedirect("/GTC/HPromotion/");
 	}
 
 }

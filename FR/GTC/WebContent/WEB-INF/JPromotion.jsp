@@ -39,15 +39,17 @@
 		$('.actionFormulairePromotion').on('click', function(e) {
 			$("#formulairePromotion").dialog("open");
 			$('#inputId').val($(this).attr("data-id"));
-			$('#inputNom').val($(this).attr("data-nom"));
-			$('#inputPrenom').val($(this).attr("data-prenom"));
+			$('#inputLibelle').val($(this).attr("data-libelle"));
+			$('#inputLieu').val($(this).attr("data-lieu"));
 
-			var dateString = new Date($(this).attr("data-dateNaiss"));
-			$('#inputDateNaiss').datepicker({
-				defaultDate : dateString
-			});
-			$('#inputDateNaiss').val(dateString.toLocaleDateString("fr-FR"));
-			$('#inputPromotion').val($(this).attr("data-promotionid"));
+			var dateString = new Date($(this).attr("data-dateD"));
+			$('#inputDateDebut').datepicker({defaultDate : dateString});
+			$('#inputDateDebut').val(dateString.toLocaleDateString("fr-FR"));
+
+			dateString = new Date($(this).attr("data-dateF"));
+			$('#inputDateFin').datepicker({defaultDate : dateString});
+			$('#inputDateFin').val(dateString.toLocaleDateString("fr-FR"));
+
 			$('#updateDansForm').attr('value',"Modifier");
 			$('#deleteDansForm').show();
 		});
@@ -87,11 +89,12 @@
 		
 		<c:forEach items="${foundPromotions}" var="prm">
 			<tr>
+			
 			<td><c:out value="${prm.libelle}"/></td>
 			<td><c:out value="${prm.lieu}"/></td>
 			<td><fmt:formatDate pattern="dd/MM/yyyy" value="${prm.dateDebut}"/></td>
 			<td><fmt:formatDate pattern="dd/MM/yyyy" value="${prm.dateFin}"/></td>
-			<TD><BUTTON class="actionFormulairePromotion" data-prm="${prm}">Modifier</BUTTON></TD>
+			<TD><BUTTON class="actionFormulairePromotion" data-id="${prm.id}" data-libelle="${prm.libelle}" data-lieu="${prm.lieu}" data-dateD="${prm.dateDebut}" data-dateF="${prm.dateFin}">Modifier</BUTTON></TD>
 			
 			</tr>
 		</c:forEach>
@@ -116,7 +119,7 @@
 			</div>
 			<div>
 				<label for="inputDateFin">date de fin</label> 
-				<input type="text" id="inputDateNaiss" name="inputDateNaiss">
+				<input type="text" id="inputDateFin" name="inputDateFin">
 			</div>
 	
 				<input type="submit" name="update" id="updateDansForm" value="Modifier" />
