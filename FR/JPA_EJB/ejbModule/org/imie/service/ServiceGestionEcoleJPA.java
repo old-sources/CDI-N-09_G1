@@ -108,7 +108,14 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote, Ser
     
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public Promotion insertPromotion(Promotion promotion){
-    	entityManager.persist(promotion);
+    	Promotion promotion2 = new Promotion();
+    	promotion2.setLibelle(promotion.getLibelle());
+    	promotion2.setLieu(promotion.getLieu());
+    	promotion2.setDateDebut(promotion.getDateDebut());
+    	promotion2.setDateFin(promotion.getDateFin());
+    	System.out.println("est passé par le insert "+promotion.getLibelle()+" "+promotion.getLieu());
+	   
+    	entityManager.persist(promotion2);
     	return promotion;
 		
     }

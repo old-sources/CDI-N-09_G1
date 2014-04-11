@@ -50,19 +50,23 @@
 			$('#inputDateFin').datepicker({defaultDate : dateString});
 			$('#inputDateFin').val(dateString.toLocaleDateString("fr-FR"));
 
-			$('#updateDansForm').attr('value',"Modifier");
+			$('#updateDansForm').show();
 			$('#deleteDansForm').show();
+			$('#creerDansForm').hide();
 		});
 
 		$('.actionPagePrincipaleCreer').on('click', function(e) {
-			$("#formulaire").dialog("open");
-			$('#inputNom').val("");
-			$('#inputPrenom').val("");
-			$('#inputDateNaiss').datepicker({defaultDate : new Date()});
-			$('#inputDateNaiss').val("01/01/1980");
-			$('#inputPromotion').val("");
-			$('#updateDansForm').attr('value',"Créer");
+			$("#formulairePromotion").dialog("open");
+			$('#inputId').val("");
+			$('#inputLibelle').val("");
+			$('#inputDateDebut').datepicker({defaultDate : new Date()});
+			$('#inputDateDebut').val("");
+			$('#inputDateFin').datepicker({defaultDate : new Date()});
+			$('#inputDateFin').val("");
+			
 			$('#deleteDansForm').hide();
+			$('#updateDansForm').hide();
+			$('#creerDansForm').show();
 		});
 		
 	});
@@ -74,7 +78,7 @@
 </head>
 <body>
 	<%@ include file="header.jsp"%>
-	<a href="ListePromotion/create">Créer une promotion</a>
+	<BUTTON class="actionPagePrincipaleCreer">Créer une promotion</BUTTON>
 	<table id="tablePersonne">
 		<thead>
 			<tr>
@@ -122,8 +126,10 @@
 				<input type="text" id="inputDateFin" name="inputDateFin">
 			</div>
 	
+				<input type="submit" name="create" id="creerDansForm" value="Créer" />
 				<input type="submit" name="update" id="updateDansForm" value="Modifier" />
 				<input type="submit" name="delete" id="deleteDansForm" value="Supprimer" />
+
 
 		</form>
 	</div>
