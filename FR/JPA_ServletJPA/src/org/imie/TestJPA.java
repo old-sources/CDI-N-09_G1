@@ -18,7 +18,7 @@ import org.imie.service.ServiceGestionEcoleJPALocal;
 /**
  * Servlet implementation class TestJPA
  */
-@WebServlet("/TestJPA")
+@WebServlet("/RecherchePersonne")
 public class TestJPA extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -38,10 +38,11 @@ public class TestJPA extends HttpServlet {
 //		Personne personne = new Personne();
 //		personne.setNom("m");
 		List<Personne> personnes = serviceGestionEcole.rechercherPersonne(new Personne());
-		PrintWriter writer = response.getWriter();
-		for (Personne personne : personnes ){
-			writer.println(personne.getNom());
-		}
+//		PrintWriter writer = response.getWriter();
+//		for (Personne personne : personnes ){
+//			writer.println(personne.getNom());
+//		}
+		
 	}
 
 	/**

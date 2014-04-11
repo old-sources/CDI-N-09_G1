@@ -69,7 +69,8 @@
 				<input type="submit" name="update" value="Modifier" />
 			</c:otherwise>
 		</c:choose>
+	</div>
 	</form>
-	<a href="ListePromotion/read/">retour liste</a>
+	<a href="HPromotion/read/">retour liste</a>
 </body>
 </html>

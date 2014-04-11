@@ -51,6 +51,9 @@ public class TP13_View extends HttpServlet {
 		printWriter.println("<link rel=stylesheet type=\"text/css\" href=\"./TP12.css\">");
 		printWriter.println("</head>");
 		printWriter.println("<body>");
+		printWriter.println("<p>");
+		printWriter.println("<img src=\"./images/bandeauTeamskills.png\" alt=\"Bandeau Teamskills (n'arrive pas a s'afficher)\" />");
+		printWriter.println("</p>");
 		printWriter.println("<form method=\"POST\">");
 		printWriter.println("<div class=\"form\">");
 
