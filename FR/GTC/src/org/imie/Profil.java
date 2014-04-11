@@ -38,6 +38,10 @@ public class Profil extends HttpServlet {
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		Personne loguedPerson = (Personne) httpServletRequest.getSession().getAttribute("authentifiedPersonne");
 		request.setAttribute("loguedPerson", loguedPerson);
+		
+		request.setAttribute("promotions",
+				serviceGestionEcole.rechercherPromotion(new Promotion()));
+		
 		System.out.println(loguedPerson.getNom());
 		request.getRequestDispatcher("/WEB-INF/JProfil.jsp").forward(
 				request, response);

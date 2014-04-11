@@ -128,7 +128,7 @@
 				<select	name="inputPromotion" id="inputPromotion">
 					<option value=""></option>
 					<c:forEach items="${promotions}" var="promotion">
-						<option value="${promotion.id}">${promotion.libelle}</option>
+						<option value="${promotion.id}">${promotion.libelle} ${promotion.lieu}</option>
 					</c:forEach>
 				</select>
 			</div>

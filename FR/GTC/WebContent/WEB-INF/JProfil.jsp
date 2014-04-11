@@ -56,15 +56,17 @@
 			$("#formulaire").dialog("open");
 			$('#inputNom').val("");
 			$('#inputPrenom').val("");
-			$('#inputDateNaiss').datepicker({defaultDate : new Date()});
+			$('#inputDateNaiss').datepicker({
+				defaultDate : new Date()
+			});
 			$('#inputDateNaiss').val("01/01/1980");
 			$('#inputPromotion').val("");
-			$('#updateDansForm').attr('value',"Créer");
+			$('#updateDansForm').attr('value', "Créer");
 			$('#deleteDansForm').hide();
 			$('#updateDansForm').hide();
 			$('#creerDansForm').show();
 		});
-		
+
 	});
 </SCRIPT>
 
@@ -73,39 +75,62 @@
 <body>
 
 	<%@ include file="/WEB-INF/header.jsp"%>
-	
-	<div id="liste">
-		<BUTTON class="actionPagePrincipaleCreer">Créer une personne</BUTTON>
-		<TABLE id="tablePersonne">
-			<THEAD>
-				<TR>
-					<TH>Nom</TH>
-					<TH>Prenom</TH>
-					<TH>date de naissance</TH>
-					<TH>promotion</TH>
-					<TH></TH>
-				</TR>
-			</THEAD>
-			<TBODY>
-				
-					<TR>
-						<TD><c:out value="${loguedPerson.nom}" /></TD>
-						<TD><c:out value="${loguedPerson.prenom}" /></TD>
-						<td><fmt:formatDate pattern="dd/MM/yyyy"
-								value="${loguedPerson.dateNaiss}" /></td>
-						<td><c:out value="${loguedPerson.promotion.libelle}" /></td>
+
+	<div id="divProfil">
+		<input type="hidden" name="inputId" id="inputId" />
+		<div>
+			<label for="inputNom">nom :</label> <input type="text" id="inputNom"
+				name="inputNom" value="${loguedPerson.nom}">
+		</div>
+		<label for="inputPrenom">prenom :</label> <input type="text"
+			id="inputPrenom" name="inputPrenom" value="${loguedPerson.prenom}">
+		<div>
+			<label for="inputDateNaiss">date de naissance</label> <input
+				type="text" id="inputDateNaiss" name="inputDateNaiss"
+				value="${loguedPerson.dateNaiss}">
+		</div>
+		<div>
+			<label for="inputPassw">Password</label> <input type="text"
+				id="inputPassw" name="inputPassw" value="${loguedPerson.passw}">
+		</div>
+		<div class="cell">
+			<label for="inputPromotion">promotion : </label> <select
+				name="inputPromotion">
+				<option value=""></option>
+				<c:forEach items="${promotions}" var="promotion">
+					<c:choose>
+						<c:when test="${promotion.id==loguedPerson.promotion.id}">
+							<option value="${promotion.id}" selected>
+								${promotion.libelle} ${promotion.lieu} </option>
+						</c:when>
+						<c:otherwise>
+							<option value="${promotion.id}">${promotion.libelle} ${promotion.lieu}</option>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+			</select>
+		</div>
+		<div>
+			<label for="inputemail">email</label> <input type="text"
+				id="inputEmail" name="inputEmail" value="${loguedPerson.email}">
+		</div>
+		<div>
+			<label for="inputInfos">Autres informations</label> <input type="text"
+				id="inputInfos" name="inputInfos" value="${loguedPerson.infos}">
+		</div>
+	</div>
 
 
-						<TD><BUTTON class="actionFormulaire" data-id="${personne.id}"
-								data-nom="${personne.nom}" data-prenom="${personne.prenom}"
-								data-dateNaiss="${personne.dateNaiss}"
-								data-promotionlibelle="${personne.promotion.libelle}"
-								data-promotionid="${personne.promotion.id}">Modifier</BUTTON></TD>
+	<div>
 
-					</TR>
-			
-			</TBODY>
-		</TABLE>
+
+		<TD><BUTTON class="actionFormulaire" data-id="${personne.id}"
+				data-nom="${personne.nom}" data-prenom="${personne.prenom}"
+				data-dateNaiss="${personne.dateNaiss}"
+				data-promotionlibelle="${personne.promotion.libelle}"
+				data-promotionid="${personne.promotion.id}">Modifier</BUTTON></TD>
+
+
 	</div>
 
 	<div id="formulaire">
@@ -114,8 +139,8 @@
 
 			<input type="hidden" name="inputId" id="inputId" />
 			<div>
-				<label for="inputNom">nom :</label> <input type="text"
-					id="inputNom" name="inputNom">
+				<label for="inputNom">nom :</label> <input type="text" id="inputNom"
+					name="inputNom">
 			</div>
 			<label for="inputPrenom">prenom :</label> <input type="text"
 				id="inputPrenom" name="inputPrenom">
@@ -124,20 +149,21 @@
 					type="text" id="inputDateNaiss" name="inputDateNaiss">
 			</div>
 			<div class="cell">
-				<label for="inputPromotion">promotion : </label> 
-				<select	name="inputPromotion" id="inputPromotion">
+				<label for="inputPromotion">promotion : </label> <select
+					name="inputPromotion" id="inputPromotion">
 					<option value=""></option>
 					<c:forEach items="${promotions}" var="promotion">
 						<option value="${promotion.id}">${promotion.libelle}</option>
 					</c:forEach>
 				</select>
 			</div>
-				<input type="submit" name="create" id="creerDansForm" value="Créer" />
-				<input type="submit" name="update" id="updateDansForm" value="Modifier" />
-				<input type="submit" name="delete" id="deleteDansForm" value="Supprimer" />
+			<input type="submit" name="create" id="creerDansForm" value="Créer" />
+			<input type="submit" name="update" id="updateDansForm"
+				value="Modifier" /> <input type="submit" name="delete"
+				id="deleteDansForm" value="Supprimer" />
 
-			 
-			
+
+
 
 		</form>
 	</div>
