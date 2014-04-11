@@ -96,7 +96,7 @@ public class HPersonne extends HttpServlet {
 //			updatedPerson.setPassw(inputPassword);
 //		}
 
-		
+		// + categorie : admin, user, super admin
 		
 		if (request.getParameter("delete") != null) {
 			System.out.println("HPersonne Post delete");
