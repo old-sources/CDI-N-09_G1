@@ -23,7 +23,7 @@ import org.imie.service.ServiceGestionEcoleJPALocal;
 /**
  * Servlet Filter implementation class TP13_Authent
  */
-@WebFilter(dispatcherTypes = { DispatcherType.REQUEST }, urlPatterns = { "/*" })
+//@WebFilter(dispatcherTypes = { DispatcherType.REQUEST }, urlPatterns = { "/*" })
 public class TP13_Authent implements Filter {
 	@EJB ServiceGestionEcoleJPALocal serviceGestionEcole;
 	/**

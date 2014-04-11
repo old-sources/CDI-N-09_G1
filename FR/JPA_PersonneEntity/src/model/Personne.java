@@ -41,6 +41,7 @@ public class Personne implements Serializable {
 	private String prenom;
 
 	//bi-directional many-to-one association to InvitationProjet
+	// cascade ={ CascadeType.ALL}, fetch = FetchType.EAGER,
 	@OneToMany(mappedBy="personne")
 	private List<InvitationProjet> invitationProjets;
 

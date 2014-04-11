@@ -24,7 +24,7 @@
 
 		$('.actionFormulairePromotion').button();
 
-		$('#formulaire').dialog({
+		$('#formulairePromotion').dialog({
 			autoOpen : false,
 			show : {
 				effect : "blind",
@@ -36,7 +36,7 @@
 			}
 		})
 
-		$('.actionFormulaire').on('click', function(e) {
+		$('.actionFormulairePromotion').on('click', function(e) {
 			$("#formulairePromotion").dialog("open");
 			$('#inputId').val($(this).attr("data-id"));
 			$('#inputNom').val($(this).attr("data-nom"));
@@ -73,7 +73,7 @@
 <body>
 	<%@ include file="header.jsp"%>
 	<a href="ListePromotion/create">Créer une promotion</a>
-	<table id="tablePromotion">
+	<table id="tablePersonne">
 		<thead>
 			<tr>
 				<th>libelle</th>
