@@ -22,7 +22,7 @@
 	$(document).ready(function() {
 		
 			$('.actionFormulaire').button();
-			 $('#inputDateNaiss').datepicker();
+			 
 			  
 			 $('#formulaire').dialog({
                  autoOpen: false,
@@ -53,6 +53,8 @@
 				var dateString = new Date($(this).attr("data-dateNaiss"));
 			//	var dateString2 = dateString.format("dd/MM/yyyy");
 			//	$('#inputDateNaiss').val($(this).attr("data-dateNaiss"));
+				//$('#inputDateNaiss').datepicker().datepicker("setDate", dateString);
+				$('#inputDateNaiss').datepicker({defaultDate:dateString});
  				$('#inputDateNaiss').val(dateString.toLocaleDateString("fr-FR"));
   			 	$('#inputPromotion').val($(this).attr("data-promotionid"));  
 				});
