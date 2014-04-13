@@ -56,7 +56,7 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote, Ser
     		criteria.add(qb.like(personneRoot.<String>get("prenom"), "*"+personne.getPrenom()+"*"));
     	}
     	if (personne.getId() != null){
-    		criteria.add(qb.equal(personneRoot.get("pers_id"), personne.getId()));
+    		criteria.add(qb.equal(personneRoot.get("id"), personne.getId()));
     	}
     	query.where(criteria.toArray(new Predicate[] {}));
     	
@@ -134,7 +134,7 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote, Ser
     	
     	List<Predicate> criteria = new ArrayList<Predicate>();
     	if (promotion.getId() != null){
-    		criteria.add(qb.equal(promotionRoot.get("prm_id"), promotion.getId()));
+    		criteria.add(qb.equal(promotionRoot.get("id"), promotion.getId()));
     	}
     	if (promotion.getLibelle() != null){
     		criteria.add(qb.like(promotionRoot.<String>get("libelle"), "*"+promotion.getLibelle()+"*"));
@@ -201,16 +201,16 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote, Ser
     	
     	List<Predicate> criteria = new ArrayList<Predicate>();
     	if (possede.getPossId() != null){
-    		criteria.add(qb.like(possedeRoot.<String>get("poss_id"), "*"+possede.getPossId() + "*"));
+    		criteria.add(qb.like(possedeRoot.<String>get("possId"), "*"+possede.getPossId() + "*"));
     	}
     	if (possede.getCompNiveau() != null){
-    		criteria.add(qb.like(possedeRoot.<String>get("comp_niveau"), "*"+possede.getCompNiveau()+"*"));
+    		criteria.add(qb.like(possedeRoot.<String>get("compNiveau"), "*"+possede.getCompNiveau()+"*"));
     	}
     	if (possede.getCompetence() != null){
-    		criteria.add(qb.like(possedeRoot.<String>get("comp_id"), "*"+possede.getCompetence().getCompId()+"*"));
+    		criteria.add(qb.like(possedeRoot.<String>get("competence"), "*"+possede.getCompetence()+"*"));
     	}
     	if (possede.getPersonne() != null){
-    		criteria.add(qb.equal(possedeRoot.get("pers_id"), possede.getPersonne().getId()));
+    		criteria.add(qb.equal(possedeRoot.get("personne"), possede.getPersonne()));
     	}
     	
     	query.where(criteria.toArray(new Predicate[] {}));

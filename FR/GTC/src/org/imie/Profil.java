@@ -50,7 +50,7 @@ public class Profil extends HttpServlet {
 		
 		Possede possede = new Possede();
 		possede.setPersonne(loguedPerson);
-		request.setAttribute("possedes", serviceGestionEcole.rechercherPossede(new Possede()));
+		request.setAttribute("possedes", serviceGestionEcole.rechercherPossede(possede));
 		
 		System.out.println(loguedPerson.getNom());
 		request.getRequestDispatcher("/WEB-INF/JProfil.jsp").forward(

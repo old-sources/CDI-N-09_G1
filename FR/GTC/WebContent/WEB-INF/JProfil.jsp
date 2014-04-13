@@ -90,7 +90,7 @@
 				value="${loguedPerson.dateNaiss}">
 		</div>
 		<div>
-			<label for="inputPassw">Password</label> <input type="text"
+			<label for="inputPassw">Password</label> <input type="password"
 				id="inputPassw" name="inputPassw" value="${loguedPerson.passw}">
 		</div>
 		<div class="cell">
@@ -124,22 +124,21 @@
 		<div class="cell">
 			<label for="inputCompetences">compétences : </label>
 			<c:forEach items="${possedes}" var="poss">
-		
-				<span> "${poss.competence.compIntitule}" </span>
+
+				<span> ${poss.competence.compIntitule} </span>
 				<select name="inputValueCompetence">
 					<option value=""></option>
 					<c:forEach items="${list5int}" var="niv">
- 						<c:choose> 
- 							<c:when test="${niv==poss.compNiveau}">
- 								<option value="${niv}" selected> 
- 									${niv} </option> 
- 							</c:when> 
- 							<c:otherwise> 
+						<c:choose>
+							<c:when test="${niv==poss.compNiveau}">
+								<option value="${niv}" selected>${niv}</option>
+							</c:when>
+							<c:otherwise>
 								<option value="${niv}">${niv}</option>
- 							</c:otherwise> 
- 						</c:choose> 
+							</c:otherwise>
+						</c:choose>
 					</c:forEach>
- 				</select> 
+				</select>
 			</c:forEach>
 		</div>
 	</div>
@@ -147,12 +146,15 @@
 
 	<div>
 
+		<BUTTON class="actionFormulaire" data-id="${personne.id}">ajouter une compétence (non géré)</BUTTON>
 
-		<TD><BUTTON class="actionFormulaire" data-id="${personne.id}"
+		<BUTTON class="actionFormulaire" data-id="${personne.id}"
 				data-nom="${personne.nom}" data-prenom="${personne.prenom}"
 				data-dateNaiss="${personne.dateNaiss}"
 				data-promotionlibelle="${personne.promotion.libelle}"
-				data-promotionid="${personne.promotion.id}">Modifier</BUTTON></TD>
+				data-promotionid="${personne.promotion.id}">Modifier (non
+				géré + si plusieurs compétences toutes ont le meme input name
+				reconcevoir)</BUTTON>
 
 
 	</div>
