@@ -101,22 +101,46 @@
 					<c:choose>
 						<c:when test="${promotion.id==loguedPerson.promotion.id}">
 							<option value="${promotion.id}" selected>
-								${promotion.libelle} ${promotion.lieu} </option>
+								${promotion.libelle} ${promotion.lieu}</option>
 						</c:when>
 						<c:otherwise>
-							<option value="${promotion.id}">${promotion.libelle} ${promotion.lieu}</option>
+							<option value="${promotion.id}">${promotion.libelle}
+								${promotion.lieu}</option>
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>
 			</select>
 		</div>
 		<div>
+
 			<label for="inputemail">email</label> <input type="text"
 				id="inputEmail" name="inputEmail" value="${loguedPerson.email}">
 		</div>
 		<div>
-			<label for="inputInfos">Autres informations</label> <input type="text"
-				id="inputInfos" name="inputInfos" value="${loguedPerson.infos}">
+			<label for="inputInfos">Autres informations</label> <input
+				type="text" id="inputInfos" name="inputInfos"
+				value="${loguedPerson.infos}">
+		</div>
+		<div class="cell">
+			<label for="inputCompetences">compétences : </label>
+			<c:forEach items="${possedes}" var="poss">
+		
+				<span> "${poss.competence.compIntitule}" </span>
+				<select name="inputValueCompetence">
+					<option value=""></option>
+					<c:forEach items="${list5int}" var="niv">
+ 						<c:choose> 
+ 							<c:when test="${niv==poss.compNiveau}">
+ 								<option value="${niv}" selected> 
+ 									${niv} </option> 
+ 							</c:when> 
+ 							<c:otherwise> 
+								<option value="${niv}">${niv}</option>
+ 							</c:otherwise> 
+ 						</c:choose> 
+					</c:forEach>
+ 				</select> 
+			</c:forEach>
 		</div>
 	</div>
 

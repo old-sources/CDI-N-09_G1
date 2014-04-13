@@ -6,6 +6,7 @@ import javax.ejb.Local;
 import javax.xml.rpc.ServiceException;
 
 import model.Personne;
+import model.Possede;
 import model.Promotion;
 
 // Commentaire JM
@@ -32,4 +33,6 @@ public interface ServiceGestionEcoleJPALocal {
     public void duplicatePersonne(Personne personneToDuplicate, Integer nbFois);
     
     public Personne verifierAuthPersonne(Personne personne) throws ServiceException;
+    
+    public List<Possede> rechercherPossede(Possede possede);
 }

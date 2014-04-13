@@ -56,7 +56,7 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote, Ser
     		criteria.add(qb.like(personneRoot.<String>get("prenom"), "*"+personne.getPrenom()+"*"));
     	}
     	if (personne.getId() != null){
-    		criteria.add(qb.equal(personneRoot.get("id"), personne.getId()));
+    		criteria.add(qb.equal(personneRoot.get("pers_id"), personne.getId()));
     	}
     	query.where(criteria.toArray(new Predicate[] {}));
     	
@@ -134,7 +134,7 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote, Ser
     	
     	List<Predicate> criteria = new ArrayList<Predicate>();
     	if (promotion.getId() != null){
-    		criteria.add(qb.equal(promotionRoot.get("id"), promotion.getId()));
+    		criteria.add(qb.equal(promotionRoot.get("prm_id"), promotion.getId()));
     	}
     	if (promotion.getLibelle() != null){
     		criteria.add(qb.like(promotionRoot.<String>get("libelle"), "*"+promotion.getLibelle()+"*"));
@@ -192,6 +192,30 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote, Ser
     	return retour;
 	}
 
-    
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public List<Possede> rechercherPossede(Possede possede){
+    	CriteriaBuilder qb=entityManager.getCriteriaBuilder();
+    	
+    	CriteriaQuery<Possede> query = qb.createQuery(Possede.class);
+    	Root<Possede> possedeRoot = query.from(Possede.class);
+    	
+    	List<Predicate> criteria = new ArrayList<Predicate>();
+    	if (possede.getPossId() != null){
+    		criteria.add(qb.like(possedeRoot.<String>get("poss_id"), "*"+possede.getPossId() + "*"));
+    	}
+    	if (possede.getCompNiveau() != null){
+    		criteria.add(qb.like(possedeRoot.<String>get("comp_niveau"), "*"+possede.getCompNiveau()+"*"));
+    	}
+    	if (possede.getCompetence() != null){
+    		criteria.add(qb.like(possedeRoot.<String>get("comp_id"), "*"+possede.getCompetence().getCompId()+"*"));
+    	}
+    	if (possede.getPersonne() != null){
+    		criteria.add(qb.equal(possedeRoot.get("pers_id"), possede.getPersonne().getId()));
+    	}
+    	
+    	query.where(criteria.toArray(new Predicate[] {}));
+    	List<Possede> result = entityManager.createQuery(query).getResultList();
+		return result;
+    }
     
 }
