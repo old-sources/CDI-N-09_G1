@@ -1,7 +1,10 @@
 package org.imie;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -39,7 +42,8 @@ public class Profil extends HttpServlet {
 		System.out.println("Profil Get");
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		
-		Personne loguedPerson = (Personne) httpServletRequest.getSession().getAttribute("authentifiedPersonne");
+		Personne loguedPerson = new Personne();
+		loguedPerson=(Personne) httpServletRequest.getSession().getAttribute("authentifiedPersonne");
 		request.setAttribute("loguedPerson", loguedPerson);
 		
 		request.setAttribute("promotions",serviceGestionEcole.rechercherPromotion(new Promotion()));
@@ -61,7 +65,115 @@ public class Profil extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-	}
+		System.out.println("Profil Post");
+		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+		Personne loguedPerson = new Personne();
+		loguedPerson=(Personne) httpServletRequest.getSession().getAttribute("authentifiedPersonne");
+		request.setAttribute("loguedPerson", loguedPerson);
+		
+		// recherche de la personne à modifier
+		Personne updatedPerson = new Personne();
+		
+		//updatedPerson = serviceGestionEcole.rechercherPersonne(updatedPerson).get(0);
+		// affectation des nouvelles valeurs
+		
+		
+		
+		String inputNom = request.getParameter("inputNom");
+		updatedPerson.setNom(inputNom);
+		System.out.println("nom : "+inputNom);
+	
+		String inputPrenom = request.getParameter("inputPrenom");
+		updatedPerson.setPrenom(inputPrenom);
+		System.out.println("prenom : "+inputPrenom);
 
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		String inputDateNaissString = request.getParameter("inputDateNaiss");
+		System.out.println("datenaiss : "+inputDateNaissString);
+		try {
+			//SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+//			String inputDateNaissString = request.getParameter("inputDateNaiss");
+//			//Date inputDateNaiss = simpleDateFormat.parse(inputDateNaissString);
+//			updatedPerson.setDateNaiss(inputDateNaiss);
+			Date inputDateNaiss = simpleDateFormat.parse(inputDateNaissString);
+			updatedPerson.setDateNaiss(inputDateNaiss);
+			System.out.println("datenaiss : "+inputDateNaissString);
+		} catch (ParseException e) {
+			throw new RuntimeException(e);
+		}
+
+		String inputPassword = request.getParameter("inputPassw");
+		if (inputPassword != null && !inputPassword.isEmpty()) {
+			updatedPerson.setPassw(inputPassword);
+		}
+		
+		String inputPromotionString = request.getParameter("inputPromotion");
+		if (!inputPromotionString.isEmpty()) {
+			Integer inputPromotion = Integer.valueOf(inputPromotionString);
+			Promotion searchPromotion = new Promotion();
+			searchPromotion.setId(inputPromotion);
+			searchPromotion = serviceGestionEcole.rechercherPromotion(
+					searchPromotion).get(0);
+			updatedPerson.setPromotion(searchPromotion);
+		} else {
+			updatedPerson.setPromotion(null);
+		}
+
+		// + categorie : admin, user, super admin
+		
+		String inputEmail = request.getParameter("inputEmail");
+		updatedPerson.setEmail(inputEmail);
+		System.out.println("email : "+inputEmail);
+		
+		if (request.getParameter("delete") != null) {
+			System.out.println("HPersonne Post delete");
+			try {
+				Integer inputId = Integer.valueOf(request.getParameter("inputId"));
+				updatedPerson.setId(inputId);
+				System.out.println("id : "+inputId);
+				serviceGestionEcole.deletePersonne(updatedPerson);
+			}
+			catch (NumberFormatException e) {
+				// parametres non corrects : pas de suppression
+			}
+		}
+		
+		String inputInfos = request.getParameter("inputInfos");
+		updatedPerson.setInfos(inputInfos);
+		System.out.println("infos : "+inputInfos);
+		
+		updatedPerson.setIdentConnexion(loguedPerson.getIdentConnexion());
+		
+		updatedPerson.setDisponibilite(loguedPerson.getDisponibilite());
+		
+		updatedPerson.setRole(loguedPerson.getRole());
+		
+		
+
+		if (request.getParameter("create") != null) {
+			serviceGestionEcole.insertPersonne(updatedPerson);
+		}
+
+		if (request.getParameter("update") != null) {
+			System.out.println("Profil POST update");
+			Integer inputId = Integer.valueOf(request.getParameter("inputId"));
+			System.out.println("InputId = "+inputId);
+			updatedPerson.setId(inputId);
+			updatedPerson = serviceGestionEcole.updatePersonne(updatedPerson);
+			//HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+			httpServletRequest.getSession().setAttribute("authentifiedPersonne",updatedPerson);
+		}
+
+		
+		System.out.println("HPersonne POST update");
+		Integer inputId = Integer.valueOf(request.getParameter("inputId"));
+		System.out.println("InputId = "+inputId);
+		updatedPerson.setId(inputId);
+		serviceGestionEcole.updatePersonne(updatedPerson);
+		
+		
+		response.sendRedirect("/GTC/Profil");
+	}
 }
+
+

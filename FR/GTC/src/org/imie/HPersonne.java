@@ -68,8 +68,8 @@ public class HPersonne extends HttpServlet {
 		// recherche de la personne à modifier
 		Personne updatedPerson = new Personne();
 
-		updatedPerson = serviceGestionEcole.rechercherPersonne(updatedPerson)
-				.get(0);
+		//updatedPerson = serviceGestionEcole.rechercherPersonne(updatedPerson)
+		//		.get(0);
 		// affectation des nouvelles valeurs
 		
 		
