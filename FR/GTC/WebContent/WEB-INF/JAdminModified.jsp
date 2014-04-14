@@ -19,20 +19,48 @@
 
 <title>Administration</title>
 <SCRIPT type="text/javascript">
-	
+	function rechercherPersonne() {
+
+		$.ajax({
+			url : 'HPersonne',
+			type : 'GET',
+			data : {},
+			dataType : 'html',
+			success : function(code_html, statut) {
+				$('#resultatRecherche').children().remove();
+				$('#resultatRecherche').append(code_html);
+			}
+		});
+	}
+
+	function rechercherPromotion() {
+
+		$.ajax({
+			url : 'HPromotion',
+			type : 'GET',
+			data : {},
+			dataType : 'html',
+			success : function(code_html, statut) {
+				$('#resultatRecherchePromotion').children().remove();
+				$('#resultatRecherchePromotion').append(code_html);
+			}
+		});
+	}
+
 	
 	$(document).ready(function() {
-	
+		rechercherPersonne();
+		rechercherPromotion();
 		$('.onlyadmin').hide();
 		if ("${loguedPerson.role.roleId}" != 1) {
 			$('.onlyadmin').show();
 		}
 		$('#afficheListeUsers').on('click', function(e) {
-			document.location.href="/GTC/HPersonne";
+			rechercherPersonne();
 		});
-	//	$('#afficheListePromotion').on('click', function(e) {
-// 			;
-// 		});
+		$('#afficheListePromotion').on('click', function(e) {
+			rechercherPromotion();
+		});
 
 	});
 </SCRIPT>
@@ -44,10 +72,10 @@
 		<span> page Admin </span><br>
 		<BUTTON id="afficheListeUsers">afficher la liste des
 			utilisateurs</BUTTON>
-		
+		<DIV id="resultatRecherche"></DIV>
 		<br>
 		<BUTTON id="afficheListePromotion">afficher la liste des
 			promotions</BUTTON>
-		
+		<DIV id="resultatRecherchePromotion"></DIV>
 </body>
 </html>

@@ -67,7 +67,7 @@
 			<div class="cell">
 				<label for="listeProjets">projets en cours : </label>
 
-				<TABLE id="tableProjets">
+				<TABLE id="tablePersonne">
 					<THEAD>
 						<TR>
 							<TH>Nom du projet</TH>
@@ -85,8 +85,10 @@
 						<c:forEach items="${projets}" var="prj">
 						<tr>
 							<TD><c:out value="${prj.projNom}" /></TD>
-							<TD><c:out value="${prj.projDatedebut}" /></TD>
-							<TD><c:out value="${prj.projDatedefin}" /></TD>
+							<TD><fmt:formatDate pattern="dd/MM/yyyy"
+								value="${prj.projDatedebut}" /></TD>
+							<TD><fmt:formatDate pattern="dd/MM/yyyy"
+								value="${prj.projDatedefin}" /></TD>
 							<TD><c:out value="${prj.projDescription}" /></TD>
 							<TD><c:out value="${prj.projWikiCdp}" /></TD>
 							<TD><c:out value="${prj.projWikiMembre}" /></TD>

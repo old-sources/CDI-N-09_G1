@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.Personne;
 import model.Promotion;
 
 import org.imie.service.ServiceGestionEcoleJPALocal;
@@ -22,14 +23,15 @@ import org.imie.service.ServiceGestionEcoleJPALocal;
 /**
  * Servlet implementation class TP3_Controller
  */
-@WebServlet("/HPromotionOld/*")
-public class HPromotion extends HttpServlet {
+@WebServlet("/HPromotion/*")
+public class HPromotionModified extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@EJB ServiceGestionEcoleJPALocal serviceGestionEcole;
+	
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public HPromotion() {
+	public HPromotionModified() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -50,6 +52,12 @@ public class HPromotion extends HttpServlet {
 		List<Promotion> foundPromotions = serviceGestionEcole
 				.rechercherPromotion(searchPromotion);
 		request.setAttribute("foundPromotions", foundPromotions);
+		
+		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+		Personne loguedPerson = new Personne();
+		loguedPerson=(Personne) httpServletRequest.getSession().getAttribute("authentifiedPersonne");
+		request.setAttribute("loguedPerson", loguedPerson);
+		
 		request.getRequestDispatcher("/WEB-INF/JPromotion.jsp").forward(
 				request, response);
 
@@ -101,7 +109,7 @@ public class HPromotion extends HttpServlet {
 			updatedPromotion.setId(inputId);
 			serviceGestionEcole.updatePromotion(updatedPromotion);
 		}
-
+		
 		response.sendRedirect("/GTC/HPromotion/");
 	}
 
