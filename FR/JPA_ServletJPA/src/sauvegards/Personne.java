@@ -1,4 +1,4 @@
-package model;
+package sauvegards;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -26,6 +26,9 @@ public class Personne implements Serializable {
 
 	private String email;
 
+	@Column(name="email_public")
+	private Boolean emailPublic;
+
 	@Column(name="ident_connexion")
 	private String identConnexion;
 
@@ -36,6 +39,11 @@ public class Personne implements Serializable {
 	private String passw;
 
 	private String prenom;
+
+	//bi-directional many-to-one association to InvitationProjet
+	// cascade ={ CascadeType.ALL}, fetch = FetchType.EAGER,
+	@OneToMany(mappedBy="personne")
+	private List<InvitationProjet> invitationProjets;
 
 	//bi-directional many-to-many association to Actionanotifier
 	@ManyToMany
@@ -50,7 +58,7 @@ public class Personne implements Serializable {
 		)
 	private List<Actionanotifier> actionanotifiers;
 
-	//uni-directional many-to-one association to Promotion
+	//bi-directional many-to-one association to Promotion
 	@ManyToOne
 	@JoinColumn(name="prm_id")
 	private Promotion promotion;
@@ -71,10 +79,6 @@ public class Personne implements Serializable {
 	//bi-directional many-to-many association to Projet
 	@ManyToMany(mappedBy="personnes")
 	private List<Projet> projets2;
-
-	//bi-directional many-to-one association to Travaille
-	@OneToMany(mappedBy="personne")
-	private List<Travaille> travailles;
 
 	public Personne() {
 	}
@@ -109,6 +113,14 @@ public class Personne implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Boolean getEmailPublic() {
+		return this.emailPublic;
+	}
+
+	public void setEmailPublic(Boolean emailPublic) {
+		this.emailPublic = emailPublic;
 	}
 
 	public String getIdentConnexion() {
@@ -149,6 +161,28 @@ public class Personne implements Serializable {
 
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
+	}
+
+	public List<InvitationProjet> getInvitationProjets() {
+		return this.invitationProjets;
+	}
+
+	public void setInvitationProjets(List<InvitationProjet> invitationProjets) {
+		this.invitationProjets = invitationProjets;
+	}
+
+	public InvitationProjet addInvitationProjet(InvitationProjet invitationProjet) {
+		getInvitationProjets().add(invitationProjet);
+		invitationProjet.setPersonne(this);
+
+		return invitationProjet;
+	}
+
+	public InvitationProjet removeInvitationProjet(InvitationProjet invitationProjet) {
+		getInvitationProjets().remove(invitationProjet);
+		invitationProjet.setPersonne(null);
+
+		return invitationProjet;
 	}
 
 	public List<Actionanotifier> getActionanotifiers() {
@@ -225,28 +259,6 @@ public class Personne implements Serializable {
 
 	public void setProjets2(List<Projet> projets2) {
 		this.projets2 = projets2;
-	}
-
-	public List<Travaille> getTravailles() {
-		return this.travailles;
-	}
-
-	public void setTravailles(List<Travaille> travailles) {
-		this.travailles = travailles;
-	}
-
-	public Travaille addTravaille(Travaille travaille) {
-		getTravailles().add(travaille);
-		travaille.setPersonne(this);
-
-		return travaille;
-	}
-
-	public Travaille removeTravaille(Travaille travaille) {
-		getTravailles().remove(travaille);
-		travaille.setPersonne(null);
-
-		return travaille;
 	}
 
 }

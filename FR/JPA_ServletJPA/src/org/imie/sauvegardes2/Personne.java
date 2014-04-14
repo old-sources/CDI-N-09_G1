@@ -1,4 +1,4 @@
-package model;
+package org.imie.sauvegardes2;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -91,7 +91,7 @@ public class Personne implements Serializable {
 		return this.dateNaiss;
 	}
 
-	public void setDateNaiss(Date datenaiss) {
+	public void setDatenaiss(Date datenaiss) {
 		this.dateNaiss = datenaiss;
 	}
 

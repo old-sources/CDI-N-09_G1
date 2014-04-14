@@ -5,8 +5,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -15,35 +13,32 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.imie.service.ServiceGestionEcoleJPALocal;
+
 import model.Personne;
 import model.Promotion;
 
-import org.imie.service.ServiceGestionEcoleJPALocal;
-
 /**
- * Servlet implementation class TP3_Controller
+ * Servlet implementation class MesProjets
  */
-@WebServlet("/HPersonne/*")
-public class HPersonne extends HttpServlet {
+@WebServlet("/Admin")
+public class Admin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	@EJB ServiceGestionEcoleJPALocal serviceGestionEcole;
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public HPersonne() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	@EJB ServiceGestionEcoleJPALocal serviceGestionEcole;   
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public Admin() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("HPersonne Get");
-		// a faire quelque soit le pattern
-		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("MesProjets Get");
+
 		Personne searchPersonne = new Personne();
 		request.setAttribute("promotions",
 				serviceGestionEcole.rechercherPromotion(new Promotion()));
@@ -51,34 +46,18 @@ public class HPersonne extends HttpServlet {
 		List<Personne> foundPersonnes = serviceGestionEcole
 				.rechercherPersonne(searchPersonne);
 		request.setAttribute("foundPersonnes", foundPersonnes);
-		
-		Personne loguedPerson = new Personne();
-		loguedPerson=(Personne) httpServletRequest.getSession().getAttribute("authentifiedPersonne");
-		request.setAttribute("loguedPerson", loguedPerson);
-		
-		
-		request.getRequestDispatcher("/WEB-INF/JPersonne.jsp").forward(
+		request.getRequestDispatcher("/WEB-INF/JAdmin.jsp").forward(
 				request, response);
-
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-
-		System.out.println("HPersonne Post");
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+System.out.println("HPersonne Post");
 		
 		// recherche de la personne à modifier
 		Personne updatedPerson = new Personne();
-
-		//updatedPerson = serviceGestionEcole.rechercherPersonne(updatedPerson)
-		//		.get(0);
-		// affectation des nouvelles valeurs
-		
-		
 		
 		String inputNom = request.getParameter("inputNom");
 		updatedPerson.setNom(inputNom);
@@ -141,7 +120,8 @@ public class HPersonne extends HttpServlet {
 			serviceGestionEcole.updatePersonne(updatedPerson);
 		}
 
-		//response.sendRedirect("/GTC/HPersonne");
+		response.sendRedirect("/GTC/Admin");
 	}
+	
 
 }

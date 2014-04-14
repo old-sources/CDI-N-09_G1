@@ -64,6 +64,10 @@ public class Projet implements Serializable {
 		)
 	private List<Personne> personnes;
 
+	//bi-directional many-to-one association to Travaille
+	@OneToMany(mappedBy="projet")
+	private List<Travaille> travailles;
+
 	public Projet() {
 	}
 
@@ -167,6 +171,28 @@ public class Projet implements Serializable {
 
 	public void setPersonnes(List<Personne> personnes) {
 		this.personnes = personnes;
+	}
+
+	public List<Travaille> getTravailles() {
+		return this.travailles;
+	}
+
+	public void setTravailles(List<Travaille> travailles) {
+		this.travailles = travailles;
+	}
+
+	public Travaille addTravaille(Travaille travaille) {
+		getTravailles().add(travaille);
+		travaille.setProjet(this);
+
+		return travaille;
+	}
+
+	public Travaille removeTravaille(Travaille travaille) {
+		getTravailles().remove(travaille);
+		travaille.setProjet(null);
+
+		return travaille;
 	}
 
 }

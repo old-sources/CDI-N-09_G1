@@ -1,4 +1,4 @@
-package model;
+package org.imie.sauvegardes2;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -33,11 +33,11 @@ public class Promotion implements Serializable {
 	public Promotion() {
 	}
 
-	public Integer getId() {
+	public Integer getid() {
 		return this.id;
 	}
 
-	public void setId(Integer prmId) {
+	public void setid(Integer prmId) {
 		this.id = prmId;
 	}
 

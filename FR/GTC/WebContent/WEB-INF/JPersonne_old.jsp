@@ -4,7 +4,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@page import="java.util.Date"%>
 
-
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr"
+	dir="ltr">
+<head>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <base href="/GTC/" />
@@ -17,7 +20,7 @@
 <title>Menu Personnes</title>
 <SCRIPT type="text/javascript">
 	$(document).ready(function() {
-		
+		$('.onlyadmin').hide();
 		
 		$('.actionFormulaire').button();
 
@@ -67,7 +70,10 @@
 </SCRIPT>
 
 
+</head>
+<body>
 
+	<%@ include file="/WEB-INF/header.jsp"%>
 	
 	<div id="liste">
 		<BUTTON class="actionPagePrincipaleCreer">Créer une personne</BUTTON>
@@ -136,4 +142,5 @@
 
 		</form>
 	</div>
-
+</body>
+</html>

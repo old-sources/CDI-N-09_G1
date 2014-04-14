@@ -24,13 +24,13 @@ import org.imie.service.ServiceGestionEcoleJPALocal;
  * Servlet implementation class TP3_Controller
  */
 @WebServlet("/HPersonne/*")
-public class HPersonne extends HttpServlet {
+public class HPersonne_old extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@EJB ServiceGestionEcoleJPALocal serviceGestionEcole;
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public HPersonne() {
+	public HPersonne_old() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -43,7 +43,7 @@ public class HPersonne extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("HPersonne Get");
 		// a faire quelque soit le pattern
-		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+
 		Personne searchPersonne = new Personne();
 		request.setAttribute("promotions",
 				serviceGestionEcole.rechercherPromotion(new Promotion()));
@@ -51,12 +51,6 @@ public class HPersonne extends HttpServlet {
 		List<Personne> foundPersonnes = serviceGestionEcole
 				.rechercherPersonne(searchPersonne);
 		request.setAttribute("foundPersonnes", foundPersonnes);
-		
-		Personne loguedPerson = new Personne();
-		loguedPerson=(Personne) httpServletRequest.getSession().getAttribute("authentifiedPersonne");
-		request.setAttribute("loguedPerson", loguedPerson);
-		
-		
 		request.getRequestDispatcher("/WEB-INF/JPersonne.jsp").forward(
 				request, response);
 
@@ -141,7 +135,7 @@ public class HPersonne extends HttpServlet {
 			serviceGestionEcole.updatePersonne(updatedPerson);
 		}
 
-		//response.sendRedirect("/GTC/HPersonne");
+		response.sendRedirect("/GTC/HPersonne");
 	}
 
 }

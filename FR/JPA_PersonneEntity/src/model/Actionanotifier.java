@@ -25,14 +25,6 @@ public class Actionanotifier implements Serializable {
 	@Column(name="notif_validee")
 	private Boolean notifValidee;
 
-	//bi-directional one-to-one association to Candidature
-	@OneToOne(mappedBy="actionanotifier")
-	private Candidature candidature;
-
-	//bi-directional one-to-one association to InvitationProjet
-	@OneToOne(mappedBy="actionanotifier")
-	private InvitationProjet invitationProjet;
-
 	//bi-directional many-to-many association to Personne
 	@ManyToMany(mappedBy="actionanotifiers")
 	private List<Personne> personnes;
@@ -66,22 +58,6 @@ public class Actionanotifier implements Serializable {
 
 	public void setNotifValidee(Boolean notifValidee) {
 		this.notifValidee = notifValidee;
-	}
-
-	public Candidature getCandidature() {
-		return this.candidature;
-	}
-
-	public void setCandidature(Candidature candidature) {
-		this.candidature = candidature;
-	}
-
-	public InvitationProjet getInvitationProjet() {
-		return this.invitationProjet;
-	}
-
-	public void setInvitationProjet(InvitationProjet invitationProjet) {
-		this.invitationProjet = invitationProjet;
 	}
 
 	public List<Personne> getPersonnes() {

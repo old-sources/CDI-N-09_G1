@@ -21,7 +21,7 @@
 <title>Liste Promotion</title>
 <SCRIPT type="text/javascript">
 	$(document).ready(function() {
-
+		$('.onlyadmin').hide();
 		$('.actionFormulairePromotion').button();
 
 		$('#formulairePromotion').dialog({

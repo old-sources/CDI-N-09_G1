@@ -7,6 +7,7 @@ import javax.xml.rpc.ServiceException;
 
 import model.Personne;
 import model.Possede;
+import model.Projet;
 import model.Promotion;
 
 // Commentaire JM
@@ -35,4 +36,5 @@ public interface ServiceGestionEcoleJPALocal {
     public Personne verifierAuthPersonne(Personne personne) throws ServiceException;
     
     public List<Possede> rechercherPossede(Possede possede);
+    public List<Projet> rechercherProjet(Projet prj);
 }
