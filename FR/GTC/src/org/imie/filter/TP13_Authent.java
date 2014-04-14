@@ -23,7 +23,7 @@ import org.imie.service.ServiceGestionEcoleJPALocal;
 /**
  * Servlet Filter implementation class TP13_Authent
  */
-//@WebFilter(dispatcherTypes = { DispatcherType.REQUEST }, urlPatterns = { "/*" })
+@WebFilter(dispatcherTypes = { DispatcherType.REQUEST }, urlPatterns = { "/*" })
 public class TP13_Authent implements Filter {
 	@EJB ServiceGestionEcoleJPALocal serviceGestionEcole;
 	/**
@@ -100,7 +100,7 @@ public class TP13_Authent implements Filter {
 				String requestParam = httpServletRequest.getQueryString()!=null?"?".concat(httpServletRequest.getQueryString().toString()):"";
 				httpServletRequest.getSession().setAttribute("originURL",
 						httpServletRequest.getRequestURL().toString().concat(requestParam));
-				httpServletResponse.sendRedirect("/JPA_ServletJPA/TP13_Controller");
+				httpServletResponse.sendRedirect("/GTC/TP13_Controller");
 			} else {
 				chain.doFilter(request, response);
 			}

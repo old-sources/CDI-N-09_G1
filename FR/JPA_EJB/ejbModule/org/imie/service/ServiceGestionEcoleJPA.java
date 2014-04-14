@@ -17,8 +17,10 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.xml.rpc.ServiceException;
 
+import model.InvitationProjet;
 import model.Personne;
 import model.Possede;
+import model.Projet;
 import model.Promotion;
 
 /**
@@ -91,13 +93,53 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote, Ser
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void deletePersonne(Personne personne){
     	personne = entityManager.find(Personne.class, personne.getId());
-//    	Possede possede = new Possede(); 
-//    	do{
-//    		possede = entityManager.find(Possede.class, personne.getId());
-//    		if (possede!=null){
-//    			entityManager.remove(possede);
-//    		}
-//    	}while (possede!=null);
+
+    	// on eleve la dependance FK possede de la personne 
+    	while (personne.getPossedes().size()>0){
+    		int numElt = personne.getPossedes().size() - 1;
+    		Possede poss = personne.getPossedes().get(numElt);
+    		personne.getPossedes().remove(numElt);
+    		//poss.getCompetence().getPossedes().remove(poss.getCompetence().getPossedes().size() - 1);
+    		entityManager.remove(poss);
+    	}
+    	
+    	//on enleve la dependance invitationProjet de la personne
+    	while (personne.getInvitationProjets().size()>0){
+    		int numElt = personne.getInvitationProjets().size() - 1;
+    		InvitationProjet invprj = personne.getInvitationProjets().get(numElt);
+    		personne.getInvitationProjets().remove(numElt);
+    		
+    		entityManager.remove(invprj);
+    	}
+    	
+    	// on enleve la dependande FK projet de la personne
+    	while (personne.getProjets1().size()>0){
+    		int numElt = personne.getProjets1().size() - 1;
+    		Projet prj = personne.getProjets1().get(numElt);
+    		personne.getProjets1().remove(numElt);
+    		entityManager.remove(prj);
+    	}
+    	
+    	while (personne.getProjets2().size()>0){
+    		int numElt = personne.getProjets2().size() - 1;
+    		Projet prj = personne.getProjets2().get(numElt);
+    		personne.getProjets2().remove(numElt);
+    		entityManager.remove(prj);
+    	}
+    	
+    	
+    	
+//    	//on enleve la dependance travaille de la personne
+//    	while (personne.get.size()>0){
+//    		int numElt = personne.getInvitationProjets().size() - 1;
+//    		InvitationProjet invprj = personne.getInvitationProjets().get(numElt);
+//    		personne.getProjets2().remove(numElt);
+//    		entityManager.remove(invprj);
+//    	}
+//    	
+//    	//on enleve la dependance envoyer de la personne
+//    	
+    	
     	entityManager.remove(personne);
     }
     
@@ -108,7 +150,14 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote, Ser
     
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public Promotion insertPromotion(Promotion promotion){
-    	entityManager.persist(promotion);
+    	Promotion promotion2 = new Promotion();
+    	promotion2.setLibelle(promotion.getLibelle());
+    	promotion2.setLieu(promotion.getLieu());
+    	promotion2.setDateDebut(promotion.getDateDebut());
+    	promotion2.setDateFin(promotion.getDateFin());
+    	System.out.println("est passé par le insert "+promotion.getLibelle()+" "+promotion.getLieu());
+	   
+    	entityManager.persist(promotion2);
     	return promotion;
 		
     }
@@ -185,6 +234,30 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote, Ser
     	return retour;
 	}
 
-    
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public List<Possede> rechercherPossede(Possede possede){
+    	CriteriaBuilder qb=entityManager.getCriteriaBuilder();
+    	
+    	CriteriaQuery<Possede> query = qb.createQuery(Possede.class);
+    	Root<Possede> possedeRoot = query.from(Possede.class);
+    	
+    	List<Predicate> criteria = new ArrayList<Predicate>();
+    	if (possede.getPossId() != null){
+    		criteria.add(qb.like(possedeRoot.<String>get("possId"), "*"+possede.getPossId() + "*"));
+    	}
+    	if (possede.getCompNiveau() != null){
+    		criteria.add(qb.like(possedeRoot.<String>get("compNiveau"), "*"+possede.getCompNiveau()+"*"));
+    	}
+    	if (possede.getCompetence() != null){
+    		criteria.add(qb.like(possedeRoot.<String>get("competence"), "*"+possede.getCompetence()+"*"));
+    	}
+    	if (possede.getPersonne() != null){
+    		criteria.add(qb.equal(possedeRoot.get("personne"), possede.getPersonne()));
+    	}
+    	
+    	query.where(criteria.toArray(new Predicate[] {}));
+    	List<Possede> result = entityManager.createQuery(query).getResultList();
+		return result;
+    }
     
 }

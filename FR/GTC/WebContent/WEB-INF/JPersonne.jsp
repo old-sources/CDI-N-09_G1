@@ -47,8 +47,9 @@
 			});
 			$('#inputDateNaiss').val(dateString.toLocaleDateString("fr-FR"));
 			$('#inputPromotion').val($(this).attr("data-promotionid"));
-			$('#updateDansForm').attr('value',"Modifier");
+			$('#updateDansForm').show();
 			$('#deleteDansForm').show();
+			$('#creerDansForm').hide();
 		});
 
 		$('.actionPagePrincipaleCreer').on('click', function(e) {
@@ -60,6 +61,8 @@
 			$('#inputPromotion').val("");
 			$('#updateDansForm').attr('value',"Créer");
 			$('#deleteDansForm').hide();
+			$('#updateDansForm').hide();
+			$('#creerDansForm').show();
 		});
 		
 	});
@@ -81,7 +84,6 @@
 					<TH>date de naissance</TH>
 					<TH>promotion</TH>
 					<TH></TH>
-					<th></th>
 				</TR>
 			</THEAD>
 			<TBODY>
@@ -126,11 +128,11 @@
 				<select	name="inputPromotion" id="inputPromotion">
 					<option value=""></option>
 					<c:forEach items="${promotions}" var="promotion">
-						<option value="${promotion.id}">${promotion.libelle}</option>
+						<option value="${promotion.id}">${promotion.libelle} ${promotion.lieu}</option>
 					</c:forEach>
 				</select>
 			</div>
-	
+				<input type="submit" name="create" id="creerDansForm" value="Créer" />
 				<input type="submit" name="update" id="updateDansForm" value="Modifier" />
 				<input type="submit" name="delete" id="deleteDansForm" value="Supprimer" />
 

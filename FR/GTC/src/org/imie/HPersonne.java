@@ -68,8 +68,8 @@ public class HPersonne extends HttpServlet {
 		// recherche de la personne à modifier
 		Personne updatedPerson = new Personne();
 
-		updatedPerson = serviceGestionEcole.rechercherPersonne(updatedPerson)
-				.get(0);
+		//updatedPerson = serviceGestionEcole.rechercherPersonne(updatedPerson)
+		//		.get(0);
 		// affectation des nouvelles valeurs
 		
 		
@@ -96,7 +96,7 @@ public class HPersonne extends HttpServlet {
 //			updatedPerson.setPassw(inputPassword);
 //		}
 
-		
+		// + categorie : admin, user, super admin
 		
 		if (request.getParameter("delete") != null) {
 			System.out.println("HPersonne Post delete");
