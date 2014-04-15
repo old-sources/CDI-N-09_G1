@@ -17,6 +17,11 @@ body{
 	background-color: #BCF46E;
 }
 
+#BarreMenu{
+	text-align : center;
+	background-color: #BCF46E;
+}
+
 #tablePersonne tr:nth-child(even) {
 	background-size: cover;
 	background-image: -webkit-gradient(linear,center left, center right, from(#FFFFFF), color-stop(80%,#D9FAF6), to(#D9FAF6));
@@ -61,4 +66,8 @@ body{
 #formPersonne .cell:FIRST-CHILD{
 	min-width: 200px;
 	text-align: right;
+}
+
+.cell{
+	overflow-x:scroll;
 }

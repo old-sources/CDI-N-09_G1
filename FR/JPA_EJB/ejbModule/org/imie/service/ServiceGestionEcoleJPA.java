@@ -103,14 +103,7 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote, Ser
     		entityManager.remove(poss);
     	}
     	
-    	//on enleve la dependance invitationProjet de la personne
-    	while (personne.getInvitationProjets().size()>0){
-    		int numElt = personne.getInvitationProjets().size() - 1;
-    		InvitationProjet invprj = personne.getInvitationProjets().get(numElt);
-    		personne.getInvitationProjets().remove(numElt);
-    		
-    		entityManager.remove(invprj);
-    	}
+
     	
     	// on enleve la dependande FK projet de la personne
     	while (personne.getProjets1().size()>0){
@@ -243,13 +236,13 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote, Ser
     	
     	List<Predicate> criteria = new ArrayList<Predicate>();
     	if (possede.getPossId() != null){
-    		criteria.add(qb.like(possedeRoot.<String>get("possId"), "*"+possede.getPossId() + "*"));
+    		criteria.add(qb.equal(possedeRoot.get("possId"), possede.getPossId()));
     	}
     	if (possede.getCompNiveau() != null){
-    		criteria.add(qb.like(possedeRoot.<String>get("compNiveau"), "*"+possede.getCompNiveau()+"*"));
+    		criteria.add(qb.equal(possedeRoot.get("compNiveau"), possede.getCompNiveau()));
     	}
     	if (possede.getCompetence() != null){
-    		criteria.add(qb.like(possedeRoot.<String>get("competence"), "*"+possede.getCompetence()+"*"));
+    		criteria.add(qb.equal(possedeRoot.get("competence"), possede.getCompetence()));
     	}
     	if (possede.getPersonne() != null){
     		criteria.add(qb.equal(possedeRoot.get("personne"), possede.getPersonne()));
@@ -257,6 +250,29 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote, Ser
     	
     	query.where(criteria.toArray(new Predicate[] {}));
     	List<Possede> result = entityManager.createQuery(query).getResultList();
+		return result;
+    }
+    
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public List<Projet> rechercherProjet(Projet prj){
+    	CriteriaBuilder qb=entityManager.getCriteriaBuilder();
+    	
+    	CriteriaQuery<Projet> query = qb.createQuery(Projet.class);
+		Root<Projet> prjRoot = query.from(Projet.class);
+    	
+    	List<Predicate> criteria = new ArrayList<Predicate>();
+    	if (prj.getPersonne() != null){
+    		criteria.add(qb.equal(prjRoot.get("personne"), prj.getPersonne()));
+    	}
+    	if (prj.getProjId() != null){
+    		criteria.add(qb.equal(prjRoot.get("projId"), prj.getProjId()));
+    	}
+    	if (prj.getProjNom() != null){
+    		criteria.add(qb.equal(prjRoot.<String>get("ProjNom"), prj.getProjNom()));
+    	}
+    	
+    	query.where(criteria.toArray(new Predicate[] {}));
+    	List<Projet> result = entityManager.createQuery(query).getResultList();
 		return result;
     }
     

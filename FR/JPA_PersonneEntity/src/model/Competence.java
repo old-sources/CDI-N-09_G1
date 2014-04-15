@@ -33,10 +33,6 @@ public class Competence implements Serializable {
 	@OneToMany(mappedBy="competence")
 	private List<Competence> competences;
 
-	//bi-directional many-to-one association to Possede
-	@OneToMany(mappedBy="competence")
-	private List<Possede> possedes;
-
 	//bi-directional many-to-one association to PropositionComp
 	@OneToMany(mappedBy="competence")
 	private List<PropositionComp> propositionComps;
@@ -96,28 +92,6 @@ public class Competence implements Serializable {
 		competence.setCompetence(null);
 
 		return competence;
-	}
-
-	public List<Possede> getPossedes() {
-		return this.possedes;
-	}
-
-	public void setPossedes(List<Possede> possedes) {
-		this.possedes = possedes;
-	}
-
-	public Possede addPossede(Possede possede) {
-		getPossedes().add(possede);
-		possede.setCompetence(this);
-
-		return possede;
-	}
-
-	public Possede removePossede(Possede possede) {
-		getPossedes().remove(possede);
-		possede.setCompetence(null);
-
-		return possede;
 	}
 
 	public List<PropositionComp> getPropositionComps() {

@@ -30,6 +30,9 @@
 		<class>model.PropositionComp</class>
 
 		<class>model.Role</class>
+		
+		<class>model.Travaille</class>
+		
 
 
 	</persistence-unit>

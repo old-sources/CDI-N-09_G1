@@ -20,7 +20,7 @@ public class Possede implements Serializable {
 	@Column(name="comp_niveau")
 	private Integer compNiveau;
 
-	//bi-directional many-to-one association to Competence
+	//uni-directional many-to-one association to Competence
 	@ManyToOne
 	@JoinColumn(name="comp_id")
 	private Competence competence;

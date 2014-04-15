@@ -17,10 +17,14 @@
 <script type="text/javascript" src="js/jquery-1.10.2.js"></script>
 <script type="text/javascript" src="js/jquery-ui-1.10.4.custom.js"></script>
 
-<title>Menu Personnes</title>
+<title>Profil</title>
 <SCRIPT type="text/javascript">
 	$(document).ready(function() {
-
+		$('.onlyadmin').hide();		
+		if ("${loguedPerson.role.roleId}" != 1){
+			$('.onlyadmin').show();
+			}
+		
 		$('.actionFormulaire').button();
 
 		var dateString = new Date("${loguedPerson.dateNaiss}");

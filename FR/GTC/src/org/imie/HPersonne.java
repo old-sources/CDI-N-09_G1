@@ -51,8 +51,17 @@ public class HPersonne extends HttpServlet {
 		List<Personne> foundPersonnes = serviceGestionEcole
 				.rechercherPersonne(searchPersonne);
 		request.setAttribute("foundPersonnes", foundPersonnes);
+		
+		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+		Personne loguedPerson = new Personne();
+		loguedPerson=(Personne) httpServletRequest.getSession().getAttribute("authentifiedPersonne");
+		request.setAttribute("loguedPerson", loguedPerson);
+		
+		
 		request.getRequestDispatcher("/WEB-INF/JPersonne.jsp").forward(
 				request, response);
+		
+	
 
 	}
 

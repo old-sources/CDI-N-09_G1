@@ -18,12 +18,12 @@ public class InvitationProjet implements Serializable {
 	@Column(name="id_notif")
 	private Integer idNotif;
 
-	//bi-directional one-to-one association to Actionanotifier
+	//uni-directional one-to-one association to Actionanotifier
 	@OneToOne
 	@JoinColumn(name="id_notif")
 	private Actionanotifier actionanotifier;
 
-	//bi-directional many-to-one association to Personne
+	//uni-directional many-to-one association to Personne
 	@ManyToOne
 	@JoinColumn(name="pers_id")
 	private Personne personne;

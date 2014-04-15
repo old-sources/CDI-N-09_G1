@@ -20,7 +20,11 @@
 <title>Menu Personnes</title>
 <SCRIPT type="text/javascript">
 	$(document).ready(function() {
-
+		$('.onlyadmin').hide();
+		if ("${loguedPerson.role.roleId}" != 1){
+			$('.onlyadmin').show();
+			}
+		
 		$('.actionFormulaire').button();
 
 		$('#formulaire').dialog({
@@ -64,6 +68,10 @@
 			$('#updateDansForm').hide();
 			$('#creerDansForm').show();
 		});
+
+		$('.actionRetourPageAdmin').on('click', function(e) {
+			document.location.href="/GTC/Admin";
+		});
 		
 	});
 </SCRIPT>
@@ -72,8 +80,9 @@
 </head>
 <body>
 
-	<%@ include file="/WEB-INF/header.jsp"%>
-	
+		<%@ include file="/WEB-INF/header.jsp"%>
+	<BUTTON class="actionRetourPageAdmin">Retour page admin</BUTTON>
+	<br><br><br>
 	<div id="liste">
 		<BUTTON class="actionPagePrincipaleCreer">Créer une personne</BUTTON>
 		<TABLE id="tablePersonne">
