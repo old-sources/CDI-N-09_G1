@@ -30,9 +30,9 @@
 		$('#afficheListeUsers').on('click', function(e) {
 			document.location.href="/GTC/HPersonne";
 		});
-	//	$('#afficheListePromotion').on('click', function(e) {
-// 			;
-// 		});
+		$('#afficheListePromotion').on('click', function(e) {
+			document.location.href="/GTC/HPromotion";
+ 		});
 
 	});
 </SCRIPT>

@@ -22,9 +22,6 @@
 <SCRIPT type="text/javascript">
 	$(document).ready(function() {
 		$('.onlyadmin').hide();
-		if ("${loguedPerson.role.roleId}" != 1){
-			$('.onlyadmin').show();
-			}
 		$('.actionFormulairePromotion').button();
 
 		$('#formulairePromotion').dialog({
@@ -71,10 +68,6 @@
 			$('#updateDansForm').hide();
 			$('#creerDansForm').show();
 		});
-
-		$('.actionRetourPageAdmin').on('click', function(e) {
-			document.location.href="/GTC/Admin";
-		});
 		
 	});
 </SCRIPT>
@@ -85,8 +78,6 @@
 </head>
 <body>
 	<%@ include file="header.jsp"%>
-	<BUTTON class="actionRetourPageAdmin">Retour page admin</BUTTON>
-	<br><br><br>
 	<BUTTON class="actionPagePrincipaleCreer">Créer une promotion</BUTTON>
 	<table id="tablePersonne">
 		<thead>

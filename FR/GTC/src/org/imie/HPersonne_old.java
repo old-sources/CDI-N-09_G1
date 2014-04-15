@@ -23,7 +23,7 @@ import org.imie.service.ServiceGestionEcoleJPALocal;
 /**
  * Servlet implementation class TP3_Controller
  */
-@WebServlet("/HPersonne/*")
+@WebServlet("/HPersonneOld/*")
 public class HPersonne_old extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@EJB ServiceGestionEcoleJPALocal serviceGestionEcole;

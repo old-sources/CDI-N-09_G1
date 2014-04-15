@@ -68,6 +68,10 @@
 			$('#updateDansForm').hide();
 			$('#creerDansForm').show();
 		});
+
+		$('.actionRetourPageAdmin').on('click', function(e) {
+			document.location.href="/GTC/Admin";
+		});
 		
 	});
 </SCRIPT>
@@ -77,7 +81,8 @@
 <body>
 
 		<%@ include file="/WEB-INF/header.jsp"%>
-	
+	<BUTTON class="actionRetourPageAdmin">Retour page admin</BUTTON>
+	<br><br><br>
 	<div id="liste">
 		<BUTTON class="actionPagePrincipaleCreer">Créer une personne</BUTTON>
 		<TABLE id="tablePersonne">
