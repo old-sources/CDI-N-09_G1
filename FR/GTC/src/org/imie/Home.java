@@ -47,9 +47,9 @@ public class Home extends HttpServlet {
 	
 		request.setAttribute("travailles", loguedPerson.getTravailles());
 	
-		Projet prj = new Projet();
-		prj.setPersonne(loguedPerson);
-		List<Projet> projets = serviceGestionEcole.rechercherProjet(prj);
+//		Projet prj = new Projet();
+//		prj.setPersonne(loguedPerson);
+		List<Projet> projets = serviceGestionEcole.rechercherProjet(new Projet());
 		request.setAttribute("projets", projets);
 		
 		

@@ -17,7 +17,12 @@
 <script type="text/javascript" src="js/jquery-1.10.2.js"></script>
 <script type="text/javascript" src="js/jquery-ui-1.10.4.custom.js"></script>
 
-<title>Mes projets</title>
+ <script type="text/javascript" charset="utf8" src="js/jquery.dataTables.min.js"></script>
+ <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+ <script type="text/javascript" charset="utf8" src="js/jquery.dataTables.yadcf.js"></script>
+ <link rel=stylesheet type="text/css" href="css/jquery.dataTables.yadcf.css">
+
+<title>Mes Projets</title>
 <SCRIPT type="text/javascript">
 	$(document).ready(function() {
 
@@ -25,7 +30,7 @@
 		if ("${loguedPerson.role.roleId}" != 1){
 			$('.onlyadmin').show();
 			}
-		$('.actionFormulaire').button();
+		//$('.actionFormulaire').button();
 
 		var dateString = new Date("${loguedPerson.dateNaiss}");
 		$('#inputDateNaiss').datepicker({
@@ -45,8 +50,39 @@
 			}
 		});
 
-	
-
+// 		$('#tablePersonne2').dataTable();    "range_number_slider"
+		$('#tablePersonne2').dataTable({
+	        "bJQueryUI": true
+	    }).yadcf([{
+	        column_number: 0
+	    }, {
+	        column_number: 1,
+	        filter_type: "date"
+	    }, {
+	        column_number: 2,
+	        filter_type: "date"
+	    }, {
+	        column_number: 3,
+	        filter_type: "auto_complete",
+	        text_data_delimiter: ","
+	    }, {
+	        column_number: 4,
+	        filter_type: "auto_complete",
+	        text_data_delimiter: ","
+	    }, {
+	        column_number: 5,
+	        filter_type: "auto_complete",
+	        text_data_delimiter: ","
+	    },{
+	        column_number: 6,
+	        filter_type: "auto_complete",
+	        text_data_delimiter: ","
+	    }, {
+	        column_number: 7,
+	        filter_type: "auto_complete",
+	        text_data_delimiter: ","
+	    }]);
+	    
 		
 	});
 </SCRIPT>
@@ -59,47 +95,49 @@
 		<form method="POST" id="formPrincipale">
 
 
-<span> page mes projets a implémenter</span>
-<!-- 			<input type="hidden" name="inputId" id="inputId" -->
-<%-- 				value="${loguedPerson.id}" /> --%>
+
+			<input type="hidden" name="inputId" id="inputId"
+				value="${loguedPerson.id}" />
 
 
-<!-- 			<div class="cell"> -->
-<!-- 				<label for="listeProjets">projets en cours : </label> -->
+			<div class="cell">
+				<label for="listeProjets">projets en cours : </label>
 
-<!-- 				<TABLE id="tableProjets"> -->
-<!-- 					<THEAD> -->
-<!-- 						<TR> -->
-<!-- 							<TH>Nom du projet</TH> -->
-<!-- 							<TH>date de début</TH> -->
-<!-- 							<TH>date de fin</TH> -->
-<!-- 							<TH>description</TH> -->
-<!-- 							<TH>chef de projet</TH> -->
-<!-- 							<TH>membres</TH> -->
-<!-- 							<TH>avancement</TH> -->
-<!-- 							<TH>projet affecté à</TH> -->
+				<TABLE id="tablePersonne2">
+					<THEAD>
+						<TR>
+							<TH>Nom du projet</TH>
+							<TH>date de début</TH>
+							<TH>date de fin</TH>
+							<TH>description</TH>
+							<TH>chef de projet</TH>
+							<TH>membres</TH>
+							<TH>avancement</TH>
+							<TH>projet affecté à</TH>
 <!-- 							<TH></TH> -->
-<!-- 						</TR> -->
-<!-- 					</THEAD> -->
-<!-- 					<TBODY> -->
-<%-- 						<c:forEach items="${projets}" var="prj"> --%>
-<!-- 						<tr> -->
-<%-- 							<TD><c:out value="${prj.projNom}" /></TD> --%>
-<%-- 							<TD><c:out value="${prj.projDatedebut}" /></TD> --%>
-<%-- 							<TD><c:out value="${prj.projDatedefin}" /></TD> --%>
-<%-- 							<TD><c:out value="${prj.projDescription}" /></TD> --%>
-<%-- 							<TD><c:out value="${prj.projWikiCdp}" /></TD> --%>
-<%-- 							<TD><c:out value="${prj.projWikiMembre}" /></TD> --%>
-<%-- 							<TD><c:out value="${prj.projAvancement}" /></TD> --%>
-<%-- 							<TD><c:out value="${prj.personne.nom}" /></TD> --%>
-<!-- 						</tr> -->
-<%-- 						</c:forEach> --%>
-<!-- 					</TBODY> -->
+						</TR>
+					</THEAD>
+					<TBODY>
+						<c:forEach items="${projets}" var="prj">
+						<tr>
+							<TD><c:out value="${prj.projNom}" /></TD>
+							<TD><fmt:formatDate pattern="dd/MM/yyyy"
+								value="${prj.projDatedebut}" /></TD>
+							<TD><fmt:formatDate pattern="dd/MM/yyyy"
+								value="${prj.projDatedefin}" /></TD>
+							<TD><c:out value="${prj.projDescription}" /></TD>
+							<TD><c:out value="${prj.projWikiCdp}" /></TD>
+							<TD><c:out value="${prj.projWikiMembre}" /></TD>
+							<TD><c:out value="${prj.projAvancement}" /></TD>
+							<TD><c:out value="${prj.personne.nom}" /></TD>
+						</tr>
+						</c:forEach>
+					</TBODY>
 
-<!-- 				</TABLE> -->
-<!-- 			</div> -->
-<!-- 		</form> -->
-<!-- 	</div> -->
+				</TABLE>
+			</div>
+		</form>
+	</div>
 
 
 			<!-- 			<div id="liste"> -->

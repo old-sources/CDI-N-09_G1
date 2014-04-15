@@ -17,6 +17,11 @@
 <script type="text/javascript" src="js/jquery-1.10.2.js"></script>
 <script type="text/javascript" src="js/jquery-ui-1.10.4.custom.js"></script>
 
+ <script type="text/javascript" charset="utf8" src="js/jquery.dataTables.min.js"></script>
+ <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+ <script type="text/javascript" charset="utf8" src="js/jquery.dataTables.yadcf.js"></script>
+ <link rel=stylesheet type="text/css" href="css/jquery.dataTables.yadcf.css">
+
 <title>Tableau de bord</title>
 <SCRIPT type="text/javascript">
 	$(document).ready(function() {
@@ -25,7 +30,7 @@
 		if ("${loguedPerson.role.roleId}" != 1){
 			$('.onlyadmin').show();
 			}
-		$('.actionFormulaire').button();
+		//$('.actionFormulaire').button();
 
 		var dateString = new Date("${loguedPerson.dateNaiss}");
 		$('#inputDateNaiss').datepicker({
@@ -45,8 +50,20 @@
 			}
 		});
 
-	
-
+		$('#tableProjet').dataTable({
+	        "bJQueryUI": true
+	    }).yadcf([{
+	        column_number: 0
+	    },   {
+	        column_number: 3,
+	        filter_type: "auto_complete",
+	        text_data_delimiter: ","
+	    },   {
+	        column_number: 5,
+	        filter_type: "auto_complete",
+	        text_data_delimiter: ","
+	    }]);
+	    
 		
 	});
 </SCRIPT>
@@ -67,7 +84,8 @@
 			<div class="cell">
 				<label for="listeProjets">projets en cours : </label>
 
-				<TABLE id="tablePersonne">
+				<TABLE id="tableProjet">
+				<div id="interieurDataTable">
 					<THEAD>
 						<TR>
 							<TH>Nom du projet</TH>
@@ -76,9 +94,9 @@
 							<TH>description</TH>
 							<TH>chef de projet</TH>
 							<TH>membres</TH>
-							<TH>avancement</TH>
+							<TH >avancement</TH>
 							<TH>projet affecté à</TH>
-							<TH></TH>
+<!-- 							<TH></TH> -->
 						</TR>
 					</THEAD>
 					<TBODY>
@@ -97,7 +115,7 @@
 						</tr>
 						</c:forEach>
 					</TBODY>
-
+				</div>
 				</TABLE>
 			</div>
 		</form>
