@@ -1,7 +1,7 @@
 package org.imie;
 
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -11,12 +11,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.imie.service.ServiceGestionEcoleJPALocal;
-
 import model.Personne;
-import model.Possede;
 import model.Projet;
-import model.Promotion;
+import model.Travaille;
+
+import org.imie.service.ServiceGestionEcoleJPALocal;
 
 /**
  * Servlet implementation class MesProjets
@@ -50,8 +49,30 @@ HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 	
 		Projet prj = new Projet();
 		prj.setPersonne(loguedPerson);
-		List<Projet> projets = serviceGestionEcole.rechercherProjet(prj);
-		request.setAttribute("projets", projets);
+		List<Projet> projetsEnTantQueChefDeProjet = serviceGestionEcole.rechercherProjet(prj);
+		request.setAttribute("projetsCdp", projetsEnTantQueChefDeProjet);
+		
+		Travaille trv = new Travaille();
+		trv.setPersonne(loguedPerson);
+		List<Travaille> travailleSur = serviceGestionEcole.rechercherTravaille(trv);
+		List<Projet>  projetsEnTantQueUser0 = new ArrayList<Projet>();
+		for (Travaille trv2 : travailleSur){
+			projetsEnTantQueUser0.add(trv2.getProjet());			
+		}
+		//request.setAttribute("projetsUser", projetsEnTantQueUser0);
+		
+		List<Projet>  projetsEnTantQueUser = new ArrayList<Projet>();
+		boolean dedans;
+		for (Projet prj2 : projetsEnTantQueUser0){
+			dedans = false;
+			for (Projet prj3 : projetsEnTantQueChefDeProjet){
+				if (prj2 == prj3) {dedans=true;};
+			}
+			if (!dedans) {
+				projetsEnTantQueUser.add(prj2);
+			}
+		}
+		request.setAttribute("projetsUser", projetsEnTantQueUser);
 		
 		
 		

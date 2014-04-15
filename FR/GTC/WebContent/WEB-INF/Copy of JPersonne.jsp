@@ -51,9 +51,6 @@
 		$('.actionFormulaire').on('click', function(e) {
 			$("#formulaire").dialog("open");
 			$('#inputId').val($(this).attr("data-id"));
-			$('#inputRoleId').val($(this).attr("data-roleid"));
-			$('#inputIdentConnexion').val($(this).attr("data-identConnexion"));
-			
 			$('#inputNom').val($(this).attr("data-nom"));
 			$('#inputPrenom').val($(this).attr("data-prenom"));
 
@@ -63,12 +60,6 @@
 			});
 			$('#inputDateNaiss').val(dateString.toLocaleDateString("fr-FR"));
 			$('#inputPromotion').val($(this).attr("data-promotionid"));
-
-			$('#inputPassw').val($(this).attr("data-passw"));
-			$('#inputEmail').val($(this).attr("data-email"));
-			$('#inputInfos').val($(this).attr("data-infos"));
-			$('#inputDisponibilite').val($(this).attr("data-disponibilite"));
-	
 			$('#updateDansForm').show();
 			$('#deleteDansForm').show();
 			$('#creerDansForm').hide();
@@ -127,11 +118,6 @@
 						<TH>Prenom</TH>
 						<TH>date de naissance</TH>
 						<TH>promotion</TH>
-						<TH>password</TH>
-						<TH>email</TH>
-						<TH>infos</TH>
-						<TH>identconnexion</TH>
-						<TH>disponible</TH>
 						<TH></TH>
 					</TR>
 				</THEAD>
@@ -143,26 +129,14 @@
 							<td><fmt:formatDate pattern="dd/MM/yyyy"
 									value="${personne.dateNaiss}" /></td>
 							<td><c:out value="${personne.promotion.libelle}" /></td>
-							<td><c:out value="${personne.passw}" /></td>
-							<td><c:out value="${personne.email}" /></td>
-							<td><c:out value="${personne.infos}" /></td>
-							<td><c:out value="${personne.identConnexion}"/></td>
-							<td><c:out value="${personne.disponibilite}" /></td>
+
 
 							<TD><BUTTON class="actionFormulaire"
-									data-id="${personne.id}" 
-									data-nom="${personne.nom}"
+									data-id="${personne.id}" data-nom="${personne.nom}"
 									data-prenom="${personne.prenom}"
 									data-dateNaiss="${personne.dateNaiss}"
 									data-promotionlibelle="${personne.promotion.libelle}"
-									data-promotionid="${personne.promotion.id}"
-									data-passw="${personne.passw}"
-									data-email="${personne.email}"
-									data-infos="${personne.infos}"
-									data-roleid="${personne.role.roleId}"
-									data-identConnexion="${personne.identConnexion}"
-									data-disponibilite="${personne.disponibilite}"
-									>Modifier</BUTTON></TD>
+									data-promotionid="${personne.promotion.id}">Modifier</BUTTON></TD>
 
 						</TR>
 					</c:forEach>
@@ -176,8 +150,6 @@
 
 
 			<input type="hidden" name="inputId" id="inputId" />
-			<input type="hidden" name="inputRoleId" id="inputRoleId"/>
-			<input type="hidden" name="inputIdentConnexion" id="inputIdentConnexion"/>
 			<div>
 				<label for="inputNom">nom :</label> <input type="text" id="inputNom"
 					name="inputNom">
@@ -197,20 +169,6 @@
 							${promotion.lieu}</option>
 					</c:forEach>
 				</select>
-			</div>
-			<div>
-			<label for="inputPassw">password :</label> <input type="text" id="inputPassw" name="inputPassw">
-			</div>
-			<div>
-			<label for="inputEmail">email :</label> <input type="text" id="inputEmail" name="inputEmail">
-			</div>
-			<div>
-			<label for="inputInfos">infos :</label> <input type="text"
-				id="inputInfos" name="inputInfos">
-			</div>
-			<div>
-			<label for="inputDisponibilite">disponibilite :</label> <input type="text"
-				id="inputDisponibilite" name="inputDisponibilite">
 			</div>
 			
 			<input type="submit" name="update" id="updateDansForm"
