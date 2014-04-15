@@ -68,6 +68,8 @@
 			$('#inputEmail').val($(this).attr("data-email"));
 			$('#inputInfos').val($(this).attr("data-infos"));
 			$('#inputDisponibilite').val($(this).attr("data-disponibilite"));
+			$('#inputRole').val($(this).attr("data-roleId"));
+			$('#inputLogin').val($(this).attr("data-identConnexion"));
 	
 			$('#updateDansForm').show();
 			$('#deleteDansForm').show();
@@ -83,7 +85,14 @@
 			});
 			$('#inputDateNaiss').val("01/01/1980");
 			$('#inputPromotion').val("");
-			$('#updateDansForm').attr('value', "Créer");
+			$('#inputEmail').val("");
+			$('#inputDisponibilite').val("false");
+			$('#inputLogin').val("");
+			$('#inputRole').val("");
+			$('#inputInfos').val("");
+			$('#inputPassw').val("");
+			
+			
 			$('#deleteDansForm').hide();
 			$('#updateDansForm').hide();
 			$('#creerDansForm').show();
@@ -95,15 +104,7 @@
 
 		$('#tablePersonne').dataTable({
 			"bJQueryUI" : true
-		}).yadcf([ {
-			column_number : 0,
-		}, {
-			column_number : 1,
-		}, {
-			column_number : 2,
-		}, {
-			column_number : 3,
-		} ]);
+		}).yadcf([  ]);
 
 	});
 </SCRIPT>
@@ -130,8 +131,9 @@
 						<TH>password</TH>
 						<TH>email</TH>
 						<TH>infos</TH>
-						<TH>identconnexion</TH>
+						<TH>login</TH>
 						<TH>disponible</TH>
+						<TH>droits</TH>
 						<TH></TH>
 					</TR>
 				</THEAD>
@@ -148,6 +150,7 @@
 							<td><c:out value="${personne.infos}" /></td>
 							<td><c:out value="${personne.identConnexion}"/></td>
 							<td><c:out value="${personne.disponibilite}" /></td>
+							<td><c:out value="${personne.role.roleIntitule}" /></td>
 
 							<TD><BUTTON class="actionFormulaire"
 									data-id="${personne.id}" 
@@ -199,6 +202,9 @@
 				</select>
 			</div>
 			<div>
+			<label for="inputLogin">login :</label> <input type="text" id="inputLogin" name="inputLogin">
+			</div>
+			<div>
 			<label for="inputPassw">password :</label> <input type="text" id="inputPassw" name="inputPassw">
 			</div>
 			<div>
@@ -209,8 +215,17 @@
 				id="inputInfos" name="inputInfos">
 			</div>
 			<div>
-			<label for="inputDisponibilite">disponibilite :</label> <input type="text"
+			<label for="inputDisponibilite">dispo :</label> <input type="text"
 				id="inputDisponibilite" name="inputDisponibilite">
+			</div>
+			<div class="cell">
+				<label for="inputRole">droits : </label> 
+				<select	name="inputRole" id="inputRole">
+					<option value=""></option>
+					<c:forEach items="${listRoles}" var="rol">
+						<option value="${rol.roleId}">${rol.roleIntitule}</option>
+					</c:forEach>
+				</select>
 			</div>
 			
 			<input type="submit" name="update" id="updateDansForm"
@@ -218,7 +233,7 @@
 				<input type="submit" name="create" id="creerDansForm" value="Créer" />
 				<input type="submit" name="delete"
 				id="deleteDansForm" value="Supprimer" />
-
+			
 
 
 

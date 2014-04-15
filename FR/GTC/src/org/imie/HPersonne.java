@@ -3,6 +3,7 @@ package org.imie;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -57,6 +58,11 @@ public class HPersonne extends HttpServlet {
 		request.setAttribute("loguedPerson", loguedPerson);
 		
 		
+		List<Role> listRoles = serviceGestionEcole.rechercherRole(new Role());
+		request.setAttribute("listRoles", listRoles);
+		
+		
+		
 		request.getRequestDispatcher("/WEB-INF/JPersonne.jsp").forward(
 				request, response);
 		
@@ -107,6 +113,7 @@ public class HPersonne extends HttpServlet {
 		String inputEmail = request.getParameter("inputEmail");
 		if (inputEmail != null && !inputEmail.isEmpty()) {
 			updatedPerson.setEmail(inputEmail);
+			System.out.println("inputemailupdatedpersonne : "+updatedPerson.getEmail());
 		}
 		
 		String inputInfos = request.getParameter("inputInfos");
@@ -114,13 +121,18 @@ public class HPersonne extends HttpServlet {
 			updatedPerson.setInfos(inputInfos);
 		}
 		
-		String inputRoleId = request.getParameter("inputRoleId");
+		String inputLogin = request.getParameter("inputLogin");
+		if (inputLogin != null && !inputLogin.isEmpty()) {
+			updatedPerson.setIdentConnexion(inputLogin);
+		}
+		
+		String inputRoleId = request.getParameter("inputRole");
 		System.out.println("Hpersonne string rolid :"+inputRoleId);
 		if (inputRoleId != null && !inputRoleId.isEmpty()) {
 			Integer roleId = Integer.valueOf(inputRoleId);
 			Role role = new Role();
 			role.setRoleId(roleId);
-			serviceGestionEcole.rechercherRole(role);
+			serviceGestionEcole.rechercherRole(role).get(0);
 			updatedPerson.setRole(role);
 		}
 		

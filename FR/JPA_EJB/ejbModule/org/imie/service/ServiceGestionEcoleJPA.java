@@ -86,7 +86,16 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote, Ser
     	personne2.setDateNaiss(personne.getDateNaiss());
     	personne2.setPassw(personne.getPassw());
     	personne2.setPromotion(personne.getPromotion());
+    	personne2.setEmail(personne.getEmail());
+    	personne2.setInfos(personne.getInfos());
+    	personne2.setDisponibilite(personne.getDisponibilite());
+    	personne2.setRole(personne.getRole());
+    	personne2.setIdentConnexion(personne.getIdentConnexion());
+    	
+    	
     	System.out.println("est passé par le insert "+personne.getNom()+" "+personne.getPrenom());
+    	System.out.println("est passé par le insert lemail est "+personne.getEmail());
+    	
 	    entityManager.persist(personne2);
 		return personne2;
     }
