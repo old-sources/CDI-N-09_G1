@@ -22,7 +22,15 @@ body{
 	background-color: #BCF46E;
 }
 
+@media screen and (min-width:600px) {
+#tablePromotionAdmin{
+	width : 600px;
+}
 
+@media screen and (max-width:500px) {
+#tablePromotionAdmin{
+	overflow-x:scroll;
+}
 
 @media screen and (min-width:1250px) {
     .cell2{
@@ -34,14 +42,24 @@ body{
 	
 }
 
-@media screen and (max-width:800px) {
+@media screen and (max-width:1250px) {
 .tablePersonneAdmin{
 	overflow-x:scroll;
 	}
+#tableProjetAdmin{
+	overflow-x:scroll;
+	}
+	
 }
-@media screen and (min-width:800px) {
+@media screen and (min-width:1250px) {
 .tablePersonneAdmin{
 	width : 1200px;
+	}
+}
+
+@media screen and (min-width:1400px) {
+#tableProjetAdmin{
+	width : 1400px;
 	}
 }
 
@@ -49,5 +67,4 @@ body{
     .cell2{
 	overflow-x:scroll;
 	}
-	
 }

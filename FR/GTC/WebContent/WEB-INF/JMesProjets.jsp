@@ -138,7 +138,7 @@
 			
 			</div>
 			<br><br><br>
-			<div class="cell2" id="listProjets2">
+			<div class="cell2" id="listeProjets2">
 				<label for="listeProjets2">projets en tant que user : </label>
 			
 					<TABLE class="tableProjet">
