@@ -1,4 +1,4 @@
-<%@page import="java.util.List"%>
+<%-- <%@page import="java.util.List"%>
 <%@page import="model.Personne"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -119,3 +119,4 @@
 		</form>
 	</div>
 
+ --%>

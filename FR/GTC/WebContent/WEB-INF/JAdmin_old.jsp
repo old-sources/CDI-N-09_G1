@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%-- <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -19,7 +19,7 @@
 
 <title>Administration</title>
 <SCRIPT type="text/javascript">
-	$(document).ready(function() {
+	$(document).ready(function() {/*  */
 
 		$('.onlyadmin').hide();
 		if ("${loguedPerson.role.roleId}" != 1) {
@@ -168,7 +168,7 @@
 
 
 	<!-- 			<input type="hidden" name="inputId" id="inputId" -->
-	<%-- 				value="${loguedPerson.id}" /> --%>
+					value="${loguedPerson.id}" />
 
 
 	<!-- 			<div class="cell"> -->
@@ -189,18 +189,18 @@
 	<!-- 						</TR> -->
 	<!-- 					</THEAD> -->
 	<!-- 					<TBODY> -->
-	<%-- 						<c:forEach items="${projets}" var="prj"> --%>
+							<c:forEach items="${projets}" var="prj">
 	<!-- 						<tr> -->
-	<%-- 							<TD><c:out value="${prj.projNom}" /></TD> --%>
-	<%-- 							<TD><c:out value="${prj.projDatedebut}" /></TD> --%>
-	<%-- 							<TD><c:out value="${prj.projDatedefin}" /></TD> --%>
-	<%-- 							<TD><c:out value="${prj.projDescription}" /></TD> --%>
-	<%-- 							<TD><c:out value="${prj.projWikiCdp}" /></TD> --%>
-	<%-- 							<TD><c:out value="${prj.projWikiMembre}" /></TD> --%>
-	<%-- 							<TD><c:out value="${prj.projAvancement}" /></TD> --%>
-	<%-- 							<TD><c:out value="${prj.personne.nom}" /></TD> --%>
+								<TD><c:out value="${prj.projNom}" /></TD>
+								<TD><c:out value="${prj.projDatedebut}" /></TD>
+								<TD><c:out value="${prj.projDatedefin}" /></TD>
+								<TD><c:out value="${prj.projDescription}" /></TD>
+								<TD><c:out value="${prj.projWikiCdp}" /></TD>
+								<TD><c:out value="${prj.projWikiMembre}" /></TD>
+								<TD><c:out value="${prj.projAvancement}" /></TD>
+								<TD><c:out value="${prj.personne.nom}" /></TD>
 	<!-- 						</tr> -->
-	<%-- 						</c:forEach> --%>
+							</c:forEach>
 	<!-- 					</TBODY> -->
 
 	<!-- 				</TABLE> -->
@@ -215,24 +215,24 @@
 	<!-- 				<TABLE id="tablePersonne"> -->
 
 	<!-- 					<TBODY> -->
-	<%-- 						<c:forEach var="personne" items="${foundPersonnes}"> --%>
+							<c:forEach var="personne" items="${foundPersonnes}">
 	<!-- 							<TR> -->
-	<%-- 								<TD><c:out value="${personne.nom}" /></TD> --%>
-	<%-- 								<TD><c:out value="${personne.prenom}" /></TD> --%>
-	<%-- 								<td><fmt:formatDate pattern="dd/MM/yyyy" --%>
-	<%-- 										value="${personne.dateNaiss}" /></td> --%>
-	<%-- 								<td><c:out value="${personne.promotion.libelle}" /></td> --%>
+									<TD><c:out value="${personne.nom}" /></TD>
+									<TD><c:out value="${personne.prenom}" /></TD>
+									<td><fmt:formatDate pattern="dd/MM/yyyy"
+											value="${personne.dateNaiss}" /></td>
+									<td><c:out value="${personne.promotion.libelle}" /></td>
 
 
 	<!-- 								<TD><BUTTON class="actionFormulaire" -->
-	<%-- 										data-id="${personne.id}" data-nom="${personne.nom}" --%>
-	<%-- 										data-prenom="${personne.prenom}" --%>
-	<%-- 										data-dateNaiss="${personne.dateNaiss}" --%>
-	<%-- 										data-promotionlibelle="${personne.promotion.libelle}" --%>
-	<%-- 										data-promotionid="${personne.promotion.id}">Modifier</BUTTON></TD> --%>
+											data-id="${personne.id}" data-nom="${personne.nom}"
+											data-prenom="${personne.prenom}"
+											data-dateNaiss="${personne.dateNaiss}"
+											data-promotionlibelle="${personne.promotion.libelle}"
+											data-promotionid="${personne.promotion.id}">Modifier</BUTTON></TD>
 
 	<!-- 							</TR> -->
-	<%-- 						</c:forEach> --%>
+							</c:forEach>
 	<!-- 					</TBODY> -->
 	<!-- 				</TABLE> -->
 	<!-- 			</div> -->
@@ -240,7 +240,7 @@
 
 	<!-- 			<div> -->
 
-	<%-- 				<BUTTON class="actionFormulaire" data-id="${personne.id}">ajouter --%>
+					<BUTTON class="actionFormulaire" data-id="${personne.id}">ajouter
 	<!-- 					une compétence (non géré)</BUTTON> -->
 
 	<!-- 				<BUTTON class="actionFormulaire" name="update" -->
@@ -269,9 +269,9 @@
 	<!-- 				<label for="inputPromotion">promotion : </label> <select -->
 	<!-- 					name="inputPromotion" id="inputPromotion"> -->
 	<!-- 					<option value=""></option> -->
-	<%-- 					<c:forEach items="${promotions}" var="promotion"> --%>
-	<%-- 						<option value="${promotion.id}">${promotion.libelle}</option> --%>
-	<%-- 					</c:forEach> --%>
+						<c:forEach items="${promotions}" var="promotion">
+							<option value="${promotion.id}">${promotion.libelle}</option>
+						</c:forEach>
 	<!-- 				</select> -->
 	<!-- 			</div> -->
 	<!-- 			<input type="submit" name="create" id="creerDansForm" value="Créer" /> -->
@@ -286,3 +286,4 @@
 	<!-- 	</div> -->
 </body>
 </html>
+ --%>
