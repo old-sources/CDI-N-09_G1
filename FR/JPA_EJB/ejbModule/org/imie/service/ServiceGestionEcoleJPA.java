@@ -17,11 +17,12 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.xml.rpc.ServiceException;
 
-import model.InvitationProjet;
 import model.Personne;
 import model.Possede;
 import model.Projet;
 import model.Promotion;
+import model.Role;
+import model.Travaille;
 
 /**
  * Session Bean implementation class ServiceGestionEcoleJPA
@@ -85,7 +86,16 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote, Ser
     	personne2.setDateNaiss(personne.getDateNaiss());
     	personne2.setPassw(personne.getPassw());
     	personne2.setPromotion(personne.getPromotion());
+    	personne2.setEmail(personne.getEmail());
+    	personne2.setInfos(personne.getInfos());
+    	personne2.setDisponibilite(personne.getDisponibilite());
+    	personne2.setRole(personne.getRole());
+    	personne2.setIdentConnexion(personne.getIdentConnexion());
+    	
+    	
     	System.out.println("est passé par le insert "+personne.getNom()+" "+personne.getPrenom());
+    	System.out.println("est passé par le insert lemail est "+personne.getEmail());
+    	
 	    entityManager.persist(personne2);
 		return personne2;
     }
@@ -179,7 +189,8 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote, Ser
     	List<Promotion> result = entityManager.createQuery(query).getResultList();
 		return result;
     }
-   
+  
+    
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public Promotion updatePromotion(Promotion promotionToUpdate){
     	return entityManager.merge(promotionToUpdate);
@@ -273,6 +284,49 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote, Ser
     	
     	query.where(criteria.toArray(new Predicate[] {}));
     	List<Projet> result = entityManager.createQuery(query).getResultList();
+		return result;
+    }
+    
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public List<Travaille> rechercherTravaille(Travaille trv){
+    	CriteriaBuilder qb=entityManager.getCriteriaBuilder();
+    	
+    	CriteriaQuery<Travaille> query = qb.createQuery(Travaille.class);
+		Root<Travaille> trvRoot = query.from(Travaille.class);
+    	
+    	List<Predicate> criteria = new ArrayList<Predicate>();
+    	if (trv.getPersonne() != null){
+    		criteria.add(qb.equal(trvRoot.get("personne"), trv.getPersonne()));
+    	}
+    	if (trv.getProjet() != null){
+    		criteria.add(qb.equal(trvRoot.get("projId"), trv.getProjet()));
+    	}
+    	if (trv.getTrvId() != null){
+    		criteria.add(qb.equal(trvRoot.<String>get("trvId"), trv.getTrvId()));
+    	}
+    	
+    	query.where(criteria.toArray(new Predicate[] {}));
+    	List<Travaille> result = entityManager.createQuery(query).getResultList();
+		return result;
+    }
+    
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public List<Role> rechercherRole(Role role){
+    	CriteriaBuilder qb=entityManager.getCriteriaBuilder();
+    	
+    	CriteriaQuery<Role> query = qb.createQuery(Role.class);
+		Root<Role> roleRoot = query.from(Role.class);
+    	
+    	List<Predicate> criteria = new ArrayList<Predicate>();
+    	if (role.getRoleId() != null){
+    		criteria.add(qb.equal(roleRoot.get("roleId"), role.getRoleId()));
+    	}
+    	if (role.getRoleIntitule() != null){
+    		criteria.add(qb.equal(roleRoot.get("intitule"), role.getRoleIntitule()));
+    	}
+    	    	
+    	query.where(criteria.toArray(new Predicate[] {}));
+    	List<Role> result = entityManager.createQuery(query).getResultList();
 		return result;
     }
     

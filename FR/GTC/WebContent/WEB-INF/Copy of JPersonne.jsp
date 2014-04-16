@@ -51,9 +51,6 @@
 		$('.actionFormulaire').on('click', function(e) {
 			$("#formulaire").dialog("open");
 			$('#inputId').val($(this).attr("data-id"));
-			$('#inputRoleId').val($(this).attr("data-roleid"));
-			$('#inputIdentConnexion').val($(this).attr("data-identConnexion"));
-			
 			$('#inputNom').val($(this).attr("data-nom"));
 			$('#inputPrenom').val($(this).attr("data-prenom"));
 
@@ -63,14 +60,6 @@
 			});
 			$('#inputDateNaiss').val(dateString.toLocaleDateString("fr-FR"));
 			$('#inputPromotion').val($(this).attr("data-promotionid"));
-
-			$('#inputPassw').val($(this).attr("data-passw"));
-			$('#inputEmail').val($(this).attr("data-email"));
-			$('#inputInfos').val($(this).attr("data-infos"));
-			$('#inputDisponibilite').val($(this).attr("data-disponibilite"));
-			$('#inputRole').val($(this).attr("data-roleId"));
-			$('#inputLogin').val($(this).attr("data-identConnexion"));
-	
 			$('#updateDansForm').show();
 			$('#deleteDansForm').show();
 			$('#creerDansForm').hide();
@@ -85,14 +74,7 @@
 			});
 			$('#inputDateNaiss').val("01/01/1980");
 			$('#inputPromotion').val("");
-			$('#inputEmail').val("");
-			$('#inputDisponibilite').val("false");
-			$('#inputLogin').val("");
-			$('#inputRole').val("");
-			$('#inputInfos').val("");
-			$('#inputPassw').val("");
-			
-			
+			$('#updateDansForm').attr('value', "Créer");
 			$('#deleteDansForm').hide();
 			$('#updateDansForm').hide();
 			$('#creerDansForm').show();
@@ -104,7 +86,15 @@
 
 		$('#tablePersonne').dataTable({
 			"bJQueryUI" : true
-		}).yadcf([  ]);
+		}).yadcf([ {
+			column_number : 0,
+		}, {
+			column_number : 1,
+		}, {
+			column_number : 2,
+		}, {
+			column_number : 3,
+		} ]);
 
 	});
 </SCRIPT>
@@ -128,12 +118,6 @@
 						<TH>Prenom</TH>
 						<TH>date de naissance</TH>
 						<TH>promotion</TH>
-						<TH>password</TH>
-						<TH>email</TH>
-						<TH>infos</TH>
-						<TH>login</TH>
-						<TH>disponible</TH>
-						<TH>droits</TH>
 						<TH></TH>
 					</TR>
 				</THEAD>
@@ -145,27 +129,14 @@
 							<td><fmt:formatDate pattern="dd/MM/yyyy"
 									value="${personne.dateNaiss}" /></td>
 							<td><c:out value="${personne.promotion.libelle}" /></td>
-							<td><c:out value="${personne.passw}" /></td>
-							<td><c:out value="${personne.email}" /></td>
-							<td><c:out value="${personne.infos}" /></td>
-							<td><c:out value="${personne.identConnexion}"/></td>
-							<td><c:out value="${personne.disponibilite}" /></td>
-							<td><c:out value="${personne.role.roleIntitule}" /></td>
+
 
 							<TD><BUTTON class="actionFormulaire"
-									data-id="${personne.id}" 
-									data-nom="${personne.nom}"
+									data-id="${personne.id}" data-nom="${personne.nom}"
 									data-prenom="${personne.prenom}"
 									data-dateNaiss="${personne.dateNaiss}"
 									data-promotionlibelle="${personne.promotion.libelle}"
-									data-promotionid="${personne.promotion.id}"
-									data-passw="${personne.passw}"
-									data-email="${personne.email}"
-									data-infos="${personne.infos}"
-									data-roleid="${personne.role.roleId}"
-									data-identConnexion="${personne.identConnexion}"
-									data-disponibilite="${personne.disponibilite}"
-									>Modifier</BUTTON></TD>
+									data-promotionid="${personne.promotion.id}">Modifier</BUTTON></TD>
 
 						</TR>
 					</c:forEach>
@@ -179,8 +150,6 @@
 
 
 			<input type="hidden" name="inputId" id="inputId" />
-			<input type="hidden" name="inputRoleId" id="inputRoleId"/>
-			<input type="hidden" name="inputIdentConnexion" id="inputIdentConnexion"/>
 			<div>
 				<label for="inputNom">nom :</label> <input type="text" id="inputNom"
 					name="inputNom">
@@ -201,39 +170,13 @@
 					</c:forEach>
 				</select>
 			</div>
-			<div>
-			<label for="inputLogin">login :</label> <input type="text" id="inputLogin" name="inputLogin">
-			</div>
-			<div>
-			<label for="inputPassw">password :</label> <input type="text" id="inputPassw" name="inputPassw">
-			</div>
-			<div>
-			<label for="inputEmail">email :</label> <input type="text" id="inputEmail" name="inputEmail">
-			</div>
-			<div>
-			<label for="inputInfos">infos :</label> <input type="text"
-				id="inputInfos" name="inputInfos">
-			</div>
-			<div>
-			<label for="inputDisponibilite">dispo :</label> <input type="text"
-				id="inputDisponibilite" name="inputDisponibilite">
-			</div>
-			<div class="cell">
-				<label for="inputRole">droits : </label> 
-				<select	name="inputRole" id="inputRole">
-					<option value=""></option>
-					<c:forEach items="${listRoles}" var="rol">
-						<option value="${rol.roleId}">${rol.roleIntitule}</option>
-					</c:forEach>
-				</select>
-			</div>
 			
 			<input type="submit" name="update" id="updateDansForm"
 				value="Modifier" /> 
 				<input type="submit" name="create" id="creerDansForm" value="Créer" />
 				<input type="submit" name="delete"
 				id="deleteDansForm" value="Supprimer" />
-			
+
 
 
 

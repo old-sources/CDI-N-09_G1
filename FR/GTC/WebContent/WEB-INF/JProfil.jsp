@@ -17,6 +17,15 @@
 <script type="text/javascript" src="js/jquery-1.10.2.js"></script>
 <script type="text/javascript" src="js/jquery-ui-1.10.4.custom.js"></script>
 
+<script type="text/javascript" charset="utf8"
+	src="js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8"
+	src="js/jquery.dataTables.yadcf.js"></script>
+<link rel=stylesheet type="text/css"
+	href="css/jquery.dataTables.yadcf.css">
+
 <title>Profil</title>
 <SCRIPT type="text/javascript">
 	$(document).ready(function() {
@@ -33,11 +42,6 @@
 		});
 		$('#inputDateNaiss').val(dateString.toLocaleDateString("fr-FR"));
 
-
-// 		$('#inputDateNaiss').datepicker();
-// 		$('#inputDateNaiss').val(dateString.toLocaleDateString("fr-FR"));
-
-
 		$('#formulaire').dialog({
 			autoOpen : false,
 			show : {
@@ -48,41 +52,8 @@
 				effect : "blind",
 				duration : 1000
 			}
-		})
-// $('#actionFormulaire').on('click', function(e) {
-// 	document.divProfil.submit();
-// })
-// 		$('.actionFormulaire').on('click', function(e) {
-// 			$("#formulaire").dialog("open");
-// 			$('#inputId').val($(this).attr("data-id"));
-// 			$('#inputNom').val($(this).attr("data-nom"));
-// 			$('#inputPrenom').val($(this).attr("data-prenom"));
+		});
 
-// 			var dateString = new Date($(this).attr("data-dateNaiss"));
-// 			$('#inputDateNaiss').datepicker({
-// 				defaultDate : dateString
-// 			});
-// 			$('#inputDateNaiss').val(dateString.toLocaleDateString("fr-FR"));
-// 			$('#inputPromotion').val($(this).attr("data-promotionid"));
-// 			$('#updateDansForm').show();
-// 			$('#deleteDansForm').show();
-// 			$('#creerDansForm').hide();
-// 		});
-
-// 		$('.actionPagePrincipaleCreer').on('click', function(e) {
-// 			$("#formulaire").dialog("open");
-// 			$('#inputNom').val("");
-// 			$('#inputPrenom').val("");
-// 			$('#inputDateNaiss').datepicker({
-// 				defaultDate : new Date()
-// 			});
-// 			$('#inputDateNaiss').val("01/01/1980");
-// 			$('#inputPromotion').val("");
-// 			$('#updateDansForm').attr('value', "Créer");
-// 			$('#deleteDansForm').hide();
-// 			$('#updateDansForm').hide();
-// 			$('#creerDansForm').show();
-// 		});
 
 	});
 </SCRIPT>
@@ -96,7 +67,8 @@
 
 
 
-			<input type="hidden" name="inputId" id="inputId" value="${loguedPerson.id}"/>
+			<input type="hidden" name="inputId" value="${loguedPerson.id}"/>
+			<input type="hidden" name="inputRoleId" value="${loguedPerson.role.roleId}"/>
 			<div>
 				<label for="inputNom">nom :</label> <input type="text" id="inputNom"
 					name="inputNom" value="${loguedPerson.nom}">
@@ -175,39 +147,6 @@
 			</div>
 		</form>
 	</div>
-	<!-- 	<div id="formulaire"> -->
-	<!-- 		<form method="POST" id="formFormulaire"> -->
-
-
-	<!-- 			<input type="hidden" name="inputId" id="inputId" /> -->
-	<!-- 			<div> -->
-	<!-- 				<label for="inputNom">nom :</label> <input type="text" id="inputNom" -->
-	<!-- 					name="inputNom"> -->
-	<!-- 			</div> -->
-	<!-- 			<label for="inputPrenom">prenom :</label> <input type="text" -->
-	<!-- 				id="inputPrenom" name="inputPrenom"> -->
-	<!-- 			<div> -->
-	<!-- 				<label for="inputDateNaiss">date de naissance</label> <input -->
-	<!-- 					type="text" id="inputDateNaiss" name="inputDateNaiss"> -->
-	<!-- 			</div> -->
-	<!-- 			<div class="cell"> -->
-	<!-- 				<label for="inputPromotion">promotion : </label> <select -->
-	<!-- 					name="inputPromotion" id="inputPromotion"> -->
-	<!-- 					<option value=""></option> -->
-	<%-- 					<c:forEach items="${promotions}" var="promotion"> --%>
-	<%-- 						<option value="${promotion.id}">${promotion.libelle}</option> --%>
-	<%-- 					</c:forEach> --%>
-	<!-- 				</select> -->
-	<!-- 			</div> -->
-	<!-- 			<input type="submit" name="create" id="creerDansForm" value="Créer" /> -->
-	<!-- 			<input type="submit" name="update" id="updateDansForm" -->
-	<!-- 				value="Modifier" /> <input type="submit" name="delete" -->
-	<!-- 				id="deleteDansForm" value="Supprimer" /> -->
-
-
-
-
-	<!-- 		</form> -->
-	<!-- 	</div> -->
+	
 </body>
 </html>

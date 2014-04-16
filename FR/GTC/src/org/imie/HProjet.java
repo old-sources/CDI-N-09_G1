@@ -3,7 +3,6 @@ package org.imie;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -15,22 +14,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.Personne;
+import model.Projet;
 import model.Promotion;
-import model.Role;
 
 import org.imie.service.ServiceGestionEcoleJPALocal;
 
 /**
  * Servlet implementation class TP3_Controller
  */
-@WebServlet("/HPersonne/*")
-public class HPersonne extends HttpServlet {
+@WebServlet("/HProjet/*")
+public class HProjet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@EJB ServiceGestionEcoleJPALocal serviceGestionEcole;
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public HPersonne() {
+	public HProjet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -41,33 +40,21 @@ public class HPersonne extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("HPersonne Get");
-		// a faire quelque soit le pattern
+		System.out.println("HProjet Get");
 
-		Personne searchPersonne = new Personne();
-		request.setAttribute("promotions",
-				serviceGestionEcole.rechercherPromotion(new Promotion()));
+		// on met tous les projets dans foundProjets
+		Projet searchProjet = new Projet();
+		List<Projet> foundProjets = serviceGestionEcole.rechercherProjet(searchProjet);
+		request.setAttribute("foundProjets", foundProjets);
 		
-		List<Personne> foundPersonnes = serviceGestionEcole
-				.rechercherPersonne(searchPersonne);
-		request.setAttribute("foundPersonnes", foundPersonnes);
-		
+		// loguedPerson passé en request
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		Personne loguedPerson = new Personne();
 		loguedPerson=(Personne) httpServletRequest.getSession().getAttribute("authentifiedPersonne");
 		request.setAttribute("loguedPerson", loguedPerson);
 		
-		
-		List<Role> listRoles = serviceGestionEcole.rechercherRole(new Role());
-		request.setAttribute("listRoles", listRoles);
-		
-		
-		
 		request.getRequestDispatcher("/WEB-INF/JPersonne.jsp").forward(
 				request, response);
-		
-	
-
 	}
 
 	/**
@@ -105,49 +92,13 @@ public class HPersonne extends HttpServlet {
 			throw new RuntimeException(e);
 		}
 
-		String inputPassword = request.getParameter("inputPassw");
-		if (inputPassword != null && !inputPassword.isEmpty()) {
-			updatedPerson.setPassw(inputPassword);
-		}
-		
-		String inputEmail = request.getParameter("inputEmail");
-		if (inputEmail != null && !inputEmail.isEmpty()) {
-			updatedPerson.setEmail(inputEmail);
-			System.out.println("inputemailupdatedpersonne : "+updatedPerson.getEmail());
-		}
-		
-		String inputInfos = request.getParameter("inputInfos");
-		if (inputInfos != null && !inputInfos.isEmpty()) {
-			updatedPerson.setInfos(inputInfos);
-		}
-		
-		String inputLogin = request.getParameter("inputLogin");
-		if (inputLogin != null && !inputLogin.isEmpty()) {
-			updatedPerson.setIdentConnexion(inputLogin);
-		}
-		
-		String inputRoleId = request.getParameter("inputRole");
-		System.out.println("Hpersonne string rolid :"+inputRoleId);
-		if (inputRoleId != null && !inputRoleId.isEmpty()) {
-			Integer roleId = Integer.valueOf(inputRoleId);
-			Role role = new Role();
-			role.setRoleId(roleId);
-			serviceGestionEcole.rechercherRole(role).get(0);
-			updatedPerson.setRole(role);
-		}
-		
-		String inputDisponibilite = request.getParameter("inputDisponibilite");
-		if (inputDisponibilite != null && !inputDisponibilite.isEmpty()) {
-			updatedPerson.setDisponibilite(Boolean.valueOf(inputDisponibilite));
-		}
-		
-		String identConnexion = request.getParameter("inputIdentConnexion");
-		if (identConnexion != null && !identConnexion.isEmpty()) {
-			updatedPerson.setIdentConnexion(identConnexion);
-		}
-		
+//		String inputPassword = request.getParameter("inputPassword");
+//		if (inputPassword != null && !inputPassword.isEmpty()) {
+//			updatedPerson.setPassw(inputPassword);
+//		}
 
 		// + categorie : admin, user, super admin
+		
 		if (request.getParameter("delete") != null) {
 			System.out.println("HPersonne Post delete");
 			try {

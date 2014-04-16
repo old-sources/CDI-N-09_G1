@@ -30,8 +30,11 @@
 		$('#afficheListeUsers').on('click', function(e) {
 			document.location.href="/GTC/HPersonne";
 		});
-		$('#afficheListePromotion').on('click', function(e) {
+		$('#afficheListePromotions').on('click', function(e) {
 			document.location.href="/GTC/HPromotion";
+ 		});
+		$('#afficheListeProjets').on('click', function(e) {
+			document.location.href="/GTC/HProjet";
  		});
 
 	});
@@ -42,12 +45,15 @@
 	<div id="divProfil">
 
 		<span> page Admin </span><br>
-		<BUTTON id="afficheListeUsers">afficher la liste des
+		<BUTTON id="afficheListeUsers">Gestion des
 			utilisateurs</BUTTON>
 		
-		<br>
-		<BUTTON id="afficheListePromotion">afficher la liste des
+		<br><br>
+		<BUTTON id="afficheListePromotions">Gestion des
 			promotions</BUTTON>
+		<br><br>
+		<BUTTON id="afficheListeProjets">Gestion des
+			projets</BUTTON>
 		
 </body>
 </html>

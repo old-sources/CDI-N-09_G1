@@ -135,8 +135,9 @@
 				<input type="text" id="inputDateFin" name="inputDateFin">
 			</div>
 	
-				<input type="submit" name="create" id="creerDansForm" value="Créer" />
+				
 				<input type="submit" name="update" id="updateDansForm" value="Modifier" />
+				<input type="submit" name="create" id="creerDansForm" value="Créer" />
 				<input type="submit" name="delete" id="deleteDansForm" value="Supprimer" />
 
 

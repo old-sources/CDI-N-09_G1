@@ -9,6 +9,8 @@ import model.Personne;
 import model.Possede;
 import model.Projet;
 import model.Promotion;
+import model.Role;
+import model.Travaille;
 
 // Commentaire JM
 // besoin d'annotations documentations et commentaires explicatifs
@@ -37,4 +39,6 @@ public interface ServiceGestionEcoleJPALocal {
     
     public List<Possede> rechercherPossede(Possede possede);
     public List<Projet> rechercherProjet(Projet prj);
+    public List<Travaille> rechercherTravaille(Travaille trv);
+    public List<Role> rechercherRole(Role role);
 }
