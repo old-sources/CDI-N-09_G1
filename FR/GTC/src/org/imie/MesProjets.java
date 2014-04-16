@@ -37,7 +37,7 @@ public class MesProjets extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("MesProjets Get");
+		System.out.println("MesProjets_ Get");
 		
 HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		

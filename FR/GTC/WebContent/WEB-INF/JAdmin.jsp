@@ -36,6 +36,9 @@
 		$('#afficheListeProjets').on('click', function(e) {
 			document.location.href="/GTC/HProjet";
  		});
+		$('#importerUnFichier').on('click', function(e) {
+			document.location.href="/GTC/HImport";
+ 		});
 
 	});
 </SCRIPT>
