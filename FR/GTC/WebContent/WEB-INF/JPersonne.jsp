@@ -34,7 +34,7 @@
 			$('.onlyadmin').show();
 		}
 
-		$('.actionFormulaire').button();
+// 		$('.actionFormulaire').button();
 
 		$('#formulaire').dialog({
 			autoOpen : false,
@@ -52,21 +52,18 @@
 			$("#formulaire").dialog("open");
 			$('#inputId').val($(this).attr("data-id"));
 			$('#inputRoleId').val($(this).attr("data-roleid"));
-			$('#inputIdentConnexion').val($(this).attr("data-identConnexion"));
-			
 			$('#inputNom').val($(this).attr("data-nom"));
 			$('#inputPrenom').val($(this).attr("data-prenom"));
-
 			var dateString = new Date($(this).attr("data-dateNaiss"));
 			$('#inputDateNaiss').datepicker({
 				defaultDate : dateString
 			});
 			$('#inputDateNaiss').val(dateString.toLocaleDateString("fr-FR"));
 			$('#inputPromotion').val($(this).attr("data-promotionid"));
-
 			$('#inputPassw').val($(this).attr("data-passw"));
 			$('#inputEmail').val($(this).attr("data-email"));
 			$('#inputInfos').val($(this).attr("data-infos"));
+			$('#inputIdentConnexion').val($(this).attr("data-identConnexion"));
 			$('#inputDisponibilite').val($(this).attr("data-disponibilite"));
 			$('#inputRole').val($(this).attr("data-roleId"));
 			$('#inputLogin').val($(this).attr("data-identConnexion"));
@@ -86,7 +83,7 @@
 			$('#inputDateNaiss').val("01/01/1980");
 			$('#inputPromotion').val("");
 			$('#inputEmail').val("");
-			$('#inputDisponibilite').val("false");
+			$('#inputDisponibilite').val("true");
 			$('#inputLogin').val("");
 			$('#inputRole').val("");
 			$('#inputInfos').val("");

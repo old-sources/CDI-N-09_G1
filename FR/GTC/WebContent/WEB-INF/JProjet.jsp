@@ -27,30 +27,15 @@
 <link rel=stylesheet type="text/css"
 	href="css/jquery.dataTables.yadcf.css">
 
-<title>Mes Projets</title>
+<title>Gestion des Projets</title>
 <SCRIPT type="text/javascript">
 	$(document).ready(function() {
 
 		$('.onlyadmin').hide();
 		if ("${loguedPerson.role.roleId}" != 1) {
 			$('.onlyadmin').show();
-		};
-
-// 		var list = "${projetsCdp}";
-// 		if (list[0] == null) {
-// 			$('#listeProjets1').hide();
-// 		};
-
-
-		var list = "${projetsCdp}";
-		if (list ==  '[]') {
-			$('#listeProjets1').hide();
-		};
-
-		var list = "${projetsUser}";
-		if (list ==  '[]') {
-			$('#listeProjets2').hide();
-		};
+		}
+		//$('.actionFormulaire').button();
 
 		var dateString = new Date("${loguedPerson.dateNaiss}");
 		$('#inputDateNaiss').datepicker({
@@ -70,7 +55,11 @@
 			}
 		});
 
-		$('.tableProjet').dataTable({
+		$('.actionRetourPageAdmin').on('click', function(e) {
+			document.location.href = "/GTC/Admin";
+		});
+
+		$('#tableProjet').dataTable({
 			"bJQueryUI" : true
 		}).yadcf([ {
 			column_number : 0
@@ -84,6 +73,58 @@
 			text_data_delimiter : ","
 		} ]);
 
+		$('.actionFormulaire').on('click', function(e) {
+			$("#formulaire").dialog("open");
+			$('#inputCdpId').val($(this).attr("data-personneid"));
+			$('#inputProjId').val($(this).attr("data-projId"));
+			$('#inputProjNom').val($(this).attr("data-projNom"));
+			$('#inputprojDescription').val($(this).attr("data-projDescription"));
+			$('#inputProjWikiCdp').val($(this).attr("data-projWikiCdp"));
+			$('#inputprojWikiMembre').val($(this).attr("data-projWikiMembre"));
+			$('#inputprojAvancement').val($(this).attr("data-projAvancement"));
+			$('#inputPersonne').val($(this).attr("data-personneid"));
+
+			var dateString1 = new Date($(this).attr("data-projDatedebut"));
+			$('#inputProjDatedebut').datepicker({
+				defaultDate : dateString1
+			});
+			$('#inputProjDatedebut').val(dateString1.toLocaleDateString("fr-FR"));
+			var dateString2 = new Date($(this).attr("data-projDatedefin"));
+			$('#inputProjDatedefin').datepicker({
+				defaultDate : dateString2
+			});
+			$('#inputProjDatedefin').val(dateString2.toLocaleDateString("fr-FR"));
+		
+			
+	
+			$('#updateDansForm').show();
+			$('#deleteDansForm').show();
+			$('#creerDansForm').hide();
+		});
+
+		$('.actionPagePrincipaleCreer').on('click', function(e) {
+			$("#formulaire").dialog("open");
+			$('#inputProjNom').val("");
+			$('#inputprojDescription').val("");
+			$('#inputProjWikiCdp').val("");
+			$('#inputprojWikiMembre').val("");
+			$('#inputprojAvancement').val("");
+			$('#inputPersonne').val("");
+			
+			$('#inputProjDatedebut').datepicker({
+				defaultDate : new Date()
+			});
+			$('#inputProjDatedebut').val("01/08/2014");
+			$('#c').datepicker({
+				defaultDate : new Date()
+			});
+			$('#inputProjDatedefin').val("01/08/2014");
+			
+			$('#deleteDansForm').hide();
+			$('#updateDansForm').hide();
+			$('#creerDansForm').show();
+		});
+
 	});
 </SCRIPT>
 
@@ -91,94 +132,128 @@
 </head>
 <body>
 	<%@ include file="/WEB-INF/header.jsp"%>
-	<div id="divProfil">
-		<form method="POST" id="formPrincipale">
+
+	<BUTTON class="actionRetourPageAdmin">Retour page admin</BUTTON>
+	<br>
+	<br>
+	<br>
+	<BUTTON class="actionPagePrincipaleCreer">Créer un projet</BUTTON>
+
+	<div class="cell3" id="divProjet">
 
 
+		<!-- 			<div class="cell2"> -->
+		<label for="listeProjets">projets en cours : </label>
 
-			<input type="hidden" name="inputId" id="inputId"
-				value="${loguedPerson.id}" />
+				<TABLE id="tableProjet">
+
+					<THEAD>
+						<TR>
+							<TH>Nom du projet</TH>
+							<TH>date de début</TH>
+							<TH>date de fin</TH>
+							<TH>description</TH>
+							<TH>chef de projet</TH>
+							<TH>membres</TH>
+							<TH>avancement</TH>
+							<TH>projet affecté à</TH>
+							<th></th>
+						</TR>
+					</THEAD>
+					<TBODY>
+						<c:forEach items="${foundProjets}" var="prj">
+							<tr>
+								<TD><c:out value="${prj.projNom}" /></TD>
+								<TD><fmt:formatDate pattern="dd/MM/yyyy"
+										value="${prj.projDatedebut}" /></TD>
+								<TD><fmt:formatDate pattern="dd/MM/yyyy"
+										value="${prj.projDatedefin}" /></TD>
+								<TD><c:out value="${prj.projDescription}" /></TD>
+								<TD><c:out value="${prj.projWikiCdp}" /></TD>
+								<TD><c:out value="${prj.projWikiMembre}" /></TD>
+								<TD><c:out value="${prj.projAvancement}" /></TD>
+								<TD><c:out value="${prj.personne.nom}" /></TD>
+
+								<TD><BUTTON class="actionFormulaire"
+										data-projId="${prj.projId}"
+										data-projNom="${prj.projNom}"
+										data-projDatedebut="${prj.projDatedebut}"
+										data-projDatedefin="${prj.projDatedefin}"
+										data-projDescription="${prj.projDescription}"
+										data-projWikiCdp="${prj.projWikiCdp}"
+										data-projWikiMembre="${prj.projWikiMembre}"
+										data-projAvancement="${prj.projAvancement}"
+										data-personnenom="${prj.personne.nom}"
+										data-personneid="${prj.personne.id}">Modifier</BUTTON></TD>
+							</tr>
+						</c:forEach>
+					</TBODY>
+
+				</TABLE>
+
+		<!-- 			</div> -->
+
+	</div>
 
 
-			<div class="cell2" id="listeProjets1">
-				<label for="listeProjets1">projets en tant que chef de projet : </label>
-			
-					<TABLE class="tableProjet">
+	<div id="formulaire">
+		<form method="POST" id="formFormulaire">
 
-						<THEAD>
-							<TR>
-								<TH>Nom du projet</TH>
-								<TH>date de début</TH>
-								<TH>date de fin</TH>
-								<TH>description</TH>
-								<TH>chef de projet</TH>
-								<TH>membres</TH>
-								<TH>avancement</TH>
-								<TH>projet affecté à</TH>
-								<!-- 							<TH></TH> -->
-							</TR>
-						</THEAD>
-						<TBODY>
-							<c:forEach items="${projetsCdp}" var="prj">
-								<tr>
-									<TD><c:out value="${prj.projNom}" /></TD>
-									<TD><fmt:formatDate pattern="dd/MM/yyyy"
-											value="${prj.projDatedebut}" /></TD>
-									<TD><fmt:formatDate pattern="dd/MM/yyyy"
-											value="${prj.projDatedefin}" /></TD>
-									<TD><c:out value="${prj.projDescription}" /></TD>
-									<TD><c:out value="${prj.projWikiCdp}" /></TD>
-									<TD><c:out value="${prj.projWikiMembre}" /></TD>
-									<TD><c:out value="${prj.projAvancement}" /></TD>
-									<TD><c:out value="${prj.personne.nom}" /></TD>
-								</tr>
-							</c:forEach>
-						</TBODY>
 
-					</TABLE>
-			
+			<input type="hidden" name="inputProjId" id="inputProjId" />
+			<input type="hidden" name="inputCdpId" id="inputCdpId"/>
+			<div>
+				<label for="inputProjNom">nom du projet :</label> <input type="text" id="inputProjNom"
+					name="inputProjNom">
 			</div>
-			<br><br><br>
-			<div class="cell2" id="listProjets2">
-				<label for="listeProjets2">projets en tant que user : </label>
-			
-					<TABLE class="tableProjet">
-
-						<THEAD>
-							<TR>
-								<TH>Nom du projet</TH>
-								<TH>date de début</TH>
-								<TH>date de fin</TH>
-								<TH>description</TH>
-								<TH>chef de projet</TH>
-								<TH>membres</TH>
-								<TH>avancement</TH>
-								<TH>projet affecté à</TH>
-								<!-- 							<TH></TH> -->
-							</TR>
-						</THEAD>
-						<TBODY>
-							<c:forEach items="${projetsUser}" var="prj">
-								<tr>
-									<TD><c:out value="${prj.projNom}" /></TD>
-									<TD><fmt:formatDate pattern="dd/MM/yyyy"
-											value="${prj.projDatedebut}" /></TD>
-									<TD><fmt:formatDate pattern="dd/MM/yyyy"
-											value="${prj.projDatedefin}" /></TD>
-									<TD><c:out value="${prj.projDescription}" /></TD>
-									<TD><c:out value="${prj.projWikiCdp}" /></TD>
-									<TD><c:out value="${prj.projWikiMembre}" /></TD>
-									<TD><c:out value="${prj.projAvancement}" /></TD>
-									<TD><c:out value="${prj.personne.nom}" /></TD>
-								</tr>
-							</c:forEach>
-						</TBODY>
-
-					</TABLE>
-			
+			<label for="inputProjDatedebut">date de début :</label> <input type="text"
+				id="inputProjDatedebut" name="inputProjDatedebut">
+			<div>
+				<label for="inputProjDatedefin">date de fin</label> <input
+					type="text" id="inputProjDatedefin" name="inputProjDatedefin">
 			</div>
 			
+			<div>
+				<label for="inputprojDescription">description du projet</label> <input
+					type="text" id="inputprojDescription" name="inputprojDescription">
+			</div>
 			
+			<div>
+				<label for="inputProjWikiCdp">en charge du projet </label> <input
+					type="text" id="inputProjWikiCdp" name="inputProjWikiCdp">
+			</div>
+			
+			<div>
+				<label for="inputprojWikiMembre">membres du projet</label> <input
+					type="text" id="inputprojWikiMembre" name="inputprojWikiMembre">
+			</div>
+			
+			<div>
+				<label for="inputprojAvancement">avancement</label> <input
+					type="text" id="inputprojAvancement" name="inputprojAvancement">
+			</div>
+			
+			<div class="cell">
+				<label for="inputPersonne">chef de projet : </label> <select
+					name="inputPersonne" id="inputPersonne">
+					<option value=""></option>
+					<c:forEach items="${foundPersonnes}" var="personne">
+						<option value="${personne.id}">${personne.nom} ${personne.prenom}
+						</option>
+					</c:forEach>
+				</select>
+			</div>
+			
+			
+			<input type="submit" name="update" id="updateDansForm"
+				value="Modifier" /> 
+				<input type="submit" name="create" id="creerDansForm" value="Créer" />
+				<input type="submit" name="delete"
+				id="deleteDansForm" value="Supprimer" />
+			
+
+
+
 		</form>
 	</div>
 

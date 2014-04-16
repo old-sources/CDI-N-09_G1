@@ -114,21 +114,21 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote, Ser
     	}
     	
 
-    	
-    	// on enleve la dependande FK projet de la personne
-    	while (personne.getProjets1().size()>0){
-    		int numElt = personne.getProjets1().size() - 1;
-    		Projet prj = personne.getProjets1().get(numElt);
-    		personne.getProjets1().remove(numElt);
-    		entityManager.remove(prj);
-    	}
-    	
-    	while (personne.getProjets2().size()>0){
-    		int numElt = personne.getProjets2().size() - 1;
-    		Projet prj = personne.getProjets2().get(numElt);
-    		personne.getProjets2().remove(numElt);
-    		entityManager.remove(prj);
-    	}
+//    	
+//    	// on enleve la dependande FK projet de la personne
+//    	while (personne.getProjets1().size()>0){
+//    		int numElt = personne.getProjets1().size() - 1;
+//    		Projet prj = personne.getProjets1().get(numElt);
+//    		personne.getProjets1().remove(numElt);
+//    		entityManager.remove(prj);
+//    	}
+//    	
+//    	while (personne.getProjets2().size()>0){
+//    		int numElt = personne.getProjets2().size() - 1;
+//    		Projet prj = personne.getProjets2().get(numElt);
+//    		personne.getProjets2().remove(numElt);
+//    		entityManager.remove(prj);
+//    	}
     	
     	
     	
@@ -329,5 +329,32 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote, Ser
     	List<Role> result = entityManager.createQuery(query).getResultList();
 		return result;
     }
+    
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public Projet insertProjet(Projet projet){
+    	Projet projet2 = new Projet();
+    	projet2.setProjNom(projet.getProjNom());
+    	projet2.setProjDatedebut(projet.getProjDatedebut());
+    	projet2.setProjDatedefin(projet.getProjDatedefin());
+    	projet2.setProjDescription(projet.getProjDescription());
+    	projet2.setProjWikiCdp(projet.getProjWikiCdp());
+    	projet2.setProjWikiMembre(projet.getProjWikiMembre());
+    	projet2.setProjAvancement(projet.getProjAvancement());
+    	projet2.setPersonne(projet.getPersonne());
+	    entityManager.persist(projet2);
+		return projet2;
+    }
+     
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public void deleteProjet(Projet projet){
+    	projet = entityManager.find(Projet.class, projet.getProjId());
+    	entityManager.remove(projet);
+    }
+    
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public Projet updateProjet(Projet projetToUpdate){
+    	return entityManager.merge(projetToUpdate);
+    }
+    
     
 }

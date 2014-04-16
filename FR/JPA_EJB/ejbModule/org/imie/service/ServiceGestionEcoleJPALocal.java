@@ -41,4 +41,9 @@ public interface ServiceGestionEcoleJPALocal {
     public List<Projet> rechercherProjet(Projet prj);
     public List<Travaille> rechercherTravaille(Travaille trv);
     public List<Role> rechercherRole(Role role);
+    public Projet insertProjet(Projet projet);
+    public void deleteProjet(Projet projet);
+    public Projet updateProjet(Projet projetToUpdate);
+    	  
+    
 }

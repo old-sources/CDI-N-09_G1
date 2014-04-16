@@ -36,12 +36,15 @@
 		
 		$('.actionFormulaire').button();
 
+		
 		var dateString = new Date("${loguedPerson.dateNaiss}");
 		$('#inputDateNaiss').datepicker({
 			defaultDate : dateString
 		});
 		$('#inputDateNaiss').val(dateString.toLocaleDateString("fr-FR"));
 
+		console.log("inputdatenaiss : "+dateString);
+		
 		$('#formulaire').dialog({
 			autoOpen : false,
 			show : {
@@ -138,12 +141,9 @@
 
 			<div>
 
-				<BUTTON class="actionFormulaire" data-id="${personne.id}">ajouter
-					une compétence (non géré)</BUTTON>
+				<BUTTON class="actionFormulaire" data-id="${personne.id}">ajouter une compétence (non géré)</BUTTON>
 
-				<BUTTON class="actionFormulaire" name="update" onclick="javascript:location.reload();">Modifier (non
-					fini + si plusieurs compétences toutes ont le meme input name
-					reconcevoir)</BUTTON>
+				<BUTTON class="actionFormulaire" name="update" onclick="javascript:location.reload();">Modifier (ne met pas a jour les compétences)</BUTTON>
 			</div>
 		</form>
 	</div>

@@ -47,13 +47,19 @@ public class HProjet extends HttpServlet {
 		List<Projet> foundProjets = serviceGestionEcole.rechercherProjet(searchProjet);
 		request.setAttribute("foundProjets", foundProjets);
 		
+		// on passe tous les profils en request pour la liste de la popup modif projet
+		Personne searchPersonne = new Personne();
+		List<Personne> foundPersonnes = serviceGestionEcole
+				.rechercherPersonne(searchPersonne);
+		request.setAttribute("foundPersonnes", foundPersonnes);
+		
 		// loguedPerson passé en request
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		Personne loguedPerson = new Personne();
 		loguedPerson=(Personne) httpServletRequest.getSession().getAttribute("authentifiedPersonne");
 		request.setAttribute("loguedPerson", loguedPerson);
 		
-		request.getRequestDispatcher("/WEB-INF/JPersonne.jsp").forward(
+		request.getRequestDispatcher("/WEB-INF/JProjet.jsp").forward(
 				request, response);
 	}
 
@@ -64,79 +70,92 @@ public class HProjet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		System.out.println("HPersonne Post");
+		System.out.println("HProjet Post");
 		
-		// recherche de la personne à modifier
-		Personne updatedPerson = new Personne();
+		// recherche du projet à modifier
+		Projet updatedProjet = new Projet();
 
-		//updatedPerson = serviceGestionEcole.rechercherPersonne(updatedPerson)
-		//		.get(0);
 		// affectation des nouvelles valeurs
-		
-		
-		
-		String inputNom = request.getParameter("inputNom");
-		updatedPerson.setNom(inputNom);
-		System.out.println("nom : "+inputNom);
+		String inputPersonne = request.getParameter("inputPersonne");
+		System.out.println("inputPersonne par id : "+inputPersonne);
+		Personne cdp = new Personne();
+		cdp.setId(Integer.valueOf(inputPersonne));
+		cdp = serviceGestionEcole.rechercherPersonne(cdp).get(0);
+		updatedProjet.setPersonne(cdp);
+		System.out.println("inputCdpNom : "+cdp.getNom());
 	
-		String inputPrenom = request.getParameter("inputPrenom");
-		updatedPerson.setPrenom(inputPrenom);
-		System.out.println("prenom : "+inputPrenom);
+		String inputProjNom = request.getParameter("inputProjNom");
+		updatedProjet.setProjNom(inputProjNom);
+		System.out.println("inputProjNom : "+inputProjNom);
+		
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-		String inputDateNaissString = request.getParameter("inputDateNaiss");
-		System.out.println("datenaiss : "+inputDateNaissString);
+		
+		String inputProjDatedebut = request.getParameter("inputProjDatedebut");
+		System.out.println("inputProjDatedebut : "+inputProjDatedebut);
 		try {
-			Date inputDateNaiss = simpleDateFormat.parse(inputDateNaissString);
-			updatedPerson.setDateNaiss(inputDateNaiss);
+			Date inputDate = simpleDateFormat.parse(inputProjDatedebut);
+			updatedProjet.setProjDatedebut(inputDate);
 		} catch (ParseException e) {
 			throw new RuntimeException(e);
 		}
+		String inputProjDatedefin = request.getParameter("inputProjDatedefin");
+		System.out.println("inputProjDatedefin : "+inputProjDatedefin);
+		try {
+			Date inputDate = simpleDateFormat.parse(inputProjDatedefin);
+			updatedProjet.setProjDatedefin(inputDate);
+		} catch (ParseException e) {
+			throw new RuntimeException(e);
+		}
+		
+		String inputprojDescription = request.getParameter("inputprojDescription");
+		updatedProjet.setProjDescription(inputprojDescription);
+		System.out.println("inputprojDescription : "+inputprojDescription);
 
-//		String inputPassword = request.getParameter("inputPassword");
-//		if (inputPassword != null && !inputPassword.isEmpty()) {
-//			updatedPerson.setPassw(inputPassword);
-//		}
-
-		// + categorie : admin, user, super admin
+		String inputProjWikiCdp = request.getParameter("inputProjWikiCdp");
+		updatedProjet.setProjWikiCdp(inputProjWikiCdp);
+		System.out.println("inputProjWikiCdp : "+inputProjWikiCdp);
+		
+		String inputprojWikiMembre = request.getParameter("inputprojWikiMembre");
+		updatedProjet.setProjWikiMembre(inputprojWikiMembre);
+		System.out.println("inputprojWikiMembre : "+inputprojWikiMembre);
+		
+		String inputprojAvancemen = request.getParameter("inputprojAvancement");
+		updatedProjet.setProjAvancement(inputprojAvancemen);
+		System.out.println("inputprojAvancement : "+inputprojAvancemen);
+		
+		
+		
+		////////////////////////////////////  delete update create  /////////////////////////////////////
+		
+		
 		
 		if (request.getParameter("delete") != null) {
-			System.out.println("HPersonne Post delete");
+			System.out.println("HProjet Post delete");
 			try {
-				Integer inputId = Integer.valueOf(request.getParameter("inputId"));
-				updatedPerson.setId(inputId);
-				System.out.println("id : "+inputId);
-				serviceGestionEcole.deletePersonne(updatedPerson);
+				Integer inputProjId = Integer.valueOf(request.getParameter("inputProjId"));
+				updatedProjet.setProjId(inputProjId);
+				System.out.println("inputProjId : "+inputProjId);
+				serviceGestionEcole.deleteProjet(updatedProjet);
 			}
 			catch (NumberFormatException e) {
 				// parametres non corrects : pas de suppression
 			}
 		}
-		
-		String inputPromotionString = request.getParameter("inputPromotion");
-		if (!inputPromotionString.isEmpty()) {
-			Integer inputPromotion = Integer.valueOf(inputPromotionString);
-			Promotion searchPromotion = new Promotion();
-			searchPromotion.setId(inputPromotion);
-			searchPromotion = serviceGestionEcole.rechercherPromotion(
-					searchPromotion).get(0);
-			updatedPerson.setPromotion(searchPromotion);
-		} else {
-			updatedPerson.setPromotion(null);
-		}
 
 		if (request.getParameter("create") != null) {
-			serviceGestionEcole.insertPersonne(updatedPerson);
+			System.out.println("HProjet POST create");
+			serviceGestionEcole.insertProjet(updatedProjet);
 		}
 
 		if (request.getParameter("update") != null) {
-			System.out.println("HPersonne POST update");
-			Integer inputId = Integer.valueOf(request.getParameter("inputId"));
-			System.out.println("InputId = "+inputId);
-			updatedPerson.setId(inputId);
-			serviceGestionEcole.updatePersonne(updatedPerson);
+			System.out.println("HProjet POST update");
+			Integer inputProjId = Integer.valueOf(request.getParameter("inputProjId"));
+			System.out.println("inputProjId = "+inputProjId);
+			updatedProjet.setProjId(inputProjId);
+			serviceGestionEcole.updateProjet(updatedProjet);
 		}
 
-		response.sendRedirect("/GTC/HPersonne");
+		response.sendRedirect("/GTC/HProjet");
 	}
 
 }

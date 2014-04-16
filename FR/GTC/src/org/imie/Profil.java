@@ -126,7 +126,7 @@ public class Profil extends HttpServlet {
 		System.out.println("email : "+inputEmail);
 		
 		if (request.getParameter("delete") != null) {
-			System.out.println("HPersonne Post delete");
+			System.out.println("Profil Post delete");
 			try {
 				Integer inputId = Integer.valueOf(request.getParameter("inputId"));
 				updatedPerson.setId(inputId);
