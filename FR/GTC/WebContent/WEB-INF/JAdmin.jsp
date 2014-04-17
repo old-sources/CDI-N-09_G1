@@ -36,6 +36,9 @@
 		$('#afficheListeProjets').on('click', function(e) {
 			document.location.href="/GTC/HProjet";
  		});
+		$('#afficherListeCompetences').on('click', function(e) {
+			document.location.href="/GTC/HCompetences";
+ 		});
 		$('#importerUnFichier').on('click', function(e) {
 			document.location.href="/GTC/HImport";
  		});
@@ -59,6 +62,9 @@
 			projets</BUTTON>
 			
 			<br><br>
+		<BUTTON id="afficherListeCompetences">Gestion des compétences</BUTTON>
+		
+		<br><br>
 		<BUTTON id="importerUnFichier">importer un fichier d'étudiants</BUTTON>
 		
 </body>

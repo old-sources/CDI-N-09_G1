@@ -53,48 +53,48 @@ public class HImport extends HttpServlet {
 		// TODO Auto-generated method stub
 	}
 	
-	public void runKWYOUNG() {
-		 
-//		String csvFile = "/home/imie/filrouge/data/test.csv";
-		String csvFile = "/home/imie/Documents/saves/test.csv";
-		BufferedReader br = null;
-		String line = "";
-		String cvsSplitBy = ";";
-	 
-		try {
-	 
-			br = new BufferedReader(new FileReader(csvFile));
-			while ((line = br.readLine()) != null) {
-	 
-			        // use comma as separator
-				String[] country = line.split(cvsSplitBy);
-				System.out.println("line affichee"+line);
-				System.out.println("Country [code= " + country[4] 
-	                                 + " , name=" + country[5] + "]");
-	 
-			}
-	 
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (br != null) {
-				try {
-					br.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-	 
-		System.out.println("Done");
-	  }
+//	public void runKWYOUNG() {
+//		 
+//		//String csvFile = "/home/imie/filrouge/data/test.csv";
+//		//String csvFile = "/home/imie/Documents/saves/test.csv";
+//		BufferedReader br = null;
+//		String line = "";
+//		String cvsSplitBy = ";";
+//	 
+//		try {
+//	 
+//			br = new BufferedReader(new FileReader(csvFile));
+//			while ((line = br.readLine()) != null) {
+//	 
+//			        // use comma as separator
+//				String[] country = line.split(cvsSplitBy);
+//				System.out.println("line affichee"+line);
+//				System.out.println("Country [code= " + country[4] 
+//	                                 + " , name=" + country[5] + "]");
+//	 
+//			}
+//	 
+//		} catch (FileNotFoundException e) {
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		} finally {
+//			if (br != null) {
+//				try {
+//					br.close();
+//				} catch (IOException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		}
+//	 
+//		System.out.println("Done");
+//	  }
 	
 	public void run() {
 		 
-//		String csvFile = "/home/imie/filrouge/data/test.csv";
-		String csvFile = "/home/imie/Documents/saves/test.csv";
+		String csvFile = "/home/imie/filrouge/data/test.csv";
+		//String csvFile = "/home/imie/Documents/saves/test.csv";
 		BufferedReader br = null;
 		String line = "";
 		String cvsSplitBy = ";";
@@ -118,6 +118,10 @@ public class HImport extends HttpServlet {
 		    	
 				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 				String inputDateNaissString = pers[7];
+				inputDateNaissString = inputDateNaissString.substring(0, inputDateNaissString.length()-1) ;
+				inputDateNaissString = inputDateNaissString.substring(1, inputDateNaissString.length()) ;
+				inputDateNaissString = inputDateNaissString.substring(0, inputDateNaissString.length()-1) ;
+				inputDateNaissString = inputDateNaissString.substring(1, inputDateNaissString.length()) ;
 				System.out.println("datenaiss : "+inputDateNaissString);
 				try {
 					Date inputDateNaiss = simpleDateFormat.parse(inputDateNaissString);
