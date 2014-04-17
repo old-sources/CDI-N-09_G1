@@ -41,58 +41,7 @@ public class HImport extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HImport obj = new HImport();
-		obj.run();
-		response.sendRedirect("/GTC/Admin");
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-	}
 	
-//	public void runKWYOUNG() {
-//		 
-//		//String csvFile = "/home/imie/filrouge/data/test.csv";
-//		//String csvFile = "/home/imie/Documents/saves/test.csv";
-//		BufferedReader br = null;
-//		String line = "";
-//		String cvsSplitBy = ";";
-//	 
-//		try {
-//	 
-//			br = new BufferedReader(new FileReader(csvFile));
-//			while ((line = br.readLine()) != null) {
-//	 
-//			        // use comma as separator
-//				String[] country = line.split(cvsSplitBy);
-//				System.out.println("line affichee"+line);
-//				System.out.println("Country [code= " + country[4] 
-//	                                 + " , name=" + country[5] + "]");
-//	 
-//			}
-//	 
-//		} catch (FileNotFoundException e) {
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		} finally {
-//			if (br != null) {
-//				try {
-//					br.close();
-//				} catch (IOException e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		}
-//	 
-//		System.out.println("Done");
-//	  }
-	
-	public void run() {
-		 
 		String csvFile = "/home/imie/filrouge/data/test.csv";
 		//String csvFile = "/home/imie/Documents/saves/test.csv";
 		BufferedReader br = null;
@@ -188,8 +137,24 @@ public class HImport extends HttpServlet {
 		}
 	 
 		System.out.println("Done");
-	  }
+	  
 	 
+		
+		
+		
+		response.sendRedirect("/GTC/Admin");
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+	}
+	
+
+		 
+		
 	 
 	
 

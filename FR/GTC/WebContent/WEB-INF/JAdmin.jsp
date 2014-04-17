@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@page import="java.util.Date"%>
+<%@page import="model.Personne"%>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr"
@@ -20,13 +21,20 @@
 <title>Administration</title>
 <SCRIPT type="text/javascript">
 	
-	
 	$(document).ready(function() {
 	
+		$('#divProfil').hide();
+		if ("${loguedPerson.role.roleId}" != 1) {
+			$('#divProfil').show();
+		}
+
 		$('.onlyadmin').hide();
+		console.log('1;');
 		if ("${loguedPerson.role.roleId}" != 1) {
 			$('.onlyadmin').show();
+			console.log('2;');
 		}
+		
 		$('#afficheListeUsers').on('click', function(e) {
 			document.location.href="/GTC/HPersonne";
 		});
@@ -36,9 +44,6 @@
 		$('#afficheListeProjets').on('click', function(e) {
 			document.location.href="/GTC/HProjet";
  		});
-		$('#afficherListeCompetences').on('click', function(e) {
-			document.location.href="/GTC/HCompetences";
- 		});
 		$('#importerUnFichier').on('click', function(e) {
 			document.location.href="/GTC/HImport";
  		});
@@ -47,6 +52,9 @@
 </SCRIPT>
 </head>
 <body>
+
+
+
 	<%@ include file="/WEB-INF/header.jsp"%>
 	<div id="divProfil">
 
@@ -63,9 +71,10 @@
 			
 			<br><br>
 		<BUTTON id="afficherListeCompetences">Gestion des compétences</BUTTON>
-		
+	
+
 		<br><br>
 		<BUTTON id="importerUnFichier">importer un fichier d'étudiants</BUTTON>
-		
+</div>
 </body>
 </html>
