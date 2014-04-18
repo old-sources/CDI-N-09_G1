@@ -75,9 +75,9 @@
 						</TD>
 						<TD><c:out value="${comp.competence.getCompIntitule()}" /></TD>
 						<TD>
-						<c:forEach items="${competences}" var="compchild">
-							<c:out value="+${compchild.compIntitule}" />
-						</c:forEach>
+<%-- 						<c:forEach items="${comp.competences}" var="compchild"> --%>
+<%-- 							<c:out value="${compchild.compIntitule}" /> --%>
+<%-- 						</c:forEach> --%>
 						</TD>
 					</tr>
 				</c:forEach>
