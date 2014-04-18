@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.Competence;
 import model.Personne;
 import model.Projet;
 import model.Promotion;
@@ -20,9 +21,9 @@ import model.Promotion;
 import org.imie.service.ServiceGestionEcoleJPALocal;
 
 /**
- * Servlet implementation class TP3_Controller
+ * Servlet implementation class TP3_Controller ????
  */
-@WebServlet("/HProjet/*")
+@WebServlet("/HCompetence/*")
 public class HCompetence extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@EJB ServiceGestionEcoleJPALocal serviceGestionEcole;
@@ -40,12 +41,12 @@ public class HCompetence extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("HProjet Get");
+		System.out.println("HCompetence Get"); // console verif
 
-		// on met tous les projets dans foundProjets
-		Projet searchProjet = new Projet();
-		List<Projet> foundProjets = serviceGestionEcole.rechercherProjet(searchProjet);
-		request.setAttribute("foundProjets", foundProjets);
+		// on met toutes les competences dans foundCompetences
+		Competence searchCompetences = new Competence();
+		List<Competence> foundCompetences = serviceGestionEcole.rechercherCompetence(searchCompetences);
+		request.setAttribute("foundCompetences", foundCompetences);
 		
 		// on passe tous les profils en request pour la liste de la popup modif projet
 		Personne searchPersonne = new Personne();
@@ -59,7 +60,7 @@ public class HCompetence extends HttpServlet {
 		loguedPerson=(Personne) httpServletRequest.getSession().getAttribute("authentifiedPersonne");
 		request.setAttribute("loguedPerson", loguedPerson);
 		
-		request.getRequestDispatcher("/WEB-INF/JProjet.jsp").forward(
+		request.getRequestDispatcher("/WEB-INF/JCompetence.jsp").forward(
 				request, response);
 	}
 
@@ -70,72 +71,24 @@ public class HCompetence extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		System.out.println("HProjet Post");
+		System.out.println("HCompetence Post");
 		
 		// recherche du projet à modifier
-		Projet updatedProjet = new Projet();
+		Competence updatedCompetence = new Competence();
 
 		// affectation des nouvelles valeurs
-		String inputPersonne = request.getParameter("inputPersonne");
-		System.out.println("inputPersonne par id : "+inputPersonne);
-		Personne cdp = new Personne();
-		cdp.setId(Integer.valueOf(inputPersonne));
-		cdp = serviceGestionEcole.rechercherPersonne(cdp).get(0);
-		updatedProjet.setPersonne(cdp);
-		System.out.println("inputCdpNom : "+cdp.getNom());
 	
-		String inputProjNom = request.getParameter("inputProjNom");
-		updatedProjet.setProjNom(inputProjNom);
-		System.out.println("inputProjNom : "+inputProjNom);
-		
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-		
-		String inputProjDatedebut = request.getParameter("inputProjDatedebut");
-		System.out.println("inputProjDatedebut : "+inputProjDatedebut);
-		try {
-			Date inputDate = simpleDateFormat.parse(inputProjDatedebut);
-			updatedProjet.setProjDatedebut(inputDate);
-		} catch (ParseException e) {
-			throw new RuntimeException(e);
-		}
-		String inputProjDatedefin = request.getParameter("inputProjDatedefin");
-		System.out.println("inputProjDatedefin : "+inputProjDatedefin);
-		try {
-			Date inputDate = simpleDateFormat.parse(inputProjDatedefin);
-			updatedProjet.setProjDatedefin(inputDate);
-		} catch (ParseException e) {
-			throw new RuntimeException(e);
-		}
-		
-		String inputprojDescription = request.getParameter("inputprojDescription");
-		updatedProjet.setProjDescription(inputprojDescription);
-		System.out.println("inputprojDescription : "+inputprojDescription);
-
-		String inputProjWikiCdp = request.getParameter("inputProjWikiCdp");
-		updatedProjet.setProjWikiCdp(inputProjWikiCdp);
-		System.out.println("inputProjWikiCdp : "+inputProjWikiCdp);
-		
-		String inputprojWikiMembre = request.getParameter("inputprojWikiMembre");
-		updatedProjet.setProjWikiMembre(inputprojWikiMembre);
-		System.out.println("inputprojWikiMembre : "+inputprojWikiMembre);
-		
-		String inputprojAvancemen = request.getParameter("inputprojAvancement");
-		updatedProjet.setProjAvancement(inputprojAvancemen);
-		System.out.println("inputprojAvancement : "+inputprojAvancemen);
-		
-		
-		
 		////////////////////////////////////  delete update create  /////////////////////////////////////
 		
 		
 		
 		if (request.getParameter("delete") != null) {
-			System.out.println("HProjet Post delete");
+			System.out.println("HCompetence Post delete");
 			try {
-				Integer inputProjId = Integer.valueOf(request.getParameter("inputProjId"));
-				updatedProjet.setProjId(inputProjId);
-				System.out.println("inputProjId : "+inputProjId);
-				serviceGestionEcole.deleteProjet(updatedProjet);
+				Integer inputCompId = Integer.valueOf(request.getParameter("inputCompId"));
+				updatedCompetence.setCompId(inputCompId);
+				System.out.println("inputProjId : "+inputCompId);
+				serviceGestionEcole.deleteCompetence(updatedCompetence);
 			}
 			catch (NumberFormatException e) {
 				// parametres non corrects : pas de suppression
@@ -144,18 +97,18 @@ public class HCompetence extends HttpServlet {
 
 		if (request.getParameter("create") != null) {
 			System.out.println("HProjet POST create");
-			serviceGestionEcole.insertProjet(updatedProjet);
+			serviceGestionEcole.insertCompetence(updatedCompetence);
 		}
 
 		if (request.getParameter("update") != null) {
 			System.out.println("HProjet POST update");
 			Integer inputProjId = Integer.valueOf(request.getParameter("inputProjId"));
 			System.out.println("inputProjId = "+inputProjId);
-			updatedProjet.setProjId(inputProjId);
-			serviceGestionEcole.updateProjet(updatedProjet);
+			updatedCompetence.setCompId(inputProjId);
+			serviceGestionEcole.updateCompetence(updatedCompetence);
 		}
 
-		response.sendRedirect("/GTC/HProjet");
+		response.sendRedirect("/GTC/HCompetence");
 	}
 
 }
