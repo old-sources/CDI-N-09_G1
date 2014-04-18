@@ -4,7 +4,7 @@ import java.io.IOException;
 //import java.text.ParseException;
 //import java.text.SimpleDateFormat;
 //import java.util.Date;
-import java.util.List;
+//import java.util.List;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -22,7 +22,7 @@ import org.imie.service.ServiceGestionEcoleJPALocal;
 /**
  * Servlet implementation class TP3_Controller ????
  */
-@WebServlet("/HCompetence/*")
+@WebServlet("/Competence/*")
 public class HCompetence extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@EJB ServiceGestionEcoleJPALocal serviceGestionEcole;
@@ -43,9 +43,10 @@ public class HCompetence extends HttpServlet {
 		System.out.println("HCompetence Get"); // console verif
 
 		// on met toutes les competences dans foundCompetences
+		
 		Competence searchCompetences = new Competence();
-		List<Competence> foundCompetences = serviceGestionEcole.rechercherCompetence(searchCompetences);
-		request.setAttribute("foundCompetences", foundCompetences);
+		//List<Competence> foundCompetences = serviceGestionEcole.rechercherCompetence(searchCompetences);
+		//request.setAttribute("foundCompetences", foundCompetences);
 		
 //		// on passe tous les profils en request pour ??
 //		Personne searchPersonne = new Personne();
