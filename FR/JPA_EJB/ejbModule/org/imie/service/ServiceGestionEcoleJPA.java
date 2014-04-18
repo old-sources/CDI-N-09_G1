@@ -414,6 +414,11 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote,
 				.getResultList();
 		return result;
 	}
+	
+	
+	
+	// JM méthodes compétences à implémenter
+
 
 	// --------------------------------------------------------
 	// Delete Competence
@@ -422,46 +427,31 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote,
 	public void deleteCompetence(Competence deletedCompetence) {
 		// TODO Auto-generated method stub
 		
+		// passage du monde objet au monde relationnel ?? ou juste completion de l'entité ?
+		deletedCompetence = entityManager.find(Competence.class,deletedCompetence.getCompId());
+		// vraiment indispensable ??
+		
+		// pere competence à modifier
 		Competence father = deletedCompetence.getCompetence();
-		// modification des enfants
+		// modification des enfants, leur père devient le père de la compétence supprimée
 		List<Competence> children = deletedCompetence.getCompetences();
 		for (Competence comp : children) {
 			comp.setCompetence(father);
 			updateCompetence(comp);
 		}
-		 
 		
+		// Recherche et suppression de toutes les relations avec cette commpétence
+		Possede relation = new Possede();
+		relation.setCompetence(deletedCompetence);
+		List<Possede> listRelation = rechercherPossede(relation);
+		// on supprime toutes les relation trouvée dans la classe
 
-		// passage du monde objet au monde relationnel
-		//root = 
-		deletedCompetence = entityManager.find(Competence.class,
-				deletedCompetence.getCompId());
-
-		// // on eleve la dependance FK possede de la personne
-		// while (personne.getPossedes().size()>0){
-		// int numElt = personne.getPossedes().size() - 1;
-		// Possede poss = personne.getPossedes().get(numElt);
-		// personne.getPossedes().remove(numElt);
-		// //poss.getCompetence().getPossedes().remove(poss.getCompetence().getPossedes().size()
-		// - 1);
-		// entityManager.remove(poss);
-		// }
-
-		// CriteriaBuilder qb=entityManager.getCriteriaBuilder();
-		// CriteriaQuery<Competence> query = qb.createQuery(Competence.class);
-		// Root<Competence> compRoot = query.from(Competence.class);
-		// List<Predicate> criteria = new ArrayList<Predicate>();
-
-		// on eleve la dependance FK possede de la personne
-		// while (Competence.getPossedes().size()>0){
-		// int numElt = personne.getPossedes().size() - 1;
-		// Possede poss = personne.getPossedes().get(numElt);
-		// personne.getPossedes().remove(numElt);
-		// //poss.getCompetence().getPossedes().remove(poss.getCompetence().getPossedes().size()
-		// - 1);
-		// entityManager.remove(poss);
-		// }
-
+		//besoin méthode deletePossede  ??
+		//on eleve la dependance FK possede de
+		for (Possede rel : listRelation) {
+			entityManager.remove(rel);
+		}
+		
 		entityManager.remove(deletedCompetence);
 	}
 
@@ -490,7 +480,6 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote,
 			// initialisation de modèle : compétence vide
 			searchCompChild.setCompetence(comp); // affectation du père
 			List<Competence> resultChild = rechercherCompetence(searchCompChild);
-			// System.out.println("HCompetence Post Child");
 			// recherche de toute les compétences ayant comp pour père
 			// affectation de cette liste à comp
 			comp.setCompetences(resultChild);
