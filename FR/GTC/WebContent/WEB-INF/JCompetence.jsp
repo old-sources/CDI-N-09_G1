@@ -16,20 +16,25 @@
 
 <script type="text/javascript" src="js/jquery-1.10.2.js"></script>
 <script type="text/javascript" src="js/jquery-ui-1.10.4.custom.js"></script>
-<script type="text/javascript" charset="utf8"	src="js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" charset="utf8"	src="js/jquery.dataTables.yadcf.js"></script>
+<script type="text/javascript" charset="utf8"
+	src="js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" charset="utf8"
+	src="js/jquery.dataTables.yadcf.js"></script>
 
-<link href="css/south-street/jquery-ui-1.10.4.custom.css" 	rel="stylesheet" type="text/css" />
+<link href="css/south-street/jquery-ui-1.10.4.custom.css"
+	rel="stylesheet" type="text/css" />
 
 <link rel=stylesheet type="text/css" href="css/style.css">
-<link rel="stylesheet" type="text/css"	href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
-<link rel=stylesheet type="text/css"	href="css/jquery.dataTables.yadcf.css">
+<link rel="stylesheet" type="text/css"
+	href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+<link rel=stylesheet type="text/css"
+	href="css/jquery.dataTables.yadcf.css">
 
 <title>Gestion de Compétences</title>
 
 <SCRIPT type="text/javascript">
 	$(document).ready(function() {
-		
+
 		$('#tableComp').dataTable({
 			"bJQueryUI" : true
 		}).yadcf([ {
@@ -53,7 +58,7 @@
 
 
 
-<!-- 	<div class="tabCompetence" id="tabComp"> -->
+	<!-- 	<div class="tabCompetence" id="tabComp"> -->
 	<div class="cell3" id="divProjet">
 		<label for="listeCompétences"> compétence école </label>
 
@@ -70,15 +75,14 @@
 				<c:forEach items="${foundCompetences}" var="comp">
 					<tr>
 						<TD><c:out value="${comp.compId}" /></TD>
-						<TD><c:out value="${comp.compIntitule}" />
-<%-- getter et setteur  automatiques JPA <c:out value="(${comp.getCompIntitule()})" />	--%>
+						<TD><c:out value="${comp.compIntitule}" /> <%-- getter et setteur  automatiques JPA <c:out value="(${comp.getCompIntitule()})" />	--%>
 						</TD>
 						<TD><c:out value="${comp.competence.getCompIntitule()}" /></TD>
-						<TD>
-<%-- 						<c:forEach items="${comp.competences}" var="compchild"> --%>
-<%-- 							<c:out value="${compchild.compIntitule}" /> --%>
-<%-- 						</c:forEach> --%>
-						</TD>
+						<TD><c:forEach items="${comp.competences}" var="compchild">
+								<%-- 							<c:forEach items="${comp.getCompetences()}" var="compchild"> --%>
+								 								<c:out value="+" />
+								<c:out value="${compchild.compIntitule}" />
+							</c:forEach></TD>
 					</tr>
 				</c:forEach>
 			</TBODY>

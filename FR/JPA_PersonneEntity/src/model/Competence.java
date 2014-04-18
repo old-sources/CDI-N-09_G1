@@ -73,7 +73,7 @@ public class Competence implements Serializable {
 	}
 
 	public List<Competence> getCompetences() {
-		return this.competences; // enfants
+		return this.competences; // enfants ??
 	}
 
 	public void setCompetences(List<Competence> competences) {

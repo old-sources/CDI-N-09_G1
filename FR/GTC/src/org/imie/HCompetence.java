@@ -50,6 +50,18 @@ public class HCompetence extends HttpServlet {
 		Competence searchCompetences = new Competence();
 		List<Competence> foundCompetences = serviceGestionEcole
 				.rechercherCompetence(searchCompetences);
+		
+		// Affectation de la liste des enfants comme attributs
+		for (Competence comp : foundCompetences) {
+			Competence searchCompChild = new Competence(); // initialisation modèle : compétence vide
+			searchCompChild.setCompetence(comp); // affectation du père
+			List<Competence> resultChild = serviceGestionEcole.rechercherCompetence(searchCompChild); 
+			//System.out.println("HCompetence Post Child");
+			// recherche de toute les compétences ayant comp pour père
+			// affectation de cette liste à comp
+			comp.setCompetences(resultChild);
+		}	
+
 		request.setAttribute("foundCompetences", foundCompetences);
 
 		// // on passe tous les profils en request pour ??
@@ -78,10 +90,24 @@ public class HCompetence extends HttpServlet {
 
 		System.out.println("HCompetence Post");
 
-		// on liste tout-es les compétences
+		// on liste toutes les compétences
 		Competence searchCompetence = new Competence();
+		
 		List<Competence> foundCompetences = serviceGestionEcole
 				.rechercherCompetence(searchCompetence);
+		
+		// Affectation de la liste des enfants comme attributs 
+		for (Competence comp : foundCompetences) {
+			Competence searchCompChild = new Competence(); // compétence vide
+			searchCompChild.setCompetence(comp); // affectation du père
+			List<Competence> resultChild = serviceGestionEcole.rechercherCompetence(searchCompChild); 
+			// recherche de toute les compétences ayant comp pour père
+			// affectation de cette liste à comp
+			comp.setCompetences(resultChild);
+		}		
+		
+		System.out.println("HCompetence Post attribution request");
+		
 		request.setAttribute("foundCompetences", foundCompetences);
 
 		// affectation des nouvelles valeurs
