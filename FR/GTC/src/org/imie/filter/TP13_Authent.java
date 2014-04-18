@@ -64,10 +64,12 @@ public class TP13_Authent implements Filter {
 			//Interception forcée des POST des URL contenant TP13
 			if (httpServletRequest.getMethod().equals("POST")
 					&& httpServletRequest.getParameter("valider") != null) {
-				String inputNom = request.getParameter("inputNom");
+//	NK			String inputNom = request.getParameter("inputNom");
+				String inputLogin = request.getParameter("inputLogin");
 				String inputPassword = request.getParameter("inputPassword");
 				Personne searchPersonne = new Personne();
-				searchPersonne.setNom(inputNom);
+//	NK			searchPersonne.setNom(inputNom);
+				searchPersonne.setIdentConnexion(inputLogin);
 				searchPersonne.setPassw(inputPassword);
 				Personne authPersonne = null;
 				try {

@@ -60,10 +60,12 @@ public class TP13_View extends HttpServlet {
 		printWriter.println("<div class=\"row\">");
 
 		printWriter.println("<div class=\"cell\">");
-		printWriter.println("<label for=\"\">nom</label>");
+//	NK	printWriter.println("<label for=\"\">nom</label>");
+		printWriter.println("<label for=\"\">Login</label>");
 		printWriter.println("</div>");
 		printWriter.println("<div class=\"cell\">");
-		printWriter.println("<input type=\"text\" name=\"inputNom\" />");
+//	NK	printWriter.println("<input type=\"text\" name=\"inputNom\" />");
+		printWriter.println("<input type=\"text\" name=\"inputLogin\" />");
 		printWriter.println("</div>");
 
 		printWriter.println("</div>");
