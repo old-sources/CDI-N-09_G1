@@ -210,11 +210,12 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote, Ser
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public Personne verifierAuthPersonne(Personne personne) throws ServiceException {
 		Personne retour = null;
-		if ((personne.getNom() == null || personne.getNom().isEmpty())
+//	NK	if ((personne.getNom() == null || personne.getNom().isEmpty())
+		if ((personne.getIdentConnexion() == null || personne.getIdentConnexion().isEmpty())
 				|| (personne.getPassw() == null || personne.getPassw()
 						.isEmpty())) {
 			throw new ServiceException(
-					"la personne à authentifier doit renseigner son nom et son passw");
+					"la personne à authentifier doit renseigner son login et son passw");
 
 		}
 
@@ -225,7 +226,8 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote, Ser
 
     	//creation liste de criteres
     	List<Predicate> criteria = new ArrayList<Predicate>();
-   		criteria.add(qb.equal(personneRoot.<String>get("nom"), personne.getNom()));
+//   NK		criteria.add(qb.equal(personneRoot.<String>get("nom"), personne.getNom()));
+   		criteria.add(qb.equal(personneRoot.<String>get("identConnexion"), personne.getIdentConnexion()));
     	criteria.add(qb.equal(personneRoot.<String>get("passw"), personne.getPassw()));
     	query.where(criteria.toArray(new Predicate[]{}));
 

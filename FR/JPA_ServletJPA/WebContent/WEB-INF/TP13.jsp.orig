@@ -1,0 +1,17 @@
+<%@page import="model.Personne"%>
+<jsp:useBean id="authentifiedPersonne"
+	class="model.Personne" scope="session"></jsp:useBean>
+<header>
+<<<<<<< HEAD
+	<div>
+=======
+	<div id="BarreId">
+
+>>>>>>> 4664f5cb358ac9041842cd0673971b66c25d0914
+		<span> <jsp:getProperty property="nom"
+				name="authentifiedPersonne" /> - <jsp:getProperty property="prenom"
+				name="authentifiedPersonne" /> </span>
+		<a href="TP13_Deconnection">Deconnection</a>
+
+	</div>
+</header>
