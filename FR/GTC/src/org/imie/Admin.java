@@ -1,9 +1,7 @@
 package org.imie;
 
+import java.io.File;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -13,10 +11,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.imie.service.ServiceGestionEcoleJPALocal;
-
 import model.Personne;
 import model.Promotion;
+
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.imie.service.ServiceGestionEcoleJPALocal;
+
 
 /**
  * Servlet implementation class MesProjets
@@ -24,115 +25,234 @@ import model.Promotion;
 @WebServlet("/Admin")
 public class Admin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	@EJB ServiceGestionEcoleJPALocal serviceGestionEcole;   
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public Admin() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	@EJB
+	ServiceGestionEcoleJPALocal serviceGestionEcole;
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+
+	private boolean isMultipart;
+	private String filePath;
+	private int maxFileSize = 50 * 1024;
+	private int maxMemSize = 4 * 1024;
+	private File file;
+
+	public void init() {
+		// Get the file location where it would be stored.
+		filePath = getServletContext().getInitParameter("file-upload");
+	}
+
+	public Admin() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("MesProjets Get");
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("Admin Get");
 
 		Personne searchPersonne = new Personne();
 		request.setAttribute("promotions",
 				serviceGestionEcole.rechercherPromotion(new Promotion()));
-		
+
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		Personne loguedPerson = new Personne();
-		loguedPerson=(Personne) httpServletRequest.getSession().getAttribute("authentifiedPersonne");
+		loguedPerson = (Personne) httpServletRequest.getSession().getAttribute(
+				"authentifiedPersonne");
 		request.setAttribute("loguedPerson", loguedPerson);
-		
+
 		List<Personne> foundPersonnes = serviceGestionEcole
 				.rechercherPersonne(searchPersonne);
 		request.setAttribute("foundPersonnes", foundPersonnes);
-		if ((loguedPerson.getRole().getRoleId() == 2) || (loguedPerson.getRole().getRoleId() == 3)){
-		request.getRequestDispatcher("/WEB-INF/JAdmin.jsp").forward(
-				request, response);
+		if ((loguedPerson.getRole().getRoleId() == 2)
+				|| (loguedPerson.getRole().getRoleId() == 3)) {
+			request.getRequestDispatcher("/WEB-INF/JAdmin.jsp").forward(
+					request, response);
 		}
 		if (loguedPerson.getRole().getRoleId() == 1) {
 			response.sendRedirect("/GTC/Home");
 		}
-		
+
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-System.out.println("HPersonne Post");
-		
-		// recherche de la personne à modifier
-		Personne updatedPerson = new Personne();
-		
-		String inputNom = request.getParameter("inputNom");
-		updatedPerson.setNom(inputNom);
-		System.out.println("nom : "+inputNom);
-	
-		String inputPrenom = request.getParameter("inputPrenom");
-		updatedPerson.setPrenom(inputPrenom);
-		System.out.println("prenom : "+inputPrenom);
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-		String inputDateNaissString = request.getParameter("inputDateNaiss");
-		System.out.println("datenaiss : "+inputDateNaissString);
-		try {
-			Date inputDateNaiss = simpleDateFormat.parse(inputDateNaissString);
-			updatedPerson.setDateNaiss(inputDateNaiss);
-		} catch (ParseException e) {
-			throw new RuntimeException(e);
-		}
+	@Override
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		 System.out.println("AdminPost");
+		//
+		 String inputFile = request.getParameter("file1");
+		 System.out.println("inputFile : "+inputFile);
+		// //if (inputFile != null && !inputFile.isEmpty()) {
+		// // System.out.println(inputFile);
+		// }
 
-//		String inputPassword = request.getParameter("inputPassword");
-//		if (inputPassword != null && !inputPassword.isEmpty()) {
-//			updatedPerson.setPassw(inputPassword);
+		/// ServletFileUpload servletFileUpload = new ServletFileUpload(new DiskFileItemFactory());
+	     
+       //  List<FileItem> fileItemsList= null;
+          
+//        try {
+//            fileItemsList = servletFileUpload.parseRequest(request);
+//        } catch (Exception e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+         
+//         
+//        Iterator it = fileItemsList.iterator();
+//        while (it.hasNext()){
+//            FileItem  fileItem = (FileItem)it.next();
+//          if (fileItem.isFormField()){
+//            // The file item contains a simple name-value pair of a form field
+//              String name = fileItem.getFieldName();
+//              String value = fileItem.getString();
+//          }
+//          else{
+//            // The file item contains an uploaded file
+//              File saveTo = new File("CHEMIN");
+//              String url = saveTo.getAbsolutePath();
+//              try {
+//                fileItem.write(saveTo);
+//            } catch (Exception e) {
+//                // TODO Auto-generated catch block
+//                e.printStackTrace();
+//            }
+//               
+//          }
+//        }   
+		 
+		 
+		 
+		 
+		 
+		// /////////////////////////////////////////////////////////////////////////////////////////////
+//
+//		final String UPLOAD_DIRECTORY = "/home/essais/";
+//
+//		// process only if its multipart content
+//
+//		if (ServletFileUpload.isMultipartContent(request)) {
+//
+//			try {
+//
+//				List<FileItem> multiparts = new ServletFileUpload(
+//
+//				new DiskFileItemFactory()).parseRequest(request);
+//
+//				for (FileItem item : multiparts) {
+//
+//					if (!item.isFormField()) {
+//
+//						String name = new File(item.getName()).getName();
+//
+//						item.write(new File(UPLOAD_DIRECTORY + File.separator
+//								+ name));
+//
+//					}
+//
+//				}
+//
+//				// File uploaded successfully
+//
+//				request.setAttribute("message", "File Uploaded Successfully");
+//
+//			} catch (Exception ex) {
+//
+//				request.setAttribute("message", "File Upload Failed due to "
+//						+ ex);
+//
+//			}
+//
+//		} else {
+//
+//			request.setAttribute("message",
+//
+//			"Sorry this Servlet only handles file upload request");
+//
 //		}
 
-		// + categorie : admin, user, super admin
-		
-		if (request.getParameter("delete") != null) {
-			System.out.println("HPersonne Post delete");
-			try {
-				Integer inputId = Integer.valueOf(request.getParameter("inputId"));
-				updatedPerson.setId(inputId);
-				System.out.println("id : "+inputId);
-				serviceGestionEcole.deletePersonne(updatedPerson);
-			}
-			catch (NumberFormatException e) {
-				// parametres non corrects : pas de suppression
-			}
-		}
-		
-		String inputPromotionString = request.getParameter("inputPromotion");
-		if (!inputPromotionString.isEmpty()) {
-			Integer inputPromotion = Integer.valueOf(inputPromotionString);
-			Promotion searchPromotion = new Promotion();
-			searchPromotion.setId(inputPromotion);
-			searchPromotion = serviceGestionEcole.rechercherPromotion(
-					searchPromotion).get(0);
-			updatedPerson.setPromotion(searchPromotion);
-		} else {
-			updatedPerson.setPromotion(null);
-		}
+		// request.getRequestDispatcher("/result.jsp").forward(request,
+		// response);
 
-		if (request.getParameter("create") != null) {
-			serviceGestionEcole.insertPersonne(updatedPerson);
-		}
+		// //////////////////////////////////////////////////////////////////////////////////////////////
 
-		if (request.getParameter("update") != null) {
-			System.out.println("HPersonne POST update");
-			Integer inputId = Integer.valueOf(request.getParameter("inputId"));
-			System.out.println("InputId = "+inputId);
-			updatedPerson.setId(inputId);
-			serviceGestionEcole.updatePersonne(updatedPerson);
-		}
+		// // Check that we have a file upload request
+		// isMultipart = ServletFileUpload.isMultipartContent(request);
+		// // response.setContentType("text/html");
+		// java.io.PrintWriter out = response.getWriter( );
+		// //// if( !isMultipart ){
+		// //// out.println("<html>");
+		// //// out.println("<head>");
+		// //// out.println("<title>Servlet upload</title>");
+		// //// out.println("</head>");
+		// //// out.println("<body>");
+		// //// out.println("<p>No file uploaded</p>");
+		// //// out.println("</body>");
+		// //// out.println("</html>");
+		// //// return;
+		// //// }
+		// DiskFileItemFactory factory = new DiskFileItemFactory();
+		// // maximum size that will be stored in memory
+		// factory.setSizeThreshold(maxMemSize);
+		// // Location to save data that is larger than maxMemSize.
+		// factory.setRepository(new File("/home/essais/"));
+		//
+		// // Create a new file upload handler
+		// ServletFileUpload upload = new ServletFileUpload(factory);
+		// // maximum file size to be uploaded.
+		// upload.setSizeMax( maxFileSize );
+		//
+		// try{
+		// // Parse the request to get file items.
+		// List fileItems = upload.parseRequest(request);
+		//
+		// // Process the uploaded file items
+		// Iterator i = fileItems.iterator();
+		// //
+		// // out.println("<html>");
+		// // out.println("<head>");
+		// // out.println("<title>Servlet upload</title>");
+		// // out.println("</head>");
+		// // out.println("<body>");
+		// while ( i.hasNext () )
+		// {
+		// FileItem fi = (FileItem)i.next();
+		// if ( !fi.isFormField () )
+		// {
+		// // Get the uploaded file parameters
+		// String fieldName = fi.getFieldName();
+		// String fileName = fi.getName();
+		// String contentType = fi.getContentType();
+		// boolean isInMemory = fi.isInMemory();
+		// long sizeInBytes = fi.getSize();
+		// // Write the file
+		// if( fileName.lastIndexOf("\\") >= 0 ){
+		// file = new File( filePath +
+		// fileName.substring( fileName.lastIndexOf("\\"))) ;
+		// }else{
+		// file = new File( filePath +
+		// fileName.substring(fileName.lastIndexOf("\\")+1)) ;
+		// }
+		// fi.write( file ) ;
+		// out.println("Uploaded Filename: " + fileName + "<br>");
+		// }
+		// }
+		// // out.println("</body>");
+		// // out.println("</html>");
+		// }catch(Exception ex) {
+		// System.out.println(ex);
+		// }
+		//
+		//
 
 		response.sendRedirect("/GTC/Admin");
 	}
-	
 
 }

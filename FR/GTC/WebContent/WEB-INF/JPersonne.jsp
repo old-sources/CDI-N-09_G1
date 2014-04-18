@@ -85,6 +85,7 @@
 			$('#inputEmail').val("");
 			$('#inputDisponibilite').val("true");
 			$('#inputLogin').val("");
+			
 			$('#inputRole').val("");
 			$('#inputInfos').val("");
 			$('#inputPassw').val("");
@@ -114,6 +115,7 @@
 	<BUTTON class="actionRetourPageAdmin">Retour page admin</BUTTON>
 	<br>
 	<br>
+	
 	<br>
 	<div id="liste">
 		<BUTTON class="actionPagePrincipaleCreer">Créer une personne</BUTTON>
