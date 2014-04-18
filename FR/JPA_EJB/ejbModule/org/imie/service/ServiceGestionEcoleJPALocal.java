@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Local;
 import javax.xml.rpc.ServiceException;
 
+import model.Competence;
 import model.Personne;
 import model.Possede;
 import model.Projet;
@@ -44,6 +45,13 @@ public interface ServiceGestionEcoleJPALocal {
     public Projet insertProjet(Projet projet);
     public void deleteProjet(Projet projet);
     public Projet updateProjet(Projet projetToUpdate);
+
+    // ajout methodes Competence JM
+	public List<Competence> rechercherCompetence(Competence searchCompetences);
+	public void deleteCompetence(Competence updatedCompetence);
+	public void insertCompetence(Competence updatedCompetence);
+	public Competence updateCompetence(Competence updatedCompetence);
+	public void setChildCompetence(List<Competence> foundCompetences);
     	  
     
 }
