@@ -17,6 +17,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.xml.rpc.ServiceException;
 
+import model.Competence;
 import model.Personne;
 import model.Possede;
 import model.Projet;
@@ -358,6 +359,32 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote, Ser
     public Projet updateProjet(Projet projetToUpdate){
     	return entityManager.merge(projetToUpdate);
     }
+
+	@Override
+	public List<Competence> rechercherCompetence(Competence searchCompetences) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	//----------------------------------------------------------
+	// JM méthodes compétences à implémenter
+	@Override
+	public void deleteCompetence(Competence updatedCompetence) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void insertCompetence(Competence updatedCompetence) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateCompetence(Competence updatedCompetence) {
+		// TODO Auto-generated method stub
+		
+	}
     
     
 }

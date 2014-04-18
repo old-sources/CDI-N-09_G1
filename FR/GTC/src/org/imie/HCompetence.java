@@ -1,9 +1,9 @@
 package org.imie;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+//import java.text.ParseException;
+//import java.text.SimpleDateFormat;
+//import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -15,8 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.Competence;
 import model.Personne;
-import model.Projet;
-import model.Promotion;
+//import model.Promotion;
 
 import org.imie.service.ServiceGestionEcoleJPALocal;
 
@@ -48,11 +47,11 @@ public class HCompetence extends HttpServlet {
 		List<Competence> foundCompetences = serviceGestionEcole.rechercherCompetence(searchCompetences);
 		request.setAttribute("foundCompetences", foundCompetences);
 		
-		// on passe tous les profils en request pour la liste de la popup modif projet
-		Personne searchPersonne = new Personne();
-		List<Personne> foundPersonnes = serviceGestionEcole
-				.rechercherPersonne(searchPersonne);
-		request.setAttribute("foundPersonnes", foundPersonnes);
+//		// on passe tous les profils en request pour ??
+//		Personne searchPersonne = new Personne();
+//		List<Personne> foundPersonnes = serviceGestionEcole
+//				.rechercherPersonne(searchPersonne);
+//		request.setAttribute("foundPersonnes", foundPersonnes);
 		
 		// loguedPerson passé en request
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
@@ -73,7 +72,7 @@ public class HCompetence extends HttpServlet {
 
 		System.out.println("HCompetence Post");
 		
-		// recherche du projet à modifier
+		// recherche du competence à modifier
 		Competence updatedCompetence = new Competence();
 
 		// affectation des nouvelles valeurs
@@ -87,7 +86,7 @@ public class HCompetence extends HttpServlet {
 			try {
 				Integer inputCompId = Integer.valueOf(request.getParameter("inputCompId"));
 				updatedCompetence.setCompId(inputCompId);
-				System.out.println("inputProjId : "+inputCompId);
+				System.out.println("inputCompId : "+inputCompId);
 				serviceGestionEcole.deleteCompetence(updatedCompetence);
 			}
 			catch (NumberFormatException e) {
@@ -96,15 +95,15 @@ public class HCompetence extends HttpServlet {
 		}
 
 		if (request.getParameter("create") != null) {
-			System.out.println("HProjet POST create");
+			System.out.println("HCompetence POST create");
 			serviceGestionEcole.insertCompetence(updatedCompetence);
 		}
 
 		if (request.getParameter("update") != null) {
-			System.out.println("HProjet POST update");
-			Integer inputProjId = Integer.valueOf(request.getParameter("inputProjId"));
-			System.out.println("inputProjId = "+inputProjId);
-			updatedCompetence.setCompId(inputProjId);
+			System.out.println("HCompetence POST update");
+			Integer inputCompId = Integer.valueOf(request.getParameter("inputCompId"));
+			System.out.println("inputCompId = "+inputCompId);
+			updatedCompetence.setCompId(inputCompId);
 			serviceGestionEcole.updateCompetence(updatedCompetence);
 		}
 
