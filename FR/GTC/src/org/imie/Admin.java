@@ -43,11 +43,22 @@ public class Admin extends HttpServlet {
 		request.setAttribute("promotions",
 				serviceGestionEcole.rechercherPromotion(new Promotion()));
 		
+		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+		Personne loguedPerson = new Personne();
+		loguedPerson=(Personne) httpServletRequest.getSession().getAttribute("authentifiedPersonne");
+		request.setAttribute("loguedPerson", loguedPerson);
+		
 		List<Personne> foundPersonnes = serviceGestionEcole
 				.rechercherPersonne(searchPersonne);
 		request.setAttribute("foundPersonnes", foundPersonnes);
+		if ((loguedPerson.getRole().getRoleId() == 2) || (loguedPerson.getRole().getRoleId() == 3)){
 		request.getRequestDispatcher("/WEB-INF/JAdmin.jsp").forward(
 				request, response);
+		}
+		if (loguedPerson.getRole().getRoleId() == 1) {
+			response.sendRedirect("/GTC/Home");
+		}
+		
 	}
 
 	/**

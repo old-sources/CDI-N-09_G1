@@ -172,6 +172,7 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote, Ser
     
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public List<Promotion> rechercherPromotion(Promotion promotion){
+    	System.out.println("rentré dans promotion 1");
     	CriteriaBuilder qb=entityManager.getCriteriaBuilder();
     	
     	CriteriaQuery<Promotion> query = qb.createQuery(Promotion.class);
@@ -186,7 +187,9 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote, Ser
     	}
     	
     	query.where(criteria.toArray(new Predicate[] {}));
+    	System.out.println("rentré dans promotion 2");
     	List<Promotion> result = entityManager.createQuery(query).getResultList();
+    	System.out.println("rentré dans promotion 3");
 		return result;
     }
   
