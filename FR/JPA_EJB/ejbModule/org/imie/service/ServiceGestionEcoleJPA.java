@@ -362,15 +362,43 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote, Ser
     	return entityManager.merge(projetToUpdate);
     }
 
-	@Override
-	public List<Competence> rechercherCompetence(Competence searchCompetences) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	//----------------------------------------------------------
 	// JM méthodes compétences à implémenter
 	@Override
+		public List<Competence>  rechercherCompetence(Competence comp) {
+
+			CriteriaBuilder qb=entityManager.getCriteriaBuilder();
+
+	    	CriteriaQuery<Competence> query = qb.createQuery(Competence.class);
+			Root<Competence> compRoot = query.from(Competence.class);
+	    	
+	    	List<Predicate> criteria = new ArrayList<Predicate>();
+	    	
+	    	if (comp.getCompId() != null){
+	    		criteria.add(qb.equal(compRoot.get("compId"), comp.getCompId()));
+	    	}
+	    	if (comp.getCompIntitule() != null){
+	    		criteria.add(qb.equal(compRoot.get("compIntitule"), comp.getCompIntitule()));
+	    	}
+	    	
+	    	if (comp.getCompetences() != null){
+	    		//criteria.add(qb.equal(compRoot.<String>get("competences"), comp.getCompetences()));
+	    		criteria.add(qb.equal(compRoot.<String>get("competences"), comp.getCompetences()));
+	    	}
+	    	
+	    	if (comp.getCompetence() != null){
+	    		criteria.add(qb.equal(compRoot.<String>get("competence"), comp.getCompetence()));
+	    	}
+	    	
+	    	query.where(criteria.toArray(new Predicate[] {}));
+	    	List<Competence> result = entityManager.createQuery(query).getResultList();
+	    	
+			return result;
+	    }
+
+    
+    @Override
 	public void deleteCompetence(Competence updatedCompetence) {
 		// TODO Auto-generated method stub
 		

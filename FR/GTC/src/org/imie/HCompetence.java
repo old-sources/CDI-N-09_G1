@@ -4,7 +4,7 @@ import java.io.IOException;
 //import java.text.ParseException;
 //import java.text.SimpleDateFormat;
 //import java.util.Date;
-//import java.util.List;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.Competence;
 import model.Personne;
+//import model.Projet;
 //import model.Promotion;
 
 import org.imie.service.ServiceGestionEcoleJPALocal;
@@ -25,7 +26,9 @@ import org.imie.service.ServiceGestionEcoleJPALocal;
 @WebServlet("/Competence/*")
 public class HCompetence extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	@EJB ServiceGestionEcoleJPALocal serviceGestionEcole;
+	@EJB
+	ServiceGestionEcoleJPALocal serviceGestionEcole;
+
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -43,23 +46,25 @@ public class HCompetence extends HttpServlet {
 		System.out.println("HCompetence Get"); // console verif
 
 		// on met toutes les competences dans foundCompetences
-		
+
 		Competence searchCompetences = new Competence();
-		//List<Competence> foundCompetences = serviceGestionEcole.rechercherCompetence(searchCompetences);
-		//request.setAttribute("foundCompetences", foundCompetences);
-		
-//		// on passe tous les profils en request pour ??
-//		Personne searchPersonne = new Personne();
-//		List<Personne> foundPersonnes = serviceGestionEcole
-//				.rechercherPersonne(searchPersonne);
-//		request.setAttribute("foundPersonnes", foundPersonnes);
-		
+		List<Competence> foundCompetences = serviceGestionEcole
+				.rechercherCompetence(searchCompetences);
+		request.setAttribute("foundCompetences", foundCompetences);
+
+		// // on passe tous les profils en request pour ??
+		// Personne searchPersonne = new Personne();
+		// List<Personne> foundPersonnes = serviceGestionEcole
+		// .rechercherPersonne(searchPersonne);
+		// request.setAttribute("foundPersonnes", foundPersonnes);
+
 		// loguedPerson passé en request
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		Personne loguedPerson = new Personne();
-		loguedPerson=(Personne) httpServletRequest.getSession().getAttribute("authentifiedPersonne");
+		loguedPerson = (Personne) httpServletRequest.getSession().getAttribute(
+				"authentifiedPersonne");
 		request.setAttribute("loguedPerson", loguedPerson);
-		
+
 		request.getRequestDispatcher("/WEB-INF/JCompetence.jsp").forward(
 				request, response);
 	}
@@ -72,41 +77,43 @@ public class HCompetence extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 
 		System.out.println("HCompetence Post");
-		
-		// recherche du competence à modifier
-		Competence updatedCompetence = new Competence();
+
+		// on liste tout-es les compétences
+		Competence searchCompetence = new Competence();
+		List<Competence> foundCompetences = serviceGestionEcole
+				.rechercherCompetence(searchCompetence);
+		request.setAttribute("foundCompetences", foundCompetences);
 
 		// affectation des nouvelles valeurs
-	
-		////////////////////////////////////  delete update create  /////////////////////////////////////
-		
-		
-		
-		if (request.getParameter("delete") != null) {
-			System.out.println("HCompetence Post delete");
-			try {
-				Integer inputCompId = Integer.valueOf(request.getParameter("inputCompId"));
-				updatedCompetence.setCompId(inputCompId);
-				System.out.println("inputCompId : "+inputCompId);
-				serviceGestionEcole.deleteCompetence(updatedCompetence);
-			}
-			catch (NumberFormatException e) {
-				// parametres non corrects : pas de suppression
-			}
-		}
+		// ////////////////////////////////// delete update create
+		// /////////////////////////////////////
+		// if (request.getParameter("delete") != null) {
+		// System.out.println("HCompetence Post delete");
+		// try {
+		// Integer inputCompId =
+		// Integer.valueOf(request.getParameter("inputCompId"));
+		// updatedCompetence.setCompId(inputCompId);
+		// System.out.println("inputCompId : "+inputCompId);
+		// serviceGestionEcole.deleteCompetence(updatedCompetence);
+		// }
+		// catch (NumberFormatException e) {
+		// // parametres non corrects : pas de suppression
+		// }
+		// }
 
-		if (request.getParameter("create") != null) {
-			System.out.println("HCompetence POST create");
-			serviceGestionEcole.insertCompetence(updatedCompetence);
-		}
-
-		if (request.getParameter("update") != null) {
-			System.out.println("HCompetence POST update");
-			Integer inputCompId = Integer.valueOf(request.getParameter("inputCompId"));
-			System.out.println("inputCompId = "+inputCompId);
-			updatedCompetence.setCompId(inputCompId);
-			serviceGestionEcole.updateCompetence(updatedCompetence);
-		}
+		// if (request.getParameter("create") != null) {
+		// System.out.println("HCompetence POST create");
+		// serviceGestionEcole.insertCompetence(updatedCompetence);
+		// }
+		//
+		// if (request.getParameter("update") != null) {
+		// System.out.println("HCompetence POST update");
+		// Integer inputCompId =
+		// Integer.valueOf(request.getParameter("inputCompId"));
+		// System.out.println("inputCompId = "+inputCompId);
+		// updatedCompetence.setCompId(inputCompId);
+		// serviceGestionEcole.updateCompetence(updatedCompetence);
+		// }
 
 		response.sendRedirect("/GTC/HCompetence");
 	}
