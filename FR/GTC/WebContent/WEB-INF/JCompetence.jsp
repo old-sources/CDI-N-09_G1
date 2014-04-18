@@ -61,9 +61,9 @@
 			<TBODY>
 				<c:forEach items="${foundCompetences}" var="comp">
 					<tr>
+						<TD><c:out value="${comp.compId}" /></TD>
 						<TD><c:out value="${comp.compIntitule}" /></TD>
-						<TD><c:out value="${comp.compIntitule}" /></TD>
-						<TD><c:out value="${comp.compIntitule}" /></TD>
+						<TD><c:out value="${comp.competence.getCompIntitule()}" /></TD>
 						<TD><c:out value="${comp.compIntitule}" /></TD>
 					</tr>
 				</c:forEach>

@@ -381,6 +381,7 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote, Ser
 	    	}
 	    	
 	    	if (comp.getCompetences() != null){
+	    		//criteria.add(qb.equal(compRoot.<String>get("competences"), comp.getCompetences()));
 	    		criteria.add(qb.equal(compRoot.<String>get("competences"), comp.getCompetences()));
 	    	}
 	    	
