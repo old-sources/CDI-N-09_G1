@@ -4,7 +4,7 @@ import java.io.IOException;
 //import java.text.ParseException;
 //import java.text.SimpleDateFormat;
 //import java.util.Date;
-//import java.util.List;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -45,8 +45,8 @@ public class HCompetence extends HttpServlet {
 		// on met toutes les competences dans foundCompetences
 		
 		Competence searchCompetences = new Competence();
-		//List<Competence> foundCompetences = serviceGestionEcole.rechercherCompetence(searchCompetences);
-		//request.setAttribute("foundCompetences", foundCompetences);
+		List<Competence> foundCompetences = serviceGestionEcole.rechercherCompetence(searchCompetences);
+		request.setAttribute("foundCompetences", foundCompetences);
 		
 //		// on passe tous les profils en request pour ??
 //		Personne searchPersonne = new Personne();

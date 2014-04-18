@@ -38,6 +38,9 @@
 </head>
 <body>
 <%@ include file="/WEB-INF/header.jsp"%>
-<h1> Onglet Competence</h1>
+<h1> Onglet Competence (JM en cours)</h1>
+
+
+
 </body>
 </html>
