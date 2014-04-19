@@ -147,7 +147,9 @@
 											$('#inputRole').val("1");
 
 											$('#deleteDansForm').hide();
+											$('#deleteDansForm').attr("disabled", "disabled")
 											$('#updateDansForm').hide();
+											$('#updateDansForm').attr("disabled", "disabled");
 											$('#creerDansForm').show();
 										});
 
@@ -196,13 +198,14 @@
 						<TR>
 							<TD><c:out value="${personne.nom}" /></TD>
 							<TD><c:out value="${personne.prenom}" /></TD>
+								<td><c:out value="${personne.identConnexion}" /></td>
 							<td><fmt:formatDate pattern="dd/MM/yyyy"
 									value="${personne.dateNaiss}" /></td>
 							<td><c:out value="${personne.promotion.libelle}" /></td>
 							<td><c:out value="${personne.passw}" /></td>
 							<td><c:out value="${personne.email}" /></td>
 							<td><c:out value="${personne.infos}" /></td>
-							<td><c:out value="${personne.identConnexion}" /></td>
+						
 
 							<%-- 							<td><c:out value="${personne.disponibilite}" /></td> --%>
 							<td><c:choose>
