@@ -186,12 +186,13 @@
 					<TR>
 						<TH>Nom</TH>
 						<TH>Prenom</TH>
+						<TH>login</TH>
 						<TH>date de naissance</TH>
 						<TH>promotion</TH>
 						<TH>password</TH>
 						<TH>email</TH>
 						<TH>infos</TH>
-						<TH>login</TH>
+						
 						<TH>disponible</TH>
 						<TH>droits</TH>
 						<TH></TH>
@@ -202,7 +203,7 @@
 						<TR>
 							<TD><c:out value="${personne.nom}" /></TD>
 							<TD><c:out value="${personne.prenom}" /></TD>
-								<td><c:out value="${personne.identConnexion}" /></td>
+							<td><c:out value="${personne.identConnexion}" /></td>
 							<td><fmt:formatDate pattern="dd/MM/yyyy"
 									value="${personne.dateNaiss}" /></td>
 							<td><c:out value="${personne.promotion.libelle}" /></td>

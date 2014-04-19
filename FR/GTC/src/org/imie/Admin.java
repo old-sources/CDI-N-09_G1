@@ -55,7 +55,9 @@ public class Admin extends HttpServlet {
 		loguedPerson = (Personne) httpServletRequest.getSession().getAttribute(
 				"authentifiedPersonne");
 		request.setAttribute("loguedPerson", loguedPerson);
-
+		int userId=loguedPerson.getRole().getRoleId();
+		request.setAttribute("userId", userId);
+		
 		List<Personne> foundPersonnes = serviceGestionEcole
 				.rechercherPersonne(searchPersonne);
 		request.setAttribute("foundPersonnes", foundPersonnes);

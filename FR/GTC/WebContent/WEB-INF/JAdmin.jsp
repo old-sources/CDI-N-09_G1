@@ -77,6 +77,17 @@
 		<br>
 		<br>
 
+
+
+<c:choose>
+									<c:when test="${userId == 3}">
+										
+								
+
+
+
+
+
 		<span id="importerUnFichier">importer un fichier
 			d'étudiants</span>
 
@@ -90,6 +101,10 @@
 			<input type="submit" value="Export" name = "submitDownload">
 		</form>
 
-	</div>
+</c:when>
+</c:choose>
+
+
+</div>
 </body>
 </html>
