@@ -120,6 +120,10 @@
 											$('#updateDansForm').show();
 											$('#deleteDansForm').show();
 											$('#creerDansForm').hide();
+// 											document.getElementById(updateDansForm).disabled = false;
+// 											document.getElementById(deleteDansForm).disabled = true;
+											$('#updateDansForm').attr("disabled", false);
+											$('#deleteDansForm').attr("disabled", false);
 										});
 
 						$('.actionPagePrincipaleCreer')
@@ -147,7 +151,7 @@
 											$('#inputRole').val("1");
 
 											$('#deleteDansForm').hide();
-											$('#deleteDansForm').attr("disabled", "disabled")
+											$('#deleteDansForm').attr("disabled", "disabled");
 											$('#updateDansForm').hide();
 											$('#updateDansForm').attr("disabled", "disabled");
 											$('#creerDansForm').show();
@@ -246,10 +250,14 @@
 				type="hidden" name="inputIdentConnexion" id="inputIdentConnexion" />
 			<div>
 				<label for="inputNom">nom :</label> <input type="text" id="inputNom"
-					name="inputNom">
+					name="inputNom" required>
 			</div>
 			<label for="inputPrenom">prenom :</label> <input type="text"
-				id="inputPrenom" name="inputPrenom">
+				id="inputPrenom" name="inputPrenom" required>
+			<div>
+				<label for="inputLogin">login :</label> <input type="text"
+					id="inputLogin" name="inputLogin" required>
+			</div>
 			<div>
 				<label for="inputDateNaiss">date de naissance</label> <input
 					type="text" id="inputDateNaiss" name="inputDateNaiss">
@@ -264,13 +272,10 @@
 					</c:forEach>
 				</select>
 			</div>
-			<div>
-				<label for="inputLogin">login :</label> <input type="text"
-					id="inputLogin" name="inputLogin">
-			</div>
+			
 			<div>
 				<label for="inputPassw">password :</label> <input type="text"
-					id="inputPassw" name="inputPassw">
+					id="inputPassw" name="inputPassw" required>
 			</div>
 			<div>
 				<label for="inputEmail">email :</label> <input type="text"
