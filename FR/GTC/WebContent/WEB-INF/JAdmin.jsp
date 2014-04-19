@@ -82,12 +82,12 @@
 
 		<form METHOD="POST" action="HImport">
 			<input type="file" size="50" name="file1"> <br />
-			<input type="submit" value="Upload" name = "submitUpload">
+			<input type="submit" value="Import" name = "submitUpload">
 		</form>
 		<span id="importerUnFichier">exporter la liste des étudiants dans un fichier</span>
 		<form METHOD="POST" action="HImport">
 			<input type="file" size="50" name="file2"> <br />
-			<input type="submit" value="Download" name = "submitDownload">
+			<input type="submit" value="Export" name = "submitDownload">
 		</form>
 
 	</div>

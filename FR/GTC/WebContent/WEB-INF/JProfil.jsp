@@ -108,8 +108,8 @@
 			</div>
 			<div>
 
-				<label for="inputemail">email</label> <input type="text"
-					id="inputEmail" name="inputEmail" value="${loguedPerson.email}">
+				<label for="inputemail">email</label> 
+				<input type="email" id="inputEmail" name="inputEmail" value="${loguedPerson.email}">
 			</div>
 			<div>
 				<label for="inputInfos">Autres informations</label> <input

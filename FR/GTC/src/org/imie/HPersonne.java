@@ -136,9 +136,14 @@ public class HPersonne extends HttpServlet {
 			updatedPerson.setRole(role);
 		}
 		
-		String inputDisponibilite = request.getParameter("inputDisponibilite");
-		if (inputDisponibilite != null && !inputDisponibilite.isEmpty()) {
-			updatedPerson.setDisponibilite(Boolean.valueOf(inputDisponibilite));
+//		String inputDisponibilite = request.getParameter("inputDisponibilite");
+//		if (inputDisponibilite != null && !inputDisponibilite.isEmpty()) {
+//			updatedPerson.setDisponibilite(Boolean.valueOf(inputDisponibilite));
+//		}
+		if (request.getParameter("inputDisponibilite") == null) {
+			updatedPerson.setDisponibilite(false);
+		}else{
+			updatedPerson.setDisponibilite(true);
 		}
 		
 		String identConnexion = request.getParameter("inputIdentConnexion");

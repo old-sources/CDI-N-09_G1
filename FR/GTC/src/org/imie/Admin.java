@@ -1,6 +1,5 @@
 package org.imie;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -13,10 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.Personne;
 import model.Promotion;
+
+import org.imie.service.ServiceGestionEcoleJPALocal;
 //
 //import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 //import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.imie.service.ServiceGestionEcoleJPALocal;
 
 
 /**
@@ -31,16 +31,7 @@ public class Admin extends HttpServlet {
 	 * @see HttpServlet#HttpServlet()
 	 */
 
-	private boolean isMultipart;
-	private String filePath;
-	private int maxFileSize = 50 * 1024;
-	private int maxMemSize = 4 * 1024;
-	private File file;
 
-	public void init() {
-		// Get the file location where it would be stored.
-		filePath = getServletContext().getInitParameter("file-upload");
-	}
 
 	public Admin() {
 		super();

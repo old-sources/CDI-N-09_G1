@@ -28,83 +28,138 @@
 
 <title>Menu Personnes</title>
 <SCRIPT type="text/javascript">
-	$(document).ready(function() {
-		$('.onlyadmin').hide();
-		if ("${loguedPerson.role.roleId}" != 1) {
-			$('.onlyadmin').show();
-		}
+	$(document)
+			.ready(
+					function() {
+						$('.onlyadmin').hide();
+						if ("${loguedPerson.role.roleId}" != 1) {
+							$('.onlyadmin').show();
+						}
 
-// 		$('.actionFormulaire').button();
+						// 		$('.actionFormulaire').button();
 
-		$('#formulaire').dialog({
-			autoOpen : false,
-			show : {
-				effect : "blind",
-				duration : 1000
-			},
-			hide : {
-				effect : "blind",
-				duration : 1000
-			}
-		});
+						$('#formulaire').dialog({
+							autoOpen : false,
+							show : {
+								effect : "blind",
+								duration : 1000
+							},
+							hide : {
+								effect : "blind",
+								duration : 1000
+							}
+						});
 
-		$('.actionFormulaire').on('click', function(e) {
-			$("#formulaire").dialog("open");
-			$('#inputId').val($(this).attr("data-id"));
-			$('#inputRoleId').val($(this).attr("data-roleid"));
-			$('#inputNom').val($(this).attr("data-nom"));
-			$('#inputPrenom').val($(this).attr("data-prenom"));
-			var dateString = new Date($(this).attr("data-dateNaiss"));
-			$('#inputDateNaiss').datepicker({
-				defaultDate : dateString
-			});
-			$('#inputDateNaiss').val(dateString.toLocaleDateString("fr-FR"));
-			$('#inputPromotion').val($(this).attr("data-promotionid"));
-			$('#inputPassw').val($(this).attr("data-passw"));
-			$('#inputEmail').val($(this).attr("data-email"));
-			$('#inputInfos').val($(this).attr("data-infos"));
-			$('#inputIdentConnexion').val($(this).attr("data-identConnexion"));
-			$('#inputDisponibilite').val($(this).attr("data-disponibilite"));
-			$('#inputRole').val($(this).attr("data-roleId"));
-			$('#inputLogin').val($(this).attr("data-identConnexion"));
-	
-			$('#updateDansForm').show();
-			$('#deleteDansForm').show();
-			$('#creerDansForm').hide();
-		});
+						$('.actionFormulaire')
+								.on(
+										'click',
+										function(e) {
+											$("#formulaire").dialog("open");
+											$('#inputId').val(
+													$(this).attr("data-id"));
+											$('#inputRoleId')
+													.val(
+															$(this)
+																	.attr(
+																			"data-roleid"));
+											$('#inputNom').val(
+													$(this).attr("data-nom"));
+											$('#inputPrenom')
+													.val(
+															$(this)
+																	.attr(
+																			"data-prenom"));
+											var dateString = new Date($(this)
+													.attr("data-dateNaiss"));
+											$('#inputDateNaiss').datepicker({
+												defaultDate : dateString
+											});
+											$('#inputDateNaiss')
+													.val(
+															dateString
+																	.toLocaleDateString("fr-FR"));
+											$('#inputPromotion')
+													.val(
+															$(this)
+																	.attr(
+																			"data-promotionid"));
+											$('#inputPassw').val(
+													$(this).attr("data-passw"));
+											$('#inputEmail').val(
+													$(this).attr("data-email"));
+											$('#inputInfos').val(
+													$(this).attr("data-infos"));
+											$('#inputIdentConnexion')
+													.val(
+															$(this)
+																	.attr(
+																			"data-identConnexion"));
+											if (($(this).attr(
+													"data-disponibilite") == "true")
+													|| ($(this)
+															.attr(
+																	"data-disponibilite") == "TRUE")) {
+												document
+														.getElementById('inputDisponibilite').checked = true;
+											} else {
+												document
+														.getElementById('inputDisponibilite').checked = false;
+											}
+											;
+											$('#inputRole')
+													.val(
+															$(this)
+																	.attr(
+																			"data-roleId"));
+											$('#inputLogin')
+													.val(
+															$(this)
+																	.attr(
+																			"data-identConnexion"));
 
-		$('.actionPagePrincipaleCreer').on('click', function(e) {
-			$("#formulaire").dialog("open");
-			$('#inputNom').val("");
-			$('#inputPrenom').val("");
-			$('#inputDateNaiss').datepicker({
-				defaultDate : new Date()
-			});
-			$('#inputDateNaiss').val("01/01/1980");
-			$('#inputPromotion').val("");
-			$('#inputEmail').val("");
-			$('#inputDisponibilite').val("true");
-			$('#inputLogin').val("");
-			
-			$('#inputRole').val("");
-			$('#inputInfos').val("");
-			$('#inputPassw').val("");
-			
-			
-			$('#deleteDansForm').hide();
-			$('#updateDansForm').hide();
-			$('#creerDansForm').show();
-		});
+											$('#updateDansForm').show();
+											$('#deleteDansForm').show();
+											$('#creerDansForm').hide();
+										});
 
-		$('.actionRetourPageAdmin').on('click', function(e) {
-			document.location.href = "/GTC/Admin";
-		});
+						$('.actionPagePrincipaleCreer')
+								.on(
+										'click',
+										function(e) {
+											$("#formulaire").dialog("open");
+											$('#inputNom').val("");
+											$('#inputPrenom').val("");
+											$('#inputDateNaiss').datepicker({
+												defaultDate : new Date()
+											});
+											$('#inputDateNaiss').val(
+													"01/01/1980");
+											$('#inputPromotion').val("");
+											$('#inputEmail').val("");
+											document
+													.getElementById('inputDisponibilite').checked = true;
+											// 			$('#inputDisponibilite').val("true");
+											$('#inputLogin').val("");
 
-		$('#tablePersonne').dataTable({
-			"bJQueryUI" : true
-		}).yadcf([  ]);
+											$('#inputRole').val("");
+											$('#inputInfos').val("");
+											$('#inputPassw').val("");
+											$('#inputRole').val("1");
 
-	});
+											$('#deleteDansForm').hide();
+											$('#updateDansForm').hide();
+											$('#creerDansForm').show();
+										});
+
+						$('.actionRetourPageAdmin').on('click', function(e) {
+							document.location.href = "/GTC/Admin";
+						});
+
+						$('#tablePersonne').dataTable({
+							"bJQueryUI" : true
+						}).yadcf([]);
+
+					});
 </SCRIPT>
 
 
@@ -115,7 +170,7 @@
 	<BUTTON class="actionRetourPageAdmin">Retour page admin</BUTTON>
 	<br>
 	<br>
-	
+
 	<br>
 	<div id="liste">
 		<BUTTON class="actionPagePrincipaleCreer">Créer une personne</BUTTON>
@@ -147,24 +202,30 @@
 							<td><c:out value="${personne.passw}" /></td>
 							<td><c:out value="${personne.email}" /></td>
 							<td><c:out value="${personne.infos}" /></td>
-							<td><c:out value="${personne.identConnexion}"/></td>
-							<td><c:out value="${personne.disponibilite}" /></td>
+							<td><c:out value="${personne.identConnexion}" /></td>
+
+							<%-- 							<td><c:out value="${personne.disponibilite}" /></td> --%>
+							<td><c:choose>
+									<c:when test="${personne.disponibilite}">
+										<input type="checkbox" checked="checked" disabled> dispo
+									</c:when>
+									<c:otherwise>
+										<input type="checkbox" disabled>pas dispo
+									</c:otherwise>
+								</c:choose></td>
 							<td><c:out value="${personne.role.roleIntitule}" /></td>
 
 							<TD><BUTTON class="actionFormulaire"
-									data-id="${personne.id}" 
-									data-nom="${personne.nom}"
+									data-id="${personne.id}" data-nom="${personne.nom}"
 									data-prenom="${personne.prenom}"
 									data-dateNaiss="${personne.dateNaiss}"
 									data-promotionlibelle="${personne.promotion.libelle}"
 									data-promotionid="${personne.promotion.id}"
-									data-passw="${personne.passw}"
-									data-email="${personne.email}"
+									data-passw="${personne.passw}" data-email="${personne.email}"
 									data-infos="${personne.infos}"
 									data-roleid="${personne.role.roleId}"
 									data-identConnexion="${personne.identConnexion}"
-									data-disponibilite="${personne.disponibilite}"
-									>Modifier</BUTTON></TD>
+									data-disponibilite="${personne.disponibilite}">Modifier</BUTTON></TD>
 
 						</TR>
 					</c:forEach>
@@ -177,9 +238,9 @@
 		<form method="POST" id="formFormulaire">
 
 
-			<input type="hidden" name="inputId" id="inputId" />
-			<input type="hidden" name="inputRoleId" id="inputRoleId"/>
-			<input type="hidden" name="inputIdentConnexion" id="inputIdentConnexion"/>
+			<input type="hidden" name="inputId" id="inputId" /> <input
+				type="hidden" name="inputRoleId" id="inputRoleId" /> <input
+				type="hidden" name="inputIdentConnexion" id="inputIdentConnexion" />
 			<div>
 				<label for="inputNom">nom :</label> <input type="text" id="inputNom"
 					name="inputNom">
@@ -201,38 +262,46 @@
 				</select>
 			</div>
 			<div>
-			<label for="inputLogin">login :</label> <input type="text" id="inputLogin" name="inputLogin">
+				<label for="inputLogin">login :</label> <input type="text"
+					id="inputLogin" name="inputLogin">
 			</div>
 			<div>
-			<label for="inputPassw">password :</label> <input type="text" id="inputPassw" name="inputPassw">
+				<label for="inputPassw">password :</label> <input type="text"
+					id="inputPassw" name="inputPassw">
 			</div>
 			<div>
-			<label for="inputEmail">email :</label> <input type="text" id="inputEmail" name="inputEmail">
+				<label for="inputEmail">email :</label> <input type="text"
+					id="inputEmail" name="inputEmail">
 			</div>
 			<div>
-			<label for="inputInfos">infos :</label> <input type="text"
-				id="inputInfos" name="inputInfos">
+				<label for="inputInfos">infos :</label> <input type="text"
+					id="inputInfos" name="inputInfos">
 			</div>
+			<!-- 			<div> -->
+			<!-- 			<label for="inputDisponibilite">dispo :</label> <input type="text" -->
+			<!-- 				id="inputDisponibilite" name="inputDisponibilite"> -->
+			<!-- 			</div> -->
 			<div>
-			<label for="inputDisponibilite">dispo :</label> <input type="text"
-				id="inputDisponibilite" name="inputDisponibilite">
+				<label for="inputDisponibilite">dispo :</label> <input
+					type="checkbox" name="inputDisponibilite" id="inputDisponibilite"
+					value="dispo">
 			</div>
+
 			<div class="cell">
-				<label for="inputRole">droits : </label> 
-				<select	name="inputRole" id="inputRole">
+				<label for="inputRole">droits : </label> <select name="inputRole"
+					id="inputRole">
 					<option value=""></option>
 					<c:forEach items="${listRoles}" var="rol">
 						<option value="${rol.roleId}">${rol.roleIntitule}</option>
 					</c:forEach>
 				</select>
 			</div>
-			
+
 			<input type="submit" name="update" id="updateDansForm"
-				value="Modifier" /> 
-				<input type="submit" name="create" id="creerDansForm" value="Créer" />
-				<input type="submit" name="delete"
-				id="deleteDansForm" value="Supprimer" />
-			
+				value="Modifier" /> <input type="submit" name="create"
+				id="creerDansForm" value="Créer" /> <input type="submit"
+				name="delete" id="deleteDansForm" value="Supprimer" />
+
 
 
 

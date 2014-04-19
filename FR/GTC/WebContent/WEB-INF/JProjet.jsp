@@ -156,7 +156,7 @@
 							<TH>chef de projet</TH>
 							<TH>membres</TH>
 							<TH>avancement</TH>
-<!--							<TH>projet affecté à</TH> -->
+							<TH>projet affecté à</TH>
 							<th></th>
 						</TR>
 					</THEAD>
@@ -169,15 +169,10 @@
 								<TD><fmt:formatDate pattern="dd/MM/yyyy"
 										value="${prj.projDatedefin}" /></TD>
 								<TD><c:out value="${prj.projDescription}" /></TD>
-								<TD><c:out value="${prj.personne.nom}" /></TD>
-<!--								<TD><c:out value="${prj.projWikiMembre}" /></TD> -->
-								<TD>
-									<c:forEach items="${prj.travailles}" var="participe">
-										<c:out value="${participe.personne.nom}" />
-									</c:forEach>
-								</TD>
+								<TD><c:out value="${prj.projWikiCdp}" /></TD>
+								<TD><c:out value="${prj.projWikiMembre}" /></TD>
 								<TD><c:out value="${prj.projAvancement}" /></TD>
-<!-- 								<TD><c:out value="${prj.personne.nom}" /></TD> -->
+								<TD><c:out value="${prj.personne.nom}" /></TD>
 
 								<TD><BUTTON class="actionFormulaire"
 										data-projId="${prj.projId}"
