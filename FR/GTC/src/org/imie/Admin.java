@@ -13,9 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.Personne;
 import model.Promotion;
-
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
+//
+//import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+//import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.imie.service.ServiceGestionEcoleJPALocal;
 
 

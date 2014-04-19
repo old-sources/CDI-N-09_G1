@@ -102,7 +102,7 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote,
 
 		entityManager.persist(personne2);
 		return personne2;
-<<<<<<< HEAD
+
     }
      
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
@@ -192,103 +192,7 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote,
     	
     	query.where(criteria.toArray(new Predicate[] {}));
     	List<Promotion> result = entityManager.createQuery(query).getResultList();
-=======
-	}
 
-	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public void deletePersonne(Personne personne) {
-		// la personne à supprimer à necessairement un ID
-		personne = entityManager.find(Personne.class, personne.getId());
-
-		// on eleve la dependance FK possede de la personne
-		while (personne.getPossedes().size() > 0) {
-			int numElt = personne.getPossedes().size() - 1;
-			Possede poss = personne.getPossedes().get(numElt);
-			personne.getPossedes().remove(numElt);
-			// poss.getCompetence().getPossedes().remove(poss.getCompetence().getPossedes().size()
-			// - 1);
-			entityManager.remove(poss);
-		}
-
-		//
-		// // on enleve la dependande FK projet de la personne
-		// while (personne.getProjets1().size()>0){
-		// int numElt = personne.getProjets1().size() - 1;
-		// Projet prj = personne.getProjets1().get(numElt);
-		// personne.getProjets1().remove(numElt);
-		// entityManager.remove(prj);
-		// }
-		//
-		// while (personne.getProjets2().size()>0){
-		// int numElt = personne.getProjets2().size() - 1;
-		// Projet prj = personne.getProjets2().get(numElt);
-		// personne.getProjets2().remove(numElt);
-		// entityManager.remove(prj);
-		// }
-
-		// //on enleve la dependance travaille de la personne
-		// while (personne.get.size()>0){
-		// int numElt = personne.getInvitationProjets().size() - 1;
-		// InvitationProjet invprj =
-		// personne.getInvitationProjets().get(numElt);
-		// personne.getProjets2().remove(numElt);
-		// entityManager.remove(invprj);
-		// }
-		//
-		// //on enleve la dependance envoyer de la personne
-		//
-
-		entityManager.remove(personne);
-	}
-
-	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public Personne updatePersonne(Personne personneToUpdate) {
-		return entityManager.merge(personneToUpdate);
-	}
-
-	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public Promotion insertPromotion(Promotion promotion) {
-		Promotion promotion2 = new Promotion();
-		promotion2.setLibelle(promotion.getLibelle());
-		promotion2.setLieu(promotion.getLieu());
-		promotion2.setDateDebut(promotion.getDateDebut());
-		promotion2.setDateFin(promotion.getDateFin());
-		System.out.println("est passé par le insert " + promotion.getLibelle()
-				+ " " + promotion.getLieu());
-
-		entityManager.persist(promotion2);
-		return promotion;
-
-	}
-
-	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public void deletePromotion(Promotion promotion) {
-		entityManager.remove(promotion);
-	}
-
-	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public List<Promotion> rechercherPromotion(Promotion promotion) {
-		System.out.println("rentré dans promotion 1");
-		CriteriaBuilder qb = entityManager.getCriteriaBuilder();
-
-		CriteriaQuery<Promotion> query = qb.createQuery(Promotion.class);
-		Root<Promotion> promotionRoot = query.from(Promotion.class);
-
-		List<Predicate> criteria = new ArrayList<Predicate>();
-		if (promotion.getId() != null) {
-			criteria.add(qb.equal(promotionRoot.get("id"), promotion.getId()));
-		}
-		if (promotion.getLibelle() != null) {
-			criteria.add(qb.like(promotionRoot.<String> get("libelle"), "*"
-					+ promotion.getLibelle() + "*"));
-		}
-
-		query.where(criteria.toArray(new Predicate[] {}));
-		System.out.println("rentré dans promotion 2");
-		List<Promotion> result = entityManager.createQuery(query)
-				.getResultList();
-		System.out.println("rentré dans promotion 3");
->>>>>>> bad8456fc02a7f4edc405b56b57f498aee10d92e
 		return result;
 	}
 
