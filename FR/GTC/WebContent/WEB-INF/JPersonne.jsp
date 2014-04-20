@@ -173,9 +173,29 @@
 <body>
 
 	<%@ include file="/WEB-INF/header.jsp"%>
-	<BUTTON class="actionRetourPageAdmin">Retour page admin</BUTTON>
-	<br>
-	<br>
+	<%@include file="/WEB-INF/headerAdmin.jsp" %>
+<%-- 		<span> page Admin </span><br>
+		<BUTTON id="afficheListeUsers">Gestion des utilisateurs</BUTTON>
+
+		<br>
+		<br>
+		<BUTTON id="afficheListePromotions">Gestion des promotions</BUTTON>
+		<br>
+		<br>
+		<BUTTON id="afficheListeProjets">Gestion des projets</BUTTON>
+
+		<br>
+		<br>
+		<BUTTON id="afficherListeCompetences">Gestion des compétences</BUTTON>
+		<br>
+		<br>
+	--%>	
+	
+	
+	
+<%-- 	<BUTTON class="actionRetourPageAdmin">Retour page admin</BUTTON> --%>
+<%-- 	<br> --%>
+<%-- 	<br> --%>
 
 	<br>
 	<div id="liste">
@@ -215,15 +235,22 @@
 							<%-- 							<td><c:out value="${personne.disponibilite}" /></td> --%>
 							<td><c:choose>
 									<c:when test="${personne.disponibilite}">
-										<input type="checkbox" checked="checked" disabled> dispo
+										<input type="checkbox" checked="checked" disabled> disponible
 									</c:when>
 									<c:otherwise>
 										<input type="checkbox" disabled>pas dispo
 									</c:otherwise>
 								</c:choose></td>
 							<td><c:out value="${personne.role.roleIntitule}" /></td>
+<TD>
 
-							<TD><BUTTON class="actionFormulaire"
+<c:choose>
+							<c:when test="${personne.role.roleId == 3 && loguedPerson.role.roleId==2}">
+								
+							<BUTTON class="actionFormulaire" disabled="disabled">Modifier</BUTTON>
+							</c:when>
+<c:otherwise>
+<BUTTON class="actionFormulaire"
 									data-id="${personne.id}" data-nom="${personne.nom}"
 									data-prenom="${personne.prenom}"
 									data-dateNaiss="${personne.dateNaiss}"
@@ -233,7 +260,13 @@
 									data-infos="${personne.infos}"
 									data-roleid="${personne.role.roleId}"
 									data-identConnexion="${personne.identConnexion}"
-									data-disponibilite="${personne.disponibilite}">Modifier</BUTTON></TD>
+									data-disponibilite="${personne.disponibilite}">Modifier</BUTTON>
+
+
+
+</c:otherwise>
+							</c:choose>
+</TD>
 
 						</TR>
 					</c:forEach>
@@ -296,6 +329,30 @@
 					value="dispo">
 			</div>
 
+
+<div class="cell">
+				<label for="inputRole">droits : </label> <select name="inputRole"
+					id="inputRole">
+					<option value=""></option>
+					<c:forEach items="${listRoles}" var="rol">
+						<c:choose>
+						<c:when test="${loguedPerson.role.roleId == 3}">
+							<option value="${rol.roleId}">${rol.roleIntitule}</option>
+						</c:when>
+						<c:otherwise>
+							<c:choose>
+							<c:when test="${rol.roleId != 3}">
+								<option value="${rol.roleId}">${rol.roleIntitule}</option>
+							</c:when>
+							</c:choose>
+						</c:otherwise>
+						</c:choose>
+					</c:forEach>
+				</select>
+			</div>
+
+
+<%-- 
 			<div class="cell">
 				<label for="inputRole">droits : </label> <select name="inputRole"
 					id="inputRole">
@@ -305,7 +362,7 @@
 					</c:forEach>
 				</select>
 			</div>
-
+--%>
 			<input type="submit" name="update" id="updateDansForm"
 				value="Modifier" /> <input type="submit" name="create"
 				id="creerDansForm" value="Créer" /> <input type="submit"

@@ -107,10 +107,27 @@
 </head>
 <body>
 	<%@ include file="header.jsp"%>
-	<BUTTON class="actionRetourPageAdmin">Retour page admin</BUTTON>
-	<br>
-	<br>
-	<br>
+	<%@include file="/WEB-INF/headerAdmin.jsp" %>
+<%-- 				<span> page Admin </span><br>
+		<BUTTON id="afficheListeUsers">Gestion des utilisateurs</BUTTON>
+
+		<br>
+		<br>
+		<BUTTON id="afficheListePromotions">Gestion des promotions</BUTTON>
+		<br>
+		<br>
+		<BUTTON id="afficheListeProjets">Gestion des projets</BUTTON>
+
+		<br>
+		<br>
+		<BUTTON id="afficherListeCompetences">Gestion des compétences</BUTTON>
+		<br>
+		<br>
+	--%>
+	
+	
+<%-- <BUTTON class="actionRetourPageAdmin">Retour page admin</BUTTON>   --%>	
+	
 	<BUTTON class="actionPagePrincipaleCreer">Créer une promotion</BUTTON>
 	<div id="tablePromotionAdmin">
 		<table id="tablePromotion">

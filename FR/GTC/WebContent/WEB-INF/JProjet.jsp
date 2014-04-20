@@ -132,11 +132,15 @@
 </head>
 <body>
 	<%@ include file="/WEB-INF/header.jsp"%>
+	
+	<%@include file="/WEB-INF/headerAdmin.jsp" %>
+	
+	
 
-	<BUTTON class="actionRetourPageAdmin">Retour page admin</BUTTON>
+<%-- 	<BUTTON class="actionRetourPageAdmin">Retour page admin</BUTTON>
 	<br>
 	<br>
-	<br>
+	<br> --%>
 	<BUTTON class="actionPagePrincipaleCreer">Créer un projet</BUTTON>
 
 	<div class="cell3" id="divProjet">

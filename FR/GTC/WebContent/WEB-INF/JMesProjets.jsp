@@ -90,6 +90,9 @@
 </head>
 <body>
 	<%@ include file="/WEB-INF/header.jsp"%>
+	
+	
+	
 	<div id="divProfil">
 		<form method="POST" id="formPrincipale">
 

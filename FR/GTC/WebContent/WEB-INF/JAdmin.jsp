@@ -34,21 +34,21 @@
 			console.log('2;');
 		}
 
-		$('#afficheListeUsers').on('click', function(e) {
-			document.location.href = "/GTC/HPersonne";
-		});
-		$('#afficheListePromotions').on('click', function(e) {
-			document.location.href = "/GTC/HPromotion";
-		});
-		$('#afficheListeProjets').on('click', function(e) {
-			document.location.href = "/GTC/HProjet";
-		});
-// 		$('#importerUnFichier').on('click', function(e) {
-// 			document.location.href = "/GTC/HImport";
+// 		$('#afficheListeUsers').on('click', function(e) {
+// 			document.location.href = "/GTC/HPersonne";
 // 		});
-		$('#upload').on('click', function(e) {
-			document.location.href = "/GTC/HProjet";
-		});
+// 		$('#afficheListePromotions').on('click', function(e) {
+// 			document.location.href = "/GTC/HPromotion";
+// 		});
+// 		$('#afficheListeProjets').on('click', function(e) {
+// 			document.location.href = "/GTC/HProjet";
+// 		});
+// // 		$('#importerUnFichier').on('click', function(e) {
+// // 			document.location.href = "/GTC/HImport";
+// // 		});
+// 		$('#upload').on('click', function(e) {
+// 			document.location.href = "/GTC/HProjet";
+//		});
 
 
 	});
@@ -59,8 +59,9 @@
 
 
 	<%@ include file="/WEB-INF/header.jsp"%>
+	<%@include file="/WEB-INF/headerAdmin.jsp" %>
 	<div id="divProfil">
-
+<%--
 		<span> page Admin </span><br>
 		<BUTTON id="afficheListeUsers">Gestion des utilisateurs</BUTTON>
 
@@ -77,7 +78,7 @@
 		<br>
 		<br>
 
-
+ --%>
 
 <c:choose>
 									<c:when test="${userId == 3}">

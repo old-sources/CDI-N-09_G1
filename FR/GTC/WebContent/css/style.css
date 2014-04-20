@@ -26,19 +26,20 @@ body{
 #tablePromotionAdmin{
 	width : 600px;
 }
+}
 
 @media screen and (max-width:500px) {
 #tablePromotionAdmin{
 	overflow-x:scroll;
 }
-
+}
 @media screen and (min-width:1250px) {
     .cell2{
 	width : 1250px;
 	}
 	.tablePersonneAdmin{
-	font-size : 50%;
-	width : 800px;
+	font-size : 70%;
+	
 	}
 	
 }
@@ -54,7 +55,7 @@ body{
 }
 @media screen and (min-width:1250px) {
 .tablePersonneAdmin{
-	width : 1200px;
+	width : 1100px;
 	}
 }
 
