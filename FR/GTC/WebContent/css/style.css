@@ -39,7 +39,11 @@ body{
 	}
 	.tablePersonneAdmin{
 	font-size : 70%;
-	
+	width : 1100px;
+	}
+	#tableProjetAdmin{
+	font-size : 70%;
+	width : 1100px;
 	}
 	
 }
@@ -53,17 +57,9 @@ body{
 	}
 	
 }
-@media screen and (min-width:1250px) {
-.tablePersonneAdmin{
-	width : 1100px;
-	}
-}
 
-@media screen and (min-width:1400px) {
-#tableProjetAdmin{
-	width : 1400px;
-	}
-}
+
+
 
 @media screen and (max-width:1249px) {
     .cell2{

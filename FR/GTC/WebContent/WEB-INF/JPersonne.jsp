@@ -198,6 +198,7 @@
 <%-- 	<br> --%>
 
 	<br>
+	<h1>Gestion des utilisateurs</h1>
 	<div id="liste">
 		<BUTTON class="actionPagePrincipaleCreer">Créer une personne</BUTTON>
 		<div class="tablePersonneAdmin">

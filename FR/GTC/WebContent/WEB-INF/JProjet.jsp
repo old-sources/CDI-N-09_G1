@@ -59,7 +59,7 @@
 			document.location.href = "/GTC/Admin";
 		});
 
-		$('#tableProjet').dataTable({
+		$('#tableProjetAdmin').dataTable({
 			"bJQueryUI" : true
 		}).yadcf([ {
 			column_number : 0
@@ -135,7 +135,8 @@
 	
 	<%@include file="/WEB-INF/headerAdmin.jsp" %>
 	
-	
+	<br>
+	<h1>Gestion des projets</h1>
 
 <%-- 	<BUTTON class="actionRetourPageAdmin">Retour page admin</BUTTON>
 	<br>
@@ -149,7 +150,7 @@
 		<!-- 			<div class="cell2"> -->
 		<label for="listeProjets">projets en cours : </label>
 
-				<TABLE id="tableProjet">
+				<TABLE id="tableProjetAdmin">
 
 					<THEAD>
 						<TR>

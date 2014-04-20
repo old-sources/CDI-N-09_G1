@@ -87,18 +87,20 @@
 
 
 
-
+<br><br><br><h4>mode super-admin : imports/exports de fichiers étudiants</h4>
 
 		<span id="importerUnFichier">importer un fichier
 			d'étudiants</span>
 
 		<form METHOD="POST" action="HImport">
-			<input type="file" size="50" name="file1"> <br />
+			<input type="file" size="10" name="file1"> <br />
 			<input type="submit" value="Import" name = "submitUpload">
 		</form>
+		
+		<br><br>
 		<span id="importerUnFichier">exporter la liste des étudiants dans un fichier</span>
 		<form METHOD="POST" action="HImport">
-			<input type="file" size="50" name="file2"> <br />
+			<input type="file" size="10" name="file2"> <br />
 			<input type="submit" value="Export" name = "submitDownload">
 		</form>
 

@@ -1,4 +1,4 @@
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 	
 		<span> page Admin </span><br>
 		<BUTTON id="afficheListeUsers" onclick="self.location.href='/GTC/HPersonne'">Gestion des utilisateurs</BUTTON>
@@ -11,3 +11,10 @@
 
 		<BUTTON id="afficherListeCompetences" onclick="self.location.href='/GTC/HCompetence'">Gestion des compétences</BUTTON>
 		
+		
+<c:choose>
+<c:when test="${loguedPerson.role.roleId==3}">
+		<BUTTON id="afficherImportExport" onclick="self.location.href='/GTC/Admin'">Imports / Exports</BUTTON>
+								
+</c:when>
+</c:choose>

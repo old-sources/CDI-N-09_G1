@@ -128,6 +128,10 @@
 	
 <%-- <BUTTON class="actionRetourPageAdmin">Retour page admin</BUTTON>   --%>	
 	
+	<br>
+	<h1>Gestion des promotions</h1>
+	
+	
 	<BUTTON class="actionPagePrincipaleCreer">Créer une promotion</BUTTON>
 	<div id="tablePromotionAdmin">
 		<table id="tablePromotion">
