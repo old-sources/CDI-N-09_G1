@@ -42,8 +42,11 @@ public class Profil extends HttpServlet {
 		System.out.println("Profil Get");
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		
+		Personne loguedPerson0= new Personne();
+		loguedPerson0 = (Personne) httpServletRequest.getSession().getAttribute("authentifiedPersonne");
 		Personne loguedPerson = new Personne();
-		loguedPerson=(Personne) httpServletRequest.getSession().getAttribute("authentifiedPersonne");
+		loguedPerson.setId(loguedPerson0.getId());
+		loguedPerson = serviceGestionEcole.rechercherPersonne(loguedPerson).get(0);
 		request.setAttribute("loguedPerson", loguedPerson);
 		
 		request.setAttribute("promotions",serviceGestionEcole.rechercherPromotion(new Promotion()));
@@ -89,7 +92,7 @@ public class Profil extends HttpServlet {
 
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		String inputDateNaissString = request.getParameter("inputDateNaiss");
-		System.out.println("datenaiss : "+inputDateNaissString);
+		System.out.println("datenaissServletOut : "+inputDateNaissString);
 		try {
 			//SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 //			String inputDateNaissString = request.getParameter("inputDateNaiss");
@@ -97,7 +100,7 @@ public class Profil extends HttpServlet {
 //			updatedPerson.setDateNaiss(inputDateNaiss);
 			Date inputDateNaiss = simpleDateFormat.parse(inputDateNaissString);
 			updatedPerson.setDateNaiss(inputDateNaiss);
-			System.out.println("datenaiss : "+inputDateNaissString);
+			System.out.println("datenaissServletIn : "+inputDateNaissString);
 		} catch (ParseException e) {
 			throw new RuntimeException(e);
 		}
@@ -165,7 +168,7 @@ public class Profil extends HttpServlet {
 		}
 
 		
-		System.out.println("HPersonne POST update");
+		System.out.println("Personne POST update");
 		Integer inputId = Integer.valueOf(request.getParameter("inputId"));
 		System.out.println("InputId = "+inputId);
 		updatedPerson.setId(inputId);

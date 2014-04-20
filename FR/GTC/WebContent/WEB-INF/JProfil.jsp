@@ -43,6 +43,7 @@
 		});
 		$('#inputDateNaiss').val(dateString.toLocaleDateString("fr-FR"));
 
+
 		console.log("inputdatenaiss : "+dateString);
 		
 		$('#formulaire').dialog({
@@ -81,7 +82,7 @@
 			<div>
 				<label for="inputDateNaiss">date de naissance</label> <input
 					type="text" id="inputDateNaiss" name="inputDateNaiss"
-<%-- 					value=fmt:formatDate pattern="dd/MM/yyyy" value="${personne.dateNaiss}" --%>
+					<%-- value='fmt:formatDate pattern="dd/MM/yyyy" value="${loguedPerson.dateNaiss}"'  --%> 
 					>
 			</div>
 			<div>
