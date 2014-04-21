@@ -107,6 +107,19 @@ public class HTravaille extends HttpServlet {
 			updatedTravaille.setTrvId(inputTravailleId);
 			serviceGestionEcole.updateTravaille(updatedTravaille);
 		}
+		
+		if (request.getParameter("delete") != null) {
+			System.out.println("HTravaille Post delete");
+			try {
+				Integer inputId = Integer.valueOf(request.getParameter("inputTravailleId"));
+				updatedTravaille.setTrvId(inputId);
+				System.out.println("id : "+inputId);
+				serviceGestionEcole.deleteTravaille(updatedTravaille);
+			}
+			catch (NumberFormatException e) {
+				// parametres non corrects : pas de suppression
+			}
+		}
  
 		response.sendRedirect("/GTC/HTravaille/");
 	}
