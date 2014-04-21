@@ -11,6 +11,8 @@
 
 		<BUTTON id="afficherListeCompetences" onclick="self.location.href='/GTC/HCompetence'">Gestion des compétences</BUTTON>
 		
+		<BUTTON id="afficherListeCompetences" onclick="self.location.href='/GTC/HTravaille'">relations personnes/projets</BUTTON>
+		
 		
 <c:choose>
 <c:when test="${loguedPerson.role.roleId==3}">

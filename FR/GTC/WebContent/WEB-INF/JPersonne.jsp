@@ -308,7 +308,7 @@ if (lg !=null){
 									</c:when>
 								</c:choose>
 								</c:forEach>
-				<td>
+				</td>
 				
 				
 								
