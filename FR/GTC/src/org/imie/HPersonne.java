@@ -1,7 +1,6 @@
 package org.imie;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -19,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.Personne;
 import model.Promotion;
 import model.Role;
+import model.Travaille;
 
 import org.imie.service.ServiceGestionEcoleJPALocal;
 
@@ -64,6 +64,10 @@ public class HPersonne extends HttpServlet {
 				.rechercherPersonne(searchPersonne);
 		request.setAttribute("foundPersonnes", foundPersonnes);
 		
+		List<Travaille> foundTravailles = serviceGestionEcole
+				.rechercherTravaille(new Travaille());
+		request.setAttribute("foundTravailles", foundTravailles);
+		
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		Personne loguedPerson = new Personne();
 		loguedPerson=(Personne) httpServletRequest.getSession().getAttribute("authentifiedPersonne");
@@ -78,6 +82,7 @@ public class HPersonne extends HttpServlet {
 		List<Integer> list5int = Arrays.asList(tempArray);;
 		request.setAttribute("list5int", list5int);
 		
+		// pour l'affichage en cours de saisie sur le login disponibilité -- pas fonctionnel
 		//ArrayList<String> listLogin = new ArrayList<String>();
 		String[] listLogin = new String[0];
 		ArrayList<Personne> listLogin0 = new ArrayList<Personne>(foundPersonnes);
@@ -86,10 +91,6 @@ public class HPersonne extends HttpServlet {
 			listLogin0.remove(listLogin0.size() -1);
 		}
 		request.setAttribute("listLogin", listLogin);
-		
-		//String inputLogin = (String) request.getAttribute("loginDouble");
-		//String inputLogin =valLoginDouble
-		//System.out.println("PPPPPPPPPPPPPP  "+valLoginDouble);
 		request.setAttribute("loginDouble",valLoginDouble);
 		
 		

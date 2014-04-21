@@ -255,6 +255,7 @@ if (lg !=null){
 						<TH>infos</TH>
 
 						<TH>disponible</TH>
+					<th>projets</th> 
 						<TH>droits</TH>
 						<TH></TH>
 					</TR>
@@ -274,7 +275,10 @@ if (lg !=null){
 
 
 							<%-- 							<td><c:out value="${personne.disponibilite}" /></td> --%>
-							<td><c:choose>
+							
+							<td>
+							
+							<c:choose>
 									<c:when test="${personne.disponibilite}">
 										<input type="checkbox" checked="checked" disabled> disponible
 									</c:when>
@@ -282,6 +286,32 @@ if (lg !=null){
 										<input type="checkbox" disabled>pas dispo
 									</c:otherwise>
 								</c:choose></td>
+	 			<td>
+	 	<%--		<select name="inputValueProjets">
+				 	<option value="sur projets"></option> 
+						<%System.out.println("test1"); %>
+								<c:forEach items="${foundTravailles}" var="trv">
+								<c:choose>
+									<c:when test="${personne.id == trv.personne.id}">
+										<%System.out.println("test2"); %>
+										<option value="${trv.trvId}">${trv.projet.projNom}</option>
+									</c:when>
+								</c:choose>
+								</c:forEach>
+					</select></td>
+		--%>
+				
+				<c:forEach items="${foundTravailles}" var="trv">
+								<c:choose>
+									<c:when test="${personne.id == trv.personne.id}">
+										<c:out value="${trv.projet.projNom}"/>
+									</c:when>
+								</c:choose>
+								</c:forEach>
+				<td>
+				
+				
+								
 							<td><c:out value="${personne.role.roleIntitule}" /></td>
 							<TD><c:choose>
 									<c:when
