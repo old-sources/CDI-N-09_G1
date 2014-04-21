@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.Personne;
+import model.Projet;
 import model.Promotion;
 import model.Travaille;
 
@@ -71,42 +72,33 @@ public class HTravaille extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		System.out.println("HPromotion Post");
+		System.out.println("HTravaille Post");
 		
-		// recherche de la promotion à modifier
-		Promotion updatedPromotion = new Promotion();
+		// recherche de la Travaille à modifier
+		Travaille updatedTravaille = new Travaille();
 
-		updatedPromotion = serviceGestionEcole.rechercherPromotion(updatedPromotion)
-				.get(0);
+		//updatedTravaille = serviceGestionEcole.rechercherTravaille(updatedTravaille)
+		//		.get(0);
 		// affectation des nouvelles valeurs
-		String inputLibelle = request.getParameter("inputLibelle");
-		updatedPromotion.setLibelle(inputLibelle);
-		String inputLieu = request.getParameter("inputLieu");
-		updatedPromotion.setLieu(inputLieu);
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-		String inputDateDebutString = request.getParameter("inputDateDebut");
-		try {
-			Date inputDateDebut = simpleDateFormat.parse(inputDateDebutString);
-			updatedPromotion.setDateDebut(inputDateDebut);
-		} catch (ParseException e) {
-			throw new RuntimeException(e);
-		}
-		String inputDateFinString = request.getParameter("inputDateFin");
-		try {
-			Date inputDateFin = simpleDateFormat.parse(inputDateFinString);
-			updatedPromotion.setDateDebut(inputDateFin);
-		} catch (ParseException e) {
-			throw new RuntimeException(e);
-		}
+		Integer inputProjetId = Integer.valueOf(request.getParameter("inputProjetId"));
+		Projet projet = new Projet();
+		projet.setProjId(inputProjetId);
+		updatedTravaille.setProjet(serviceGestionEcole.rechercherProjet(projet).get(0));
+		
+		Integer inputPersonneId = Integer.valueOf(request.getParameter("inputPersonneId"));
+		Personne personne = new Personne();
+		projet.setProjId(inputPersonneId);
+		updatedTravaille.setPersonne(serviceGestionEcole.rechercherPersonne(personne).get(0));
+		
 
 		if (request.getParameter("create") != null) {
-			serviceGestionEcole.insertPromotion(updatedPromotion);
+			serviceGestionEcole.insertTravaille(updatedTravaille);
 		}
 
 		if (request.getParameter("update") != null) {
-			Integer inputId = Integer.valueOf(request.getParameter("inputId"));
-			updatedPromotion.setId(inputId);
-			serviceGestionEcole.updatePromotion(updatedPromotion);
+			Integer inputTravailleId = Integer.valueOf(request.getParameter("inputTravailleId"));
+			updatedTravaille.setTrvId(inputTravailleId);
+			serviceGestionEcole.updateTravaille(updatedTravaille);
 		}
 
 		response.sendRedirect("/GTC/HPromotion/");

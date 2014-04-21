@@ -52,6 +52,8 @@
 			$("#formulaireRelation").dialog("open");
 			$('#inputPersonneLogin').val($(this).attr("data-personneid"));
 			$('#inputProjet').val($(this).attr("data-projetid"));
+			$('#inputTravailleId').val($(this).attr("data-travailleid"));
+			
 			
 			$('#updateDansForm').show();
 			$('#deleteDansForm').show();
@@ -113,6 +115,7 @@
 								data-personnelogin="${trv.personne.identConnexion}"
 								data-projetnom="${trv.projet.projNom}" 
 								data-projetid="${trv.projet.projId}"
+								data-travailleid="${trv.trvId}"
 								>Modifier</BUTTON></TD>
 
 					</tr>
@@ -128,6 +131,7 @@
 
 			<input type="hidden" name="inputPersonneId" id="inputPersonneId" />
 			<input type="hidden" name="inputProjetId" id="inputProjetId" />
+			<input type="hidden" name="inputTravailleId" id="inputTravailleId" />
 			
 			<div class="cell">
 				<label for="inputPersonneLogin">login : </label> <select
