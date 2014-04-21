@@ -80,6 +80,7 @@ public class TP13_Authent implements Filter {
 				if (authPersonne != null) {
 					httpServletRequest.getSession().setAttribute(
 							"authentifiedPersonne", authPersonne);
+					httpServletRequest.getSession().setAttribute("importImpossibleLoginDouble","false");
 					String uri = (String) httpServletRequest.getSession()
 							.getAttribute("originURL");
 					httpServletResponse.sendRedirect(uri);

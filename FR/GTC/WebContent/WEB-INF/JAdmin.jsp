@@ -103,6 +103,15 @@
 			<input type="file" size="10" name="file2"> <br />
 			<input type="submit" value="Export" name = "submitDownload">
 		</form>
+		
+<%
+String impnok = (String) request.getAttribute("importImpossibleLoginDouble");
+if (impnok == "true"){
+%>
+	<span style="color:#FF0000;text-align : center"> <h2>il existe des doublons de login dans le fichier sélectionné - Action annulée </h2></span>
+<%
+}
+%>
 
 </c:when>
 </c:choose>

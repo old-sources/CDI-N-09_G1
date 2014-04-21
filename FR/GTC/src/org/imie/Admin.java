@@ -61,6 +61,25 @@ public class Admin extends HttpServlet {
 		List<Personne> foundPersonnes = serviceGestionEcole
 				.rechercherPersonne(searchPersonne);
 		request.setAttribute("foundPersonnes", foundPersonnes);
+		
+		String impok = (String) request.getAttribute("importImpossibleLoginDouble");
+		System.out.println("rrrrrrrrr "+impok);
+	//	HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+		String impok2 = (String) httpServletRequest.getSession().getAttribute(
+				"importImpossibleLoginDouble");
+		System.out.println("22222222222 "+impok2);
+//		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+//		httpServletRequest.getSession().setAttribute(
+//				"importImpossibleLoginDouble", true);  
+//		
+		String imp = (String) httpServletRequest.getSession().getAttribute("importImpossibleLoginDouble");
+		if (imp.equals("true")){
+			request.setAttribute("importImpossibleLoginDouble", imp);
+		};
+		
+		
+		
+		
 		if ((loguedPerson.getRole().getRoleId() == 2)
 				|| (loguedPerson.getRole().getRoleId() == 3)) {
 			request.getRequestDispatcher("/WEB-INF/JAdmin.jsp").forward(

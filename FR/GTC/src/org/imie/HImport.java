@@ -56,7 +56,7 @@ public class HImport extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-
+		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		if (request.getParameter("submitUpload") != null) {
 
 			String inputFile = request.getParameter("file1");
@@ -65,7 +65,36 @@ public class HImport extends HttpServlet {
 			BufferedReader br = null;
 			String line = "";
 			String cvsSplitBy = ",";
+			boolean trouve = false;
+			//verfication de non-doublon sur le login
+			try {
 
+				br = new BufferedReader(new FileReader(csvFile));
+				while ((line = br.readLine()) != null) {
+					Personne personne = new Personne();
+					// use ";" as separator
+					String[] pers = line.split(cvsSplitBy);
+					personne.setIdentConnexion(pers[2]);
+					if ((pers[2]).equals(serviceGestionEcole.rechercherPersonne(personne).get(0).getIdentConnexion())){
+								trouve = true;
+					}					
+				} 
+			}catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} finally {
+				if (br != null) {
+					try {
+						br.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			}	
+			
+	if (!trouve){		
+			// action d'insertion
 			try {
 
 				br = new BufferedReader(new FileReader(csvFile));
@@ -142,6 +171,13 @@ public class HImport extends HttpServlet {
 			}
 
 			System.out.println("Done");
+			httpServletRequest.getSession().setAttribute(
+					"importImpossibleLoginDouble", "false"); 
+			
+	}else{
+		httpServletRequest.getSession().setAttribute(
+				"importImpossibleLoginDouble", "true");  
+	}
 		}
 
 		if (request.getParameter("submitDownload") != null) {
@@ -195,9 +231,17 @@ public class HImport extends HttpServlet {
 				writer.append(',');
 				writer.append(personne.getDateNaiss().toString());
 				writer.append(',');
-				writer.append(String.valueOf(personne.getPromotion().getId()));
+				if (personne.getPromotion() != null){
+					writer.append(String.valueOf(personne.getPromotion().getId()));
+				}else{
+					writer.append("");
+				}
 				writer.append(',');
-				writer.append(String.valueOf(personne.getRole().getRoleId()));
+				if (personne.getRole() != null){
+					writer.append(String.valueOf(personne.getRole().getRoleId()));
+				}else{
+					writer.append("");
+				}
 				writer.append('\n');
 			}
 			// generate whatever data you want
@@ -205,6 +249,7 @@ public class HImport extends HttpServlet {
 			writer.flush();
 			writer.close();
 		}
+	
 
 		response.sendRedirect("/GTC/Admin");
 
