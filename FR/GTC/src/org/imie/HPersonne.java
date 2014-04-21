@@ -1,8 +1,10 @@
 package org.imie;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -35,6 +37,16 @@ public class HPersonne extends HttpServlet {
 		// TODO Auto-generated constructor stub
 	}
 
+	private static String[] push(String[] array, String push) {
+	    String[] longer = new String[array.length + 1];
+	    for (int i = 0; i < array.length; i++)
+	        longer[i] = array[i];
+	    longer[array.length] = push;
+	    return longer;
+	}
+	private String valLoginDouble;
+	
+	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -62,12 +74,27 @@ public class HPersonne extends HttpServlet {
 		request.setAttribute("listRoles", listRoles);
 		
 		
+		Integer[] tempArray = new Integer[]{0,1,2,3,4,5};
+		List<Integer> list5int = Arrays.asList(tempArray);;
+		request.setAttribute("list5int", list5int);
+		
+		//ArrayList<String> listLogin = new ArrayList<String>();
+		String[] listLogin = new String[0];
+		ArrayList<Personne> listLogin0 = new ArrayList<Personne>(foundPersonnes);
+		while (listLogin0.size() >0){
+			listLogin = push(listLogin,listLogin0.get(listLogin0.size() -1).getIdentConnexion());
+			listLogin0.remove(listLogin0.size() -1);
+		}
+		request.setAttribute("listLogin", listLogin);
+		
+		//String inputLogin = (String) request.getAttribute("loginDouble");
+		//String inputLogin =valLoginDouble
+		//System.out.println("PPPPPPPPPPPPPP  "+valLoginDouble);
+		request.setAttribute("loginDouble",valLoginDouble);
+		
 		
 		request.getRequestDispatcher("/WEB-INF/JPersonne.jsp").forward(
 				request, response);
-		
-	
-
 	}
 
 	/**
@@ -121,8 +148,21 @@ public class HPersonne extends HttpServlet {
 			updatedPerson.setInfos(inputInfos);
 		}
 		
+		boolean trouve=false;
 		String inputLogin = request.getParameter("inputLogin");
 		if (inputLogin != null && !inputLogin.isEmpty()) {
+			Personne searchPersonne = new Personne();
+			request.setAttribute("promotions",
+					serviceGestionEcole.rechercherPromotion(new Promotion()));
+			List<Personne> foundPersonnes = serviceGestionEcole
+					.rechercherPersonne(searchPersonne);
+			for (Personne pers : foundPersonnes){
+				System.out.println("*****for pers.getidco= "+pers.getIdentConnexion()+" inputLogin= "+inputLogin);
+				if (inputLogin.equals(pers.getIdentConnexion())){
+					System.out.println("est passé dans login trouvé");
+					trouve = true;
+				}
+			}
 			updatedPerson.setIdentConnexion(inputLogin);
 		}
 		
@@ -179,15 +219,25 @@ public class HPersonne extends HttpServlet {
 		}
 
 		if (request.getParameter("create") != null) {
-			serviceGestionEcole.insertPersonne(updatedPerson);
+			if (!trouve){
+				serviceGestionEcole.insertPersonne(updatedPerson);
+				valLoginDouble = null;
+			}else {
+				valLoginDouble = inputLogin;
+	//			request.setAttribute("loginDouble",inputLogin);
+			}
+		//	request.setAttribute("loginDouble","abc");
+			//valLoginDouble="abc";
 		}
 
 		if (request.getParameter("update") != null) {
-			System.out.println("HPersonne POST update");
-			Integer inputId = Integer.valueOf(request.getParameter("inputId"));
-			System.out.println("InputId = "+inputId);
-			updatedPerson.setId(inputId);
-			serviceGestionEcole.updatePersonne(updatedPerson);
+			valLoginDouble = null;
+				System.out.println("HPersonne POST update");
+				Integer inputId = Integer.valueOf(request.getParameter("inputId"));
+				System.out.println("InputId = "+inputId);
+				updatedPerson.setId(inputId);
+				serviceGestionEcole.updatePersonne(updatedPerson);
+			
 		}
 
 		response.sendRedirect("/GTC/HPersonne");

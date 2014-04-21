@@ -3,6 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@page import="java.util.Date"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.Arrays"%>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr"
@@ -89,11 +91,18 @@
 													$(this).attr("data-email"));
 											$('#inputInfos').val(
 													$(this).attr("data-infos"));
-											$('#inputIdentConnexion')
-													.val(
-															$(this)
-																	.attr(
-																			"data-identConnexion"));
+											$('.loginExiste').hide();
+// 											$('#inputIdentConnexion')
+// 													.val(
+// 															$(this)
+// 																	.attr(
+// 																			"data-identConnexion"));
+											//document.getElementById('inputIdentConnexion').disabled = "true";
+										//	document.form.inputIdentConnexion.disabled=false;
+// 											$('#inputIdentConnexion').attr(
+// 													"disabled", "disabled");
+// 											$("#inputIdentConnexion").prop('disabled', true);
+											//$('#inputIdentConnexion').hide();
 											if (($(this).attr(
 													"data-disponibilite") == "true")
 													|| ($(this)
@@ -116,14 +125,18 @@
 															$(this)
 																	.attr(
 																			"data-identConnexion"));
+											$('#inputLogin').attr(
+													"disabled", "disabled");
 
 											$('#updateDansForm').show();
 											$('#deleteDansForm').show();
 											$('#creerDansForm').hide();
-// 											document.getElementById(updateDansForm).disabled = false;
-// 											document.getElementById(deleteDansForm).disabled = true;
-											$('#updateDansForm').attr("disabled", false);
-											$('#deleteDansForm').attr("disabled", false);
+											// 											document.getElementById(updateDansForm).disabled = false;
+											// 											document.getElementById(deleteDansForm).disabled = true;
+											$('#updateDansForm').attr(
+													"disabled", false);
+											$('#deleteDansForm').attr(
+													"disabled", false);
 										});
 
 						$('.actionPagePrincipaleCreer')
@@ -133,6 +146,9 @@
 											$("#formulaire").dialog("open");
 											$('#inputNom').val("");
 											$('#inputPrenom').val("");
+											$('#inputLogin').val("");
+											$('#inputLogin').attr(
+													"disabled", false);
 											$('#inputDateNaiss').datepicker({
 												defaultDate : new Date()
 											});
@@ -143,17 +159,19 @@
 											document
 													.getElementById('inputDisponibilite').checked = true;
 											// 			$('#inputDisponibilite').val("true");
-											$('#inputLogin').val("");
-
+											
+											$('.loginExiste').hide();
 											$('#inputRole').val("");
 											$('#inputInfos').val("");
 											$('#inputPassw').val("");
 											$('#inputRole').val("1");
 
 											$('#deleteDansForm').hide();
-											$('#deleteDansForm').attr("disabled", "disabled");
+											$('#deleteDansForm').attr(
+													"disabled", "disabled");
 											$('#updateDansForm').hide();
-											$('#updateDansForm').attr("disabled", "disabled");
+											$('#updateDansForm').attr(
+													"disabled", "disabled");
 											$('#creerDansForm').show();
 										});
 
@@ -165,7 +183,14 @@
 							"bJQueryUI" : true
 						}).yadcf([]);
 
+						$('#lgdble').val("${loginDouble}");
+
 					});
+
+
+		
+		
+ 	
 </SCRIPT>
 
 
@@ -173,8 +198,23 @@
 <body>
 
 	<%@ include file="/WEB-INF/header.jsp"%>
-	<%@include file="/WEB-INF/headerAdmin.jsp" %>
-<%-- 		<span> page Admin </span><br>
+	<%@include file="/WEB-INF/headerAdmin.jsp"%>
+	
+	
+<br>
+<%
+String lg = (String) request.getAttribute("loginDouble");
+if (lg !=null){
+%>
+	<span style="color:#FF0000;text-align : center"> <h2>le login <%=lg%> est déja pris - Action annulée </h2></span>
+<%
+}
+%>
+<!-- <span style="color:#000000"></span>" -->
+
+
+<!-- 	<input type="text" id="lgdble" ;color:#FF0000" > -->
+	<%-- 		<span> page Admin </span><br>
 		<BUTTON id="afficheListeUsers">Gestion des utilisateurs</BUTTON>
 
 		<br>
@@ -189,13 +229,13 @@
 		<BUTTON id="afficherListeCompetences">Gestion des compétences</BUTTON>
 		<br>
 		<br>
-	--%>	
-	
-	
-	
-<%-- 	<BUTTON class="actionRetourPageAdmin">Retour page admin</BUTTON> --%>
-<%-- 	<br> --%>
-<%-- 	<br> --%>
+	--%>
+
+
+
+	<%-- 	<BUTTON class="actionRetourPageAdmin">Retour page admin</BUTTON> --%>
+	<%-- 	<br> --%>
+	<%-- 	<br> --%>
 
 	<br>
 	<h1>Gestion des utilisateurs</h1>
@@ -213,7 +253,7 @@
 						<TH>password</TH>
 						<TH>email</TH>
 						<TH>infos</TH>
-						
+
 						<TH>disponible</TH>
 						<TH>droits</TH>
 						<TH></TH>
@@ -231,7 +271,7 @@
 							<td><c:out value="${personne.passw}" /></td>
 							<td><c:out value="${personne.email}" /></td>
 							<td><c:out value="${personne.infos}" /></td>
-						
+
 
 							<%-- 							<td><c:out value="${personne.disponibilite}" /></td> --%>
 							<td><c:choose>
@@ -243,31 +283,28 @@
 									</c:otherwise>
 								</c:choose></td>
 							<td><c:out value="${personne.role.roleIntitule}" /></td>
-<TD>
+							<TD><c:choose>
+									<c:when
+										test="${personne.role.roleId == 3 && loguedPerson.role.roleId==2}">
 
-<c:choose>
-							<c:when test="${personne.role.roleId == 3 && loguedPerson.role.roleId==2}">
-								
-							<BUTTON class="actionFormulaire" disabled="disabled">Modifier</BUTTON>
-							</c:when>
-<c:otherwise>
-<BUTTON class="actionFormulaire"
-									data-id="${personne.id}" data-nom="${personne.nom}"
-									data-prenom="${personne.prenom}"
-									data-dateNaiss="${personne.dateNaiss}"
-									data-promotionlibelle="${personne.promotion.libelle}"
-									data-promotionid="${personne.promotion.id}"
-									data-passw="${personne.passw}" data-email="${personne.email}"
-									data-infos="${personne.infos}"
-									data-roleid="${personne.role.roleId}"
-									data-identConnexion="${personne.identConnexion}"
-									data-disponibilite="${personne.disponibilite}">Modifier</BUTTON>
+										<BUTTON class="actionFormulaire" disabled="disabled">Modifier</BUTTON>
+									</c:when>
+									<c:otherwise>
+										<BUTTON class="actionFormulaire" data-id="${personne.id}"
+											data-nom="${personne.nom}" data-prenom="${personne.prenom}"
+											data-dateNaiss="${personne.dateNaiss}"
+											data-promotionlibelle="${personne.promotion.libelle}"
+											data-promotionid="${personne.promotion.id}"
+											data-passw="${personne.passw}" data-email="${personne.email}"
+											data-infos="${personne.infos}"
+											data-roleid="${personne.role.roleId}"
+											data-identConnexion="${personne.identConnexion}"
+											data-disponibilite="${personne.disponibilite}">Modifier</BUTTON>
 
 
 
-</c:otherwise>
-							</c:choose>
-</TD>
+									</c:otherwise>
+								</c:choose></TD>
 
 						</TR>
 					</c:forEach>
@@ -290,8 +327,12 @@
 			<label for="inputPrenom">prenom :</label> <input type="text"
 				id="inputPrenom" name="inputPrenom" required>
 			<div>
+				
 				<label for="inputLogin">login :</label> <input type="text"
-					id="inputLogin" name="inputLogin" required>
+					id="inputLogin" name="inputLogin"  required>
+<%-- 					id="inputLogin" name="inputLogin" onkeyup="VerifLogin()" required> --%>
+				<br><input type="text" class="loginExiste" style="background-color:transparent;border:0px;color:#FF0000" > 
+<%-- 	<span class="loginExiste">le login <c:out value="${loginEnTest}" />${loginEnTest} est déja utilisé</span> --%>	
 			</div>
 			<div>
 				<label for="inputDateNaiss">date de naissance</label> <input
@@ -307,7 +348,7 @@
 					</c:forEach>
 				</select>
 			</div>
-			
+
 			<div>
 				<label for="inputPassw">password :</label> <input type="text"
 					id="inputPassw" name="inputPassw" required>
@@ -331,29 +372,29 @@
 			</div>
 
 
-<div class="cell">
+			<div class="cell">
 				<label for="inputRole">droits : </label> <select name="inputRole"
 					id="inputRole">
 					<option value=""></option>
 					<c:forEach items="${listRoles}" var="rol">
 						<c:choose>
-						<c:when test="${loguedPerson.role.roleId == 3}">
-							<option value="${rol.roleId}">${rol.roleIntitule}</option>
-						</c:when>
-						<c:otherwise>
-							<c:choose>
-							<c:when test="${rol.roleId != 3}">
+							<c:when test="${loguedPerson.role.roleId == 3}">
 								<option value="${rol.roleId}">${rol.roleIntitule}</option>
 							</c:when>
-							</c:choose>
-						</c:otherwise>
+							<c:otherwise>
+								<c:choose>
+									<c:when test="${rol.roleId != 3}">
+										<option value="${rol.roleId}">${rol.roleIntitule}</option>
+									</c:when>
+								</c:choose>
+							</c:otherwise>
 						</c:choose>
 					</c:forEach>
 				</select>
 			</div>
 
 
-<%-- 
+			<%-- 
 			<div class="cell">
 				<label for="inputRole">droits : </label> <select name="inputRole"
 					id="inputRole">
@@ -376,3 +417,4 @@
 	</div>
 </body>
 </html>
+		
