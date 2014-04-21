@@ -48,6 +48,10 @@ public class HTravaille extends HttpServlet {
 				.rechercherTravaille(new Travaille());
 		request.setAttribute("foundTravailles", foundTravailles);
 		
+		List<Projet> foundProjets = serviceGestionEcole
+				.rechercherProjet(new Projet());
+		request.setAttribute("foundProjets", foundProjets);
+		
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		Personne loguedPerson = new Personne();
 		loguedPerson=(Personne) httpServletRequest.getSession().getAttribute("authentifiedPersonne");
@@ -83,11 +87,14 @@ public class HTravaille extends HttpServlet {
 		Integer inputProjetId = Integer.valueOf(request.getParameter("inputProjetId"));
 		Projet projet = new Projet();
 		projet.setProjId(inputProjetId);
+		System.out.println("inputProjetId"+inputProjetId);
 		updatedTravaille.setProjet(serviceGestionEcole.rechercherProjet(projet).get(0));
-		
+	
+		String test = request.getParameter("inputPersonneId");
+		System.out.println("inputPersonneId = "+test);
 		Integer inputPersonneId = Integer.valueOf(request.getParameter("inputPersonneId"));
 		Personne personne = new Personne();
-		projet.setProjId(inputPersonneId);
+		personne.setId(inputPersonneId);
 		updatedTravaille.setPersonne(serviceGestionEcole.rechercherPersonne(personne).get(0));
 		
 
@@ -100,8 +107,8 @@ public class HTravaille extends HttpServlet {
 			updatedTravaille.setTrvId(inputTravailleId);
 			serviceGestionEcole.updateTravaille(updatedTravaille);
 		}
-
-		response.sendRedirect("/GTC/HPromotion/");
+ 
+		response.sendRedirect("/GTC/HTravaille/");
 	}
 
 }

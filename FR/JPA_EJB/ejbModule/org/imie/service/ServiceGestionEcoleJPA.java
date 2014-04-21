@@ -375,6 +375,27 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote,
 		return entityManager.merge(projetToUpdate);
 	}
 
+	
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public Travaille insertTravaille(Travaille travaille) {
+		Travaille travaille2 = new Travaille();
+		travaille2.setPersonne(travaille.getPersonne());
+		travaille2.setProjet(travaille.getProjet());
+		entityManager.persist(travaille2);
+		return travaille2;
+	}
+
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public void deleteTravaille(Travaille travaille) {
+		travaille = entityManager.find(Travaille.class, travaille.getTrvId());
+		entityManager.remove(travaille);
+	}
+
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public Travaille updateTravaille(Travaille travailleToUpdate) {
+		return entityManager.merge(travailleToUpdate);
+	}
+	
 	// ----------------------------------------------------------
 	// JM méthodes compétences à implémenter
 	@Override

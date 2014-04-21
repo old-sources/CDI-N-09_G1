@@ -45,6 +45,9 @@ public interface ServiceGestionEcoleJPALocal {
     public Projet insertProjet(Projet projet);
     public void deleteProjet(Projet projet);
     public Projet updateProjet(Projet projetToUpdate);
+    public Travaille insertTravaille(Travaille travaille);
+    public Travaille updateTravaille(Travaille travailleToUpdate);
+    public void deleteTravaille(Travaille travaille);
 
     // ajout methodes Competence JM
 	public List<Competence> rechercherCompetence(Competence searchCompetences);

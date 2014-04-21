@@ -28,7 +28,7 @@
 	href="css/jquery.dataTables.yadcf.css">
 
 
-<title>Liste Promotion</title>
+<title>Liste PRelations Projets/personnes</title>
 <SCRIPT type="text/javascript">
 	$(document).ready(function() {
 		$('.onlyadmin').hide();
@@ -46,12 +46,12 @@
 				effect : "blind",
 				duration : 1000
 			}
-		})
+		});
 
 		$('.actionFormulaireRelation').on('click', function(e) {
 			$("#formulaireRelation").dialog("open");
-			$('#inputPersonneLogin').val($(this).attr("data-personneid"));
-			$('#inputProjet').val($(this).attr("data-projetid"));
+			$('#inputPersonneId').val($(this).attr("data-personneid"));
+			$('#inputProjetId').val($(this).attr("data-projetid"));
 			$('#inputTravailleId').val($(this).attr("data-travailleid"));
 			
 			
@@ -62,7 +62,7 @@
 
 		$('.actionPagePrincipaleCreer').on('click', function(e) {
 			$("#formulaireRelation").dialog("open");
-			$('#inputPersonneLogin').val("");
+			$('#inputPersonneId').val("");
 			$('#inputProjet').val("");
 
 			$('#deleteDansForm').hide();
@@ -129,13 +129,13 @@
 	<div id="formulaireRelation">
 		<form method="POST" id="formFormulaire">
 
-			<input type="hidden" name="inputPersonneId" id="inputPersonneId" />
-			<input type="hidden" name="inputProjetId" id="inputProjetId" />
+			
+	
 			<input type="hidden" name="inputTravailleId" id="inputTravailleId" />
 			
 			<div class="cell">
-				<label for="inputPersonneLogin">login : </label> <select
-					name="inputPersonneLogin" id="inputPersonneLogin">
+				<label for="inputPersonneId">login : </label> <select
+					name="inputPersonneId" id="inputPersonneId">
 					<option value=""></option>
 					<c:forEach items="${foundPersonnes}" var="personne">
 						<option value="${personne.id}">${personne.identConnexion}
@@ -144,11 +144,11 @@
 				</select>
 			</div>
 			<div class="cell">
-				<label for="inputProjet">projet : </label> <select
-					name="inputProjet" id="inputProjet">
+				<label for="inputProjetId">projet : </label> <select
+					name="inputProjetId" id="inputProjetId">
 					<option value=""></option>
-					<c:forEach items="${foundTravailles}" var="trv">
-						<option value="${trv.projet.projId}">${trv.projet.projNom}
+					<c:forEach items="${foundProjets}" var="projet">
+						<option value="${projet.projId}">${projet.projNom}
 							</option>
 					</c:forEach>
 				</select>
