@@ -53,7 +53,7 @@ public interface ServiceGestionEcoleJPALocal {
 	public List<Competence> rechercherCompetence(Competence searchCompetences);
 	public void deleteCompetence(Competence updatedCompetence);
 	public void insertCompetence(Competence updatedCompetence);
-	public Competence updateCompetence(Competence updatedCompetence);
+	public void updateCompetence(Competence updatedCompetence);
 	public void setChildCompetence(List<Competence> foundCompetences);
     	  
     
