@@ -441,37 +441,45 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote,
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void deleteCompetence(Competence deletedCompetence) {
 		// TODO Auto-generated method stub
-		// passage du monde objet au monde relationnel ?? ou juste completion de
-		// l'entité ?
-		deletedCompetence = entityManager.find(Competence.class,deletedCompetence.getCompId());
-		// pere de la competence à modifier
-		Competence father = deletedCompetence.getCompetence();
-		// Liste des enfants de la compétence modifiée
-		List<Competence> children = deletedCompetence.getCompetences();
-		// modification des enfants, leur père devient le père de la compétence
-		// supprimée
-		for (Competence comp : children) {
-			comp.setCompetence(father); // modification onde objet
-			updateCompetence(comp); // modification coté persistance
+
+		if (deletedCompetence.getCompId() != null) {
+			// passage du monde objet au monde relationnel ?? ou juste
+			// completion de
+			// l'entité ?
+			deletedCompetence = entityManager.find(Competence.class,
+					deletedCompetence.getCompId());
+			// pere de la competence à modifier
+			Competence father = deletedCompetence.getCompetence();
+			// Liste des enfants de la compétence modifiée
+			List<Competence> children = deletedCompetence.getCompetences();
+			// modification des enfants, leur père devient le père de la
+			// compétence
+			// supprimée
+			for (Competence comp : children) {
+				comp.setCompetence(father); // modification onde objet
+				updateCompetence(comp); // modification coté persistance
+			}
+
+			// Recherche et suppression de toutes les relations avec cette commp
+			// creation d'un modèle vide
+			Possede relation = new Possede();
+			// on initialise le modèle de relation avec la competence à
+			// supprimer
+			relation.setCompetence(deletedCompetence);
+			// on remplie le liste de toutes les relations ayant cette
+			// compétence
+			List<Possede> listRelation = rechercherPossede(relation);
+			// on supprime toutes les relation trouvée dans la classe
+
+			// on eleve la dependance FK possede de la Table Possede
+			for (Possede rel : listRelation) {
+				// la relation rel doit necessairement posseder un Id
+				deletePossede(rel);
+			}
+
+			// enfin on supprime la competence
+			entityManager.remove(deletedCompetence);
 		}
-
-		// Recherche et suppression de toutes les relations avec cette commp
-		// creation d'un modèle vide
-		Possede relation = new Possede();
-		// on initialise le modèle de relation avec la competence à supprimer
-		relation.setCompetence(deletedCompetence);
-		// on remplie le liste de toutes les relations ayant cette compétence
-		List<Possede> listRelation = rechercherPossede(relation);
-		// on supprime toutes les relation trouvée dans la classe
-
-		// on eleve la dependance FK possede de la Table Possede
-		for (Possede rel : listRelation) {
-			// la relation rel doit necessairement posseder un Id
-			deletePossede(rel);
-		}
-
-		// enfin on supprime la competence
-		entityManager.remove(deletedCompetence);
 	}
 
 	// Delete Competence
@@ -482,8 +490,8 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote,
 	public void insertCompetence(Competence newCompetence) {
 		// TODO Auto-generated method stub
 		// doit necessairement posséder un pere
-		if (newCompetence.getCompetence() != null ) {
-		entityManager.persist(newCompetence);		
+		if (newCompetence.getCompetence() != null) {
+			entityManager.persist(newCompetence);
 		}
 	}
 
@@ -492,10 +500,10 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote,
 	public void updateCompetence(Competence updatedCompetence) {
 		// TODO Auto-generated method stub
 		// doit necessairement posséder un id
-		if (updatedCompetence.getCompId() != null ) {
-			entityManager.merge(updatedCompetence);	
+		if (updatedCompetence.getCompId() != null) {
+			entityManager.merge(updatedCompetence);
 		}
-//		return entityManager.merge(updatedCompetence);
+		// return entityManager.merge(updatedCompetence);
 	}
 
 	// -------------------------------------------------------------------
@@ -515,9 +523,11 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote,
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void deletePossede(Possede possede) {
+		if (possede.getPossId() != null) {
 		// la relation à supprimer necessite de posszeder un Id
 		possede = entityManager.find(Possede.class, possede.getPossId());
 		entityManager.remove(possede);
+		}
 	}
 
 }

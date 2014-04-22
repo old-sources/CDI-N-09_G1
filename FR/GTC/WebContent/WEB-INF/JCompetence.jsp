@@ -37,27 +37,68 @@
 
 		$('#tableComp').dataTable({
 			"bJQueryUI" : true
-		}).yadcf([ {
-			column_number : 0
-		}, {
-			column_number : 3,
-			filter_type : "auto_complete",
-			text_data_delimiter : ","
-		}, {
-			column_number : 5,
-			filter_type : "auto_complete",
-			text_data_delimiter : ","
-		} ]);
+		}).yadcf([ 
+// {column_number : 0},{
+//	{column_number : 3,filter_type : "auto_complete",text_data_delimiter : ","}, 
+//  {column_number : 5, filter_type : "auto_complete", text_data_delimiter : ","} 
+	]);
 
+		$('.onlyadmin').hide();
+		if ("${loguedPerson.role.roleId}" != 1) {
+			$('.onlyadmin').show();
+		}
+		$('.actionFormulairePromotion').button();
+
+		// ouverture du formulaire avec l'id de la div
+		$('#formCompDivId').dialog({ 
+			autoOpen : false,
+			show : {
+				effect : "blind",
+				duration : 1000
+			},
+			hide : {
+				effect : "blind",
+				duration : 1000
+			}
+		});
+
+		$('.actionFormulairePromotion').on('click', function(e) {
+			// ouverture du formulaire avec l'id de la div
+			$("#formCompDivId").dialog("open");
+			$('#inputId').val($(this).attr("data-id"));
+			$('#inputLibelle').val($(this).attr("data-libelle"));
+
+			$('#updateDansForm').show();
+			$('#deleteDansForm').show();
+			$('#creerDansForm').hide();
+		});
+
+		$('.actionPagePrincipaleCreer').on('click', function(e) {
+			$("#formulairePromotion").dialog("open"); //formulairePromotion div
+			$('#inputId').val("");
+			$('#inputLibelle').val("");
+	
+			$('#deleteDansForm').hide();
+			$('#updateDansForm').hide();
+			$('#creerDansForm').show();
+		});
+
+		$('.actionRetourPageHome').on('click', function(e) {
+			document.location.href = "/GTC/Home";
+		});
+
+		
 	});
+
 </SCRIPT>
 </head>
+
 <body>
 	<%@ include file="/WEB-INF/header.jsp"%>
 	<h1>Onglet Competence (JM en cours)</h1>
-
-
-
+	
+	<BUTTON class="actionPagePrincipaleCreer">Créer une promotion</BUTTON>
+	
 	<!-- 	<div class="tabCompetence" id="tabComp"> -->
 	<div class="cell3" id="divProjet">
 		<label for="listeCompétences"> compétence école </label>
@@ -66,9 +107,10 @@
 			<THEAD>
 				<TR>
 					<TH>Id compétence</TH>
-					<TH>intitulé</TH>
-					<TH>père</TH>
-					<TH>enfants</TH>
+					<TH>Intitulé</TH>
+					<TH>Père</TH>
+					<TH>Enfants</TH>
+					<TH>Action</TH>
 				</TR>
 			</THEAD>
 			<TBODY>
@@ -79,15 +121,35 @@
 						</TD>
 						<TD><c:out value="${comp.competence.getCompIntitule()}" /></TD>
 						<TD><c:forEach items="${comp.competences}" var="compchild">
-								<%-- 							<c:forEach items="${comp.getCompetences()}" var="compchild"> --%>
-								 								<c:out value="+" />
+								<c:out value="+" />
 								<c:out value="${compchild.compIntitule}" />
 							</c:forEach></TD>
+
+ 						<TD><BUTTON class="actionFormulairePromotion"
+								data-compId="${comp.compId}" 
+								data-compIntitule="${comp.compIntitule}"
+								>Modifier</BUTTON></TD>
 					</tr>
 				</c:forEach>
 			</TBODY>
 
 		</TABLE>
+	</div>
+	
+	<div id="formCompDivId"> 
+		<form method="POST" id="formFormulaire">
+			<input type="hidden" name="inputId" id="inputId" />
+			<div>
+				<label for="inputLibelle">libelle :</label> <input type="text"
+					id="inputLibelle" name="inputLibelle">
+			</div>
+
+			<input type="submit" name="update" id="updateDansForm" value="Modifier"/> 
+			<input type="submit" name="create" id="creerDansForm" value="Créer"/> 
+			<input type="submit" name="delete" id="deleteDansForm" value="Supprimer"/>
+
+
+		</form>
 	</div>
 
 </body>
