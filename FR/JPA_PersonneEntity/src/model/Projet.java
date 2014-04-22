@@ -65,7 +65,7 @@ public class Projet implements Serializable {
 	private List<Personne> personnes;
 
 	//bi-directional many-to-one association to Travaille
-	@OneToMany(mappedBy="projet")
+	@OneToMany(mappedBy="projet", fetch = FetchType.EAGER)
 	private List<Travaille> travailles;
 
 	public Projet() {

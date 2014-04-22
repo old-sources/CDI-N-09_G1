@@ -83,6 +83,35 @@
 			text_data_delimiter : ","
 		} ]);
 
+		$('.actionFormulaire').on('click', function(e) {
+			$("#formulaire").dialog("open");
+			$('#inputCdpId').val($(this).attr("data-personneid"));
+			$('#inputProjId').val($(this).attr("data-projId"));
+			$('#inputProjNom').val($(this).attr("data-projNom"));
+			$('#inputprojDescription').val($(this).attr("data-projDescription"));
+			$('#inputProjWikiCdp').val($(this).attr("data-projWikiCdp"));
+			$('#inputprojWikiMembre').val($(this).attr("data-projWikiMembre"));
+			$('#inputprojAvancement').val($(this).attr("data-projAvancement"));
+			$('#inputPersonne').val($(this).attr("data-personneid"));
+
+			var dateString1 = new Date($(this).attr("data-projDatedebut"));
+			$('#inputProjDatedebut').datepicker({
+				defaultDate : dateString1
+			});
+			$('#inputProjDatedebut').val(dateString1.toLocaleDateString("fr-FR"));
+			var dateString2 = new Date($(this).attr("data-projDatedefin"));
+			$('#inputProjDatedefin').datepicker({
+				defaultDate : dateString2
+			});
+			$('#inputProjDatedefin').val(dateString2.toLocaleDateString("fr-FR"));
+		
+			
+	
+			$('#updateDansForm').show();
+			$('#deleteDansForm').show();
+			$('#creerDansForm').hide();
+		});
+
 	});
 </SCRIPT>
 
@@ -116,8 +145,7 @@
 								<TH>chef de projet</TH>
 								<TH>membres</TH>
 								<TH>avancement</TH>
-								<TH>projet affecté à</TH>
-								<!-- 							<TH></TH> -->
+								<TH></TH>
 							</TR>
 						</THEAD>
 						<TBODY>
@@ -129,10 +157,25 @@
 									<TD><fmt:formatDate pattern="dd/MM/yyyy"
 											value="${prj.projDatedefin}" /></TD>
 									<TD><c:out value="${prj.projDescription}" /></TD>
-									<TD><c:out value="${prj.projWikiCdp}" /></TD>
-									<TD><c:out value="${prj.projWikiMembre}" /></TD>
-									<TD><c:out value="${prj.projAvancement}" /></TD>
 									<TD><c:out value="${prj.personne.nom}" /></TD>
+									<TD>
+										<c:forEach items="${prj.travailles}" var="participant">
+											<c:out value="${participant.personne.prenom} ${participant.personne.nom}" />
+											<br />
+										</c:forEach>
+									</TD>
+									<TD><c:out value="${prj.projAvancement}" /></TD>
+									<TD><BUTTON class="actionFormulaire"
+											data-projId="${prj.projId}"
+											data-projNom="${prj.projNom}"
+											data-projDatedebut="${prj.projDatedebut}"
+											data-projDatedefin="${prj.projDatedefin}"
+											data-projDescription="${prj.projDescription}"
+											data-projWikiCdp="${prj.projWikiCdp}"
+											data-projWikiMembre="${prj.projWikiMembre}"
+											data-projAvancement="${prj.projAvancement}"
+											data-personnenom="${prj.personne.nom}"
+											data-personneid="${prj.personne.id}">Modifier</BUTTON></TD>
 								</tr>
 							</c:forEach>
 						</TBODY>
@@ -155,7 +198,6 @@
 								<TH>chef de projet</TH>
 								<TH>membres</TH>
 								<TH>avancement</TH>
-								<TH>projet affecté à</TH>
 								<!-- 							<TH></TH> -->
 							</TR>
 						</THEAD>
@@ -168,10 +210,14 @@
 									<TD><fmt:formatDate pattern="dd/MM/yyyy"
 											value="${prj.projDatedefin}" /></TD>
 									<TD><c:out value="${prj.projDescription}" /></TD>
-									<TD><c:out value="${prj.projWikiCdp}" /></TD>
-									<TD><c:out value="${prj.projWikiMembre}" /></TD>
-									<TD><c:out value="${prj.projAvancement}" /></TD>
 									<TD><c:out value="${prj.personne.nom}" /></TD>
+									<TD>
+										<c:forEach items="${prj.travailles}" var="participant">
+											<c:out value="${participant.personne.prenom} ${participant.personne.nom}" />
+											<br />
+										</c:forEach>
+									</TD>
+									<TD><c:out value="${prj.projAvancement}" /></TD>
 								</tr>
 							</c:forEach>
 						</TBODY>

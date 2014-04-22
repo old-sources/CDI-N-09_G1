@@ -3,7 +3,6 @@ package org.imie;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -16,8 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.Personne;
 import model.Projet;
-import model.Promotion;
-import model.Travaille;
 
 import org.imie.service.ServiceGestionEcoleJPALocal;
 
@@ -47,30 +44,6 @@ public class HProjet extends HttpServlet {
 		// on met tous les projets dans foundProjets
 		Projet searchProjet = new Projet();
 		List<Projet> foundProjets = serviceGestionEcole.rechercherProjet(searchProjet);
-		//integration de la liste des participants dans chaque projet
-		Integer i=1;
-		for(Projet projet : foundProjets){
-			//creation modele de projet a partir de id projet
-			Projet projetReference = new Projet();
-			projetReference.setProjId(projet.getProjId());
-			//creation modele de travaille a partir du modele de projet ci-dessus
-			Travaille travailleReference = new Travaille();
-			travailleReference.setProjet(projetReference);
-			//recherche dans liste travailles a partir du modele tous les elements associes au projet 
-			List<Travaille> listeTravailles = new ArrayList<Travaille>();
-			listeTravailles = serviceGestionEcole.rechercherTravaille(travailleReference);
-			projet.setTravailles(listeTravailles);
-			//traces console
-//			System.out.println("proj id " + projet.getProjId());
-//			for(Travaille travailleTemp : listeTravailles){
-//				//recherche dans liste personnes celles concernees par le projet 
-//				List<Personne> listePersonnes = new ArrayList<Personne>();
-//				listeTravailles = serviceGestionEcole.rechercherPersonnes(personneRef.);
-//				projet.setTravailles(listeTravailles);
-//				System.out.println("personne nom " + travailleTemp.getPersonne().getNom());
-//			}
-			
-		}
 		request.setAttribute("foundProjets", foundProjets);
 		
 		// on passe tous les profils en request pour la liste de la popup modif projet

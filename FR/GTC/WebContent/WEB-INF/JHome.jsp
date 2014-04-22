@@ -98,7 +98,6 @@
 								<TH>chef de projet</TH>
 								<TH>membres</TH>
 								<TH>avancement</TH>
-								<TH>projet affecté à</TH>
 								<!-- 							<TH></TH> -->
 							</TR>
 						</THEAD>
@@ -111,10 +110,14 @@
 									<TD><fmt:formatDate pattern="dd/MM/yyyy"
 											value="${prj.projDatedefin}" /></TD>
 									<TD><c:out value="${prj.projDescription}" /></TD>
-									<TD><c:out value="${prj.projWikiCdp}" /></TD>
-									<TD><c:out value="${prj.projWikiMembre}" /></TD>
-									<TD><c:out value="${prj.projAvancement}" /></TD>
 									<TD><c:out value="${prj.personne.nom}" /></TD>
+									<TD>
+										<c:forEach items="${prj.travailles}" var="participant">
+											<c:out value="${participant.personne.prenom} ${participant.personne.nom}" />
+											<br />
+										</c:forEach>
+									</TD>
+									<TD><c:out value="${prj.projAvancement}" /></TD>
 								</tr>
 							</c:forEach>
 						</TBODY>
