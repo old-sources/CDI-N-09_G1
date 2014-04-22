@@ -448,20 +448,25 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote,
 		deletedCompetence = entityManager.find(Competence.class,deletedCompetence.getCompId());
 		// vraiment indispensable ??
 		
-		// pere competence à modifier
+		// pere de la competence à modifier
 		Competence father = deletedCompetence.getCompetence();
-		// modification des enfants, leur père devient le père de la compétence supprimée
+		// Liste des enfants de la compétence modifiée
 		List<Competence> children = deletedCompetence.getCompetences();
+		// modification des enfants, leur père devient le père de la compétence supprimée
 		for (Competence comp : children) {
-			comp.setCompetence(father);
-			updateCompetence(comp);
+			comp.setCompetence(father); // modification onde objet
+			updateCompetence(comp); // modification coté persistance
 		}
 		
 		// Recherche et suppression de toutes les relations avec cette commpétence
+		// creation d'un modèle vide
 		Possede relation = new Possede();
+		// on initialise le modèle de relation avec la competence à supprimer
 		relation.setCompetence(deletedCompetence);
+		// on remplie le liste de toutes les relations ayant cette compétence
 		List<Possede> listRelation = rechercherPossede(relation);
 		// on supprime toutes les relation trouvée dans la classe
+		
 
 		//besoin méthode deletePossede  ??
 		//on eleve la dependance FK possede de
@@ -486,6 +491,11 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote,
 	public Competence updateCompetence(Competence updatedCompetence) {
 		// TODO Auto-generated method stub
 		return entityManager.merge(updatedCompetence);
+		
+		// if (request.getParameter("update") != null) {
+		// Integer inputId = Integer.valueOf(request.getParameter("inputId"));
+		// updatedPerson.setId(inputId);
+		// serviceGestionEcole.updatePersonne(updatedPerson);
 	}
 
 	//-------------------------------------------------------------------
