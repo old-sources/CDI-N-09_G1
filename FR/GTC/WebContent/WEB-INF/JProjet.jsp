@@ -161,7 +161,6 @@
 							<TH>chef de projet</TH>
 							<TH>membres</TH>
 							<TH>avancement</TH>
-<!--							<TH>projet affecté à</TH> -->
 							<th></th>
 						</TR>
 					</THEAD>
