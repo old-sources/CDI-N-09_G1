@@ -62,6 +62,11 @@ public class HCompetence extends HttpServlet {
 //			// affectation de cette liste à comp
 //			comp.setCompetences(resultChild);
 //		}	
+		
+		// if (request.getParameter("update") != null) {
+		// Integer inputId = Integer.valueOf(request.getParameter("inputId"));
+		// updatedPerson.setId(inputId);
+		// serviceGestionEcole.updatePersonne(updatedPerson);
 		serviceGestionEcole.setChildCompetence(foundCompetences);
 	
 		request.setAttribute("foundCompetences", foundCompetences);

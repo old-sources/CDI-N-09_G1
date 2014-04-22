@@ -103,95 +103,97 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote,
 		entityManager.persist(personne2);
 		return personne2;
 
-    }
-     
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public void deletePersonne(Personne personne){
-    	personne = entityManager.find(Personne.class, personne.getId());
+	}
 
-    	// on eleve la dependance FK possede de la personne 
-    	while (personne.getPossedes().size()>0){
-    		int numElt = personne.getPossedes().size() - 1;
-    		Possede poss = personne.getPossedes().get(numElt);
-    		personne.getPossedes().remove(numElt);
-    		//poss.getCompetence().getPossedes().remove(poss.getCompetence().getPossedes().size() - 1);
-    		entityManager.remove(poss);
-    	}
-    	
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public void deletePersonne(Personne personne) {
+		personne = entityManager.find(Personne.class, personne.getId());
 
-//    	
-//    	// on enleve la dependande FK projet de la personne
-//    	while (personne.getProjets1().size()>0){
-//    		int numElt = personne.getProjets1().size() - 1;
-//    		Projet prj = personne.getProjets1().get(numElt);
-//    		personne.getProjets1().remove(numElt);
-//    		entityManager.remove(prj);
-//    	}
-//    	
-//    	while (personne.getProjets2().size()>0){
-//    		int numElt = personne.getProjets2().size() - 1;
-//    		Projet prj = personne.getProjets2().get(numElt);
-//    		personne.getProjets2().remove(numElt);
-//    		entityManager.remove(prj);
-//    	}
-    	
-    	
-    	
-//    	//on enleve la dependance travaille de la personne
-//    	while (personne.get.size()>0){
-//    		int numElt = personne.getInvitationProjets().size() - 1;
-//    		InvitationProjet invprj = personne.getInvitationProjets().get(numElt);
-//    		personne.getProjets2().remove(numElt);
-//    		entityManager.remove(invprj);
-//    	}
-//    	
-//    	//on enleve la dependance envoyer de la personne
-//    	
-    	
-    	entityManager.remove(personne);
-    }
-    
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public Personne updatePersonne(Personne personneToUpdate){
-    	return entityManager.merge(personneToUpdate);
-    }
-    
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public Promotion insertPromotion(Promotion promotion){
-    	Promotion promotion2 = new Promotion();
-    	promotion2.setLibelle(promotion.getLibelle());
-    	promotion2.setLieu(promotion.getLieu());
-    	promotion2.setDateDebut(promotion.getDateDebut());
-    	promotion2.setDateFin(promotion.getDateFin());
-    	System.out.println("est passé par le insert "+promotion.getLibelle()+" "+promotion.getLieu());
-	   
-    	entityManager.persist(promotion2);
-    	return promotion;
-		
-    }
-    
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public void deletePromotion(Promotion promotion){
-    	entityManager.remove(promotion);
-    }
-    
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public List<Promotion> rechercherPromotion(Promotion promotion){
-    	CriteriaBuilder qb=entityManager.getCriteriaBuilder();
-    	
-    	CriteriaQuery<Promotion> query = qb.createQuery(Promotion.class);
-    	Root<Promotion> promotionRoot = query.from(Promotion.class);
-    	
-    	List<Predicate> criteria = new ArrayList<Predicate>();
-    	if (promotion.getId() != null){
-    		criteria.add(qb.equal(promotionRoot.get("id"), promotion.getId()));
-    	}
-    	if (promotion.getLibelle() != null){
-    		criteria.add(qb.like(promotionRoot.<String>get("libelle"), "*"+promotion.getLibelle()+"*"));
-    	}
-    	
-    	query.where(criteria.toArray(new Predicate[] {}));
-    	List<Promotion> result = entityManager.createQuery(query).getResultList();
+		// on eleve la dependance FK possede de la personne
+		while (personne.getPossedes().size() > 0) {
+			int numElt = personne.getPossedes().size() - 1;
+			Possede poss = personne.getPossedes().get(numElt);
+			personne.getPossedes().remove(numElt);
+			// poss.getCompetence().getPossedes().remove(poss.getCompetence().getPossedes().size()
+			// - 1);
+			entityManager.remove(poss);
+		}
+
+		//
+		// // on enleve la dependande FK projet de la personne
+		// while (personne.getProjets1().size()>0){
+		// int numElt = personne.getProjets1().size() - 1;
+		// Projet prj = personne.getProjets1().get(numElt);
+		// personne.getProjets1().remove(numElt);
+		// entityManager.remove(prj);
+		// }
+		//
+		// while (personne.getProjets2().size()>0){
+		// int numElt = personne.getProjets2().size() - 1;
+		// Projet prj = personne.getProjets2().get(numElt);
+		// personne.getProjets2().remove(numElt);
+		// entityManager.remove(prj);
+		// }
+
+		// //on enleve la dependance travaille de la personne
+		// while (personne.get.size()>0){
+		// int numElt = personne.getInvitationProjets().size() - 1;
+		// InvitationProjet invprj =
+		// personne.getInvitationProjets().get(numElt);
+		// personne.getProjets2().remove(numElt);
+		// entityManager.remove(invprj);
+		// }
+		//
+		// //on enleve la dependance envoyer de la personne
+		//
+
+		entityManager.remove(personne);
+	}
+
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public Personne updatePersonne(Personne personneToUpdate) {
+		return entityManager.merge(personneToUpdate);
+	}
+
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public Promotion insertPromotion(Promotion promotion) {
+		Promotion promotion2 = new Promotion();
+		promotion2.setLibelle(promotion.getLibelle());
+		promotion2.setLieu(promotion.getLieu());
+		promotion2.setDateDebut(promotion.getDateDebut());
+		promotion2.setDateFin(promotion.getDateFin());
+		System.out.println("est passé par le insert " + promotion.getLibelle()
+				+ " " + promotion.getLieu());
+
+		entityManager.persist(promotion2);
+		return promotion;
+
+	}
+
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public void deletePromotion(Promotion promotion) {
+		entityManager.remove(promotion);
+	}
+
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public List<Promotion> rechercherPromotion(Promotion promotion) {
+		CriteriaBuilder qb = entityManager.getCriteriaBuilder();
+
+		CriteriaQuery<Promotion> query = qb.createQuery(Promotion.class);
+		Root<Promotion> promotionRoot = query.from(Promotion.class);
+
+		List<Predicate> criteria = new ArrayList<Predicate>();
+		if (promotion.getId() != null) {
+			criteria.add(qb.equal(promotionRoot.get("id"), promotion.getId()));
+		}
+		if (promotion.getLibelle() != null) {
+			criteria.add(qb.like(promotionRoot.<String> get("libelle"), "*"
+					+ promotion.getLibelle() + "*"));
+		}
+
+		query.where(criteria.toArray(new Predicate[] {}));
+		List<Promotion> result = entityManager.createQuery(query)
+				.getResultList();
 
 		return result;
 	}
@@ -375,7 +377,6 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote,
 		return entityManager.merge(projetToUpdate);
 	}
 
-	
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public Travaille insertTravaille(Travaille travaille) {
 		Travaille travaille2 = new Travaille();
@@ -395,10 +396,11 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote,
 	public Travaille updateTravaille(Travaille travailleToUpdate) {
 		return entityManager.merge(travailleToUpdate);
 	}
-	
+
 	// ----------------------------------------------------------
 	// JM méthodes compétences à implémenter
 	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public List<Competence> rechercherCompetence(Competence comp) {
 
 		CriteriaBuilder qb = entityManager.getCriteriaBuilder();
@@ -431,34 +433,29 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote,
 				.getResultList();
 		return result;
 	}
-	
-	
-	
+
 	// JM méthodes compétences à implémenter
-
-
 	// --------------------------------------------------------
 	// Delete Competence
 	@Override
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void deleteCompetence(Competence deletedCompetence) {
 		// TODO Auto-generated method stub
-		
-		// passage du monde objet au monde relationnel ?? ou juste completion de l'entité ?
+		// passage du monde objet au monde relationnel ?? ou juste completion de
+		// l'entité ?
 		deletedCompetence = entityManager.find(Competence.class,deletedCompetence.getCompId());
-		// vraiment indispensable ??
-		
 		// pere de la competence à modifier
 		Competence father = deletedCompetence.getCompetence();
 		// Liste des enfants de la compétence modifiée
 		List<Competence> children = deletedCompetence.getCompetences();
-		// modification des enfants, leur père devient le père de la compétence supprimée
+		// modification des enfants, leur père devient le père de la compétence
+		// supprimée
 		for (Competence comp : children) {
 			comp.setCompetence(father); // modification onde objet
 			updateCompetence(comp); // modification coté persistance
 		}
-		
-		// Recherche et suppression de toutes les relations avec cette commpétence
+
+		// Recherche et suppression de toutes les relations avec cette commp
 		// creation d'un modèle vide
 		Possede relation = new Possede();
 		// on initialise le modèle de relation avec la competence à supprimer
@@ -467,13 +464,12 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote,
 		List<Possede> listRelation = rechercherPossede(relation);
 		// on supprime toutes les relation trouvée dans la classe
 
-		//besoin méthode deletePossede  ??
-		//on eleve la dependance FK possede de
+		// on eleve la dependance FK possede de la Table Possede
 		for (Possede rel : listRelation) {
 			// la relation rel doit necessairement posseder un Id
-			 deletePossede(rel);
+			deletePossede(rel);
 		}
-		
+
 		// enfin on supprime la competence
 		entityManager.remove(deletedCompetence);
 	}
@@ -482,24 +478,27 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote,
 	// --------------------------------------------------------
 
 	@Override
-	public void insertCompetence(Competence updatedCompetence) {
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public void insertCompetence(Competence newCompetence) {
 		// TODO Auto-generated method stub
-
+		// doit necessairement posséder un pere
+		if (newCompetence.getCompetence() != null ) {
+		entityManager.persist(newCompetence);		
+		}
 	}
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	@Override
-	public Competence updateCompetence(Competence updatedCompetence) {
+	public void updateCompetence(Competence updatedCompetence) {
 		// TODO Auto-generated method stub
-		return entityManager.merge(updatedCompetence);
-		
-		// if (request.getParameter("update") != null) {
-		// Integer inputId = Integer.valueOf(request.getParameter("inputId"));
-		// updatedPerson.setId(inputId);
-		// serviceGestionEcole.updatePersonne(updatedPerson);
+		// doit necessairement posséder un id
+		if (updatedCompetence.getCompId() != null ) {
+			entityManager.merge(updatedCompetence);	
+		}
+//		return entityManager.merge(updatedCompetence);
 	}
 
-	//-------------------------------------------------------------------
+	// -------------------------------------------------------------------
 	// Ajout Méthodes JM
 	public void setChildCompetence(List<Competence> competences) {
 		// Affectation de la liste des enfants comme attributs
@@ -513,12 +512,12 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote,
 			comp.setCompetences(resultChild);
 		}
 	}
-	
+
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void deletePossede(Possede possede) {
 		// la relation à supprimer necessite de posszeder un Id
 		possede = entityManager.find(Possede.class, possede.getPossId());
 		entityManager.remove(possede);
 	}
-	
+
 }
