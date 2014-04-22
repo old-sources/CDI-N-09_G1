@@ -76,8 +76,9 @@ public class HPromotion extends HttpServlet {
 		// recherche de la promotion à modifier
 		Promotion updatedPromotion = new Promotion();
 
-		updatedPromotion = serviceGestionEcole.rechercherPromotion(updatedPromotion)
-				.get(0);
+//		updatedPromotion = serviceGestionEcole.rechercherPromotion(updatedPromotion)
+//				.get(0);
+		
 		// affectation des nouvelles valeurs
 		String inputLibelle = request.getParameter("inputLibelle");
 		updatedPromotion.setLibelle(inputLibelle);

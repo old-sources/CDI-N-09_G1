@@ -47,7 +47,7 @@
 		if ("${loguedPerson.role.roleId}" != 1) {
 			$('.onlyadmin').show();
 		}
-		$('.actionFormulairePromotion').button();
+		$('.actionFormulaireComp').button();
 
 		// ouverture du formulaire avec l'id de la div
 		$('#formCompDivId').dialog({ 
@@ -62,11 +62,11 @@
 			}
 		});
 
-		$('.actionFormulairePromotion').on('click', function(e) {
+		$('.actionFormulaireComp').on('click', function(e) {
 			// ouverture du formulaire avec l'id de la div
 			$("#formCompDivId").dialog("open");
-			$('#inputId').val($(this).attr("data-id"));
-			$('#inputLibelle').val($(this).attr("data-libelle"));
+			$('#inputId').val($(this).attr("data-compId"));
+			$('#inputLibelleComp').val($(this).attr("data-compIntitule"));
 
 			$('#updateDansForm').show();
 			$('#deleteDansForm').show();
@@ -76,7 +76,7 @@
 		$('.actionPagePrincipaleCreer').on('click', function(e) {
 			$("#formulairePromotion").dialog("open"); //formulairePromotion div
 			$('#inputId').val("");
-			$('#inputLibelle').val("");
+			$('#inputLibelleComp').val("");
 	
 			$('#deleteDansForm').hide();
 			$('#updateDansForm').hide();
@@ -125,7 +125,7 @@
 								<c:out value="${compchild.compIntitule}" />
 							</c:forEach></TD>
 
- 						<TD><BUTTON class="actionFormulairePromotion"
+ 						<TD><BUTTON class="actionFormulaireComp"
 								data-compId="${comp.compId}" 
 								data-compIntitule="${comp.compIntitule}"
 								>Modifier</BUTTON></TD>
@@ -137,17 +137,19 @@
 	</div>
 	
 	<div id="formCompDivId"> 
+<!-- forme de la boite de dialogue -->
 		<form method="POST" id="formFormulaire">
-			<input type="hidden" name="inputId" id="inputId" />
+		<!-- l'ID de la comp est fournie mais restera une donnée cachée -->
+			<input type="hidden" name="inputId" id="inputId" /> 
 			<div>
-				<label for="inputLibelle">libelle :</label> <input type="text"
-					id="inputLibelle" name="inputLibelle">
+			<!-- seule donnée de la compétence -->
+				<label for="inputLibelleComp">libelle :</label> <input type="text"
+					id="inputLibelleComp" name="inputLibelleComp">
 			</div>
 
 			<input type="submit" name="update" id="updateDansForm" value="Modifier"/> 
 			<input type="submit" name="create" id="creerDansForm" value="Créer"/> 
 			<input type="submit" name="delete" id="deleteDansForm" value="Supprimer"/>
-
 
 		</form>
 	</div>

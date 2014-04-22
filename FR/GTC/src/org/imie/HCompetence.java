@@ -15,8 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.Competence;
 import model.Personne;
-//import model.Projet;
-//import model.Promotion;
 
 import org.imie.service.ServiceGestionEcoleJPALocal;
 
@@ -45,9 +43,9 @@ public class HCompetence extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("HCompetence Get"); // console verif
 
-		// on met toutes les competences dans foundCompetences
-
+		// on crée un modèle vide de type compétence
 		Competence searchCompetences = new Competence();
+		// on met toutes les competences dans foundCompetences
 		List<Competence> foundCompetences = serviceGestionEcole
 				.rechercherCompetence(searchCompetences);
 
@@ -57,9 +55,8 @@ public class HCompetence extends HttpServlet {
 		request.setAttribute("foundCompetences", foundCompetences);
 
 		// loguedPerson passé en request
-		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+		HttpServletRequest httpServletRequest = (HttpServletRequest) request;	
 		Personne loguedPerson = new Personne();
-
 		loguedPerson = (Personne) httpServletRequest.getSession().getAttribute(
 				"authentifiedPersonne");
 		request.setAttribute("loguedPerson", loguedPerson);
@@ -76,19 +73,24 @@ public class HCompetence extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 
 		System.out.println("HCompetence Post");
-
-		// on liste toutes les compétences
-		// Competence searchCompetence = new Competence();
-		// List<Competence> foundCompetences = serviceGestionEcole
-		// .rechercherCompetence(searchCompetence);
-		// Affectation de la liste des enfants comme attributs ??
+		
+		// on cree un modèle vide de competence
+		Competence modelCompetence = new Competence();
 
 		System.out.println("HCompetence Post attribution request");
-		// request.setAttribute("foundCompetences", foundCompetences);
+		// valeurs passés en request
+		String inputLibelComp = request.getParameter("inputLibelleComp");
+		modelCompetence.setCompIntitule(inputLibelComp);
 
-		// affectation des nouvelles valeurs
-		// ////////////////////////////////// delete update create
+		// ///////////////////////////////////// update / modifie
+		if (request.getParameter("update") != null) {
+			
+			System.out.println("HCompetence Post update");
+			
+		}
+		
 		// /////////////////////////////////////
+		// ////////////////////////////////// delete update create
 		if (request.getParameter("delete") != null) {
 			System.out.println("HCompetence Post delete");
 			if (request.getParameter("inputCompId") != null) {
@@ -121,9 +123,12 @@ public class HCompetence extends HttpServlet {
 
 		System.out.println("Apres IF avant redirection");
 
-		request.getRequestDispatcher("/WEB-INF/JCompetence.jsp").forward(
-				request, response);
-		// response.sendRedirect("/GTC/HCompetence");
+		//---------------------------------------------------------
+		// on crée un modèle vide de type compétence
+		
+		//response.sendRedirect("/GTC/Home/");
+		response.sendRedirect("/GTC/Competence/");
+		
 	}
 
 }
