@@ -502,7 +502,8 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote,
 		// doit necessairement posséder un id
 		if (updatedCompetence.getCompId() != null) {
 			// Attention : ERROR: null value in column "comp_valide" violates not-null constraint
-			updatedCompetence.setCompValide(True);
+			Boolean compValide = true;
+			updatedCompetence.setCompValide(compValide);		
 			entityManager.merge(updatedCompetence);
 		}
 		// return entityManager.merge(updatedCompetence);
