@@ -316,7 +316,7 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote,
 			criteria.add(qb.equal(trvRoot.get("personne"), trv.getPersonne()));
 		}
 		if (trv.getProjet() != null) {
-			criteria.add(qb.equal(trvRoot.get("projId"), trv.getProjet()));
+			criteria.add(qb.equal(trvRoot.get("projet"), trv.getProjet()));
 		}
 		if (trv.getTrvId() != null) {
 			criteria.add(qb.equal(trvRoot.<String> get("trvId"), trv.getTrvId()));
