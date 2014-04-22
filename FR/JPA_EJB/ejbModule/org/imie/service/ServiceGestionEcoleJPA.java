@@ -466,14 +466,15 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote,
 		// on remplie le liste de toutes les relations ayant cette compétence
 		List<Possede> listRelation = rechercherPossede(relation);
 		// on supprime toutes les relation trouvée dans la classe
-		
 
 		//besoin méthode deletePossede  ??
 		//on eleve la dependance FK possede de
 		for (Possede rel : listRelation) {
-			entityManager.remove(rel);
+			// la relation rel doit necessairement posseder un Id
+			 deletePossede(rel);
 		}
 		
+		// enfin on supprime la competence
 		entityManager.remove(deletedCompetence);
 	}
 
@@ -511,6 +512,13 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote,
 			// affectation de cette liste à comp
 			comp.setCompetences(resultChild);
 		}
+	}
+	
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public void deletePossede(Possede possede) {
+		// la relation à supprimer necessite de posszeder un Id
+		possede = entityManager.find(Possede.class, possede.getPossId());
+		entityManager.remove(possede);
 	}
 	
 }
