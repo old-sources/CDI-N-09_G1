@@ -80,12 +80,13 @@ public class HCompetence extends HttpServlet {
 		System.out.println("HCompetence Post attribution request");
 		// valeurs passés en request
 		String inputLibelComp = request.getParameter("inputLibelleComp");
+		Integer compId = Integer.valueOf(request.getParameter("inputId"));
 		modelCompetence.setCompIntitule(inputLibelComp);
-
+		modelCompetence.setCompId(compId);
 		// ///////////////////////////////////// update / modifie
 		if (request.getParameter("update") != null) {
-			
 			System.out.println("HCompetence Post update");
+			serviceGestionEcole.updateCompetence(modelCompetence);
 			
 		}
 		
@@ -113,20 +114,7 @@ public class HCompetence extends HttpServlet {
 			request.setAttribute("foundCompetences", foundCompetences);
 		}
 
-//		// loguedPerson passé en request
-//		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-//		Personne loguedPerson = new Personne();
-//
-//		loguedPerson = (Personne) httpServletRequest.getSession().getAttribute(
-//				"authentifiedPersonne");
-//		request.setAttribute("loguedPerson", loguedPerson);
-
-		System.out.println("Apres IF avant redirection");
-
-		//---------------------------------------------------------
-		// on crée un modèle vide de type compétence
-		
-		//response.sendRedirect("/GTC/Home/");
+		// redirection vers DoGet
 		response.sendRedirect("/GTC/Competence/");
 		
 	}
