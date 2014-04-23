@@ -47,7 +47,7 @@
 				<br>
 				<h4>mode super-admin : imports/exports de fichiers étudiants</h4>
 
-				<span id="importerUnFichier">importer un fichier d'étudiants</span>
+				<span id="importerUnFichier">importer un fichier d'étudiants depuis le repertoire /home/imie/filrouge/data/</span>
 
 				<form METHOD="POST" action="HImport">
 					<input type="file" size="10" name="file1"> <br /> <input
@@ -56,8 +56,7 @@
 
 				<br>
 				<br>
-				<span id="importerUnFichier">exporter la liste des étudiants
-					dans un fichier</span>
+				<span id="importerUnFichier">exporter la liste des étudiants le repertoire /home/imie/filrouge/data/</span>
 				<form METHOD="POST" action="HImport">
 					<input type="file" size="10" name="file2"> <br /> <input
 						type="submit" value="Export" name="submitDownload">

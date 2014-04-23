@@ -66,7 +66,7 @@ public class HImport extends HttpServlet {
 			String line = "";
 			String cvsSplitBy = ",";
 			boolean trouve = false;
-			//verfication de non-doublon sur le login
+			// verfication de non-doublon sur le login
 			try {
 
 				br = new BufferedReader(new FileReader(csvFile));
@@ -75,87 +75,12 @@ public class HImport extends HttpServlet {
 					// use ";" as separator
 					String[] pers = line.split(cvsSplitBy);
 					personne.setIdentConnexion(pers[2]);
-					if ((pers[2]).equals(serviceGestionEcole.rechercherPersonne(personne).get(0).getIdentConnexion())){
-								trouve = true;
-					}					
-				} 
-			}catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			} finally {
-				if (br != null) {
-					try {
-						br.close();
-					} catch (IOException e) {
-						e.printStackTrace();
+					if ((pers[2]).equals(serviceGestionEcole
+							.rechercherPersonne(personne).get(0)
+							.getIdentConnexion())) {
+						trouve = true;
 					}
 				}
-			}	
-			
-	if (!trouve){		
-			// action d'insertion
-			try {
-
-				br = new BufferedReader(new FileReader(csvFile));
-				while ((line = br.readLine()) != null) {
-					Personne personne = new Personne();
-					// use ";" as separator
-					String[] pers = line.split(cvsSplitBy);
-					personne.setNom(pers[0]);
-					System.out.println("setnom : " + pers[0]);
-					personne.setPrenom(pers[1]);
-					System.out.println("setprenom : " + pers[1]);
-					personne.setIdentConnexion(pers[2]);
-					personne.setPassw(pers[3]);
-					personne.setInfos(pers[4]);
-					personne.setEmail(pers[5]);
-					personne.setDisponibilite(Boolean.valueOf(pers[6]));
-
-					SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
-							"yyyy-MM-dd");
-					String inputDateNaissString = pers[7];
-					System.out.println("datenaiss : " + inputDateNaissString);
-					try {
-						Date inputDateNaiss = simpleDateFormat
-								.parse(inputDateNaissString);
-						personne.setDateNaiss(inputDateNaiss);
-					} catch (ParseException e) {
-						throw new RuntimeException(e);
-					}
-
-					String inputPromotionString = pers[8];
-					if (!inputPromotionString.isEmpty()) {
-						Integer inputPromotion = Integer
-								.valueOf(inputPromotionString);
-						Promotion searchPromotion = new Promotion();
-						searchPromotion.setId(inputPromotion);
-						System.out.println("searchpromotion.getid : "
-								+ searchPromotion.getId());
-						searchPromotion = serviceGestionEcole
-								.rechercherPromotion(searchPromotion).get(0);
-						System.out.println("promotion2");
-						personne.setPromotion(searchPromotion);
-						System.out.println("promotion3");
-					} else {
-						personne.setPromotion(null);
-					}
-
-					String inputRoleId = pers[9];
-					System.out
-							.println("Hpersonne string rolid :" + inputRoleId);
-					if (inputRoleId != null && !inputRoleId.isEmpty()) {
-						System.out.println("inputroleid : " + inputRoleId);
-						Integer roleId = Integer.valueOf(inputRoleId);
-						Role role = new Role();
-						role.setRoleId(roleId);
-						serviceGestionEcole.rechercherRole(role).get(0);
-						personne.setRole(role);
-					}
-
-					serviceGestionEcole.insertPersonne(personne);
-				}
-
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
@@ -170,15 +95,96 @@ public class HImport extends HttpServlet {
 				}
 			}
 
-			System.out.println("Done");
-			httpServletRequest.getSession().setAttribute(
-					"importImpossibleLoginDouble", "false"); 
-			
-	}else{
-		httpServletRequest.getSession().setAttribute(
-				"importImpossibleLoginDouble", "true");  
-	}
+			if (!trouve) {
+				// action d'insertion
+				try {
+
+					br = new BufferedReader(new FileReader(csvFile));
+					while ((line = br.readLine()) != null) {
+						Personne personne = new Personne();
+						// use ";" as separator
+						String[] pers = line.split(cvsSplitBy);
+						personne.setNom(pers[0]);
+						System.out.println("setnom : " + pers[0]);
+						personne.setPrenom(pers[1]);
+						System.out.println("setprenom : " + pers[1]);
+						personne.setIdentConnexion(pers[2]);
+						personne.setPassw(pers[3]);
+						personne.setInfos(pers[4]);
+						personne.setEmail(pers[5]);
+						personne.setDisponibilite(Boolean.valueOf(pers[6]));
+
+						SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
+								"yyyy-MM-dd");
+						String inputDateNaissString = pers[7];
+						System.out.println("datenaiss : "
+								+ inputDateNaissString);
+						try {
+							Date inputDateNaiss = simpleDateFormat
+									.parse(inputDateNaissString);
+							personne.setDateNaiss(inputDateNaiss);
+						} catch (ParseException e) {
+							throw new RuntimeException(e);
+						}
+
+						String inputPromotionString = pers[8];
+						if (!inputPromotionString.isEmpty()) {
+							Integer inputPromotion = Integer
+									.valueOf(inputPromotionString);
+							Promotion searchPromotion = new Promotion();
+							searchPromotion.setId(inputPromotion);
+							System.out.println("searchpromotion.getid : "
+									+ searchPromotion.getId());
+							searchPromotion = serviceGestionEcole
+									.rechercherPromotion(searchPromotion)
+									.get(0);
+							System.out.println("promotion2");
+							personne.setPromotion(searchPromotion);
+							System.out.println("promotion3");
+						} else {
+							personne.setPromotion(null);
+						}
+
+						String inputRoleId = pers[9];
+						System.out.println("Hpersonne string rolid :"
+								+ inputRoleId);
+						if (inputRoleId != null && !inputRoleId.isEmpty()) {
+							System.out.println("inputroleid : " + inputRoleId);
+							Integer roleId = Integer.valueOf(inputRoleId);
+							Role role = new Role();
+							role.setRoleId(roleId);
+							serviceGestionEcole.rechercherRole(role).get(0);
+							personne.setRole(role);
+						}
+
+						serviceGestionEcole.insertPersonne(personne);
+					}
+
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				} finally {
+					if (br != null) {
+						try {
+							br.close();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+				}
+
+				System.out.println("Done");
+				httpServletRequest.getSession().setAttribute(
+						"importImpossibleLoginDouble", "false");
+
+			} else {
+				httpServletRequest.getSession().setAttribute(
+						"importImpossibleLoginDouble", "true");
+			}
 		}
+
+		// ////////////////////////////// export de fichier 		// ////////////////////
 
 		if (request.getParameter("submitDownload") != null) {
 			String inputFile = request.getParameter("file2");
@@ -231,15 +237,17 @@ public class HImport extends HttpServlet {
 				writer.append(',');
 				writer.append(personne.getDateNaiss().toString());
 				writer.append(',');
-				if (personne.getPromotion() != null){
-					writer.append(String.valueOf(personne.getPromotion().getId()));
-				}else{
+				if (personne.getPromotion() != null) {
+					writer.append(String.valueOf(personne.getPromotion()
+							.getId()));
+				} else {
 					writer.append("");
 				}
 				writer.append(',');
-				if (personne.getRole() != null){
-					writer.append(String.valueOf(personne.getRole().getRoleId()));
-				}else{
+				if (personne.getRole() != null) {
+					writer.append(String
+							.valueOf(personne.getRole().getRoleId()));
+				} else {
 					writer.append("");
 				}
 				writer.append('\n');
@@ -249,7 +257,6 @@ public class HImport extends HttpServlet {
 			writer.flush();
 			writer.close();
 		}
-	
 
 		response.sendRedirect("/GTC/Admin");
 
