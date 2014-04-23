@@ -57,11 +57,11 @@ public class HImport extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+		
+//////////////////////import de fichier //////////////////////////////////////////////////////		
 		if (request.getParameter("submitUpload") != null) {
-
 			String inputFile = request.getParameter("file1");
 			String csvFile = "/home/imie/filrouge/data/".concat(inputFile);
-			// maison : String csvFile = "/home/imie/Documents/saves/test.csv";
 			BufferedReader br = null;
 			String line = "";
 			String cvsSplitBy = ",";
@@ -252,7 +252,6 @@ public class HImport extends HttpServlet {
 				}
 				writer.append('\n');
 			}
-			// generate whatever data you want
 
 			writer.flush();
 			writer.close();
@@ -264,4 +263,4 @@ public class HImport extends HttpServlet {
 
 }
 
-// ////////////////////////////////////////////////
+

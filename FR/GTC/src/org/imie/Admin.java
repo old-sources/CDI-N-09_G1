@@ -48,18 +48,22 @@ public class Admin extends HttpServlet {
 		request.setAttribute("promotions",
 				serviceGestionEcole.rechercherPromotion(new Promotion()));
 
+		// envoi en attribut la personne loguéé "loguedPerson"
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		Personne loguedPerson = new Personne();
 		loguedPerson = (Personne) httpServletRequest.getSession().getAttribute(
 				"authentifiedPersonne");
 		request.setAttribute("loguedPerson", loguedPerson);
+		// envoie en attribut le role (admin,user,super-admin) de la personne loguée
 		int userId = loguedPerson.getRole().getRoleId();
 		request.setAttribute("userId", userId);
 
+		// envoie en attribut la liste des personnes presentes en base "foundPersonnes" 
 		List<Personne> foundPersonnes = serviceGestionEcole
 				.rechercherPersonne(searchPersonne);
 		request.setAttribute("foundPersonnes", foundPersonnes);
 
+		// envoie en attribut si il a repéré un import impossible sur l'import de fichiers
 		String imp = (String) httpServletRequest.getSession().getAttribute(
 				"importImpossibleLoginDouble");
 		if (imp.equals("true")) {
@@ -87,9 +91,9 @@ public class Admin extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("AdminPost");
-		//
-		String inputFile = request.getParameter("file1");
-		System.out.println("inputFile : " + inputFile);
+//		// récup
+//		String inputFile = request.getParameter("file1");
+//		System.out.println("inputFile : " + inputFile);
 		response.sendRedirect("/GTC/Admin");
 	}
 }

@@ -1,3 +1,4 @@
+<%@page import="org.apache.taglibs.standard.tag.common.xml.ForEachTag"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -188,8 +189,38 @@
 					});
 
 
-		
-		
+	function VerifLogin() {
+		$('.loginExiste').hide();
+		var result = false;
+	
+		var listLogin = [];
+		var val;
+		<%
+		for(Personne pers : (List<Personne>)request.getAttribute("listLogin")){
+			%>
+			listLogin.push("<%=pers.getIdentConnexion()%>");
+			<%
+			
+		}
+		%>
+	 	//	listLogin = <%=request.getAttribute("listLogin")%>; 
+	 	console.log("plistlogin"+listLogin);
+		console.log("listlogin  taille"+listLogin.length);
+// 		console.log("request.getAttribute(listLogin)"+listLogin[1]);
+		var loginEnTest = document.getElementById('inputLogin').value;
+		for(var i= 0; i < listLogin.length; i++){
+			console.log("passé dans for pour listlogin"+listLogin[i]);
+			if (loginEnTest == listLogin[i]){
+				result = true;
+			};
+ 		};
+
+		if (result == true) {
+			$('.loginExiste').show();
+			$('.loginExiste').val(loginEnTest+" est déja utilisé");
+		};	
+	};	
+			
  	
 </SCRIPT>
 
@@ -358,9 +389,9 @@ if (lg !=null){
 				id="inputPrenom" name="inputPrenom" required>
 			<div>
 				
-				<label for="inputLogin">login :</label> <input type="text"
-					id="inputLogin" name="inputLogin"  required>
-<%-- 					id="inputLogin" name="inputLogin" onkeyup="VerifLogin()" required> --%>
+				<label for="inputLogin">login :</label> <input type="text" id="inputLogin" name="inputLogin" onkeyup="VerifLogin()" required>
+<!-- 					id="inputLogin" name="inputLogin"  required> -->
+					
 				<br><input type="text" class="loginExiste" style="background-color:transparent;border:0px;color:#FF0000" > 
 <%-- 	<span class="loginExiste">le login <c:out value="${loginEnTest}" />${loginEnTest} est déja utilisé</span> --%>	
 			</div>
