@@ -15,19 +15,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <base href="/GTC/" />
 <link rel=stylesheet type="text/css" href="css/style.css">
-<link href="css/south-street/jquery-ui-1.10.4.custom.css"
-	rel="stylesheet" type="text/css" />
+<link href="css/south-street/jquery-ui-1.10.4.custom.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="js/jquery-1.10.2.js"></script>
 <script type="text/javascript" src="js/jquery-ui-1.10.4.custom.js"></script>
 
-<script type="text/javascript" charset="utf8"
-	src="js/jquery.dataTables.min.js"></script>
-<link rel="stylesheet" type="text/css"
-	href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
-<script type="text/javascript" charset="utf8"
-	src="js/jquery.dataTables.yadcf.js"></script>
-<link rel=stylesheet type="text/css"
-	href="css/jquery.dataTables.yadcf.css">
+<script type="text/javascript" charset="utf8" src="js/jquery.dataTables.min.js"></script>
+<%-- 
+<link rel="stylesheet" type="text/css"	href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+--%>
+<link rel="stylesheet" type="text/css"	href="css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="js/jquery.dataTables.yadcf.js"></script>
+<link rel=stylesheet type="text/css" href="css/jquery.dataTables.yadcf.css">
 
 <title>Menu Personnes</title>
 <SCRIPT type="text/javascript">
@@ -95,8 +93,7 @@
 								$('#inputDateNaiss').datepicker({
 									defaultDate : new Date()
 								});
-								$('#inputDateNaiss').val(
-										"01/01/1980");
+								$('#inputDateNaiss').val("01/01/1980");
 								$('#inputPromotion').val("");
 								$('#inputEmail').val("");
 								document.getElementById('inputDisponibilite').checked = true;
