@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="PCtestWSService" targetNamespace="http://PtestWS/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://PtestWS/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+<schema xmlns="http://www.w3.org/2001/XMLSchema">
+  <import namespace="http://PtestWS/" schemaLocation="PCtestWSService_schema1.xsd"/>
+</schema>
+  </wsdl:types>
+  <wsdl:message name="methodeResponse">
+    <wsdl:part name="parameters" element="tns:methodeResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="methode">
+    <wsdl:part name="parameters" element="tns:methode">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="PCtestWS">
+    <wsdl:operation name="methode">
+      <wsdl:input name="methode" message="tns:methode">
+    </wsdl:input>
+      <wsdl:output name="methodeResponse" message="tns:methodeResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PCtestWSServiceSoapBinding" type="tns:PCtestWS">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="methode">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="methode">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="methodeResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PCtestWSService">
+    <wsdl:port name="PCtestWSPort" binding="tns:PCtestWSServiceSoapBinding">
+      <soap:address location="http://localhost:9090/PCtestWSPort"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,17 @@
+JNDI:
+java:/DSCDI09
+
+Driver:
+postgresql-9.1-903.jdbc4.jar
+
+Connexion URL:
+jdbc:postgresql://localhost:5432/imie 
+
+Use JTA:
+true
+
+Username:
+postgres
+
+Password:
+postgres
