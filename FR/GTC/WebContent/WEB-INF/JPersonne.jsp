@@ -39,7 +39,6 @@
 							$('.onlyadmin').show();
 						}
 
-						// 		$('.actionFormulaire').button();
 
 						$('#formulaire').dialog({
 							autoOpen : false,
@@ -53,128 +52,68 @@
 							}
 						});
 
-						$('.actionFormulaire')
-								.on(
-										'click',
-										function(e) {
-											$("#formulaire").dialog("open");
-											$('#inputId').val(
-													$(this).attr("data-id"));
-											$('#inputRoleId')
-													.val(
-															$(this)
-																	.attr(
-																			"data-roleid"));
-											$('#inputNom').val(
-													$(this).attr("data-nom"));
-											$('#inputPrenom')
-													.val(
-															$(this)
-																	.attr(
-																			"data-prenom"));
-											var dateString = new Date($(this)
-													.attr("data-dateNaiss"));
-											$('#inputDateNaiss').datepicker({
-												defaultDate : dateString
-											});
-											$('#inputDateNaiss')
-													.val(
-															dateString
-																	.toLocaleDateString("fr-FR"));
-											$('#inputPromotion')
-													.val(
-															$(this)
-																	.attr(
-																			"data-promotionid"));
-											$('#inputPassw').val(
-													$(this).attr("data-passw"));
-											$('#inputEmail').val(
-													$(this).attr("data-email"));
-											$('#inputInfos').val(
-													$(this).attr("data-infos"));
-											$('.loginExiste').hide();
-// 											$('#inputIdentConnexion')
-// 													.val(
-// 															$(this)
-// 																	.attr(
-// 																			"data-identConnexion"));
-											//document.getElementById('inputIdentConnexion').disabled = "true";
-										//	document.form.inputIdentConnexion.disabled=false;
-// 											$('#inputIdentConnexion').attr(
-// 													"disabled", "disabled");
-// 											$("#inputIdentConnexion").prop('disabled', true);
-											//$('#inputIdentConnexion').hide();
-											if (($(this).attr(
-													"data-disponibilite") == "true")
-													|| ($(this)
-															.attr(
-																	"data-disponibilite") == "TRUE")) {
-												document
-														.getElementById('inputDisponibilite').checked = true;
-											} else {
-												document
-														.getElementById('inputDisponibilite').checked = false;
-											}
-											;
-											$('#inputRole')
-													.val(
-															$(this)
-																	.attr(
-																			"data-roleId"));
-											$('#inputLogin')
-													.val(
-															$(this)
-																	.attr(
-																			"data-identConnexion"));
-											$('#inputLogin').attr(
-													"disabled", "disabled");
+						$('.actionFormulaire').on('click', function(e) {
+								$("#formulaire").dialog("open");
+								$('#inputId').val(
+										$(this).attr("data-id"));
+								$('#inputRoleId').val($(this).attr("data-roleid"));
+								$('#inputNom').val($(this).attr("data-nom"));
+								$('#inputPrenom').val($(this).attr("data-prenom"));
+								var dateString = new Date($(this)
+										.attr("data-dateNaiss"));
+								$('#inputDateNaiss').datepicker({
+									defaultDate : dateString
+								});
+								$('#inputDateNaiss').val(dateString.toLocaleDateString("fr-FR"));
+								$('#inputPromotion').val($(this).attr("data-promotionid"));
+								$('#inputPassw').val($(this).attr("data-passw"));
+								$('#inputEmail').val($(this).attr("data-email"));
+								$('#inputInfos').val($(this).attr("data-infos"));
+								$('.loginExiste').hide();
+								if (($(this).attr("data-disponibilite") == "true")|| ($(this).attr("data-disponibilite") == "TRUE")) {
+									document.getElementById('inputDisponibilite').checked = true;
+								} else {
+									document.getElementById('inputDisponibilite').checked = false;
+								};
+								$('#inputRole').val($(this).attr("data-roleId"));
+								$('#inputLogin').val($(this).attr("data-identConnexion"));
+								$('#inputLogin').attr("disabled", "disabled");
+								$('#updateDansForm').show();
+								$('#deleteDansForm').show();
+								$('#creerDansForm').hide();
+								$('#updateDansForm').attr("disabled", false);
+								$('#deleteDansForm').attr("disabled", false);
+						});
 
-											$('#updateDansForm').show();
-											$('#deleteDansForm').show();
-											$('#creerDansForm').hide();
-											// 											document.getElementById(updateDansForm).disabled = false;
-											// 											document.getElementById(deleteDansForm).disabled = true;
-											$('#updateDansForm').attr(
-													"disabled", false);
-											$('#deleteDansForm').attr(
-													"disabled", false);
-										});
+						$('.actionPagePrincipaleCreer').on('click',function(e) {
+								$("#formulaire").dialog("open");
+								$('#inputNom').val("");
+								$('#inputPrenom').val("");
+								$('#inputLogin').val("");
+								$('#inputLogin').attr(
+										"disabled", false);
+								$('#inputDateNaiss').datepicker({
+									defaultDate : new Date()
+								});
+								$('#inputDateNaiss').val(
+										"01/01/1980");
+								$('#inputPromotion').val("");
+								$('#inputEmail').val("");
+								document.getElementById('inputDisponibilite').checked = true;
+								$('.loginExiste').hide();
+								$('#inputRole').val("");
+								$('#inputInfos').val("");
+								$('#inputPassw').val("");
+								$('#inputRole').val("1");
 
-						$('.actionPagePrincipaleCreer')
-								.on(
-										'click',
-										function(e) {
-											$("#formulaire").dialog("open");
-											$('#inputNom').val("");
-											$('#inputPrenom').val("");
-											$('#inputLogin').val("");
-											$('#inputLogin').attr(
-													"disabled", false);
-											$('#inputDateNaiss').datepicker({
-												defaultDate : new Date()
-											});
-											$('#inputDateNaiss').val(
-													"01/01/1980");
-											$('#inputPromotion').val("");
-											$('#inputEmail').val("");
-											document
-													.getElementById('inputDisponibilite').checked = true;
-											// 			$('#inputDisponibilite').val("true");
-											
-											$('.loginExiste').hide();
-											$('#inputRole').val("");
-											$('#inputInfos').val("");
-											$('#inputPassw').val("");
-											$('#inputRole').val("1");
-
-											$('#deleteDansForm').hide();
-											$('#deleteDansForm').attr(
-													"disabled", "disabled");
-											$('#updateDansForm').hide();
-											$('#updateDansForm').attr(
-													"disabled", "disabled");
-											$('#creerDansForm').show();
-										});
+								$('#deleteDansForm').hide();
+								$('#deleteDansForm').attr(
+										"disabled", "disabled");
+								$('#updateDansForm').hide();
+								$('#updateDansForm').attr(
+										"disabled", "disabled");
+								$('#creerDansForm').show();
+						});
 
 						$('.actionRetourPageAdmin').on('click', function(e) {
 							document.location.href = "/GTC/Admin";
@@ -190,83 +129,46 @@
 
 
 	function VerifLogin() {
+		console.log("rentré dans VerifLogin");
 		$('.loginExiste').hide();
 		var result = false;
 	
 		var listLogin = [];
 		var val;
-		<%
-		for(Personne pers : (List<Personne>)request.getAttribute("listLogin")){
-			%>
+		<%for(Personne pers : (List<Personne>)request.getAttribute("listLogin")){%>
 			listLogin.push("<%=pers.getIdentConnexion()%>");
-			<%
-			
-		}
-		%>
-	 	//	listLogin = <%=request.getAttribute("listLogin")%>; 
-	 	console.log("plistlogin"+listLogin);
-		console.log("listlogin  taille"+listLogin.length);
-// 		console.log("request.getAttribute(listLogin)"+listLogin[1]);
+		<%};%>
 		var loginEnTest = document.getElementById('inputLogin').value;
-		for(var i= 0; i < listLogin.length; i++){
-			console.log("passé dans for pour listlogin"+listLogin[i]);
-			if (loginEnTest == listLogin[i]){
+		for ( var i = 0; i < listLogin.length; i++) {
+			if (loginEnTest == listLogin[i]) {
 				result = true;
-			};
- 		};
+			}
+			;
+		}
+		;
 
 		if (result == true) {
 			$('.loginExiste').show();
-			$('.loginExiste').val(loginEnTest+" est déja utilisé");
-		};	
-	};	
-			
- 	
+			$('.loginExiste').val(loginEnTest + " est déja utilisé");
+		}
+		;
+	};
 </SCRIPT>
 
 
 </head>
 <body>
-
 	<%@ include file="/WEB-INF/header.jsp"%>
 	<%@include file="/WEB-INF/headerAdmin.jsp"%>
-	
-	
-<br>
-<%
-String lg = (String) request.getAttribute("loginDouble");
-if (lg !=null){
-%>
-	<span style="color:#FF0000;text-align : center"> <h2>le login <%=lg%> est déja pris - Action annulée </h2></span>
-<%
-}
-%>
-<!-- <span style="color:#000000"></span>" -->
-
-
-<!-- 	<input type="text" id="lgdble" ;color:#FF0000" > -->
-	<%-- 		<span> page Admin </span><br>
-		<BUTTON id="afficheListeUsers">Gestion des utilisateurs</BUTTON>
-
-		<br>
-		<br>
-		<BUTTON id="afficheListePromotions">Gestion des promotions</BUTTON>
-		<br>
-		<br>
-		<BUTTON id="afficheListeProjets">Gestion des projets</BUTTON>
-
-		<br>
-		<br>
-		<BUTTON id="afficherListeCompetences">Gestion des compétences</BUTTON>
-		<br>
-		<br>
-	--%>
-
-
-
-	<%-- 	<BUTTON class="actionRetourPageAdmin">Retour page admin</BUTTON> --%>
-	<%-- 	<br> --%>
-	<%-- 	<br> --%>
+	<br>
+	<%
+		String lg = (String) request.getAttribute("loginDouble");
+		if (lg != null) {
+	%>
+	<span style="color: #FF0000; text-align: center"><h2>le login <%=lg%> est déja pris - Action annulée</h2></span>
+	<%
+		}
+	%>
 
 	<br>
 	<h1>Gestion des utilisateurs</h1>
@@ -284,9 +186,8 @@ if (lg !=null){
 						<TH>password</TH>
 						<TH>email</TH>
 						<TH>infos</TH>
-
 						<TH>disponible</TH>
-					<th>projets</th> 
+						<th>projets</th>
 						<TH>droits</TH>
 						<TH></TH>
 					</TR>
@@ -303,13 +204,7 @@ if (lg !=null){
 							<td><c:out value="${personne.passw}" /></td>
 							<td><c:out value="${personne.email}" /></td>
 							<td><c:out value="${personne.infos}" /></td>
-
-
-							<%-- 							<td><c:out value="${personne.disponibilite}" /></td> --%>
-							
-							<td>
-							
-							<c:choose>
+							<td><c:choose>
 									<c:when test="${personne.disponibilite}">
 										<input type="checkbox" checked="checked" disabled> disponible
 									</c:when>
@@ -317,32 +212,14 @@ if (lg !=null){
 										<input type="checkbox" disabled>pas dispo
 									</c:otherwise>
 								</c:choose></td>
-	 			<td>
-	 	<%--		<select name="inputValueProjets">
-				 	<option value="sur projets"></option> 
-						<%System.out.println("test1"); %>
-								<c:forEach items="${foundTravailles}" var="trv">
-								<c:choose>
-									<c:when test="${personne.id == trv.personne.id}">
-										<%System.out.println("test2"); %>
-										<option value="${trv.trvId}">${trv.projet.projNom}</option>
-									</c:when>
-								</c:choose>
+							<td><c:forEach items="${foundTravailles}" var="trv">
+									<c:choose>
+										<c:when test="${personne.id == trv.personne.id}">
+											<c:out value="${trv.projet.projNom}" />
+										</c:when>
+									</c:choose>
 								</c:forEach>
-					</select></td>
-		--%>
-				
-				<c:forEach items="${foundTravailles}" var="trv">
-								<c:choose>
-									<c:when test="${personne.id == trv.personne.id}">
-										<c:out value="${trv.projet.projNom}"/>
-									</c:when>
-								</c:choose>
-								</c:forEach>
-				</td>
-				
-				
-								
+							</td>
 							<td><c:out value="${personne.role.roleIntitule}" /></td>
 							<TD><c:choose>
 									<c:when
@@ -361,12 +238,9 @@ if (lg !=null){
 											data-roleid="${personne.role.roleId}"
 											data-identConnexion="${personne.identConnexion}"
 											data-disponibilite="${personne.disponibilite}">Modifier</BUTTON>
-
-
-
 									</c:otherwise>
-								</c:choose></TD>
-
+								</c:choose>
+							</TD>
 						</TR>
 					</c:forEach>
 				</TBODY>
@@ -376,32 +250,28 @@ if (lg !=null){
 
 	<div id="formulaire">
 		<form method="POST" id="formFormulaire">
-
-
-			<input type="hidden" name="inputId" id="inputId" /> <input
-				type="hidden" name="inputRoleId" id="inputRoleId" /> <input
-				type="hidden" name="inputIdentConnexion" id="inputIdentConnexion" />
+			<input type="hidden" name="inputId" id="inputId" /> 
+			<input type="hidden" name="inputRoleId" id="inputRoleId" /> 
+			<input type="hidden" name="inputIdentConnexion" id="inputIdentConnexion" />
 			<div>
-				<label for="inputNom">nom :</label> <input type="text" id="inputNom"
-					name="inputNom" required>
+				<label for="inputNom">nom :</label> 
+				<input type="text" id="inputNom" name="inputNom" required>
 			</div>
-			<label for="inputPrenom">prenom :</label> <input type="text"
-				id="inputPrenom" name="inputPrenom" required>
+			<label for="inputPrenom">prenom :</label> 
+			<input type="text" id="inputPrenom" name="inputPrenom" required>
 			<div>
-				
-				<label for="inputLogin">login :</label> <input type="text" id="inputLogin" name="inputLogin" onkeyup="VerifLogin()" required>
-<!-- 					id="inputLogin" name="inputLogin"  required> -->
-					
-				<br><input type="text" class="loginExiste" style="background-color:transparent;border:0px;color:#FF0000" > 
-<%-- 	<span class="loginExiste">le login <c:out value="${loginEnTest}" />${loginEnTest} est déja utilisé</span> --%>	
+				<label for="inputLogin">login :</label> 
+				<input type="text" id="inputLogin" name="inputLogin" onkeyup="VerifLogin()" required>
+				<br>
+				<input type="text" class="loginExiste" style="background-color: transparent; border: 0px; color: #FF0000">
 			</div>
 			<div>
-				<label for="inputDateNaiss">date de naissance</label> <input
-					type="text" id="inputDateNaiss" name="inputDateNaiss">
+				<label for="inputDateNaiss">date de naissance</label> 
+				<input type="text" id="inputDateNaiss" name="inputDateNaiss">
 			</div>
 			<div class="cell">
-				<label for="inputPromotion">promotion : </label> <select
-					name="inputPromotion" id="inputPromotion">
+				<label for="inputPromotion">promotion : </label> 
+				<select name="inputPromotion" id="inputPromotion">
 					<option value=""></option>
 					<c:forEach items="${promotions}" var="promotion">
 						<option value="${promotion.id}">${promotion.libelle}
@@ -422,17 +292,11 @@ if (lg !=null){
 				<label for="inputInfos">infos :</label> <input type="text"
 					id="inputInfos" name="inputInfos">
 			</div>
-			<!-- 			<div> -->
-			<!-- 			<label for="inputDisponibilite">dispo :</label> <input type="text" -->
-			<!-- 				id="inputDisponibilite" name="inputDisponibilite"> -->
-			<!-- 			</div> -->
 			<div>
 				<label for="inputDisponibilite">dispo :</label> <input
 					type="checkbox" name="inputDisponibilite" id="inputDisponibilite"
 					value="dispo">
 			</div>
-
-
 			<div class="cell">
 				<label for="inputRole">droits : </label> <select name="inputRole"
 					id="inputRole">
@@ -453,29 +317,10 @@ if (lg !=null){
 					</c:forEach>
 				</select>
 			</div>
-
-
-			<%-- 
-			<div class="cell">
-				<label for="inputRole">droits : </label> <select name="inputRole"
-					id="inputRole">
-					<option value=""></option>
-					<c:forEach items="${listRoles}" var="rol">
-						<option value="${rol.roleId}">${rol.roleIntitule}</option>
-					</c:forEach>
-				</select>
-			</div>
---%>
-			<input type="submit" name="update" id="updateDansForm"
-				value="Modifier" /> <input type="submit" name="create"
-				id="creerDansForm" value="Créer" /> <input type="submit"
-				name="delete" id="deleteDansForm" value="Supprimer" />
-
-
-
-
+			<input type="submit" name="update" id="updateDansForm"	value="Modifier" /> 
+			<input type="submit" name="create"	id="creerDansForm" value="Créer" /> 
+			<input type="submit" name="delete" id="deleteDansForm" value="Supprimer" />
 		</form>
 	</div>
 </body>
 </html>
-		

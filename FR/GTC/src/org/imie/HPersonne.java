@@ -84,13 +84,11 @@ public class HPersonne extends HttpServlet {
 		
 		// pour l'affichage en cours de saisie sur le login disponibilité -- pas fonctionnel
 		//ArrayList<String> listLogin = new ArrayList<String>();
-		String[] listLogin = new String[0];
+		//String[] listLogin = new String[0];
 		ArrayList<Personne> listLogin0 = new ArrayList<Personne>(foundPersonnes);
-		while (listLogin0.size() >0){
-			listLogin = push(listLogin,listLogin0.get(listLogin0.size() -1).getIdentConnexion());
-			listLogin0.remove(listLogin0.size() -1);
-		}
-		request.setAttribute("listLogin", listLogin);
+
+		request.setAttribute("listLogin", listLogin0);
+		
 		request.setAttribute("loginDouble",valLoginDouble);
 		
 		
