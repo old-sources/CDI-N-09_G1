@@ -59,7 +59,6 @@ public class HPromotion extends HttpServlet {
 		
 		request.getRequestDispatcher("/WEB-INF/JPromotion.jsp").forward(
 				request, response);
-
 	}
 
 
@@ -76,9 +75,8 @@ public class HPromotion extends HttpServlet {
 		// recherche de la promotion à modifier
 		Promotion updatedPromotion = new Promotion();
 
-//		updatedPromotion = serviceGestionEcole.rechercherPromotion(updatedPromotion)
-//				.get(0);
-		
+		//updatedPromotion = serviceGestionEcole.rechercherPromotion(updatedPromotion)
+			//	.get(0);
 		// affectation des nouvelles valeurs
 		String inputLibelle = request.getParameter("inputLibelle");
 		updatedPromotion.setLibelle(inputLibelle);
@@ -109,8 +107,20 @@ public class HPromotion extends HttpServlet {
 			updatedPromotion.setId(inputId);
 			serviceGestionEcole.updatePromotion(updatedPromotion);
 		}
+		
+		if (request.getParameter("delete") != null) {
+			System.out.println("HPromotion Post delete");
+			try {
+				Integer inputId = Integer.valueOf(request.getParameter("inputId"));
+				updatedPromotion.setId(inputId);
+				System.out.println("id : "+inputId);
+				serviceGestionEcole.deletePromotion(updatedPromotion);
+			}
+			catch (NumberFormatException e) {
+				// parametres non corrects : pas de suppression
+			}
+		}
 
 		response.sendRedirect("/GTC/HPromotion/");
 	}
-
 }

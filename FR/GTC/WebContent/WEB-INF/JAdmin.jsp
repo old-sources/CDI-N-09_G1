@@ -12,10 +12,11 @@
 	dir="ltr">
 <head>
 
-<%-- 
+ 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <base href="/GTC/" />
 <link rel=stylesheet type="text/css" href="css/style.css">
+<%--
 <link href="css/south-street/jquery-ui-1.10.4.custom.css"
 	rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="js/jquery-1.10.2.js"></script>

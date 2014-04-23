@@ -172,6 +172,7 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote,
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void deletePromotion(Promotion promotion) {
+		promotion = entityManager.find(Promotion.class, promotion.getId());
 		entityManager.remove(promotion);
 	}
 
