@@ -47,7 +47,7 @@
 		if ("${loguedPerson.role.roleId}" != 1) {
 			$('.onlyadmin').show();
 		}
-		$('.actionFormulaireComp').button();
+		
 
 		// ouverture du formulaire avec l'id de la div
 		$('#formCompDivId').dialog({ 
@@ -62,6 +62,7 @@
 			}
 		});
 
+		$('.actionFormulaireComp').button();
 		$('.actionFormulaireComp').on('click', function(e) {
 			// ouverture du formulaire avec l'id de la div
 			$("#formCompDivId").dialog("open");
@@ -69,10 +70,11 @@
 			$('#inputLibelleComp').val($(this).attr("data-compIntitule"));
 
 			$('#updateDansForm').show();
-			$('#deleteDansForm').show();
+			$('#deleteDansForm').hide();
 			$('#creerDansForm').hide();
 		});
 
+		$('.actionCreerCompetence').button();
 		$('.actionCreerCompetence').on('click', function(e) {
 			// ouverture du formulaire avec l'id de la div
 			$("#formCompDivId").dialog("open");
@@ -85,6 +87,7 @@
 			$('#creerDansForm').show();
 		});
 
+		$('.actionDeleteComp').button();
 		$('.actionDeleteComp').on('click', function(e) {
 			// ouverture du formulaire avec l'id de la div
 			$("#formCompDivId").dialog("open");
@@ -136,8 +139,8 @@
 						</TD>
 						<TD><c:out value="${comp.competence.getCompIntitule()}" /></TD>
 						<TD><c:forEach items="${comp.competences}" var="compchild">
-								<c:out value="+" />
-								<c:out value="${compchild.compIntitule}" />
+								<c:out value="+ ${compchild.compIntitule}" /> 
+<!-- </br> -->
 							</c:forEach></TD>
 
  						<TD><BUTTON class="actionFormulaireComp"
@@ -146,7 +149,7 @@
 								data-compParent="${comp.competence}"
 								>Modifier</BUTTON></TD>
 								
-						<TD><BUTTON class="actionFormulaireComp"
+						<TD><BUTTON class="actionDeleteComp"
 								data-compId="${comp.compId}"
 								data-compIntitule="${comp.compIntitule}"
 								>Supprimer</BUTTON></TD>
