@@ -118,9 +118,6 @@
 			$("#formMoveComDivId").dialog("open");
 			$('#inputId').val($(this).attr('data-compId'));
 			$('#inputLibelleParent').val($(this).attr('data-compParent'));
-// 			$('#updateDansForm').hide();
-// 			$('#deleteDansForm').hide(); // ??
-// 			$('#creerDansForm').hide();
 			$('#moveDansForm').show();
 		});
 
@@ -177,7 +174,6 @@
 
 						<TD><BUTTON class="actionMoveComp"
 								data-compId="${comp.compId}"
-								data-compIntitule="${comp.compIntitule}"
 								data-compParent="${comp.competence}">Déplacer</BUTTON></TD>
 					</tr>
 				</c:forEach>
@@ -208,12 +204,12 @@
 
 	<div id="formMoveComDivId">
 		<form method="POST" id="formMove">
-			<input type="hidden" name="inputId" id="inputId" />
 			<div>
 				<!-- donnée parent de la compétence -->
 				<label for="inputLibelleParent">parent :</label> <input type="text"
 					id="inputLibelleParent" name="inputLibelleParent">
 			</div>
+			<input type="hidden" name="inputId" id="inputId "/>
 			<input type="submit" name="move" id="moveDansForm" value="Deplacer" />
 		</form>
 	</div>
