@@ -37,20 +37,32 @@
 
 		$('#tableComp').dataTable({
 			"bJQueryUI" : true
-		}).yadcf([ 
-// {column_number : 0},{
-//	{column_number : 3,filter_type : "auto_complete",text_data_delimiter : ","}, 
-//  {column_number : 5, filter_type : "auto_complete", text_data_delimiter : ","} 
-	]);
+		}).yadcf([
+		// {column_number : 0},{
+		//	{column_number : 3,filter_type : "auto_complete",text_data_delimiter : ","}, 
+		//  {column_number : 5, filter_type : "auto_complete", text_data_delimiter : ","} 
+		]);
 
 		$('.onlyadmin').hide();
 		if ("${loguedPerson.role.roleId}" != 1) {
 			$('.onlyadmin').show();
 		}
-		
 
 		// ouverture du formulaire avec l'id de la div
-		$('#formCompDivId').dialog({ 
+		$('#formCompDivId').dialog({
+			autoOpen : false,
+			show : {
+				effect : "blind",
+				duration : 1000
+			},
+			hide : {
+				effect : "blind",
+				duration : 1000
+			}
+		});
+
+		// ouverture du formulaire avec l'id de la div
+		$('#formMoveComDivId').dialog({
 			autoOpen : false,
 			show : {
 				effect : "blind",
@@ -74,17 +86,6 @@
 			$('#creerDansForm').hide();
 		});
 
-		$('.actionMoveCompetence').button();
-		$('.actionMoveCompetence').on('click', function(e) {
-			// ouverture du formulaire avec l'id de la div
-			$("#formCompDivId").dialog("open");
-			//$('#inputId').val('');
-			$('#inputLibelleParent').hide(); // obligatoire ?
-			$('#updateDansForm').hide();
-			$('#deleteDansForm').hide(); // ??
-			$('#creerDansForm').show();
-		});
-
 		$('.actionCreerCompetence').button();
 		$('.actionCreerCompetence').on('click', function(e) {
 			// ouverture du formulaire avec l'id de la div
@@ -95,6 +96,7 @@
 			$('#updateDansForm').hide();
 			$('#deleteDansForm').hide(); // ??
 			$('#creerDansForm').show();
+			//$('#moveDansForm').hide();
 		});
 
 		$('.actionDeleteComp').button();
@@ -107,25 +109,35 @@
 			$('#updateDansForm').hide();
 			$('#deleteDansForm').show(); // ??
 			$('#creerDansForm').hide();
+			//$('#moveDansForm').hide();
 		});
-			
-		
+
+		$('.actionMoveComp').button();
+		$('.actionMoveComp').on('click', function(e) {
+			// ouverture du formulaire avec l'id de la div
+			$("#formMoveComDivId").dialog("open");
+			$('#inputId').val($(this).attr('data-compId'));
+			$('#inputLibelleParent').val($(this).attr('data-compParent'));
+// 			$('#updateDansForm').hide();
+// 			$('#deleteDansForm').hide(); // ??
+// 			$('#creerDansForm').hide();
+			$('#moveDansForm').show();
+		});
+
 		$('.actionRetourPageHome').on('click', function(e) {
 			document.location.href = "/GTC/Home";
 		});
 
-		
 	});
-
 </SCRIPT>
 </head>
 
 <body>
 	<%@ include file="/WEB-INF/header.jsp"%>
 	<h1>Onglet Competence (JM en cours)</h1>
-	
+
 	<BUTTON class="actionCreerCompetence">Créer une compétence</BUTTON>
-	
+
 	<!-- 	<div class="tabCompetence" id="tabComp"> -->
 	<div class="cell3" id="divProjet">
 		<label for="listeCompétences"> compétence école </label>
@@ -139,6 +151,7 @@
 					<TH>Enfants</TH>
 					<TH>Modif</TH>
 					<TH>Suppression</TH>
+					<TH>Déplacement</TH>
 				</TR>
 			</THEAD>
 			<TBODY>
@@ -149,47 +162,59 @@
 						</TD>
 						<TD><c:out value="${comp.competence.getCompIntitule()}" /></TD>
 						<TD><c:forEach items="${comp.competences}" var="compchild">
-								<c:out value="+ ${compchild.compIntitule}" /> 
+								<c:out value="+ ${compchild.compIntitule}" />
 								</br>
 							</c:forEach></TD>
 
- 						<TD><BUTTON class="actionFormulaireComp"
-								data-compId="${comp.compId}" 
-								data-compIntitule="${comp.compIntitule}"
-								data-compParent="${comp.competence}"
-								>Modifier</BUTTON></TD>
-								
-						<TD><BUTTON class="actionDeleteComp"
+						<TD><BUTTON class="actionFormulaireComp"
 								data-compId="${comp.compId}"
 								data-compIntitule="${comp.compIntitule}"
-								>Supprimer</BUTTON></TD>
+								data-compParent="${comp.competence}">Modifier</BUTTON></TD>
+
+						<TD><BUTTON class="actionDeleteComp"
+								data-compId="${comp.compId}"
+								data-compIntitule="${comp.compIntitule}">Supprimer</BUTTON></TD>
+
+						<TD><BUTTON class="actionMoveComp"
+								data-compId="${comp.compId}"
+								data-compIntitule="${comp.compIntitule}"
+								data-compParent="${comp.competence}">Déplacer</BUTTON></TD>
 					</tr>
 				</c:forEach>
 			</TBODY>
 
 		</TABLE>
 	</div>
-	
-	<div id="formCompDivId"> 
-<!-- forme de la boite de dialogue -->
+
+	<div id="formCompDivId">
+		<!-- forme de la boite de dialogue -->
 		<form method="POST" id="formFormulaire">
-		<!-- l'ID de la comp est fournie mais restera une donnée cachée -->
-			<input type="hidden" name="inputId" id="inputId" /> 
+			<!-- l'ID de la comp est fournie mais restera une donnée cachée -->
+			<input type="hidden" name="inputId" id="inputId" />
 			<div>
-			<!-- seule donnée de la compétence -->
+				<!-- seule donnée de la compétence -->
 				<label for="inputLibelleComp">libelle :</label> <input type="text"
 					id="inputLibelleComp" name="inputLibelleComp">
 			</div>
-<!-- 			<div> -->
-<!-- 			<!-- donnée parent de la compétence -->
-<!-- 				<label for="inputLibelleParent">parent :</label> <input type="text" -->
-<!-- 					id="inputLibelleParent" name="inputLibelleParent"> -->
-<!-- 			</div> -->
 
-			<input type="submit" name="update" id="updateDansForm" value="Modifier"/> 
-			<input type="submit" name="create" id="creerDansForm" value="Créer"/> 
-			<input type="submit" name="delete" id="deleteDansForm" value="Supprimer"/>
 
+			<input type="submit" name="update" id="updateDansForm"
+				value="Modifier" /> <input type="submit" name="create"
+				id="creerDansForm" value="Créer" /> <input type="submit"
+				name="delete" id="deleteDansForm" value="Supprimer" />
+		</form>
+	</div>
+
+
+	<div id="formMoveComDivId">
+		<form method="POST" id="formMove">
+			<input type="hidden" name="inputId" id="inputId" />
+			<div>
+				<!-- donnée parent de la compétence -->
+				<label for="inputLibelleParent">parent :</label> <input type="text"
+					id="inputLibelleParent" name="inputLibelleParent">
+			</div>
+			<input type="submit" name="move" id="moveDansForm" value="Deplacer" />
 		</form>
 	</div>
 

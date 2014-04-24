@@ -59,6 +59,8 @@ public interface ServiceGestionEcoleJPALocal {
 	public void setChildCompetence(List<Competence> foundCompetences);
 
 	public List<PropositionComp> rechercherPropComp(PropositionComp prop);
+
+	public void movedCompetence(Competence movedComp);
     	  
     
 }

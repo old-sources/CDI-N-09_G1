@@ -10,7 +10,7 @@ import javax.ejb.TransactionAttributeType;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
-import javax.persistence.JoinColumn;
+//import javax.persistence.JoinColumn;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -18,7 +18,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.xml.rpc.ServiceException;
 
-import model.Actionanotifier;
+//import model.Actionanotifier;
 import model.Competence;
 import model.Personne;
 import model.Possede;
@@ -566,6 +566,21 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote,
 //		// TODO Auto-generated method stub
 //		
 //	}
+	
+	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public void movedCompetence(Competence movedComp) {
+		// TODO Auto-generated method stub
+		// doit necessairement posséder un pere
+		System.out.println("est passé par le move compétence ");
+		// doit necessairement posséder un id
+		if (movedComp.getCompId() != null) {
+			// Attention : ERROR: null value in column "comp_valide" violates not-null constraint
+			Boolean compValide = true;
+			movedComp.setCompValide(compValide);		
+			entityManager.merge(movedComp);
+		}
+	}
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	@Override
