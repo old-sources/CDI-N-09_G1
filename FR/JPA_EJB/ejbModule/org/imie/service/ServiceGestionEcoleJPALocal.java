@@ -55,6 +55,8 @@ public interface ServiceGestionEcoleJPALocal {
 	public void insertCompetence(Competence updatedCompetence);
 	public void updateCompetence(Competence updatedCompetence);
 	public void setChildCompetence(List<Competence> foundCompetences);
+
+	//public void createCompetence(Competence modelCompetence); = insert
     	  
     
 }
