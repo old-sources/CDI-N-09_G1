@@ -24,15 +24,6 @@
 --%>
 
 <title>Administration</title>
-<SCRIPT type="text/javascript">
-	$(document).ready(function() {
-
-		$('#divProfil').hide();
-		if ("${loguedPerson.role.roleId}" != 1) {
-			$('#divProfil').show();
-		}
-	});
-</SCRIPT>
 </head>
 <body>
 
