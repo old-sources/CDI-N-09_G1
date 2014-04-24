@@ -10,6 +10,7 @@ import javax.ejb.TransactionAttributeType;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
+import javax.persistence.JoinColumn;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -17,6 +18,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.xml.rpc.ServiceException;
 
+import model.Actionanotifier;
 import model.Competence;
 import model.Personne;
 import model.Possede;
@@ -513,11 +515,38 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote,
 	}
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public List<PropositionComp> rechercherPropComp(PropositionComp prop) {
+	public List<PropositionComp> rechercherPropComp(PropositionComp propcomp) {
 		// TODO Auto-generated method stub
 		System.out.println("rechercherPropComp");
-		List<PropositionComp> listProp = null;	
-		return listProp;
+		
+		CriteriaBuilder qb = entityManager.getCriteriaBuilder();
+
+		CriteriaQuery<PropositionComp> query = qb.createQuery(PropositionComp.class);
+		Root<PropositionComp> propcompRoot = query.from(PropositionComp.class);
+
+		List<Predicate> criteria = new ArrayList<Predicate>();
+		//List<PropositionComp> listProp = null;
+		if (propcomp.getIdNotif() != null) {
+			criteria.add(qb.equal(propcompRoot.get("id_notif"), propcomp.getIdNotif()));
+		}
+
+		if (propcomp.getCompetence() != null) {
+			criteria.add(qb.equal(propcompRoot.<String> get("competence"),
+					propcomp.getCompetence()));
+		}
+			
+//		if (propcomp.getActionanotifier() != null) {
+//			criteria.add(qb.like(propcompRoot.<String> get("???"), "*"
+//					+ personne.getNom() + "*"));}}
+		//	@JoinColumn(name="id_notif")
+		//private Actionanotifier actionanotifier;
+	
+		query.where(criteria.toArray(new Predicate[] {}));
+
+		List<PropositionComp> result = entityManager.createQuery(query)
+				.getResultList();
+
+		return result;
 	}
 
 	@Override
