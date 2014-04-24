@@ -117,17 +117,19 @@ public class HCompetence extends HttpServlet {
 		// ////////////////////////////////// delete update create
 		if (request.getParameter("delete") != null) {
 			
-			System.out.println("HCompetence Post delete");
-			if (request.getParameter("inputCompId") != null) {
+			System.out.println("HCompetence Post delete avant test ID");
+			//if (request.getParameter("inputCompId") != null) {
+			if (request.getParameter("inputId") != null) {	
 				System.out.println("Dans IF HCompetence Post delete");
 				Integer inputCompId = Integer.valueOf(request
-						.getParameter("inputCompId"));
+						.getParameter("inputId"));
 				System.out.println("CompId = " + inputCompId);
 				try {
+					//fk_proposition_comp_comp_id" on table "proposition_comp"
 					Competence deletedCompetence = new Competence();
 					deletedCompetence.setCompId(inputCompId);
 					System.out.println("inputCompId : " + inputCompId);
-					// serviceGestionEcole.deleteCompetence(updatedCompetence);
+					 serviceGestionEcole.deleteCompetence(deletedCompetence);
 				} catch (NumberFormatException e) {
 					// parametres non corrects : pas de suppression
 				}
