@@ -25,7 +25,8 @@
 	rel="stylesheet" type="text/css" />
 
 <link rel=stylesheet type="text/css" href="css/style.css">
-<link rel="stylesheet" type="text/css"	href="css/jquery.dataTables.css">
+<link rel="stylesheet" type="text/css"
+	href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
 <link rel=stylesheet type="text/css"
 	href="css/jquery.dataTables.yadcf.css">
 
@@ -72,16 +73,30 @@
 			$('#creerDansForm').hide();
 		});
 
-		$('.actionPagePrincipaleCreer').on('click', function(e) {
-			$("#formulairePromotion").dialog("open"); //formulairePromotion div
-			$('#inputId').val("");
-			$('#inputLibelleComp').val("");
-	
-			$('#deleteDansForm').hide();
+		$('.actionCreerCompetence').on('click', function(e) {
+			// ouverture du formulaire avec l'id de la div
+			$("#formCompDivId").dialog("open");
+			//$('#inputId').val('');
+			$('#inputLibelleComp').val('');
+			$('#inputLibelleParent').val('');
+
 			$('#updateDansForm').hide();
+			$('#deleteDansForm').hide(); // ??
 			$('#creerDansForm').show();
 		});
 
+		$('.actionDeleteComp').on('click', function(e) {
+			// ouverture du formulaire avec l'id de la div
+			$("#formCompDivId").dialog("open");
+			$('#inputLibelleComp').val($(this).attr("data-compIntitule"));
+			$('#inputId').val($(this).attr('data-compId')).hide();
+			$('#inputLibelleParent').hide();
+			$('#updateDansForm').hide();
+			$('#deleteDansForm').show(); // ??
+			$('#creerDansForm').hide();
+		});
+			
+		
 		$('.actionRetourPageHome').on('click', function(e) {
 			document.location.href = "/GTC/Home";
 		});
@@ -96,7 +111,7 @@
 	<%@ include file="/WEB-INF/header.jsp"%>
 	<h1>Onglet Competence (JM en cours)</h1>
 	
-	<BUTTON class="actionPagePrincipaleCreer">Créer une promotion</BUTTON>
+	<BUTTON class="actionCreerCompetence">Créer une compétence</BUTTON>
 	
 	<!-- 	<div class="tabCompetence" id="tabComp"> -->
 	<div class="cell3" id="divProjet">
@@ -109,7 +124,8 @@
 					<TH>Intitulé</TH>
 					<TH>Père</TH>
 					<TH>Enfants</TH>
-					<TH>Action</TH>
+					<TH>Modif</TH>
+					<TH>Suppression</TH>
 				</TR>
 			</THEAD>
 			<TBODY>
@@ -127,7 +143,13 @@
  						<TD><BUTTON class="actionFormulaireComp"
 								data-compId="${comp.compId}" 
 								data-compIntitule="${comp.compIntitule}"
+								data-compParent="${comp.competence}"
 								>Modifier</BUTTON></TD>
+								
+						<TD><BUTTON class="actionFormulaireComp"
+								data-compId="${comp.compId}"
+								data-compIntitule="${comp.compIntitule}"
+								>Supprimer</BUTTON></TD>
 					</tr>
 				</c:forEach>
 			</TBODY>
@@ -144,6 +166,11 @@
 			<!-- seule donnée de la compétence -->
 				<label for="inputLibelleComp">libelle :</label> <input type="text"
 					id="inputLibelleComp" name="inputLibelleComp">
+			</div>
+			<div>
+			<!-- donnée parent de la compétence -->
+				<label for="inputLibelleParent">parent :</label> <input type="text"
+					id="inputLibelleParent" name="inputLibelleParent">
 			</div>
 
 			<input type="submit" name="update" id="updateDansForm" value="Modifier"/> 

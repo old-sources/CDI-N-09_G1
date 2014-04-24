@@ -55,7 +55,7 @@ public class HCompetence extends HttpServlet {
 		request.setAttribute("foundCompetences", foundCompetences);
 
 		// loguedPerson passé en request
-		HttpServletRequest httpServletRequest = (HttpServletRequest) request;	
+		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		Personne loguedPerson = new Personne();
 		loguedPerson = (Personne) httpServletRequest.getSession().getAttribute(
 				"authentifiedPersonne");
@@ -73,31 +73,56 @@ public class HCompetence extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 
 		System.out.println("HCompetence Post");
-		
+
 		// on cree un modèle vide de competence
 		Competence modelCompetence = new Competence();
 
 		System.out.println("HCompetence Post attribution request");
 		// valeurs passés en request
-		String inputLibelComp = request.getParameter("inputLibelleComp");
-		Integer compId = Integer.valueOf(request.getParameter("inputId"));
-		modelCompetence.setCompIntitule(inputLibelComp);
-		modelCompetence.setCompId(compId);
-		// ///////////////////////////////////// update / modifie
-		if (request.getParameter("update") != null) {
-			System.out.println("HCompetence Post update");
-			serviceGestionEcole.updateCompetence(modelCompetence);
-			
+		// système d'erreur à mettre en place si non initialisé
+		if (request.getParameter("inputLibelleComp") != null) {
+			String inputLibelComp = request.getParameter("inputLibelleComp");
+			modelCompetence.setCompIntitule(inputLibelComp);
+			System.out.println("Libelle non nul");
 		}
 		
+		if (request.getParameter("inputId") != "" && request.getParameter("inputId") != null) {
+			System.out.println("Id nul");
+			Integer compId = Integer.valueOf(request.getParameter("inputId"));
+			modelCompetence.setCompId(compId);
+		} else {
+			System.out.println("Attention Id nul");
+		}
+
+		// ///////////////////////////////////// update / modifie
+		if (request.getParameter("update") != null) {
+			// fonctionne pour la modif intitulé
+			// a valider pour la modif du parent ?
+			// compId non nul !!!
+			System.out.println("HCompetence Post update");
+			serviceGestionEcole.updateCompetence(modelCompetence);
+
+		}
+
+		// ///////////////////////////////////// update / modifie
+		if (request.getParameter("create") != null) {
+			System.out.println("HCompetence Post create/insert");
+			// mettre à faux si seulement proposition
+			Boolean compValide = true;
+			modelCompetence.setCompValide(compValide);
+			serviceGestionEcole.insertCompetence(modelCompetence);
+		}
+
 		// /////////////////////////////////////
 		// ////////////////////////////////// delete update create
 		if (request.getParameter("delete") != null) {
+			
 			System.out.println("HCompetence Post delete");
 			if (request.getParameter("inputCompId") != null) {
 				System.out.println("Dans IF HCompetence Post delete");
-				Integer inputCompId = Integer.valueOf(request.getParameter("inputCompId"));
-				System.out.println("CompId = "+inputCompId);
+				Integer inputCompId = Integer.valueOf(request
+						.getParameter("inputCompId"));
+				System.out.println("CompId = " + inputCompId);
 				try {
 					Competence deletedCompetence = new Competence();
 					deletedCompetence.setCompId(inputCompId);
@@ -116,7 +141,7 @@ public class HCompetence extends HttpServlet {
 
 		// redirection vers DoGet
 		response.sendRedirect("/GTC/Competence/");
-		
+
 	}
 
 }
