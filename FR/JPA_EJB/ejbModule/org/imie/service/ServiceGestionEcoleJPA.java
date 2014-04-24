@@ -22,6 +22,7 @@ import model.Personne;
 import model.Possede;
 import model.Projet;
 import model.Promotion;
+import model.PropositionComp;
 import model.Role;
 import model.Travaille;
 
@@ -446,8 +447,7 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote,
 		if (deletedCompetence.getCompId() != null) {
 			System.out.println("delete Competence id non null");
 			// passage du monde objet au monde relationnel ?? ou juste
-			// completion de
-			// l'entité ?
+			// completion de  l'entité ?
 			deletedCompetence = entityManager.find(Competence.class,
 					deletedCompetence.getCompId());
 			
@@ -480,6 +480,19 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote,
 				// la relation rel doit necessairement posseder un Id
 				deletePossede(rel);
 			}
+			
+			System.out.println("delete Competence suppression PropositionComp");
+			// meme chose proposition suppression
+			PropositionComp prop = new PropositionComp();
+			prop.setCompetence(deletedCompetence);
+			System.out.println("Competence settée sur le modèle pour permmetre la recherche");
+			List<PropositionComp> listProp = rechercherPropComp(prop);
+			for (PropositionComp propit : listProp) {
+				System.out.println("dans boucle proposition");
+				// la relation rel doit necessairement posseder un Id
+				deletePropComp(propit);
+			}
+			
 			System.out.println("delete Competence dans base");
 			// enfin on supprime la competence
 			entityManager.remove(deletedCompetence);
@@ -488,6 +501,24 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote,
 
 	// Delete Competence
 	// --------------------------------------------------------
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	private void deletePropComp(PropositionComp propcomp) {
+		// TODO Auto-generated method stub
+		System.out.println("deletePropComp");
+		if (propcomp.getIdNotif() != null) {
+		// la prop à supprimer necessite de posseder un Id
+			propcomp = entityManager.find(PropositionComp.class, propcomp.getIdNotif());
+		entityManager.remove(propcomp);
+		}
+	}
+
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public List<PropositionComp> rechercherPropComp(PropositionComp prop) {
+		// TODO Auto-generated method stub
+		System.out.println("rechercherPropComp");
+		List<PropositionComp> listProp = null;	
+		return listProp;
+	}
 
 	@Override
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
@@ -523,6 +554,7 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote,
 
 	// -------------------------------------------------------------------
 	// Ajout Méthodes JM
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void setChildCompetence(List<Competence> competences) {
 		// Affectation de la liste des enfants comme attributs
 		for (Competence comp : competences) {
