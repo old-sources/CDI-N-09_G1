@@ -10,6 +10,7 @@ import model.Personne;
 import model.Possede;
 import model.Projet;
 import model.Promotion;
+import model.PropositionComp;
 import model.Role;
 import model.Travaille;
 
@@ -52,11 +53,12 @@ public interface ServiceGestionEcoleJPALocal {
     // ajout methodes Competence JM
 	public List<Competence> rechercherCompetence(Competence searchCompetences);
 	public void deleteCompetence(Competence updatedCompetence);
+	//public void createCompetence(Competence modelCompetence); = insert
 	public void insertCompetence(Competence updatedCompetence);
 	public void updateCompetence(Competence updatedCompetence);
 	public void setChildCompetence(List<Competence> foundCompetences);
 
-	//public void createCompetence(Competence modelCompetence); = insert
+	public List<PropositionComp> rechercherPropComp(PropositionComp prop);
     	  
     
 }

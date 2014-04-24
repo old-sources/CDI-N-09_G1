@@ -68,10 +68,21 @@
 			$("#formCompDivId").dialog("open");
 			$('#inputId').val($(this).attr("data-compId"));
 			$('#inputLibelleComp').val($(this).attr("data-compIntitule"));
-
+			$('#inputLibelleParent').hide(); // obligatoire ?
 			$('#updateDansForm').show();
 			$('#deleteDansForm').hide();
 			$('#creerDansForm').hide();
+		});
+
+		$('.actionMoveCompetence').button();
+		$('.actionMoveCompetence').on('click', function(e) {
+			// ouverture du formulaire avec l'id de la div
+			$("#formCompDivId").dialog("open");
+			//$('#inputId').val('');
+			$('#inputLibelleParent').hide(); // obligatoire ?
+			$('#updateDansForm').hide();
+			$('#deleteDansForm').hide(); // ??
+			$('#creerDansForm').show();
 		});
 
 		$('.actionCreerCompetence').button();
@@ -80,8 +91,7 @@
 			$("#formCompDivId").dialog("open");
 			//$('#inputId').val('');
 			$('#inputLibelleComp').val('');
-			$('#inputLibelleParent').val('');
-
+			$('#inputLibelleParent').hide(); // obligatoire ?
 			$('#updateDansForm').hide();
 			$('#deleteDansForm').hide(); // ??
 			$('#creerDansForm').show();
@@ -92,8 +102,8 @@
 			// ouverture du formulaire avec l'id de la div
 			$("#formCompDivId").dialog("open");
 			$('#inputLibelleComp').val($(this).attr("data-compIntitule"));
-			$('#inputId').val($(this).attr('data-compId')).hide();
-			$('#inputLibelleParent').hide();
+			$('#inputId').val($(this).attr('data-compId'));
+			//$('#inputLibelleParent').hide();
 			$('#updateDansForm').hide();
 			$('#deleteDansForm').show(); // ??
 			$('#creerDansForm').hide();
@@ -140,7 +150,7 @@
 						<TD><c:out value="${comp.competence.getCompIntitule()}" /></TD>
 						<TD><c:forEach items="${comp.competences}" var="compchild">
 								<c:out value="+ ${compchild.compIntitule}" /> 
-<!-- </br> -->
+								</br>
 							</c:forEach></TD>
 
  						<TD><BUTTON class="actionFormulaireComp"
@@ -170,11 +180,11 @@
 				<label for="inputLibelleComp">libelle :</label> <input type="text"
 					id="inputLibelleComp" name="inputLibelleComp">
 			</div>
-			<div>
-			<!-- donnée parent de la compétence -->
-				<label for="inputLibelleParent">parent :</label> <input type="text"
-					id="inputLibelleParent" name="inputLibelleParent">
-			</div>
+<!-- 			<div> -->
+<!-- 			<!-- donnée parent de la compétence -->
+<!-- 				<label for="inputLibelleParent">parent :</label> <input type="text" -->
+<!-- 					id="inputLibelleParent" name="inputLibelleParent"> -->
+<!-- 			</div> -->
 
 			<input type="submit" name="update" id="updateDansForm" value="Modifier"/> 
 			<input type="submit" name="create" id="creerDansForm" value="Créer"/> 

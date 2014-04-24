@@ -10,6 +10,7 @@ import javax.ejb.TransactionAttributeType;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
+import javax.persistence.JoinColumn;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -17,11 +18,13 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.xml.rpc.ServiceException;
 
+import model.Actionanotifier;
 import model.Competence;
 import model.Personne;
 import model.Possede;
 import model.Projet;
 import model.Promotion;
+import model.PropositionComp;
 import model.Role;
 import model.Travaille;
 
@@ -446,8 +449,7 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote,
 		if (deletedCompetence.getCompId() != null) {
 			System.out.println("delete Competence id non null");
 			// passage du monde objet au monde relationnel ?? ou juste
-			// completion de
-			// l'entité ?
+			// completion de  l'entité ?
 			deletedCompetence = entityManager.find(Competence.class,
 					deletedCompetence.getCompId());
 			
@@ -480,6 +482,19 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote,
 				// la relation rel doit necessairement posseder un Id
 				deletePossede(rel);
 			}
+			
+			System.out.println("delete Competence suppression PropositionComp");
+			// meme chose proposition suppression
+			PropositionComp prop = new PropositionComp();
+			prop.setCompetence(deletedCompetence);
+			System.out.println("Competence settée sur le modèle pour permmetre la recherche");
+			List<PropositionComp> listProp = rechercherPropComp(prop);
+			for (PropositionComp propit : listProp) {
+				System.out.println("dans boucle proposition");
+				// la relation rel doit necessairement posseder un Id
+				deletePropComp(propit);
+			}
+			
 			System.out.println("delete Competence dans base");
 			// enfin on supprime la competence
 			entityManager.remove(deletedCompetence);
@@ -488,6 +503,51 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote,
 
 	// Delete Competence
 	// --------------------------------------------------------
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	private void deletePropComp(PropositionComp propcomp) {
+		// TODO Auto-generated method stub
+		System.out.println("deletePropComp");
+		if (propcomp.getIdNotif() != null) {
+		// la prop à supprimer necessite de posseder un Id
+			propcomp = entityManager.find(PropositionComp.class, propcomp.getIdNotif());
+		entityManager.remove(propcomp);
+		}
+	}
+
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public List<PropositionComp> rechercherPropComp(PropositionComp propcomp) {
+		// TODO Auto-generated method stub
+		System.out.println("rechercherPropComp");
+		
+		CriteriaBuilder qb = entityManager.getCriteriaBuilder();
+
+		CriteriaQuery<PropositionComp> query = qb.createQuery(PropositionComp.class);
+		Root<PropositionComp> propcompRoot = query.from(PropositionComp.class);
+
+		List<Predicate> criteria = new ArrayList<Predicate>();
+		//List<PropositionComp> listProp = null;
+		if (propcomp.getIdNotif() != null) {
+			criteria.add(qb.equal(propcompRoot.get("id_notif"), propcomp.getIdNotif()));
+		}
+
+		if (propcomp.getCompetence() != null) {
+			criteria.add(qb.equal(propcompRoot.<String> get("competence"),
+					propcomp.getCompetence()));
+		}
+			
+//		if (propcomp.getActionanotifier() != null) {
+//			criteria.add(qb.like(propcompRoot.<String> get("???"), "*"
+//					+ personne.getNom() + "*"));}}
+		//	@JoinColumn(name="id_notif")
+		//private Actionanotifier actionanotifier;
+	
+		query.where(criteria.toArray(new Predicate[] {}));
+
+		List<PropositionComp> result = entityManager.createQuery(query)
+				.getResultList();
+
+		return result;
+	}
 
 	@Override
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
@@ -523,6 +583,7 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote,
 
 	// -------------------------------------------------------------------
 	// Ajout Méthodes JM
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void setChildCompetence(List<Competence> competences) {
 		// Affectation de la liste des enfants comme attributs
 		for (Competence comp : competences) {
