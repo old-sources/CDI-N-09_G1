@@ -14,10 +14,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <base href="/GTC/" />
 
-<script type="text/javascript" src="js/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="js/jquery-1.10.2.js"></script> <!-- Les sources de la bibliothèque JQuery en local-->
+<!--  <script src="http://code.jquery.com/jquery-1.6.2.min.js"></script> Les sources de la bibliothèque JQuery distantes -->
+
 <script type="text/javascript" src="js/jquery-ui-1.10.4.custom.js"></script>
+
 <script type="text/javascript" charset="utf8"
 	src="js/jquery.dataTables.min.js"></script>
+
 <script type="text/javascript" charset="utf8"
 	src="js/jquery.dataTables.yadcf.js"></script>
 
@@ -32,8 +36,6 @@
 
 <title>Gestion de Compétences</title>
 
-
-
 <script src="js/scriptComp.js"></script> <!-- La source qui contient le code d'envoi en Ajax -->
 </head>
 
@@ -43,9 +45,10 @@
 
 	<BUTTON class="actionCreerCompetence">Créer une compétence</BUTTON>
 
-	<!-- 	<div class="tabCompetence" id="tabComp"> -->
-	<div class="cell3" id="divProjet">
-		<label for="listeCompétences"> compétence école </label>
+	<!-- 	<div class="tabCompetence" id="tabComp"> celle3-->
+<!-- 	<div class="cell3" id="divProjet">  -->
+	<div class="cell" id="divComp"> 
+		<label for="listeCompétences"> Compétence école </label>
 
 		<TABLE id="tableComp">
 			<THEAD>
@@ -90,16 +93,20 @@
 		</TABLE>
 	</div>
 
-	<div id="formCompDivId">
-		<!-- forme de la boite de dialogue -->
-		<form method="POST" id="formFormulaire">
-			<!-- l'ID de la comp est fournie mais restera une donnée cachée -->
+	<div id="formCompDivId"> 
+<!-- id de la div récupérée par scriptComp -->
+<!-- passé dans actionFormulaireComp par $("#formCompDivId").dialog("open"); -->
+<!-- https://fr.wikipedia.org/wiki/Ajax_%28informatique%29 -->
+<!-- forme de la boite de dialogue -->
+		<form method="POST" id="formFormulaire"> 
+		<!-- id formFormulaire récupérée où ? nullepart -->
+		<!-- l'ID de la comp est fournie mais restera une donnée cachée -->
 			<input type="hidden" name="inputId" id="inputId" />
-			<div>
+			<div> <!-- Libelle -->
 				<!-- seule donnée de la compétence -->
 				<label for="inputLibelleComp">libelle :</label> <input type="text"
 					id="inputLibelleComp" name="inputLibelleComp">
-			</div>
+			</div> <!-- Libelle -->
 
 
 			<input type="submit" name="update" id="updateDansForm"
@@ -111,13 +118,14 @@
 
 
 	<div id="formMoveComDivId">
-		<form method="POST" id="formMove">
+		<form method="POST" id="formFormulaire"> 
+			<input type="hidden" name="inputId" id="inputId"/>
 			<div>
 				<!-- donnée parent de la compétence -->
 				<label for="inputLibelleParent">parent :</label> <input type="text"
 					id="inputLibelleParent" name="inputLibelleParent">
 			</div>
-			<input type="hidden" name="inputId" id="inputId"/>
+
 			<input type="submit" name="move" id="moveDansForm" value="Deplacer" />
 		</form>
 	</div>

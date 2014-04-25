@@ -83,21 +83,30 @@ public class HCompetence extends HttpServlet {
 		if (request.getParameter("inputLibelleComp") != null) {
 			String inputLibelComp = request.getParameter("inputLibelleComp");
 			modelCompetence.setCompIntitule(inputLibelComp);
-			System.out.println("Libelle non nul");
+			System.out.println("Libelle Comp non nul");
+			System.out.println(modelCompetence.getCompIntitule());
 		}
+		System.out.println("Libelle test pass");
 		if (request.getParameter("inputLibelleParent") != null) {
+			System.out.println("Parent model non nul");
 			String inputLibelParent = request.getParameter("inputLibelleParent");
+			System.out.println(inputLibelParent);
 			Competence parentCompetence = new Competence();
 			// on creer une competence modele semblable au parent
-			parentCompetence.setCompIntitule(inputLibelParent);
+			parentCompetence.setCompIntitule("parent model : "+inputLibelParent);
 			//on cherche la competence parent dans la base pour avoir id
+			if (serviceGestionEcole.rechercherCompetence(parentCompetence).size() > 0 ) {
+				System.out.println("Parent réel trouvé dans base");
+				System.out.println("longueur : "+serviceGestionEcole.rechercherCompetence(parentCompetence).size());
+				
 			parentCompetence = serviceGestionEcole.rechercherCompetence(parentCompetence).get(0);
+			}
 			// on a le parent complet a affecter donc son id
 			// on l'affecte à la competence à modifier
 			modelCompetence.setCompetence(parentCompetence);
-			System.out.println("Parent non nul");
-			
+			System.out.println("competence parent affectée au model :"+parentCompetence.getCompIntitule());
 		}
+		System.out.println("parent test pass");
 		
 		if (request.getParameter("inputId") != "" && request.getParameter("inputId") != null) {
 			System.out.println("Id non nul");
@@ -108,6 +117,7 @@ public class HCompetence extends HttpServlet {
 			System.out.println("req"+request.getParameter("inputId"));
 		}
 
+		System.out.println("HCompetence Post avant update");
 		// ///////////////////////////////////// update / modifie
 		if (request.getParameter("update") != null) {
 			// fonctionne pour la modif intitulé
@@ -117,7 +127,7 @@ public class HCompetence extends HttpServlet {
 			serviceGestionEcole.updateCompetence(modelCompetence);
 
 		}
-
+		System.out.println("HCompetence Post avant create");
 		// ///////////////////////////////////// update / modifie
 		if (request.getParameter("create") != null) {
 			System.out.println("HCompetence Post create/insert");
@@ -126,6 +136,7 @@ public class HCompetence extends HttpServlet {
 			modelCompetence.setCompValide(compValide);
 			serviceGestionEcole.insertCompetence(modelCompetence);
 		}
+		System.out.println("HCompetence Post avant move");
 		// ///////////////////////////////////// update / modifie
 		if (request.getParameter("move") != null) {
 			System.out.println("HCompetence Post move");
@@ -137,6 +148,7 @@ public class HCompetence extends HttpServlet {
 		}
 		// /////////////////////////////////////
 		// ////////////////////////////////// delete update create
+		System.out.println("HCompetence Post avant delete");
 		if (request.getParameter("delete") != null) {
 			
 			System.out.println("HCompetence Post delete avant test ID");
