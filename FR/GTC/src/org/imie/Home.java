@@ -18,6 +18,7 @@ import model.Projet;
 import model.Promotion;
 
 import org.imie.service.ServiceGestionEcoleJPALocal;
+import org.imie.service.ServiceGestionProjetJPALocal;
 
 /**
  * Servlet implementation class Profil
@@ -26,6 +27,7 @@ import org.imie.service.ServiceGestionEcoleJPALocal;
 public class Home extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@EJB ServiceGestionEcoleJPALocal serviceGestionEcole;
+	@EJB ServiceGestionProjetJPALocal serviceGestionProjet;
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -49,7 +51,7 @@ public class Home extends HttpServlet {
 	
 //		Projet prj = new Projet();
 //		prj.setPersonne(loguedPerson);
-		List<Projet> projets = serviceGestionEcole.rechercherProjet(new Projet());
+		List<Projet> projets = serviceGestionProjet.rechercherProjet(new Projet());
 		request.setAttribute("projets", projets);
 		
 		

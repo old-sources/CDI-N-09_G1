@@ -19,6 +19,7 @@ import model.Projet;
 import model.Travaille;
 
 import org.imie.service.ServiceGestionEcoleJPALocal;
+import org.imie.service.ServiceGestionProjetJPALocal;
 
 /**
  * Servlet implementation class MesProjets
@@ -27,6 +28,7 @@ import org.imie.service.ServiceGestionEcoleJPALocal;
 public class MesProjets extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@EJB ServiceGestionEcoleJPALocal serviceGestionEcole;
+	@EJB ServiceGestionProjetJPALocal serviceGestionProjet;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -52,12 +54,12 @@ HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 	
 		Projet prj = new Projet();
 		prj.setPersonne(loguedPerson);
-		List<Projet> projetsEnTantQueChefDeProjet = serviceGestionEcole.rechercherProjet(prj);
+		List<Projet> projetsEnTantQueChefDeProjet = serviceGestionProjet.rechercherProjet(prj);
 		request.setAttribute("projetsCdp", projetsEnTantQueChefDeProjet);
 		
 		Travaille trv = new Travaille();
 		trv.setPersonne(loguedPerson);
-		List<Travaille> travailleSur = serviceGestionEcole.rechercherTravaille(trv);
+		List<Travaille> travailleSur = serviceGestionProjet.rechercherTravaille(trv);
 		List<Projet>  projetsEnTantQueUser0 = new ArrayList<Projet>();
 		for (Travaille trv2 : travailleSur){
 			projetsEnTantQueUser0.add(trv2.getProjet());			

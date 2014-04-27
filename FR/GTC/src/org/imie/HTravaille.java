@@ -19,6 +19,7 @@ import model.Promotion;
 import model.Travaille;
 
 import org.imie.service.ServiceGestionEcoleJPALocal;
+import org.imie.service.ServiceGestionProjetJPALocal;
 
 /**
  * Servlet implementation class TP3_Controller
@@ -27,6 +28,7 @@ import org.imie.service.ServiceGestionEcoleJPALocal;
 public class HTravaille extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@EJB ServiceGestionEcoleJPALocal serviceGestionEcole;
+	@EJB ServiceGestionProjetJPALocal serviceGestionProjet;
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -44,11 +46,11 @@ public class HTravaille extends HttpServlet {
 		System.out.println("HTravaille Get");
 		// a faire quelque soit le pattern
 
-		List<Travaille> foundTravailles = serviceGestionEcole
+		List<Travaille> foundTravailles = serviceGestionProjet
 				.rechercherTravaille(new Travaille());
 		request.setAttribute("foundTravailles", foundTravailles);
 		
-		List<Projet> foundProjets = serviceGestionEcole
+		List<Projet> foundProjets = serviceGestionProjet
 				.rechercherProjet(new Projet());
 		request.setAttribute("foundProjets", foundProjets);
 		
@@ -88,7 +90,7 @@ public class HTravaille extends HttpServlet {
 		Projet projet = new Projet();
 		projet.setProjId(inputProjetId);
 		System.out.println("inputProjetId"+inputProjetId);
-		updatedTravaille.setProjet(serviceGestionEcole.rechercherProjet(projet).get(0));
+		updatedTravaille.setProjet(serviceGestionProjet.rechercherProjet(projet).get(0));
 	
 		String test = request.getParameter("inputPersonneId");
 		System.out.println("inputPersonneId = "+test);
@@ -99,13 +101,13 @@ public class HTravaille extends HttpServlet {
 		
 
 		if (request.getParameter("create") != null) {
-			serviceGestionEcole.insertTravaille(updatedTravaille);
+			serviceGestionProjet.insertTravaille(updatedTravaille);
 		}
 
 		if (request.getParameter("update") != null) {
 			Integer inputTravailleId = Integer.valueOf(request.getParameter("inputTravailleId"));
 			updatedTravaille.setTrvId(inputTravailleId);
-			serviceGestionEcole.updateTravaille(updatedTravaille);
+			serviceGestionProjet.updateTravaille(updatedTravaille);
 		}
 		
 		if (request.getParameter("delete") != null) {
@@ -114,7 +116,7 @@ public class HTravaille extends HttpServlet {
 				Integer inputId = Integer.valueOf(request.getParameter("inputTravailleId"));
 				updatedTravaille.setTrvId(inputId);
 				System.out.println("id : "+inputId);
-				serviceGestionEcole.deleteTravaille(updatedTravaille);
+				serviceGestionProjet.deleteTravaille(updatedTravaille);
 			}
 			catch (NumberFormatException e) {
 				// parametres non corrects : pas de suppression

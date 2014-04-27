@@ -17,6 +17,7 @@ import model.Personne;
 import model.Projet;
 
 import org.imie.service.ServiceGestionEcoleJPALocal;
+import org.imie.service.ServiceGestionProjetJPALocal;
 
 /**
  * Servlet implementation class TP3_Controller
@@ -25,6 +26,7 @@ import org.imie.service.ServiceGestionEcoleJPALocal;
 public class HProjet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@EJB ServiceGestionEcoleJPALocal serviceGestionEcole;
+	@EJB ServiceGestionProjetJPALocal serviceGestionProjet;
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -43,7 +45,7 @@ public class HProjet extends HttpServlet {
 
 		// on met tous les projets dans foundProjets
 		Projet searchProjet = new Projet();
-		List<Projet> foundProjets = serviceGestionEcole.rechercherProjet(searchProjet);
+		List<Projet> foundProjets = serviceGestionProjet.rechercherProjet(searchProjet);
 		request.setAttribute("foundProjets", foundProjets);
 		
 		// on passe tous les profils en request pour la liste de la popup modif projet
@@ -134,7 +136,7 @@ public class HProjet extends HttpServlet {
 				Integer inputProjId = Integer.valueOf(request.getParameter("inputProjId"));
 				updatedProjet.setProjId(inputProjId);
 				System.out.println("inputProjId : "+inputProjId);
-				serviceGestionEcole.deleteProjet(updatedProjet);
+				serviceGestionProjet.deleteProjet(updatedProjet);
 			}
 			catch (NumberFormatException e) {
 				// parametres non corrects : pas de suppression
@@ -143,7 +145,7 @@ public class HProjet extends HttpServlet {
 
 		if (request.getParameter("create") != null) {
 			System.out.println("HProjet POST create");
-			serviceGestionEcole.insertProjet(updatedProjet);
+			serviceGestionProjet.insertProjet(updatedProjet);
 		}
 
 		if (request.getParameter("update") != null) {
@@ -151,7 +153,7 @@ public class HProjet extends HttpServlet {
 			Integer inputProjId = Integer.valueOf(request.getParameter("inputProjId"));
 			System.out.println("inputProjId = "+inputProjId);
 			updatedProjet.setProjId(inputProjId);
-			serviceGestionEcole.updateProjet(updatedProjet);
+			serviceGestionProjet.updateProjet(updatedProjet);
 		}
 
 		response.sendRedirect("/GTC/HProjet");
