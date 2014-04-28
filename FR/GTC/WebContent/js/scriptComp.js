@@ -82,7 +82,7 @@
 		$('.actionMoveComp').on('click', function(e) {
 			// ouverture du formulaire avec l'id de la div
 			$("#formMoveComDivId").dialog("open");
-			$('#inputId').val($(this).attr('data-compId'));
+			$('#inputId2').val($(this).attr('data-compId'));
 			$('#inputLibelleParent').val($(this).attr('data-compParent'));
 			$('#moveDansForm').show();
 		});

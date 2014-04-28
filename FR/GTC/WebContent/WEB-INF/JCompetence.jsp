@@ -118,8 +118,8 @@
 
 
 	<div id="formMoveComDivId">
-		<form method="POST" id="formFormulaire"> 
-			<input type="hidden" name="inputId" id="inputId"/>
+		<form method="POST" id="formFormulaire2"> 
+			<input type="hidden" name="inputId" id="inputId2"/>
 			<div>
 				<!-- donnée parent de la compétence -->
 				<label for="inputLibelleParent">parent :</label> <input type="text"

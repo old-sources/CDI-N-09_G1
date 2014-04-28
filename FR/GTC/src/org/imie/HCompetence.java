@@ -115,6 +115,8 @@ public class HCompetence extends HttpServlet {
 		} else {
 			System.out.println("Attention Id nul");
 			System.out.println("req"+request.getParameter("inputId"));
+			System.out.println("req"+request.getParameter("inputId2"));
+			System.out.println("req"+request.getParameter("inputId3"));
 		}
 
 		System.out.println("HCompetence Post avant update");
