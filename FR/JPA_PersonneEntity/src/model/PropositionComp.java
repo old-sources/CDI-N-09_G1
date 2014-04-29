@@ -18,12 +18,12 @@ public class PropositionComp implements Serializable {
 	@Column(name="id_notif")
 	private Integer idNotif;
 
-	//bi-directional one-to-one association to Actionanotifier
+	//uni-directional one-to-one association to Actionanotifier
 	@OneToOne
 	@JoinColumn(name="id_notif")
 	private Actionanotifier actionanotifier;
 
-	//bi-directional many-to-one association to Competence
+	//uni-directional many-to-one association to Competence
 	@ManyToOne
 	@JoinColumn(name="comp_id")
 	private Competence competence;

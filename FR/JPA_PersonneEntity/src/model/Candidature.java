@@ -17,12 +17,12 @@ public class Candidature implements Serializable {
 	@Column(name="id_notif")
 	private Integer idNotif;
 
-	//uni-directional one-to-one association to Actionanotifier
+	//bi-directional one-to-one association to Actionanotifier
 	@OneToOne
 	@JoinColumn(name="id_notif")
 	private Actionanotifier actionanotifier;
 
-	//uni-directional many-to-one association to Projet
+	//bi-directional many-to-one association to Projet
 	@ManyToOne
 	@JoinColumn(name="proj_id")
 	private Projet projet;

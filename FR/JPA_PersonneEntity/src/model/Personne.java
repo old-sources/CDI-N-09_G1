@@ -19,6 +19,8 @@ public class Personne implements Serializable {
 	@Column(name="pers_id")
 	private Integer id;
 
+	private Boolean cgu;
+
 	@Temporal(TemporalType.DATE)
 	private Date dateNaiss;
 
@@ -37,7 +39,7 @@ public class Personne implements Serializable {
 
 	private String prenom;
 
-	//bi-directional many-to-many association to Actionanotifier
+	//uni-directional many-to-many association to Actionanotifier
 	@ManyToMany
 	@JoinTable(
 		name="envoyer"
@@ -66,11 +68,7 @@ public class Personne implements Serializable {
 
 	//bi-directional many-to-one association to Projet
 	@OneToMany(mappedBy="personne")
-	private List<Projet> projets1;
-
-	//bi-directional many-to-many association to Projet
-	@ManyToMany(mappedBy="personnes")
-	private List<Projet> projets2;
+	private List<Projet> projets;
 
 	//bi-directional many-to-one association to Travaille
 	@OneToMany(mappedBy="personne")
@@ -85,6 +83,14 @@ public class Personne implements Serializable {
 
 	public void setId(Integer persId) {
 		this.id = persId;
+	}
+
+	public Boolean getCgu() {
+		return this.cgu;
+	}
+
+	public void setCgu(Boolean cgu) {
+		this.cgu = cgu;
 	}
 
 	public Date getDateNaiss() {
@@ -197,34 +203,26 @@ public class Personne implements Serializable {
 		return possede;
 	}
 
-	public List<Projet> getProjets1() {
-		return this.projets1;
+	public List<Projet> getProjets() {
+		return this.projets;
 	}
 
-	public void setProjets1(List<Projet> projets1) {
-		this.projets1 = projets1;
+	public void setProjets(List<Projet> projets) {
+		this.projets = projets;
 	}
 
-	public Projet addProjets1(Projet projets1) {
-		getProjets1().add(projets1);
-		projets1.setPersonne(this);
+	public Projet addProjet(Projet projet) {
+		getProjets().add(projet);
+		projet.setPersonne(this);
 
-		return projets1;
+		return projet;
 	}
 
-	public Projet removeProjets1(Projet projets1) {
-		getProjets1().remove(projets1);
-		projets1.setPersonne(null);
+	public Projet removeProjet(Projet projet) {
+		getProjets().remove(projet);
+		projet.setPersonne(null);
 
-		return projets1;
-	}
-
-	public List<Projet> getProjets2() {
-		return this.projets2;
-	}
-
-	public void setProjets2(List<Projet> projets2) {
-		this.projets2 = projets2;
+		return projet;
 	}
 
 	public List<Travaille> getTravailles() {

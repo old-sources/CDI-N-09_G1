@@ -42,30 +42,17 @@ public class Projet implements Serializable {
 	@Column(name="proj_wiki_membre")
 	private String projWikiMembre;
 
-	//bi-directional many-to-one association to InvitationProjet
+	//bi-directional many-to-one association to Candidature
 	@OneToMany(mappedBy="projet")
-	private List<InvitationProjet> invitationProjets;
+	private List<Candidature> candidatures;
 
 	//bi-directional many-to-one association to Personne
 	@ManyToOne
 	@JoinColumn(name="pers_id")
 	private Personne personne;
 
-	//bi-directional many-to-many association to Personne
-	@ManyToMany
-	@JoinTable(
-		name="travaille"
-		, joinColumns={
-			@JoinColumn(name="proj_id")
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="pers_id")
-			}
-		)
-	private List<Personne> personnes;
-
 	//bi-directional many-to-one association to Travaille
-	@OneToMany(mappedBy="projet", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="projet")
 	private List<Travaille> travailles;
 
 	public Projet() {
@@ -135,26 +122,26 @@ public class Projet implements Serializable {
 		this.projWikiMembre = projWikiMembre;
 	}
 
-	public List<InvitationProjet> getInvitationProjets() {
-		return this.invitationProjets;
+	public List<Candidature> getCandidatures() {
+		return this.candidatures;
 	}
 
-	public void setInvitationProjets(List<InvitationProjet> invitationProjets) {
-		this.invitationProjets = invitationProjets;
+	public void setCandidatures(List<Candidature> candidatures) {
+		this.candidatures = candidatures;
 	}
 
-	public InvitationProjet addInvitationProjet(InvitationProjet invitationProjet) {
-		getInvitationProjets().add(invitationProjet);
-		invitationProjet.setProjet(this);
+	public Candidature addCandidature(Candidature candidature) {
+		getCandidatures().add(candidature);
+		candidature.setProjet(this);
 
-		return invitationProjet;
+		return candidature;
 	}
 
-	public InvitationProjet removeInvitationProjet(InvitationProjet invitationProjet) {
-		getInvitationProjets().remove(invitationProjet);
-		invitationProjet.setProjet(null);
+	public Candidature removeCandidature(Candidature candidature) {
+		getCandidatures().remove(candidature);
+		candidature.setProjet(null);
 
-		return invitationProjet;
+		return candidature;
 	}
 
 	public Personne getPersonne() {
@@ -163,14 +150,6 @@ public class Projet implements Serializable {
 
 	public void setPersonne(Personne personne) {
 		this.personne = personne;
-	}
-
-	public List<Personne> getPersonnes() {
-		return this.personnes;
-	}
-
-	public void setPersonnes(List<Personne> personnes) {
-		this.personnes = personnes;
 	}
 
 	public List<Travaille> getTravailles() {
