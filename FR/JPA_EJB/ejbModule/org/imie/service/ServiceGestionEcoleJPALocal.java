@@ -60,7 +60,13 @@ public interface ServiceGestionEcoleJPALocal {
 
 	public List<PropositionComp> rechercherPropComp(PropositionComp prop);
 
-	public void movedCompetence(Competence movedComp);
-    	  
-    
+	//public void movedCompetence(Competence movedComp);
+
+	void movedCompetence(Competence movedComp, Competence father);
+	void movedCompetence(Competence movedComp);
+	
+	public void updatePropComp(PropositionComp propitToUpdate);
+	public void updatePossede(Possede relToUpdate);
+
+
 }

@@ -71,7 +71,7 @@
 						<TD><c:out value="${comp.competence.getCompIntitule()}" /></TD>
 						<TD><c:forEach items="${comp.competences}" var="compchild">
 								<c:out value="+ ${compchild.compIntitule}" />
-								</br>
+								<br>
 							</c:forEach></TD>
 
 						<TD><BUTTON class="actionFormulaireComp"

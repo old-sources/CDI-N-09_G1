@@ -20,10 +20,14 @@ public class Possede implements Serializable {
 	@Column(name="comp_niveau")
 	private Integer compNiveau;
 
-	//uni-directional many-to-one association to Competence
-	@ManyToOne
+	// many-to-one : association simple vers une autre classe persistante 
+	// modèle relationnel association many-to-one (au sens propre, référence à un objet). 
+	// uni-directional many-to-one association to Competence
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE} )
 	@JoinColumn(name="comp_id")
 	private Competence competence;
+	// classe Possede possède un champ Competence, 
+	//sans que Competence n'ait accès à la liste de ses Posseseurs ??
 
 	//bi-directional many-to-one association to Personne
 	@ManyToOne
