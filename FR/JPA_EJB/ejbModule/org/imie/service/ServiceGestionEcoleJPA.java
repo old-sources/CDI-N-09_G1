@@ -599,6 +599,7 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote,
 			Competence father = movedCompetence.getCompetence();
 			System.out.println("ComptoMove id non nul: "+movedCompetence.getCompId());
 			System.out.println("Move id parent non nul: "+father.getCompId());
+			
 			// passage du monde objet au monde relationnel ?? ou juste
 			// completion de
 			// l'entité ?
@@ -614,16 +615,19 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote,
 //				comp.setCompetence(father); // modification monde objet
 //				updateCompetence(comp); // modification coté persistance
 //			}
+			
+			
+			// rechercher si le nouveau pere n'apatient pas aux enfants
 
 			// Recherche et suppression de toutes les relations avec cette commp
 			// creation d'un modèle vide
-			Possede relation = new Possede();
+			//Possede relation = new Possede();
 			// on initialise le modèle de relation avec la competence à
 			// supprimer
-			relation.setCompetence(movedCompetence);
+			//relation.setCompetence(movedCompetence);
 			// on remplie le liste de toutes les relations ayant cette
 			// compétence
-			List<Possede> listRelation = rechercherPossede(relation);
+			//List<Possede> listRelation = rechercherPossede(relation);
 			// on supprime toutes les relation trouvée dans la classe
 
 			// on eleve la dependance FK possede de la Table Possede
@@ -649,6 +653,8 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote,
 		System.out.println("updateCompetence");
 		Competence compToUpdate = entityManager.find(Competence.class,
 				updatedCompetence.getCompId());
+		
+		
 		// doit necessairement posséder un id
 		if (updatedCompetence.getCompId() != null) {
 			System.out.println("updateCompetence id non nul");
