@@ -99,14 +99,10 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote,
 		personne2.setIdentConnexion(personne.getIdentConnexion());
 		personne2.setCgu(personne.getCgu());
 
-		System.out.println("est passé par le insert " + personne.getNom() + " "
-				+ personne.getPrenom());
-		System.out.println("est passé par le insert lemail est "
-				+ personne.getEmail());
+		System.out.println("service - personne - insert " + personne.getNom() + " "+ personne.getPrenom());
 
 		entityManager.persist(personne2);
 		return personne2;
-
 	}
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
@@ -156,6 +152,7 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote,
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public Personne updatePersonne(Personne personneToUpdate) {
+		System.out.println("service - personne - update " + personneToUpdate.getNom() + " "+ personneToUpdate.getPrenom() + " "+personneToUpdate.getIdentConnexion());
 		return entityManager.merge(personneToUpdate);
 	}
 

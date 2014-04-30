@@ -76,6 +76,9 @@
 								$('#inputRole').val($(this).attr("data-roleId"));
 								$('#inputLogin').val($(this).attr("data-identConnexion"));
 								$('#inputLogin').attr("disabled", "disabled");
+								$('#inputIdentConnexion').val($(this).attr("data-identConnexion"));
+								$('#inputCgu').val($(this).attr("data-cgu"));
+								console.log("data-cgu vaut :"+$(this).attr("data-cgu"));
 								$('#updateDansForm').show();
 								$('#deleteDansForm').show();
 								$('#creerDansForm').hide();
@@ -102,7 +105,7 @@
 								$('#inputInfos').val("");
 								$('#inputPassw').val("");
 								$('#inputRole').val("1");
-
+								$('#inputCgu').val("false");
 								$('#deleteDansForm').hide();
 								$('#deleteDansForm').attr(
 										"disabled", "disabled");
@@ -234,7 +237,9 @@
 											data-infos="${personne.infos}"
 											data-roleid="${personne.role.roleId}"
 											data-identConnexion="${personne.identConnexion}"
-											data-disponibilite="${personne.disponibilite}">Modifier</BUTTON>
+											data-disponibilite="${personne.disponibilite}"
+											data-cgu="${personne.cgu}"
+											>Modifier</BUTTON>
 									</c:otherwise>
 								</c:choose>
 							</TD>
@@ -249,13 +254,15 @@
 		<form method="POST" id="formFormulaire">
 			<input type="hidden" name="inputId" id="inputId" /> 
 			<input type="hidden" name="inputRoleId" id="inputRoleId" /> 
+			<input type="hidden" name="inputCgu" id="inputCgu" />
 			<input type="hidden" name="inputIdentConnexion" id="inputIdentConnexion" />
+
 			<div>
 				<label for="inputNom">nom :</label> 
 				<input type="text" id="inputNom" name="inputNom" required>
 			</div>
-			<label for="inputPrenom">prenom :</label> 
-			<input type="text" id="inputPrenom" name="inputPrenom" required>
+				<label for="inputPrenom">prenom :</label> 
+				<input type="text" id="inputPrenom" name="inputPrenom" required>
 			<div>
 				<label for="inputLogin">login :</label> 
 				<input type="text" id="inputLogin" name="inputLogin" onkeyup="VerifLogin()" required>
