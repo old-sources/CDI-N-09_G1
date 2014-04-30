@@ -169,16 +169,23 @@ public class HCompetence extends HttpServlet {
 			// doit avoir un ID et un pere
 			System.out.println("HCompetence Post move updateCompetence");
 			if (parentCompetence != null) {
-				System.out.println("HCompetence Post move parent non nul: "+parentCompetence.getCompIntitule());
+				System.out.println("HCompetence Post move parent non nul: "
+						+ parentCompetence.getCompIntitule());
 				if (parentCompetence.getCompId() != null) {
-					System.out.println("HCompetence Post move id parent non nul: "+parentCompetence.getCompId());
-					//modelCompetence = serviceGestionEcole.rechercherCompetence(
-					//		modelCompetence).get(0);
-					modelCompetence.setCompetence(parentCompetence);
-					serviceGestionEcole.movedCompetence(modelCompetence);
-					//serviceGestionEcole.movedCompetence(modelCompetence,parentCompetence);
-					System.out.println("HCompetence Post après move");
-
+					if (parentCompetence.getCompId() != modelCompetence
+							.getCompId()) {
+						System.out
+								.println("HCompetence Post move id parent non nul: "
+										+ parentCompetence.getCompId());
+						// modelCompetence =
+						// serviceGestionEcole.rechercherCompetence(
+						// modelCompetence).get(0);
+						modelCompetence.setCompetence(parentCompetence);
+						serviceGestionEcole.movedCompetence(modelCompetence);
+						// serviceGestionEcole.movedCompetence(modelCompetence,parentCompetence);
+						System.out.println("HCompetence Post après move");
+					}
+					System.out.println("Parent = enfant deplacement impossible");
 				}
 			}
 		}

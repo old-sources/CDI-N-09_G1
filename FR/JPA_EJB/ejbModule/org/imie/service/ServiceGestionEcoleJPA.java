@@ -99,7 +99,7 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote,
 		personne2.setDisponibilite(personne.getDisponibilite());
 		personne2.setRole(personne.getRole());
 		personne2.setIdentConnexion(personne.getIdentConnexion());
-		personne2.setCgu(personne.getCgu());
+		//personne2.setCgu(personne.getCgu());
 
 		System.out.println("service - personne - insert " + personne.getNom() + " "+ personne.getPrenom());
 
@@ -602,11 +602,11 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote,
 			// passage du monde objet au monde relationnel ?? ou juste
 			// completion de
 			// l'entité ?
-			Competence model = movedCompetence;
+			//Competence model = movedCompetence;
 			movedCompetence = entityManager.find(Competence.class,
 					movedCompetence.getCompId());
 			// Liste des enfants de la compétence modifiée
-			List<Competence> children = movedCompetence.getCompetences();
+			//List<Competence> children = movedCompetence.getCompetences();
 			// modification des enfants, leur père devient le père de la
 			// compétence
 			// supprimée
@@ -627,12 +627,14 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote,
 			// on supprime toutes les relation trouvée dans la classe
 
 			// on eleve la dependance FK possede de la Table Possede
-			for (Possede rel : listRelation) {
-				rel.setCompetence(father);
-				// la relation rel doit necessairement posseder un Id
-				//deletePossede(rel);
-				updatePossede(rel);
-			}
+//			for (Possede rel : listRelation) {
+//				rel.setCompetence(father);
+//				// la relation rel doit necessairement posseder un Id
+//				//deletePossede(rel);
+//				updatePossede(rel);
+//			}
+			// question faut-il gérer la table proposition ou non
+			
 			movedCompetence.setCompetence(father);
 			// enfin on supprime la competence
 			entityManager.merge(movedCompetence);
@@ -645,13 +647,17 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote,
 	public void updateCompetence(Competence updatedCompetence) {
 		// TODO Auto-generated method stub
 		System.out.println("updateCompetence");
+		Competence compToUpdate = entityManager.find(Competence.class,
+				updatedCompetence.getCompId());
 		// doit necessairement posséder un id
 		if (updatedCompetence.getCompId() != null) {
+			System.out.println("updateCompetence id non nul");
 			// Attention : ERROR: null value in column "comp_valide" violates
 			// not-null constraint
-			Boolean compValide = true;
-			updatedCompetence.setCompValide(compValide);
-			entityManager.merge(updatedCompetence);
+			//Boolean compValide = true;
+			//updatedCompetence.setCompValide(compValide);
+			compToUpdate.setCompIntitule(updatedCompetence.getCompIntitule());
+			entityManager.merge(compToUpdate);
 		}
 		// return entityManager.merge(updatedCompetence);
 	}
