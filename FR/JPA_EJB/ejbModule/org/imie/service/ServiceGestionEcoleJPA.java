@@ -606,20 +606,26 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote,
 			//Competence model = movedCompetence;
 			movedCompetence = entityManager.find(Competence.class,
 					movedCompetence.getCompId());
+			// rechercher si le nouveau pere n'appartient pas aux enfants
 			// Liste des enfants de la compétence modifiée
-			//List<Competence> children = movedCompetence.getCompetences();
-			// modification des enfants, leur père devient le père de la
-			// compétence
-			// supprimée
-//			for (Competence comp : children) {
+			List<Competence> children = new ArrayList<Competence>();
+			children.add(movedCompetence);
+			setChildCompetence(children);
+			
+			children =	movedCompetence.getCompetences();
+			// modification des enfants, si besoin
+			Boolean testParent = true;
+			for (Competence comp : children) {
+				System.out.println("Listes d'enfants ");
+				if (comp.getCompId() == father.getCompId()) {
+					testParent = false ;
+				}
+				
 //				comp.setCompetence(father); // modification monde objet
 //				updateCompetence(comp); // modification coté persistance
-//			}
+			}
 			
-			
-			// rechercher si le nouveau pere n'apatient pas aux enfants
-
-			// Recherche et suppression de toutes les relations avec cette commp
+						// Recherche et suppression de toutes les relations avec cette commp
 			// creation d'un modèle vide
 			//Possede relation = new Possede();
 			// on initialise le modèle de relation avec la competence à
@@ -639,9 +645,13 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote,
 //			}
 			// question faut-il gérer la table proposition ou non
 			
-			movedCompetence.setCompetence(father);
+			
 			// enfin on supprime la competence
-			entityManager.merge(movedCompetence);
+			if (testParent) { 
+				movedCompetence.setCompetence(father);
+				entityManager.merge(movedCompetence);
+				}
+
 		}
 		
 	}
