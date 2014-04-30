@@ -70,6 +70,7 @@ public class HImport extends HttpServlet {
 			try {
 
 				br = new BufferedReader(new FileReader(csvFile));
+				br.readLine();
 				while ((line = br.readLine()) != null) {
 					Personne personne = new Personne();
 					// use ";" as separator
@@ -100,6 +101,7 @@ public class HImport extends HttpServlet {
 				try {
 
 					br = new BufferedReader(new FileReader(csvFile));
+					br.readLine();
 					while ((line = br.readLine()) != null) {
 						Personne personne = new Personne();
 						// use ";" as separator
@@ -157,6 +159,8 @@ public class HImport extends HttpServlet {
 							personne.setRole(role);
 						}
 
+						personne.setCgu(false);
+						
 						serviceGestionEcole.insertPersonne(personne);
 					}
 
