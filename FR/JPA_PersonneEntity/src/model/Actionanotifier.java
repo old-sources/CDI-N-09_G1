@@ -3,7 +3,6 @@ package model;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 
 /**
@@ -25,13 +24,9 @@ public class Actionanotifier implements Serializable {
 	@Column(name="notif_validee")
 	private Boolean notifValidee;
 
-	//bi-directional many-to-many association to Personne
-	@ManyToMany(mappedBy="actionanotifiers")
-	private List<Personne> personnes;
-
-	//bi-directional one-to-one association to PropositionComp
+	//bi-directional one-to-one association to Candidature
 	@OneToOne(mappedBy="actionanotifier")
-	private PropositionComp propositionComp;
+	private Candidature candidature;
 
 	public Actionanotifier() {
 	}
@@ -60,20 +55,12 @@ public class Actionanotifier implements Serializable {
 		this.notifValidee = notifValidee;
 	}
 
-	public List<Personne> getPersonnes() {
-		return this.personnes;
+	public Candidature getCandidature() {
+		return this.candidature;
 	}
 
-	public void setPersonnes(List<Personne> personnes) {
-		this.personnes = personnes;
-	}
-
-	public PropositionComp getPropositionComp() {
-		return this.propositionComp;
-	}
-
-	public void setPropositionComp(PropositionComp propositionComp) {
-		this.propositionComp = propositionComp;
+	public void setCandidature(Candidature candidature) {
+		this.candidature = candidature;
 	}
 
 }

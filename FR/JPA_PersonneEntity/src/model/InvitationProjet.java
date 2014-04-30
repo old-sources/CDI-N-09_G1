@@ -28,7 +28,7 @@ public class InvitationProjet implements Serializable {
 	@JoinColumn(name="pers_id")
 	private Personne personne;
 
-	//bi-directional many-to-one association to Projet
+	//uni-directional many-to-one association to Projet
 	@ManyToOne
 	@JoinColumn(name="proj_id")
 	private Projet projet;

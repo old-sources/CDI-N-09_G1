@@ -149,6 +149,7 @@ public class HPersonne extends HttpServlet {
 		
 		boolean trouve=false;
 		String inputLogin = request.getParameter("inputLogin");
+		System.out.println("HPersonne - post - identConnexion - 0 = "+inputLogin);
 		if (inputLogin != null && !inputLogin.isEmpty()) {
 			Personne searchPersonne = new Personne();
 			request.setAttribute("promotions",
@@ -156,7 +157,7 @@ public class HPersonne extends HttpServlet {
 			List<Personne> foundPersonnes = serviceGestionEcole
 					.rechercherPersonne(searchPersonne);
 			for (Personne pers : foundPersonnes){
-				System.out.println("*****for pers.getidco= "+pers.getIdentConnexion()+" inputLogin= "+inputLogin);
+				System.out.println("HPersonne - post - inputlogin - verif dble -  pers.getidco= "+pers.getIdentConnexion()+" inputLogin= "+inputLogin);
 				if (inputLogin.equals(pers.getIdentConnexion())){
 					System.out.println("est passé dans login trouvé");
 					trouve = true;
@@ -185,11 +186,15 @@ public class HPersonne extends HttpServlet {
 			updatedPerson.setDisponibilite(true);
 		}
 		
-		String identConnexion = request.getParameter("inputIdentConnexion");
-		if (identConnexion != null && !identConnexion.isEmpty()) {
-			updatedPerson.setIdentConnexion(identConnexion);
-		}
+	
 		
+		String stringCgu = request.getParameter("inputCgu");
+		Boolean cgu = Boolean.valueOf(stringCgu);
+		if (stringCgu  != null && !stringCgu .isEmpty()) {
+			updatedPerson.setCgu(cgu);
+		}else{
+			updatedPerson.setCgu(false);
+		}
 
 		// + categorie : admin, user, super admin
 		if (request.getParameter("delete") != null) {
@@ -230,12 +235,20 @@ public class HPersonne extends HttpServlet {
 		}
 
 		if (request.getParameter("update") != null) {
+			//champ desactivé perd sa valeur dans le post je sais pas pourquoi
+			String identConnexion = request.getParameter("inputIdentConnexion");
+			System.out.println("HPersonne - post - identConnexion - 1 = "+identConnexion);
+			if (identConnexion != null && !identConnexion.isEmpty()) {
+				System.out.println("HPersonne - post - identConnexion - 2 = "+identConnexion);
+				updatedPerson.setIdentConnexion(identConnexion);
+			}
+			
 			valLoginDouble = null;
-				System.out.println("HPersonne POST update");
-				Integer inputId = Integer.valueOf(request.getParameter("inputId"));
-				System.out.println("InputId = "+inputId);
-				updatedPerson.setId(inputId);
-				serviceGestionEcole.updatePersonne(updatedPerson);
+			System.out.println("HPersonne POST update");
+			Integer inputId = Integer.valueOf(request.getParameter("inputId"));
+			System.out.println("InputId = "+inputId);
+			updatedPerson.setId(inputId);
+			serviceGestionEcole.updatePersonne(updatedPerson);
 			
 		}
 

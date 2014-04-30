@@ -88,6 +88,8 @@ public class TP13_View extends HttpServlet {
 		if (message!=null){
 			printWriter.println("<span>message : "+message+"</span>");
 		}
+		
+		
 		printWriter.println("</body>");
 		printWriter.println("</html>");
 	}

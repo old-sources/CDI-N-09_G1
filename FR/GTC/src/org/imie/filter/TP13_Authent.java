@@ -78,6 +78,7 @@ public class TP13_Authent implements Filter {
 					request.setAttribute("messageException", e.getMessage());
 				}
 				if (authPersonne != null) {
+					//AJ : en vue de mettre une redirection validation CGU  =>  if authPersonne.getfdfgdfg
 					httpServletRequest.getSession().setAttribute(
 							"authentifiedPersonne", authPersonne);
 					httpServletRequest.getSession().setAttribute("importImpossibleLoginDouble","false");
