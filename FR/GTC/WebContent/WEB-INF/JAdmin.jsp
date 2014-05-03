@@ -43,6 +43,12 @@
 									.getAttribute("importImpossibleLoginDouble");
 							if (impnok == "true") {
 				%>
+					<span style="color: #FF0000; text-align: center">
+					<h2>il existe des doublons de login dans le fichier	sélectionné - Action annulée</h2>
+				</span>
+				<%
+					}
+				%>
 
 				<span id="importerUnFichier">importer un fichier d'étudiants depuis le repertoire /home/imie/filrouge/data/</span>
 
@@ -60,12 +66,7 @@
 				</form>
 
 			
-				<span style="color: #FF0000; text-align: center">
-					<h2>il existe des doublons de login dans le fichier	sélectionné - Action annulée</h2>
-				</span>
-				<%
-					}
-				%>
+			
 			</c:when>
 		</c:choose>
 	</div>

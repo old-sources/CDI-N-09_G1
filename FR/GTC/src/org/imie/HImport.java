@@ -175,6 +175,7 @@ public class HImport extends HttpServlet {
 						}
 
 						personne.setCgu(false);
+						System.out.println("Himport personne.getCgu() = "+personne.getCgu());
 						
 						serviceGestionEcole.insertPersonne(personne);
 					}

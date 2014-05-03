@@ -99,7 +99,7 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote,
 		personne2.setDisponibilite(personne.getDisponibilite());
 		personne2.setRole(personne.getRole());
 		personne2.setIdentConnexion(personne.getIdentConnexion());
-		//personne2.setCgu(personne.getCgu());
+		personne2.setCgu(personne.getCgu());
 
 		System.out.println("service - personne - insert " + personne.getNom() + " "+ personne.getPrenom());
 
