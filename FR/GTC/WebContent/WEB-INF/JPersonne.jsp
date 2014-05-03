@@ -64,7 +64,10 @@
 								});
 								$('#inputDateNaiss').val(dateString.toLocaleDateString("fr-FR"));
 								$('#inputPromotion').val($(this).attr("data-promotionid"));
+								$('#inputPassw').attr(
+										"disabled", false);
 								$('#inputPassw').val($(this).attr("data-passw"));
+								
 								$('#inputEmail').val($(this).attr("data-email"));
 								$('#inputInfos').val($(this).attr("data-infos"));
 								$('.loginExiste').hide();
@@ -103,7 +106,9 @@
 								$('.loginExiste').hide();
 								$('#inputRole').val("");
 								$('#inputInfos').val("");
-								$('#inputPassw').val("");
+								$('#inputPassw').attr(
+										"disabled", "disabled");
+								$('#inputPassw').val("p@ssword");
 								$('#inputRole').val("1");
 								$('#inputCgu').val("false");
 								$('#deleteDansForm').hide();

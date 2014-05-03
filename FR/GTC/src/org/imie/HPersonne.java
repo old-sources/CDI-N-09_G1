@@ -166,6 +166,7 @@ public class HPersonne extends HttpServlet {
 			updatedPerson.setIdentConnexion(inputLogin);
 		}
 		
+		
 		String inputRoleId = request.getParameter("inputRole");
 		System.out.println("Hpersonne string rolid :"+inputRoleId);
 		if (inputRoleId != null && !inputRoleId.isEmpty()) {
@@ -223,7 +224,9 @@ public class HPersonne extends HttpServlet {
 		}
 
 		if (request.getParameter("create") != null) {
+			
 			if (!trouve){
+				updatedPerson.setPassw("p@ssword");
 				serviceGestionEcole.insertPersonne(updatedPerson);
 				valLoginDouble = null;
 			}else {
@@ -235,7 +238,10 @@ public class HPersonne extends HttpServlet {
 		}
 
 		if (request.getParameter("update") != null) {
-			//champ desactivé perd sa valeur dans le post je sais pas pourquoi
+			String inputidentconnexionString = request.getParameter("#inputIdentConnexion");
+			updatedPerson.setIdentConnexion(inputidentconnexionString);
+
+			
 			String identConnexion = request.getParameter("inputIdentConnexion");
 			System.out.println("HPersonne - post - identConnexion - 1 = "+identConnexion);
 			if (identConnexion != null && !identConnexion.isEmpty()) {
