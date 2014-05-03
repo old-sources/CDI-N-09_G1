@@ -26,6 +26,7 @@ import org.imie.service.ServiceGestionEcoleJPALocal;
 @WebFilter(dispatcherTypes = { DispatcherType.REQUEST }, urlPatterns = { "/*" })
 public class TP13_Authent implements Filter {
 	@EJB ServiceGestionEcoleJPALocal serviceGestionEcole;
+	Personne searchPersonne = new Personne();
 	/**
 	 * Default constructor.
 	 */
@@ -86,7 +87,19 @@ public class TP13_Authent implements Filter {
 					httpServletRequest.getSession().setAttribute("importImpossibleLoginDouble","false");
 					String uri = (String) httpServletRequest.getSession()
 							.getAttribute("originURL");
-					httpServletResponse.sendRedirect(uri);
+					//test CGU
+//					Personne aut2 = new Personne();
+//					aut2=serviceGestionEcole.rechercherPersonne(searchPersonne).get(0);
+					System.out.println("login et cgu"+authPersonne.getIdentConnexion()+"  "+authPersonne.getCgu());
+					if (authPersonne.getCgu()){
+						System.out.println("filtreCGUtrue");
+						httpServletResponse.sendRedirect(uri);
+					}else {
+						System.out.println("filtreCGUfalse");
+						httpServletResponse.sendRedirect("/GTC/CGU");
+					}
+					/////fin test CGU
+					//httpServletResponse.sendRedirect(uri);
 				} else {
 					RequestDispatcher dispatcher = request
 							.getRequestDispatcher("TP13_View");
@@ -108,17 +121,11 @@ public class TP13_Authent implements Filter {
 						httpServletRequest.getRequestURL().toString().concat(requestParam));
 				httpServletResponse.sendRedirect("/GTC/TP13_Controller");
 			} else {
-				Personne aut2 = new Personne();
-				aut2=serviceGestionEcole.rechercherPersonne(searchPersonne).get(0);
-				if (aut2.getCgu()){
-					System.out.println("filtre1dochain");
-					System.out.println("nom et cgu"+aut2.getIdentConnexion()+"  "+aut2.getCgu());
-					chain.doFilter(request, response);
-					
-				}else {
-					System.out.println("filtre2redirect");
-					httpServletResponse.sendRedirect("/GTC/CGU");
-				}
+				
+				//System.out.println("login et cgu"+aut2.getIdentConnexion()+"  "+aut2.getCgu());
+				chain.doFilter(request, response);
+				
+				
 			}
 		}
 	}

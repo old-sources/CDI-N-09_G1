@@ -66,10 +66,10 @@ public class Admin extends HttpServlet {
 		// envoie en attribut si il a repéré un import impossible sur l'import de fichiers
 		String imp = (String) httpServletRequest.getSession().getAttribute(
 				"importImpossibleLoginDouble");
-		if (imp.equals("true")) {
-			request.setAttribute("importImpossibleLoginDouble", imp);
-		}
-		;
+		
+		request.setAttribute("importImpossibleLoginDouble", imp);
+		
+		System.out.println("Admin - get - passage en request attribute importImpossible"+imp);
 
 		// acces à la page admin reservee aux admin et super admin, pour utilisateurs redirection vers home
 		if ((loguedPerson.getRole().getRoleId() == 2)

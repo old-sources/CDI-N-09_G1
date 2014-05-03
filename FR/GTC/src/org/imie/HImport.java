@@ -57,9 +57,10 @@ public class HImport extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-		
+		System.out.println("HImport post");
 //////////////////////import de fichier //////////////////////////////////////////////////////		
 		if (request.getParameter("submitUpload") != null) {
+			System.out.println("Upload");
 			String inputFile = request.getParameter("file1");
 			String csvFile = "/home/imie/filrouge/data/".concat(inputFile);
 			BufferedReader br = null;
@@ -68,19 +69,32 @@ public class HImport extends HttpServlet {
 			boolean trouve = false;
 			// verfication de non-doublon sur le login
 			try {
-
+				System.out.println("Recherche de doublons");
 				br = new BufferedReader(new FileReader(csvFile));
 				br.readLine();
+				//
+				//liste des personnes	
+				Personne per = new Personne();
+				List<Personne> foundPersonnes = serviceGestionEcole
+						.rechercherPersonne(per);
+				
+				//fin recup liste personnes
 				while ((line = br.readLine()) != null) {
-					Personne personne = new Personne();
-					// use ";" as separator
-					String[] pers = line.split(cvsSplitBy);
-					personne.setIdentConnexion(pers[2]);
-					if ((pers[2]).equals(serviceGestionEcole
-							.rechercherPersonne(personne).get(0)
-							.getIdentConnexion())) {
-						trouve = true;
+					for (Personne personne : foundPersonnes ){
+						//Personne personne = new Personne();
+						// use "," as separator
+						String[] pers = line.split(cvsSplitBy);
+						//personne.setIdentConnexion(pers[2]);
+//						System.out.println("pers[2] = "+pers[2]+"verif = "+serviceGestionEcole
+//								.rechercherPersonne(personne).get(0)
+//								.getIdentConnexion());
+						System.out.println("pers[2] = "+pers[2]+"verif = "+personne.getIdentConnexion());
+						if ((pers[2]).equals(personne.getIdentConnexion())) {
+							trouve = true;
+							System.out.println("trouveDoublonDansFichier=true");
+						}
 					}
+					
 				}
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
@@ -95,8 +109,9 @@ public class HImport extends HttpServlet {
 					}
 				}
 			}
-
+			System.out.println("trouve = "+trouve);
 			if (!trouve) {
+				System.out.println("Action d'insertion");
 				// action d'insertion
 				try {
 
@@ -181,16 +196,18 @@ public class HImport extends HttpServlet {
 				System.out.println("Done");
 				httpServletRequest.getSession().setAttribute(
 						"importImpossibleLoginDouble", "false");
-
+				System.out.println("trouveDoublonDansFichier = false");
 			} else {
 				httpServletRequest.getSession().setAttribute(
 						"importImpossibleLoginDouble", "true");
+				System.out.println("trouveDoublonDansFichier = true");
 			}
 		}
 
 		// ////////////////////////////// export de fichier 		// ////////////////////
 
 		if (request.getParameter("submitDownload") != null) {
+			System.out.println("Export");
 			String inputFile = request.getParameter("file2");
 			String csvFile = "/home/imie/filrouge/data/".concat(inputFile);
 
