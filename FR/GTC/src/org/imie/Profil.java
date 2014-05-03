@@ -60,8 +60,15 @@ public class Profil extends HttpServlet {
 		request.setAttribute("possedes", serviceGestionEcole.rechercherPossede(possede));
 		
 		System.out.println(loguedPerson.getNom());
-		request.getRequestDispatcher("/WEB-INF/JProfil.jsp").forward(
-				request, response);
+		
+		if (loguedPerson.getCgu()){
+			request.getRequestDispatcher("/WEB-INF/JProfil.jsp").forward(
+					request, response);
+		}else {
+			//httpServletRequest.getSession().setAttribute("authentifiedPersonne",null);
+			response.sendRedirect("/GTC/CGU");
+		}
+		
 	}
 
 	/**

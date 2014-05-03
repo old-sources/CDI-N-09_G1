@@ -82,9 +82,16 @@ HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		
 		
 		System.out.println(loguedPerson.getNom());
+		
+		if (loguedPerson.getCgu()){
+			request.getRequestDispatcher("/WEB-INF/JMesProjets.jsp").forward(
+					request, response);
+		}else {
+			//httpServletRequest.getSession().setAttribute("authentifiedPersonne",null);
+			response.sendRedirect("/GTC/CGU");
+		}
 
-		request.getRequestDispatcher("/WEB-INF/JMesProjets.jsp").forward(
-				request, response);
+		
 	}
 
 	/**

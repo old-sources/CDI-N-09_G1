@@ -56,6 +56,8 @@ public class TP13_Authent implements Filter {
 		Boolean authentifying = false;
 		Boolean resourceToScan = true;
 		Boolean requestInterupted = false;
+		Personne authPersonne = null;
+		Personne searchPersonne = new Personne();
 		if (httpServletRequest.getRequestURI().contains("css") || httpServletRequest.getRequestURI().contains("png")) {
 			resourceToScan = false;
 		}
@@ -67,11 +69,11 @@ public class TP13_Authent implements Filter {
 //	NK			String inputNom = request.getParameter("inputNom");
 				String inputLogin = request.getParameter("inputLogin");
 				String inputPassword = request.getParameter("inputPassword");
-				Personne searchPersonne = new Personne();
+			
 //	NK			searchPersonne.setNom(inputNom);
 				searchPersonne.setIdentConnexion(inputLogin);
 				searchPersonne.setPassw(inputPassword);
-				Personne authPersonne = null;
+				
 				try {
 					authPersonne = serviceGestionEcole.verifierAuthPersonne(searchPersonne);
 				} catch (ServiceException e) {
@@ -106,7 +108,17 @@ public class TP13_Authent implements Filter {
 						httpServletRequest.getRequestURL().toString().concat(requestParam));
 				httpServletResponse.sendRedirect("/GTC/TP13_Controller");
 			} else {
-				chain.doFilter(request, response);
+				Personne aut2 = new Personne();
+				aut2=serviceGestionEcole.rechercherPersonne(searchPersonne).get(0);
+				if (aut2.getCgu()){
+					System.out.println("filtre1dochain");
+					System.out.println("nom et cgu"+aut2.getIdentConnexion()+"  "+aut2.getCgu());
+					chain.doFilter(request, response);
+					
+				}else {
+					System.out.println("filtre2redirect");
+					httpServletResponse.sendRedirect("/GTC/CGU");
+				}
 			}
 		}
 	}
