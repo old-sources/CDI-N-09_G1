@@ -233,6 +233,8 @@ public class HImport extends HttpServlet {
 			writer.append("Promotion");
 			writer.append(',');
 			writer.append("Role");
+			writer.append(',');
+			writer.append("CGU");
 			writer.append('\n');
 			Personne personne = new Personne();
 			List<Personne> personnes = serviceGestionEcole
@@ -272,6 +274,9 @@ public class HImport extends HttpServlet {
 				} else {
 					writer.append("");
 				}
+				writer.append(',');
+				writer.append(String.valueOf(personne.getCgu()));
+				
 				writer.append('\n');
 			}
 
