@@ -1,0 +1,75 @@
+@CHARSET "UTF-8";
+
+body{
+	background-color: #E0FFFF;
+}
+
+.semiWidth{
+	width: 50%;
+}
+
+.centered{
+	text-align: center;
+}
+
+#BarreId{
+	text-align : right;
+	background-color: #BCF46E;
+}
+
+#BarreMenu{
+	text-align : center;
+	background-color: #BCF46E;
+}
+
+@media screen and (min-width:600px) {
+#tablePromotionAdmin{
+	width : 600px;
+}
+}
+
+@media screen and (max-width:500px) {
+#tablePromotionAdmin{
+	overflow-x:scroll;
+}
+}
+@media screen and (min-width:1250px) {
+    .cell2{
+	width : 1250px;
+	}	
+}
+
+.tablePersonneAdmin{
+	font-size : 70%;
+	width : 1200px;
+	}
+#tableProjetAdmin{
+	font-size : 70%;
+	width : 1100px;
+	}
+#tableRelationPPAdmin{
+	font-size : 70%;
+	width : 350px;
+	}
+
+@media screen and (max-width:1250px) {
+#tableRelationPPAdmin{
+	overflow-x:scroll;
+}
+.tablePersonneAdmin{
+	overflow-x:scroll;
+	}
+#tableProjetAdmin{
+	overflow-x:scroll;
+	}
+	
+}
+
+
+
+
+@media screen and (max-width:1249px) {
+    .cell2{
+	overflow-x:scroll;
+	}
+}

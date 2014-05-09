@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<persistence
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+	version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/persistence">
+
+
+	<persistence-unit transaction-type="JTA" name="DSCDI09">
+
+		<jta-data-source>java:/DSCDI09</jta-data-source>
+
+
+		<class>model.Actionanotifier</class>
+
+		<class>model.Candidature</class>
+
+		<class>model.Competence</class>
+
+		<class>model.InvitationProjet</class>
+
+		<class>model.Personne</class>
+
+		<class>model.Possede</class>
+
+		<class>model.Projet</class>
+
+		<class>model.Promotion</class>
+
+		<class>model.PropositionComp</class>
+
+		<class>model.Role</class>
+		
+		<class>model.Travaille</class>
+		
+
+
+	</persistence-unit>
+
+</persistence>
