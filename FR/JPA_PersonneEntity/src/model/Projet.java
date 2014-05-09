@@ -1,9 +1,21 @@
 package model;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 /**
@@ -49,11 +61,15 @@ public class Projet implements Serializable {
 	//bi-directional many-to-one association to Personne
 	@ManyToOne
 	@JoinColumn(name="pers_id")
-	private Personne personne;
+	private Personne chefDeProjet;
 
-	//bi-directional many-to-one association to Travaille
-	@OneToMany(mappedBy="projet")
-	private List<Travaille> travailles;
+	//bi-directional many-to-many association to personne
+	@ManyToMany
+	@JoinTable(name = "travaille",
+		joinColumns = {@JoinColumn(name = "proj_id", referencedColumnName = "proj_id")}, 
+		inverseJoinColumns = {@JoinColumn(name = "pers_id", referencedColumnName = "pers_id")}
+	)
+	private List<Personne> membres;
 
 	public Projet() {
 	}
@@ -144,34 +160,20 @@ public class Projet implements Serializable {
 		return candidature;
 	}
 
-	public Personne getPersonne() {
-		return this.personne;
+	public Personne getChefDeProjet() {
+		return this.chefDeProjet;
 	}
 
-	public void setPersonne(Personne personne) {
-		this.personne = personne;
+	public void setChefDeProjet(Personne chefDeProjet) {
+		this.chefDeProjet = chefDeProjet;
 	}
 
-	public List<Travaille> getTravailles() {
-		return this.travailles;
+	public List<Personne> getMembres() {
+		return this.membres;
 	}
 
-	public void setTravailles(List<Travaille> travailles) {
-		this.travailles = travailles;
-	}
-
-	public Travaille addTravaille(Travaille travaille) {
-		getTravailles().add(travaille);
-		travaille.setProjet(this);
-
-		return travaille;
-	}
-
-	public Travaille removeTravaille(Travaille travaille) {
-		getTravailles().remove(travaille);
-		travaille.setProjet(null);
-
-		return travaille;
+	public void setMembres(List<Personne> membres) {
+		this.membres = membres;
 	}
 
 }

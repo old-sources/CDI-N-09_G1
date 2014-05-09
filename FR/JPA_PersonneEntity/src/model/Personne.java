@@ -67,12 +67,12 @@ public class Personne implements Serializable {
 	private List<Possede> possedes;
 
 	//bi-directional many-to-one association to Projet
-	@OneToMany(mappedBy="personne")
-	private List<Projet> projets;
+	@OneToMany(mappedBy="chefDeProjet")
+	private List<Projet> projetsCDP;
 
-	//bi-directional many-to-one association to Travaille
-	@OneToMany(mappedBy="personne")
-	private List<Travaille> travailles;
+	//bi-directional many-to-many association to Projet
+	@ManyToMany(mappedBy="membres")
+	private List<Projet> projets;
 
 	public Personne() {
 	}
@@ -203,48 +203,34 @@ public class Personne implements Serializable {
 		return possede;
 	}
 
+	public List<Projet> getProjetsCDP() {
+		return this.projetsCDP;
+	}
+
+	public void setProjetsCDP(List<Projet> projetsCDP) {
+		this.projetsCDP = projetsCDP;
+	}
+
+	public Projet addProjetCDP(Projet projetCDP) {
+		getProjetsCDP().add(projetCDP);
+		projetCDP.setChefDeProjet(this);
+
+		return projetCDP;
+	}
+
+	public Projet removeProjetCDP(Projet projetCDP) {
+		getProjetsCDP().remove(projetCDP);
+		projetCDP.setChefDeProjet(null);
+
+		return projetCDP;
+	}
+
 	public List<Projet> getProjets() {
 		return this.projets;
 	}
 
 	public void setProjets(List<Projet> projets) {
 		this.projets = projets;
-	}
-
-	public Projet addProjet(Projet projet) {
-		getProjets().add(projet);
-		projet.setPersonne(this);
-
-		return projet;
-	}
-
-	public Projet removeProjet(Projet projet) {
-		getProjets().remove(projet);
-		projet.setPersonne(null);
-
-		return projet;
-	}
-
-	public List<Travaille> getTravailles() {
-		return this.travailles;
-	}
-
-	public void setTravailles(List<Travaille> travailles) {
-		this.travailles = travailles;
-	}
-
-	public Travaille addTravaille(Travaille travaille) {
-		getTravailles().add(travaille);
-		travaille.setPersonne(this);
-
-		return travaille;
-	}
-
-	public Travaille removeTravaille(Travaille travaille) {
-		getTravailles().remove(travaille);
-		travaille.setPersonne(null);
-
-		return travaille;
 	}
 
 }

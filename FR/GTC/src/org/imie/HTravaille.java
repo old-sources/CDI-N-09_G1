@@ -46,9 +46,9 @@ public class HTravaille extends HttpServlet {
 		System.out.println("HTravaille Get");
 		// a faire quelque soit le pattern
 
-		List<Travaille> foundTravailles = serviceGestionProjet
-				.rechercherTravaille(new Travaille());
-		request.setAttribute("foundTravailles", foundTravailles);
+//		List<Travaille> foundTravailles = serviceGestionProjet
+//				.rechercherTravaille(new Travaille());
+//		request.setAttribute("foundTravailles", foundTravailles);
 		
 		List<Projet> foundProjets = serviceGestionProjet
 				.rechercherProjet(new Projet());
@@ -58,7 +58,7 @@ public class HTravaille extends HttpServlet {
 		Personne loguedPerson = new Personne();
 		loguedPerson=(Personne) httpServletRequest.getSession().getAttribute("authentifiedPersonne");
 		request.setAttribute("loguedPerson", loguedPerson);
-		request.setAttribute("foundTravailles",foundTravailles);
+//		request.setAttribute("foundTravailles",foundTravailles);
 		List<Personne> foundPersonnes = serviceGestionEcole
 				.rechercherPersonne(new Personne());
 		request.setAttribute("foundPersonnes", foundPersonnes);
@@ -100,28 +100,28 @@ public class HTravaille extends HttpServlet {
 		updatedTravaille.setPersonne(serviceGestionEcole.rechercherPersonne(personne).get(0));
 		
 
-		if (request.getParameter("create") != null) {
-			serviceGestionProjet.insertTravaille(updatedTravaille);
-		}
-
-		if (request.getParameter("update") != null) {
-			Integer inputTravailleId = Integer.valueOf(request.getParameter("inputTravailleId"));
-			updatedTravaille.setTrvId(inputTravailleId);
-			serviceGestionProjet.updateTravaille(updatedTravaille);
-		}
-		
-		if (request.getParameter("delete") != null) {
-			System.out.println("HTravaille Post delete");
-			try {
-				Integer inputId = Integer.valueOf(request.getParameter("inputTravailleId"));
-				updatedTravaille.setTrvId(inputId);
-				System.out.println("id : "+inputId);
-				serviceGestionProjet.deleteTravaille(updatedTravaille);
-			}
-			catch (NumberFormatException e) {
-				// parametres non corrects : pas de suppression
-			}
-		}
+//		if (request.getParameter("create") != null) {
+//			serviceGestionProjet.insertTravaille(updatedTravaille);
+//		}
+//
+//		if (request.getParameter("update") != null) {
+//			Integer inputTravailleId = Integer.valueOf(request.getParameter("inputTravailleId"));
+//			updatedTravaille.setTrvId(inputTravailleId);
+//			serviceGestionProjet.updateTravaille(updatedTravaille);
+//		}
+//		
+//		if (request.getParameter("delete") != null) {
+//			System.out.println("HTravaille Post delete");
+//			try {
+//				Integer inputId = Integer.valueOf(request.getParameter("inputTravailleId"));
+//				updatedTravaille.setTrvId(inputId);
+//				System.out.println("id : "+inputId);
+//				serviceGestionProjet.deleteTravaille(updatedTravaille);
+//			}
+//			catch (NumberFormatException e) {
+//				// parametres non corrects : pas de suppression
+//			}
+//		}
  
 		response.sendRedirect("/GTC/HTravaille/");
 	}

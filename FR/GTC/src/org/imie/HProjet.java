@@ -82,7 +82,7 @@ public class HProjet extends HttpServlet {
 		Personne cdp = new Personne();
 		cdp.setId(Integer.valueOf(inputPersonne));
 		cdp = serviceGestionEcole.rechercherPersonne(cdp).get(0);
-		updatedProjet.setPersonne(cdp);
+		updatedProjet.setChefDeProjet(cdp);
 		System.out.println("inputCdpNom : "+cdp.getNom());
 	
 		String inputProjNom = request.getParameter("inputProjNom");

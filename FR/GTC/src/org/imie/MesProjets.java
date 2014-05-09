@@ -1,10 +1,7 @@
 package org.imie;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -16,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.Personne;
 import model.Projet;
-import model.Travaille;
 
 import org.imie.service.ServiceGestionEcoleJPALocal;
 import org.imie.service.ServiceGestionProjetJPALocal;
@@ -50,35 +46,33 @@ HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		loguedPerson=(Personne) httpServletRequest.getSession().getAttribute("authentifiedPersonne");
 		request.setAttribute("loguedPerson", loguedPerson);
 	
-		request.setAttribute("travailles", loguedPerson.getTravailles());
-	
-		Projet prj = new Projet();
-		prj.setPersonne(loguedPerson);
-		List<Projet> projetsEnTantQueChefDeProjet = serviceGestionProjet.rechercherProjet(prj);
-		request.setAttribute("projetsCdp", projetsEnTantQueChefDeProjet);
-		
-		Travaille trv = new Travaille();
-		trv.setPersonne(loguedPerson);
-		List<Travaille> travailleSur = serviceGestionProjet.rechercherTravaille(trv);
-		List<Projet>  projetsEnTantQueUser0 = new ArrayList<Projet>();
-		for (Travaille trv2 : travailleSur){
-			projetsEnTantQueUser0.add(trv2.getProjet());			
-		}
-		//request.setAttribute("projetsUser", projetsEnTantQueUser0);
-		
-		List<Projet>  projetsEnTantQueUser = new ArrayList<Projet>();
-		boolean dedans;
-		for (Projet prj2 : projetsEnTantQueUser0){
-			dedans = false;
-			for (Projet prj3 : projetsEnTantQueChefDeProjet){
-				if (prj2 == prj3) {dedans=true;};
+		//Recherche de la personne en cours dans la base
+		Personne recherche = new Personne();
+		recherche.setId(loguedPerson.getId());
+		List<Personne> personnes = serviceGestionEcole.rechercherPersonne(recherche);
+		if (personnes.size() == 1) {
+
+			//recuperation de TOUS les projets dont la personne est chef 
+			List<Projet> projetsEnTantQueChefDeProjet = personnes.get(0).getProjetsCDP();
+			//passage dans la requete des projets dont la personne est chef 
+			request.setAttribute("projetsCdp", projetsEnTantQueChefDeProjet);
+			
+			//recuperation de TOUS les projets auxquels la personne participe 
+			List<Projet> projetsEnTantQueUser0 = personnes.get(0).getProjets();			
+			//ne garder dans tous les projets que ceux dont la personne n'est pas chef		
+			List<Projet>  projetsEnTantQueUser = new ArrayList<Projet>();
+			boolean dedans;
+			for (Projet prj2 : projetsEnTantQueUser0){
+				dedans = false;
+				for (Projet prj3 : projetsEnTantQueChefDeProjet){
+					if (prj2 == prj3) {dedans=true;};
+				}
+				if (!dedans) {
+					projetsEnTantQueUser.add(prj2);
+				}
 			}
-			if (!dedans) {
-				projetsEnTantQueUser.add(prj2);
-			}
+			request.setAttribute("projetsUser", projetsEnTantQueUser);
 		}
-		request.setAttribute("projetsUser", projetsEnTantQueUser);
-		
 		
 		
 		System.out.println(loguedPerson.getNom());

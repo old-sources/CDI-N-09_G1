@@ -8,11 +8,9 @@ import javax.xml.rpc.ServiceException;
 import model.Competence;
 import model.Personne;
 import model.Possede;
-import model.Projet;
 import model.Promotion;
 import model.PropositionComp;
 import model.Role;
-import model.Travaille;
 
 // Commentaire JM
 // besoin d'annotations documentations et commentaires explicatifs
@@ -40,15 +38,7 @@ public interface ServiceGestionEcoleJPALocal {
     public Personne verifierAuthPersonne(Personne personne) throws ServiceException;
     
     public List<Possede> rechercherPossede(Possede possede);
-    public List<Projet> rechercherProjet(Projet prj);
-    public List<Travaille> rechercherTravaille(Travaille trv);
     public List<Role> rechercherRole(Role role);
-    public Projet insertProjet(Projet projet);
-    public void deleteProjet(Projet projet);
-    public Projet updateProjet(Projet projetToUpdate);
-    public Travaille insertTravaille(Travaille travaille);
-    public Travaille updateTravaille(Travaille travailleToUpdate);
-    public void deleteTravaille(Travaille travaille);
 
     // ajout methodes Competence JM
 	public List<Competence> rechercherCompetence(Competence searchCompetences);

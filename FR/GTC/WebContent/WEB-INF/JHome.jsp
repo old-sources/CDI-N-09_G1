@@ -109,10 +109,10 @@
 									<TD><fmt:formatDate pattern="dd/MM/yyyy"
 											value="${prj.projDatedefin}" /></TD>
 									<TD><c:out value="${prj.projDescription}" /></TD>
-									<TD><c:out value="${prj.personne.nom}" /></TD>
+									<TD><c:out value="${prj.chefDeProjet.nom}" /></TD>
 									<TD>
-										<c:forEach items="${prj.travailles}" var="participant">
-											<c:out value="${participant.personne.prenom} ${participant.personne.nom}" />
+										<c:forEach items="${prj.membres}" var="participant">
+											<c:out value="${participant.prenom} ${participant.nom}" />
 											<br />
 										</c:forEach>
 									</TD>

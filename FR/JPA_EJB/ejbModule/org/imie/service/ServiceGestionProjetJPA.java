@@ -17,7 +17,6 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import model.Projet;
-import model.Travaille;
 //import javax.persistence.JoinColumn;
 //import model.Actionanotifier;
 
@@ -48,8 +47,8 @@ public class ServiceGestionProjetJPA implements ServiceGestionProjetJPARemote,
 		Root<Projet> prjRoot = query.from(Projet.class);
 
 		List<Predicate> criteria = new ArrayList<Predicate>();
-		if (prj.getPersonne() != null) {
-			criteria.add(qb.equal(prjRoot.get("personne"), prj.getPersonne()));
+		if (prj.getChefDeProjet() != null) {
+			criteria.add(qb.equal(prjRoot.get("chefDeProjet"), prj.getChefDeProjet()));
 		}
 		if (prj.getProjId() != null) {
 			criteria.add(qb.equal(prjRoot.get("projId"), prj.getProjId()));
@@ -61,32 +60,36 @@ public class ServiceGestionProjetJPA implements ServiceGestionProjetJPARemote,
 
 		query.where(criteria.toArray(new Predicate[] {}));
 		List<Projet> result = entityManager.createQuery(query).getResultList();
+		//actualisation des infos liées aux personnes participant aux projets
+		for(Projet projet : result){
+			projet.getMembres().size();
+		}
 		return result;
 	}
 
-	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public List<Travaille> rechercherTravaille(Travaille trv) {
-		CriteriaBuilder qb = entityManager.getCriteriaBuilder();
-
-		CriteriaQuery<Travaille> query = qb.createQuery(Travaille.class);
-		Root<Travaille> trvRoot = query.from(Travaille.class);
-
-		List<Predicate> criteria = new ArrayList<Predicate>();
-		if (trv.getPersonne() != null) {
-			criteria.add(qb.equal(trvRoot.get("personne"), trv.getPersonne()));
-		}
-		if (trv.getProjet() != null) {
-			criteria.add(qb.equal(trvRoot.get("projet"), trv.getProjet()));
-		}
-		if (trv.getTrvId() != null) {
-			criteria.add(qb.equal(trvRoot.<String> get("trvId"), trv.getTrvId()));
-		}
-
-		query.where(criteria.toArray(new Predicate[] {}));
-		List<Travaille> result = entityManager.createQuery(query)
-				.getResultList();
-		return result;
-	}
+//	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+//	public List<Travaille> rechercherTravaille(Travaille trv) {
+//		CriteriaBuilder qb = entityManager.getCriteriaBuilder();
+//
+//		CriteriaQuery<Travaille> query = qb.createQuery(Travaille.class);
+//		Root<Travaille> trvRoot = query.from(Travaille.class);
+//
+//		List<Predicate> criteria = new ArrayList<Predicate>();
+//		if (trv.getPersonne() != null) {
+//			criteria.add(qb.equal(trvRoot.get("personne"), trv.getPersonne()));
+//		}
+//		if (trv.getProjet() != null) {
+//			criteria.add(qb.equal(trvRoot.get("projet"), trv.getProjet()));
+//		}
+//		if (trv.getTrvId() != null) {
+//			criteria.add(qb.equal(trvRoot.<String> get("trvId"), trv.getTrvId()));
+//		}
+//
+//		query.where(criteria.toArray(new Predicate[] {}));
+//		List<Travaille> result = entityManager.createQuery(query)
+//				.getResultList();
+//		return result;
+//	}
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public Projet insertProjet(Projet projet) {
@@ -98,7 +101,7 @@ public class ServiceGestionProjetJPA implements ServiceGestionProjetJPARemote,
 		projet2.setProjWikiCdp(projet.getProjWikiCdp());
 		projet2.setProjWikiMembre(projet.getProjWikiMembre());
 		projet2.setProjAvancement(projet.getProjAvancement());
-		projet2.setPersonne(projet.getPersonne());
+		projet2.setChefDeProjet(projet.getChefDeProjet());
 		entityManager.persist(projet2);
 		return projet2;
 	}
@@ -114,24 +117,24 @@ public class ServiceGestionProjetJPA implements ServiceGestionProjetJPARemote,
 		return entityManager.merge(projetToUpdate);
 	}
 
-	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public Travaille insertTravaille(Travaille travaille) {
-		Travaille travaille2 = new Travaille();
-		travaille2.setPersonne(travaille.getPersonne());
-		travaille2.setProjet(travaille.getProjet());
-		entityManager.persist(travaille2);
-		return travaille2;
-	}
+//	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+//	public Travaille insertTravaille(Travaille travaille) {
+//		Travaille travaille2 = new Travaille();
+//		travaille2.setPersonne(travaille.getPersonne());
+//		travaille2.setProjet(travaille.getProjet());
+//		entityManager.persist(travaille2);
+//		return travaille2;
+//	}
 
-	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public void deleteTravaille(Travaille travaille) {
-		travaille = entityManager.find(Travaille.class, travaille.getTrvId());
-		entityManager.remove(travaille);
-	}
+//	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+//	public void deleteTravaille(Travaille travaille) {
+//		travaille = entityManager.find(Travaille.class, travaille.getTrvId());
+//		entityManager.remove(travaille);
+//	}
 
-	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public Travaille updateTravaille(Travaille travailleToUpdate) {
-		return entityManager.merge(travailleToUpdate);
-	}
+//	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+//	public Travaille updateTravaille(Travaille travailleToUpdate) {
+//		return entityManager.merge(travailleToUpdate);
+//	}
 
 }

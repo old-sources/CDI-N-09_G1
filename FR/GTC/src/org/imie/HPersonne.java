@@ -64,9 +64,9 @@ public class HPersonne extends HttpServlet {
 				.rechercherPersonne(searchPersonne);
 		request.setAttribute("foundPersonnes", foundPersonnes);
 		
-		List<Travaille> foundTravailles = serviceGestionEcole
-				.rechercherTravaille(new Travaille());
-		request.setAttribute("foundTravailles", foundTravailles);
+//		List<Travaille> foundTravailles = serviceGestionEcole
+//				.rechercherTravaille(new Travaille());
+//		request.setAttribute("foundTravailles", foundTravailles);
 		
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		Personne loguedPerson = new Personne();

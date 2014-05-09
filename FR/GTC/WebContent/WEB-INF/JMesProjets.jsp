@@ -156,10 +156,10 @@
 									<TD><fmt:formatDate pattern="dd/MM/yyyy"
 											value="${prj.projDatedefin}" /></TD>
 									<TD><c:out value="${prj.projDescription}" /></TD>
-									<TD><c:out value="${prj.personne.nom}" /></TD>
+									<TD><c:out value="${prj.chefDeProjet.nom}" /></TD>
 									<TD>
-										<c:forEach items="${prj.travailles}" var="participant">
-											<c:out value="${participant.personne.prenom} ${participant.personne.nom}" />
+										<c:forEach items="${prj.membres}" var="participant">
+											<c:out value="${participant.prenom} ${participant.nom}" />
 											<br />
 										</c:forEach>
 									</TD>
@@ -173,8 +173,8 @@
 											data-projWikiCdp="${prj.projWikiCdp}"
 											data-projWikiMembre="${prj.projWikiMembre}"
 											data-projAvancement="${prj.projAvancement}"
-											data-personnenom="${prj.personne.nom}"
-											data-personneid="${prj.personne.id}">Modifier</BUTTON></TD>
+											data-personnenom="${prj.chefDeProjet.nom}"
+											data-personneid="${prj.chefDeProjet.id}">Modifier</BUTTON></TD>
 								</tr>
 							</c:forEach>
 						</TBODY>
@@ -209,10 +209,10 @@
 									<TD><fmt:formatDate pattern="dd/MM/yyyy"
 											value="${prj.projDatedefin}" /></TD>
 									<TD><c:out value="${prj.projDescription}" /></TD>
-									<TD><c:out value="${prj.personne.nom}" /></TD>
+									<TD><c:out value="${prj.chefDeProjet.nom}" /></TD>
 									<TD>
-										<c:forEach items="${prj.travailles}" var="participant">
-											<c:out value="${participant.personne.prenom} ${participant.personne.nom}" />
+										<c:forEach items="${prj.membres}" var="participant">
+											<c:out value="${participant.prenom} ${participant.nom}" />
 											<br />
 										</c:forEach>
 									</TD>

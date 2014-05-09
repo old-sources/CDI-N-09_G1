@@ -9,10 +9,7 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
-//import javax.persistence.CascadeType;
 import javax.persistence.EntityManager;
-//import javax.persistence.OneToMany;
-//import javax.persistence.JoinColumn;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -20,7 +17,6 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.xml.rpc.ServiceException;
 
-//import model.Actionanotifier;
 import model.Competence;
 import model.Personne;
 import model.Possede;
@@ -28,7 +24,10 @@ import model.Projet;
 import model.Promotion;
 import model.PropositionComp;
 import model.Role;
-import model.Travaille;
+//import javax.persistence.CascadeType;
+//import javax.persistence.OneToMany;
+//import javax.persistence.JoinColumn;
+//import model.Actionanotifier;
 
 /**
  * Session Bean implementation class ServiceGestionEcoleJPA
@@ -72,6 +71,19 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote,
 
 		List<Personne> result = entityManager.createQuery(query)
 				.getResultList();
+		//actualisation des infos liées aux projets dont les personnes sont membres ou chefs de projet
+		for(Personne personneEnCours : result){
+			//projets en tant que membres
+			List<Projet> projetsMembre = personneEnCours.getProjets();
+			for(Projet projetMembre : projetsMembre){
+				projetMembre.getMembres().size();
+			}
+			//projets en tant que Chef de projet
+			List<Projet> projetsCDP = personneEnCours.getProjetsCDP();
+			for(Projet projetCDP : projetsCDP){
+				projetCDP.getMembres().size();
+			}
+		}
 
 		return result;
 
@@ -297,55 +309,6 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote,
 		return result;
 	}
 
-	@Override
-	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public List<Projet> rechercherProjet(Projet prj) {
-		CriteriaBuilder qb = entityManager.getCriteriaBuilder();
-
-		CriteriaQuery<Projet> query = qb.createQuery(Projet.class);
-		Root<Projet> prjRoot = query.from(Projet.class);
-
-		List<Predicate> criteria = new ArrayList<Predicate>();
-		if (prj.getPersonne() != null) {
-			criteria.add(qb.equal(prjRoot.get("personne"), prj.getPersonne()));
-		}
-		if (prj.getProjId() != null) {
-			criteria.add(qb.equal(prjRoot.get("projId"), prj.getProjId()));
-		}
-		if (prj.getProjNom() != null) {
-			criteria.add(qb.equal(prjRoot.<String> get("ProjNom"),
-					prj.getProjNom()));
-		}
-
-		query.where(criteria.toArray(new Predicate[] {}));
-		List<Projet> result = entityManager.createQuery(query).getResultList();
-		return result;
-	}
-
-	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public List<Travaille> rechercherTravaille(Travaille trv) {
-		CriteriaBuilder qb = entityManager.getCriteriaBuilder();
-
-		CriteriaQuery<Travaille> query = qb.createQuery(Travaille.class);
-		Root<Travaille> trvRoot = query.from(Travaille.class);
-
-		List<Predicate> criteria = new ArrayList<Predicate>();
-		if (trv.getPersonne() != null) {
-			criteria.add(qb.equal(trvRoot.get("personne"), trv.getPersonne()));
-		}
-		if (trv.getProjet() != null) {
-			criteria.add(qb.equal(trvRoot.get("projet"), trv.getProjet()));
-		}
-		if (trv.getTrvId() != null) {
-			criteria.add(qb.equal(trvRoot.<String> get("trvId"), trv.getTrvId()));
-		}
-
-		query.where(criteria.toArray(new Predicate[] {}));
-		List<Travaille> result = entityManager.createQuery(query)
-				.getResultList();
-		return result;
-	}
-
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public List<Role> rechercherRole(Role role) {
 		CriteriaBuilder qb = entityManager.getCriteriaBuilder();
@@ -365,52 +328,6 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote,
 		query.where(criteria.toArray(new Predicate[] {}));
 		List<Role> result = entityManager.createQuery(query).getResultList();
 		return result;
-	}
-
-	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public Projet insertProjet(Projet projet) {
-		Projet projet2 = new Projet();
-		projet2.setProjNom(projet.getProjNom());
-		projet2.setProjDatedebut(projet.getProjDatedebut());
-		projet2.setProjDatedefin(projet.getProjDatedefin());
-		projet2.setProjDescription(projet.getProjDescription());
-		projet2.setProjWikiCdp(projet.getProjWikiCdp());
-		projet2.setProjWikiMembre(projet.getProjWikiMembre());
-		projet2.setProjAvancement(projet.getProjAvancement());
-		projet2.setPersonne(projet.getPersonne());
-		entityManager.persist(projet2);
-		return projet2;
-	}
-
-	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public void deleteProjet(Projet projet) {
-		projet = entityManager.find(Projet.class, projet.getProjId());
-		entityManager.remove(projet);
-	}
-
-	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public Projet updateProjet(Projet projetToUpdate) {
-		return entityManager.merge(projetToUpdate);
-	}
-
-	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public Travaille insertTravaille(Travaille travaille) {
-		Travaille travaille2 = new Travaille();
-		travaille2.setPersonne(travaille.getPersonne());
-		travaille2.setProjet(travaille.getProjet());
-		entityManager.persist(travaille2);
-		return travaille2;
-	}
-
-	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public void deleteTravaille(Travaille travaille) {
-		travaille = entityManager.find(Travaille.class, travaille.getTrvId());
-		entityManager.remove(travaille);
-	}
-
-	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public Travaille updateTravaille(Travaille travailleToUpdate) {
-		return entityManager.merge(travailleToUpdate);
 	}
 
 	// ----------------------------------------------------------

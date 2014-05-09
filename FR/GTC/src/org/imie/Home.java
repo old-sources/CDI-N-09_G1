@@ -47,7 +47,7 @@ public class Home extends HttpServlet {
 		loguedPerson=(Personne) httpServletRequest.getSession().getAttribute("authentifiedPersonne");
 		request.setAttribute("loguedPerson", loguedPerson);
 	
-		request.setAttribute("travailles", loguedPerson.getTravailles());
+//		request.setAttribute("travailles", loguedPerson.getTravailles());
 	
 //		Projet prj = new Projet();
 //		prj.setPersonne(loguedPerson);
