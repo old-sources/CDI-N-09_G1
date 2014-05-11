@@ -25,52 +25,8 @@
 <link rel=stylesheet type="text/css"
 	href="css/jquery.dataTables.yadcf.css">
 
-<title>Tableau de bord</title>
-<SCRIPT type="text/javascript">
-	$(document).ready(function() {
-
-		$('.onlyadmin').hide();
-		if ("${loguedPerson.role.roleId}" != 1) {
-			$('.onlyadmin').show();
-		}
-		//$('.actionFormulaire').button();
-
-		var dateString = new Date("${loguedPerson.dateNaiss}");
-		$('#inputDateNaiss').datepicker({
-			defaultDate : dateString
-		});
-		$('#inputDateNaiss').val(dateString.toLocaleDateString("fr-FR"));
-
-		$('#formulaire').dialog({
-			autoOpen : false,
-			show : {
-				effect : "blind",
-				duration : 1000
-			},
-			hide : {
-				effect : "blind",
-				duration : 1000
-			}
-		});
-
-		$('#tableProjet').dataTable({
-			"bJQueryUI" : true
-		}).yadcf([ {
-			column_number : 0
-		}, {
-			column_number : 3,
-			filter_type : "auto_complete",
-			text_data_delimiter : ","
-		}, {
-			column_number : 5,
-			filter_type : "auto_complete",
-			text_data_delimiter : ","
-		} ]);
-
-	});
-</SCRIPT>
-
-
+	<title>Tableau de bord</title>
+	<script src="js/scriptHome.js"></script> <!-- Sources Ajax -->
 </head>
 <body>
 	<%@ include file="/WEB-INF/header.jsp"%>
