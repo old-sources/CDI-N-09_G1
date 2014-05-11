@@ -3,6 +3,7 @@ package model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -69,7 +70,7 @@ public class Projet implements Serializable {
 		joinColumns = {@JoinColumn(name = "proj_id", referencedColumnName = "proj_id")}, 
 		inverseJoinColumns = {@JoinColumn(name = "pers_id", referencedColumnName = "pers_id")}
 	)
-	private List<Personne> membres;
+	private Set<Personne> membres;
 
 	public Projet() {
 	}
@@ -168,11 +169,11 @@ public class Projet implements Serializable {
 		this.chefDeProjet = chefDeProjet;
 	}
 
-	public List<Personne> getMembres() {
+	public Set<Personne> getMembres() {
 		return this.membres;
 	}
 
-	public void setMembres(List<Personne> membres) {
+	public void setMembres(Set<Personne> membres) {
 		this.membres = membres;
 	}
 

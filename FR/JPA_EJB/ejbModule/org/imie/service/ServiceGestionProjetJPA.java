@@ -1,7 +1,9 @@
 package org.imie.service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -16,6 +18,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import model.Personne;
 import model.Projet;
 //import javax.persistence.JoinColumn;
 //import model.Actionanotifier;
@@ -102,6 +105,15 @@ public class ServiceGestionProjetJPA implements ServiceGestionProjetJPARemote,
 		projet2.setProjWikiMembre(projet.getProjWikiMembre());
 		projet2.setProjAvancement(projet.getProjAvancement());
 		projet2.setChefDeProjet(projet.getChefDeProjet());
+		//Projet: inscription du chef de projet dans la liste des membres
+		//Personne: et mise a jour de liste des projets auxquels il participe (bi-directionnalite)
+		if(projet.getChefDeProjet() != null){
+			Set<Personne> membres = new HashSet<Personne>();
+			membres.add(projet.getChefDeProjet());
+			projet2.setMembres(membres);
+		}
+
+		//passage du projet en base
 		entityManager.persist(projet2);
 		return projet2;
 	}
@@ -114,6 +126,12 @@ public class ServiceGestionProjetJPA implements ServiceGestionProjetJPARemote,
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public Projet updateProjet(Projet projetToUpdate) {
+		//recuperation projet existant dans base
+		Projet existingProject = entityManager.find(Projet.class, projetToUpdate.getProjId());
+		//mise a jour liste des membres du projet pour inclure le chef de projet (si necessaire)
+		Set<Personne> membres = existingProject.getMembres();
+		membres.add(projetToUpdate.getChefDeProjet());
+		projetToUpdate.setMembres(membres);
 		return entityManager.merge(projetToUpdate);
 	}
 

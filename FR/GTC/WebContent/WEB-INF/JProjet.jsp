@@ -37,16 +37,10 @@
 	<br>
 	<h1>Gestion des projets</h1>
 
-<%-- 	<BUTTON class="actionRetourPageAdmin">Retour page admin</BUTTON>
-	<br>
-	<br>
-	<br> --%>
 	<BUTTON class="actionPagePrincipaleCreer">Créer un projet</BUTTON>
 
 	<div class="cell3" id="divProjet">
 
-
-		<!-- 			<div class="cell2"> -->
 		<label for="listeProjets">projets en cours : </label>
 
 				<TABLE id="tableProjetAdmin">
@@ -81,7 +75,8 @@
 								</TD>
 								<TD><c:out value="${prj.projAvancement}" /></TD>
 
-								<TD><BUTTON class="actionFormulaire"
+								<TD>
+									<BUTTON class="actionFormulaire"
 										data-projId="${prj.projId}"
 										data-projNom="${prj.projNom}"
 										data-projDatedebut="${prj.projDatedebut}"
@@ -90,8 +85,9 @@
 										data-projWikiCdp="${prj.projWikiCdp}"
 										data-projWikiMembre="${prj.projWikiMembre}"
 										data-projAvancement="${prj.projAvancement}"
-										data-personnenom="${prj.chefDeProjet.nom}"
-										data-personneid="${prj.chefDeProjet.id}">Modifier</BUTTON></TD>
+										data-chefDeProjetNom="${prj.chefDeProjet.nom}"
+										data-chefDeProjetId="${prj.chefDeProjet.id}">Modifier</BUTTON>
+								</TD>
 							</tr>
 						</c:forEach>
 					</TBODY>
@@ -108,7 +104,7 @@
 
 
 			<input type="hidden" name="inputProjId" id="inputProjId" />
-			<input type="hidden" name="inputCdpId" id="inputCdpId"/>
+<!-- 			<input type="hidden" name="inputCdpId" id="inputCdpId"/> -->
 			<div>
 				<label for="inputProjNom">nom du projet :</label> <input type="text" id="inputProjNom"
 					name="inputProjNom">
@@ -141,8 +137,8 @@
 			</div>
 			
 			<div class="cell">
-				<label for="inputPersonne">chef de projet : </label> <select
-					name="inputPersonne" id="inputPersonne">
+				<label for="inputCdpId">chef de projet : </label> <select
+					name="inputCdpId" id="inputCdpId">
 					<option value=""></option>
 					<c:forEach items="${foundPersonnes}" var="personne">
 						<option value="${personne.id}">${personne.nom} ${personne.prenom}

@@ -76,21 +76,26 @@ public class HProjet extends HttpServlet {
 		// recherche du projet à modifier
 		Projet updatedProjet = new Projet();
 
-		// affectation des nouvelles valeurs
-		String inputPersonne = request.getParameter("inputPersonne");
-		System.out.println("inputPersonne par id : "+inputPersonne);
-		Personne cdp = new Personne();
-		cdp.setId(Integer.valueOf(inputPersonne));
-		cdp = serviceGestionEcole.rechercherPersonne(cdp).get(0);
-		updatedProjet.setChefDeProjet(cdp);
-		System.out.println("inputCdpNom : "+cdp.getNom());
+		// affectation des nouvelles valeurs ----------------------------------------------------
+		//choix du chef de projet
+		String inputPersonne = request.getParameter("inputCdpId");
+		if(!"".equals(inputPersonne)){
+			System.out.println("inputPersonne par id : "+inputPersonne);
+			Personne cdp = new Personne();
+			cdp.setId(Integer.valueOf(inputPersonne));
+			cdp = serviceGestionEcole.rechercherPersonne(cdp).get(0);
+			updatedProjet.setChefDeProjet(cdp);
+			System.out.println("inputCdpNom : "+cdp.getNom());
+		}
 	
+		//choix du nom de projet
 		String inputProjNom = request.getParameter("inputProjNom");
 		updatedProjet.setProjNom(inputProjNom);
 		System.out.println("inputProjNom : "+inputProjNom);
 		
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-		
+
+		//date de debut de projet
 		String inputProjDatedebut = request.getParameter("inputProjDatedebut");
 		System.out.println("inputProjDatedebut : "+inputProjDatedebut);
 		try {
@@ -99,6 +104,7 @@ public class HProjet extends HttpServlet {
 		} catch (ParseException e) {
 			throw new RuntimeException(e);
 		}
+		//date de fin de projet
 		String inputProjDatedefin = request.getParameter("inputProjDatedefin");
 		System.out.println("inputProjDatedefin : "+inputProjDatedefin);
 		try {
@@ -108,6 +114,7 @@ public class HProjet extends HttpServlet {
 			throw new RuntimeException(e);
 		}
 		
+		//description du projet
 		String inputprojDescription = request.getParameter("inputprojDescription");
 		updatedProjet.setProjDescription(inputprojDescription);
 		System.out.println("inputprojDescription : "+inputprojDescription);

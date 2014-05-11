@@ -11,12 +11,10 @@
 		</span> <a href="TP13_Deconnection">Deconnection</a>
 	</div>
 	<div id="BarreMenu">
-		<span> </span> <a href="/GTC/Profil">profil</a> <span> </span> 
-		<a href="/GTC/MesProjets">Mes Projets et Mes Compétences</a> <span> </span> 
-		<a href="/GTC/Home">Projets</a>
+		<a href="/GTC/Home">Accueil</a>
+		<a href="/GTC/MesProjets">Mes Projets</a> <span> </span> 
+		<span> </span> <a href="/GTC/Profil">Mon Profil</a> <span> </span> 
 		<a href="/GTC/Competence">Compétences</a>
-<!-- 		<div class="onlyadmin"> -->
-			<span> </span> <a href="/GTC/Admin" class="onlyadmin">admin</a>
-<!-- 		</div> -->
+			<span> </span> <a href="/GTC/Admin" class="onlyadmin">Admin</a>
 	</div>
 </header>

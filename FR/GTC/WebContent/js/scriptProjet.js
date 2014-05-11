@@ -44,14 +44,14 @@ $(document).ready(function() {
 
 	$('.actionFormulaire').on('click', function(e) {
 		$("#formulaire").dialog("open");
-		$('#inputCdpId').val($(this).attr("data-personneid"));
+		$('#inputCdpId').val($(this).attr("data-chefDeProjetId"));
 		$('#inputProjId').val($(this).attr("data-projId"));
 		$('#inputProjNom').val($(this).attr("data-projNom"));
 		$('#inputprojDescription').val($(this).attr("data-projDescription"));
 		$('#inputProjWikiCdp').val($(this).attr("data-projWikiCdp"));
 		$('#inputprojWikiMembre').val($(this).attr("data-projWikiMembre"));
 		$('#inputprojAvancement').val($(this).attr("data-projAvancement"));
-		$('#inputPersonne').val($(this).attr("data-personneid"));
+//		$('#inputPersonne').val($(this).attr("data-chefDeProjetId"));
 
 		var dateString1 = new Date($(this).attr("data-projDatedebut"));
 		$('#inputProjDatedebut').datepicker({
@@ -78,7 +78,7 @@ $(document).ready(function() {
 		$('#inputProjWikiCdp').val("");
 		$('#inputprojWikiMembre').val("");
 		$('#inputprojAvancement').val("");
-		$('#inputPersonne').val("");
+		$('#inputCdpId').val("");
 		
 		$('#inputProjDatedebut').datepicker({
 			defaultDate : new Date()
