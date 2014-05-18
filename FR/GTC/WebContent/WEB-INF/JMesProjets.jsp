@@ -37,121 +37,138 @@
 	
 	
 	
-	<div id="divProfil">
-		<form method="POST" id="formPrincipale">
-
-
-
-			<input type="hidden" name="inputId" id="inputId"
-				value="${loguedPerson.id}" />
-
-
-			<div class="cell2" id="listeProjets1">
-				<label for="listeProjets1">projets en tant que chef de projet : </label>
-			
-					<TABLE class="tableProjet">
-
-						<THEAD>
-							<TR>
-								<TH>Nom du projet</TH>
-								<TH>date de début</TH>
-								<TH>date de fin</TH>
-								<TH>description</TH>
-								<TH>chef de projet</TH>
-								<TH>membres</TH>
-								<TH>avancement</TH>
-								<TH></TH>
-							</TR>
-						</THEAD>
-						<TBODY>
-							<c:forEach items="${projetsCdp}" var="prj">
-								<tr>
-									<TD><c:out value="${prj.projNom}" /></TD>
-									<TD><fmt:formatDate pattern="dd/MM/yyyy"
-											value="${prj.projDatedebut}" /></TD>
-									<TD><fmt:formatDate pattern="dd/MM/yyyy"
-											value="${prj.projDatedefin}" /></TD>
-									<TD><c:out value="${prj.projDescription}" /></TD>
-									<TD><c:out value="${prj.chefDeProjet.nom}" /></TD>
-									<TD>
-										<c:set var="insererBr" value="false" scope="page" />
-										<c:forEach items="${prj.membres}" var="participant">
-											<c:if test="${participant.id!=prj.chefDeProjet.id}">
-												<c:if test="${insererBr==true}">
-													<br>
-													<c:set var="insererBr" value="false" scope="page" />
-												</c:if>
-												<c:out value="${participant.prenom} ${participant.nom}" />
-												<c:set var="insererBr" value="true" scope="page" />
-											</c:if>
-										</c:forEach>
-									</TD>
-									<TD><c:out value="${prj.projAvancement}" /></TD>
-									<TD><BUTTON class="actionFormulaire"
-											data-projId="${prj.projId}"
-											data-projNom="${prj.projNom}"
-											data-projDatedebut="${prj.projDatedebut}"
-											data-projDatedefin="${prj.projDatedefin}"
-											data-projDescription="${prj.projDescription}"
-											data-projWikiCdp="${prj.projWikiCdp}"
-											data-projWikiMembre="${prj.projWikiMembre}"
-											data-projAvancement="${prj.projAvancement}"
-											data-personnenom="${prj.chefDeProjet.nom}"
-											data-personneid="${prj.chefDeProjet.id}">Modifier</BUTTON></TD>
-								</tr>
-							</c:forEach>
-						</TBODY>
-
-					</TABLE>
-			
+	<div id="divMesProjets">
+		<div class="cell2" id="listeProjets1">
+			<label for="listeProjets1">Projets en tant que chef de projet : </label>
+			<TABLE class="tableProjet">
+				<THEAD>
+					<TR>
+						<TH>Nom du projet</TH>
+						<TH>date de début</TH>
+						<TH>date de fin</TH>
+						<TH>description</TH>
+						<TH>chef de projet</TH>
+						<TH>membres</TH>
+						<TH>avancement</TH>
+						<TH></TH>
+					</TR>
+				</THEAD>
+				<TBODY>
+					<c:forEach items="${projetsCdp}" var="prj">
+						<tr>
+							<TD><c:out value="${prj.projNom}" /></TD>
+							<TD><fmt:formatDate pattern="dd/MM/yyyy"
+									value="${prj.projDatedebut}" /></TD>
+							<TD><fmt:formatDate pattern="dd/MM/yyyy"
+									value="${prj.projDatedefin}" /></TD>
+							<TD><c:out value="${prj.projDescription}" /></TD>
+							<TD><c:out value="${prj.chefDeProjet.nom}" /></TD>
+							<TD>
+								<c:set var="insererBr" value="false" scope="page" />
+								<c:forEach items="${prj.membres}" var="participant">
+									<c:if test="${participant.id!=prj.chefDeProjet.id}">
+										<c:if test="${insererBr==true}">
+											<br>
+											<c:set var="insererBr" value="false" scope="page" />
+										</c:if>
+										<c:out value="${participant.prenom} ${participant.nom}" />
+										<c:set var="insererBr" value="true" scope="page" />
+									</c:if>
+								</c:forEach>
+							</TD>
+							<TD><c:out value="${prj.projAvancement}" /></TD>
+							<TD>
+								<BUTTON class="actionFormulaireInvit"
+									data-projId="${prj.projId}"
+									data-projNom="${prj.projNom}"
+									data-projDescription="${prj.projDescription}"
+									>Inviter un utilisateur</BUTTON>
+							</TD>
+						</tr>
+					</c:forEach>
+				</TBODY>
+			</TABLE>
+		</div>
+		<br><br><br>
+		<div class="cell2" id="listeProjets2">
+			<label for="listeProjets2">Projets en tant que membre : </label>
+			<TABLE class="tableProjet">
+				<THEAD>
+					<TR>
+						<TH>Nom du projet</TH>
+						<TH>date de début</TH>
+						<TH>date de fin</TH>
+						<TH>description</TH>
+						<TH>chef de projet</TH>
+						<TH>membres</TH>
+						<TH>avancement</TH>
+						<TH></TH>
+					</TR>
+				</THEAD>
+				<TBODY>
+					<c:forEach items="${projetsUser}" var="prj">
+						<tr>
+							<TD><c:out value="${prj.projNom}" /></TD>
+							<TD><fmt:formatDate pattern="dd/MM/yyyy"
+									value="${prj.projDatedebut}" /></TD>
+							<TD><fmt:formatDate pattern="dd/MM/yyyy"
+									value="${prj.projDatedefin}" /></TD>
+							<TD><c:out value="${prj.projDescription}" /></TD>
+							<TD><c:out value="${prj.chefDeProjet.nom}" /></TD>
+							<TD>
+								<c:set var="insererBr" value="false" scope="page" />
+								<c:forEach items="${prj.membres}" var="participant">
+									<c:if test="${participant.id!=prj.chefDeProjet.id}">
+										<c:if test="${insererBr==true}">
+											<br>
+											<c:set var="insererBr" value="false" scope="page" />
+										</c:if>
+										<c:out value="${participant.prenom} ${participant.nom}" />
+										<c:set var="insererBr" value="true" scope="page" />
+									</c:if>
+								</c:forEach>
+							</TD>
+							<TD><c:out value="${prj.projAvancement}" /></TD>
+							<TD>
+								<BUTTON class="actionFormulaireQuit"
+									data-projId="${prj.projId}"
+									data-projNom="${prj.projNom}"
+									data-membreId="${loguedPerson.id}" >Quitter le projet</BUTTON>
+							</TD>
+						</tr>
+					</c:forEach>
+				</TBODY>
+			</TABLE>
+		</div>
+	</div>
+<!-- formulaire d'ajout d' utilisateurs à un projet ou pour quitter le projet -->
+<!-- donnees du formulaire preparees dans scriptMesProjets.js -->
+	<div id="formMesProjDivId" title="toto" > 
+		<form method="POST" id="formMesProj"> 
+			<!-- passage des ID necessaires au traitement des donnees du formulaire -->
+			<input type="hidden" name="inputMembreId" id="inputMembreId" />
+			<input type="hidden" name="inputProjId" id="inputProjId" />
+			<div>
+				<label for="affProjNom">Nom du projet:</label>
+				<textarea id="affProjNom"></textarea>
+				<br>
+				<label for="affProjDescription" class="inviteProj">Description:</label>
+				<textarea id="affProjDescription" class="inviteProj"></textarea>
+				<p class="quitProj">Etes-vous sûr de vouloir quitter le projet?</p>
 			</div>
-			<br><br><br>
-			<div class="cell2" id="listeProjets2">
-				<label for="listeProjets2">projets en tant que user : </label>
-			
-					<TABLE class="tableProjet">
-
-						<THEAD>
-							<TR>
-								<TH>Nom du projet</TH>
-								<TH>date de début</TH>
-								<TH>date de fin</TH>
-								<TH>description</TH>
-								<TH>chef de projet</TH>
-								<TH>membres</TH>
-								<TH>avancement</TH>
-								<!-- 							<TH></TH> -->
-							</TR>
-						</THEAD>
-						<TBODY>
-							<c:forEach items="${projetsUser}" var="prj">
-								<tr>
-									<TD><c:out value="${prj.projNom}" /></TD>
-									<TD><fmt:formatDate pattern="dd/MM/yyyy"
-											value="${prj.projDatedebut}" /></TD>
-									<TD><fmt:formatDate pattern="dd/MM/yyyy"
-											value="${prj.projDatedefin}" /></TD>
-									<TD><c:out value="${prj.projDescription}" /></TD>
-									<TD><c:out value="${prj.chefDeProjet.nom}" /></TD>
-									<TD>
-										<c:forEach items="${prj.membres}" var="participant">
-											<c:out value="${participant.prenom} ${participant.nom}" />
-											<br />
-										</c:forEach>
-									</TD>
-									<TD><c:out value="${prj.projAvancement}" /></TD>
-								</tr>
-							</c:forEach>
-						</TBODY>
-
-					</TABLE>
-			
+			<!-- affichage liste des utilisateurs -->
+			<div class="cell inviteProj">
+				<label for="inputNewMemberId">Choisir un nouveau membre: </label>
+				<select name="inputNewMemberId" id="inputNewMemberId">
+					<option value=""></option>
+					<c:forEach items="${usersList}" var="user">
+						<option value="${user.id}">${user.identConnexion}</option>
+					</c:forEach>
+				</select>
 			</div>
-			
-			
+			<input type="submit" name="invite" id="inviteDansForm" value="Inviter" class="inviteProj"/>
+			<input type="submit" name="quitProjet" id="quitDansForm" value="Confirmer" class="quitProj"/>
 		</form>
 	</div>
-
-
 </body>
 </html>

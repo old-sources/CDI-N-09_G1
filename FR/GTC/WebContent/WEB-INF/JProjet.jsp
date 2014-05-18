@@ -104,10 +104,9 @@
 
 
 			<input type="hidden" name="inputProjId" id="inputProjId" />
-<!-- 			<input type="hidden" name="inputCdpId" id="inputCdpId"/> -->
 			<div>
-				<label for="inputProjNom">nom du projet :</label> <input type="text" id="inputProjNom"
-					name="inputProjNom">
+				<label for="inputProjNom">nom du projet :</label>
+				<input type="text" id="inputProjNom" name="inputProjNom">
 			</div>
 			<label for="inputProjDatedebut">date de début :</label> <input type="text"
 				id="inputProjDatedebut" name="inputProjDatedebut">
@@ -137,8 +136,8 @@
 			</div>
 			
 			<div class="cell">
-				<label for="inputCdpId">chef de projet : </label> <select
-					name="inputCdpId" id="inputCdpId">
+				<label for="inputCdpId">chef de projet : </label>
+				<select name="inputCdpId" id="inputCdpId">
 					<option value=""></option>
 					<c:forEach items="${foundPersonnes}" var="personne">
 						<option value="${personne.id}">${personne.nom} ${personne.prenom}
@@ -146,20 +145,10 @@
 					</c:forEach>
 				</select>
 			</div>
-			
-			
-			<input type="submit" name="update" id="updateDansForm"
-				value="Modifier" /> 
-				<input type="submit" name="create" id="creerDansForm" value="Créer" />
-				<input type="submit" name="delete"
-				id="deleteDansForm" value="Supprimer" />
-			
-
-
-
+			<input type="submit" name="update" id="updateDansForm" value="Modifier" /> 
+			<input type="submit" name="create" id="creerDansForm" value="Créer" />
+			<input type="submit" name="delete" id="deleteDansForm" value="Supprimer" />
 		</form>
 	</div>
-
-
 </body>
 </html>
