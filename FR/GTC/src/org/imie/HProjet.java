@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -73,18 +75,33 @@ public class HProjet extends HttpServlet {
 
 		System.out.println("HProjet Post");
 		
-		// recherche du projet à modifier
+		// recherche du projet à modifier, par son Id. si pas d'Id, on est en creation de projet
 		Projet updatedProjet = new Projet();
+		if ((request.getParameter("delete") != null)
+		||(request.getParameter("update") != null)){
+			Integer inputProjId = Integer.valueOf(request.getParameter("inputProjId"));
+			updatedProjet.setProjId(inputProjId);
+			updatedProjet = serviceGestionProjet.rechercherProjet(updatedProjet).get(0);
+			System.out.println("Projet a modifier : "+ updatedProjet.getProjNom());
+		}
 
 		// affectation des nouvelles valeurs ----------------------------------------------------
 		//choix du chef de projet
-		String inputPersonne = request.getParameter("inputCdpId");
-		if(!"".equals(inputPersonne)){
-			System.out.println("inputPersonne par id : "+inputPersonne);
+		String inputCdp = request.getParameter("inputCdpId");
+		if(!"".equals(inputCdp)){
+			System.out.println("inputPersonne par id : "+inputCdp);
 			Personne cdp = new Personne();
-			cdp.setId(Integer.valueOf(inputPersonne));
+			cdp.setId(Integer.valueOf(inputCdp));
 			cdp = serviceGestionEcole.rechercherPersonne(cdp).get(0);
 			updatedProjet.setChefDeProjet(cdp);
+			//ajout du cdp dans les membres du projet
+			Set<Personne> membres = updatedProjet.getMembres();
+			if(membres!=null){
+				membres.add(cdp);
+			}else{
+				membres= new HashSet<Personne>();
+			}
+			updatedProjet.setMembres(membres);
 			System.out.println("inputCdpNom : "+cdp.getNom());
 		}
 	
@@ -132,22 +149,13 @@ public class HProjet extends HttpServlet {
 		System.out.println("inputprojAvancement : "+inputprojAvancemen);
 		
 		
-		
 		////////////////////////////////////  delete update create  /////////////////////////////////////
 		
 		
 		
 		if (request.getParameter("delete") != null) {
 			System.out.println("HProjet Post delete");
-			try {
-				Integer inputProjId = Integer.valueOf(request.getParameter("inputProjId"));
-				updatedProjet.setProjId(inputProjId);
-				System.out.println("inputProjId : "+inputProjId);
-				serviceGestionProjet.deleteProjet(updatedProjet);
-			}
-			catch (NumberFormatException e) {
-				// parametres non corrects : pas de suppression
-			}
+			serviceGestionProjet.deleteProjet(updatedProjet);
 		}
 
 		if (request.getParameter("create") != null) {
@@ -157,9 +165,6 @@ public class HProjet extends HttpServlet {
 
 		if (request.getParameter("update") != null) {
 			System.out.println("HProjet POST update");
-			Integer inputProjId = Integer.valueOf(request.getParameter("inputProjId"));
-			System.out.println("inputProjId = "+inputProjId);
-			updatedProjet.setProjId(inputProjId);
 			serviceGestionProjet.updateProjet(updatedProjet);
 		}
 

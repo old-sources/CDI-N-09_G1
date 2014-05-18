@@ -32,6 +32,8 @@ import model.Projet;
 public class ServiceGestionProjetJPA implements ServiceGestionProjetJPARemote,
 		ServiceGestionProjetJPALocal {
 
+	private ServiceGestionEcoleJPALocal serviceGestionEcole = new ServiceGestionEcoleJPA();
+	
 	@PersistenceContext
 	private EntityManager entityManager;
 
@@ -126,12 +128,6 @@ public class ServiceGestionProjetJPA implements ServiceGestionProjetJPARemote,
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public Projet updateProjet(Projet projetToUpdate) {
-		//recuperation projet existant dans base
-		Projet existingProject = entityManager.find(Projet.class, projetToUpdate.getProjId());
-		//mise a jour liste des membres du projet pour inclure le chef de projet (si necessaire)
-		Set<Personne> membres = existingProject.getMembres();
-		membres.add(projetToUpdate.getChefDeProjet());
-		projetToUpdate.setMembres(membres);
 		return entityManager.merge(projetToUpdate);
 	}
 
