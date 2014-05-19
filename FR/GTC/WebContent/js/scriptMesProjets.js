@@ -26,8 +26,8 @@ $(document).ready(function() {
 		text_data_delimiter : ","
 	} ]);
 	
-	//gestion affichage du formulaire d'invitation a un projet
-	$('#formInvitDivId').dialog({
+	//gestion affichage du formulaire d'invitation a un projet ou pour quitter un projet
+	$('#formMesProjDivId').dialog({
 		autoOpen : false,
 		show : {
 			effect : "blind",
@@ -36,15 +36,15 @@ $(document).ready(function() {
 		hide : {
 			effect : "blind",
 			duration : 1000
-		},
-		
+		}		
 	});
 
 	//donnees pour affichage a l'ouverture du formulaire
 	//formulaire d'invitation a un projet
 	$('.actionFormulaireInvit').on('click', function(e) {
 		// ouverture du formulaire avec l'id de la div
-		$("#formInvitDivId").dialog("open");
+		$("#formMesProjDivId").dialog("option", "title", "Inviter à un projet");
+		$("#formMesProjDivId").dialog("open");
 		//donnees masquees
 		$('#inputProjId').val($(this).attr("data-projId"));
 		//donnees lecture seule
@@ -52,30 +52,33 @@ $(document).ready(function() {
 		$('#affProjNom').attr("readonly", "true");
 		$('#affProjDescription').val($(this).attr("data-projDescription"));
 		$('#affProjDescription').attr("readonly", "true");
+		//gestion affichage des elements utiles pour cette vue
+		$('.inviteProj').show();
+		$('.quitProj').hide();
 		
 		//affichage des boutons du formulaire
-		$('#inviteDansForm').show();
-		$('#quitDansForm').hide();
-//		$('#updateDansForm').show();
-//		$('#deleteDansForm').show();
-//		$('#updateDansForm').attr("disabled", false);
-//		$('#deleteDansForm').attr("disabled", false);
+		$('#inviteDansForm').attr("disabled", false);
+		$('#quitDansForm').attr("disabled", true);
 	});
 
 	//donnees pour affichage a l'ouverture du formulaire
 	//formulaire pour quitter un projet
-//	$('.actionFormulaireQuit').on('click', function(e) {
-//		// ouverture du formulaire avec l'id de la div
-//		$("#formQuitDivId").dialog("open");
-//		//donnees masquees
-//		$('#inputProjId').val($(this).attr("data-projId"));
-//		$('#inputMembreId').val($(this).attr("data-membreId"));
-//		//donnees lecture seule
-//		$('#affProjNom').val($(this).attr("data-projNom"));
-//		$('#affProjNom').attr("readonly", "true");
-//		
-//		//affichage des boutons du formulaire
-//		$('#quitDansForm').show();
-//	});
+	$('.actionFormulaireQuit').on('click', function(e) {
+		// ouverture du formulaire avec l'id de la div
+		$("#formMesProjDivId").dialog("option", "title", "Quitter le projet");
+		$("#formMesProjDivId").dialog("open");
+		//donnees masquees
+		$('#inputProjId').val($(this).attr("data-projId"));
+		$('#inputMembreId').val($(this).attr("data-membreId"));
+		//donnees lecture seule
+		$('#affProjNom').val($(this).attr("data-projNom"));
+		$('#affProjNom').attr("readonly", "true");
+		//gestion affichage des elements utiles pour cette vue
+		$('.inviteProj').hide();
+		$('.quitProj').show();
+		//affichage des boutons du formulaire
+		$('#inviteDansForm').attr("disabled", true);
+		$('#quitDansForm').attr("disabled", false);
+	});
 
 });

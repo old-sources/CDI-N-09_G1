@@ -26,11 +26,7 @@
 	href="css/jquery.dataTables.yadcf.css">
 
 	<title>Mes Projets</title>
-	<script src="js/scriptMesProjets.js"></script> <!-- Sources Ajax -->
-<SCRIPT type="text/javascript">
-</SCRIPT>
-
-
+	<script src="js/scriptMesProjets.js"></script> <!-- Sources javascript -->
 </head>
 <body>
 	<%@ include file="/WEB-INF/header.jsp"%>
@@ -38,7 +34,7 @@
 	
 	
 	<div id="divMesProjets">
-		<div class="cell2" id="listeProjets1">
+		<div class="cell2" id="listeProjets1" >
 			<label for="listeProjets1">Projets en tant que chef de projet : </label>
 			<TABLE class="tableProjet">
 				<THEAD>
@@ -91,7 +87,7 @@
 		</div>
 		<br><br><br>
 		<div class="cell2" id="listeProjets2">
-			<label for="listeProjets2">Projets en tant que membre : </label>
+			<label for="listeProjets2" >Projets en tant que membre : </label>
 			<TABLE class="tableProjet">
 				<THEAD>
 					<TR>
@@ -141,10 +137,10 @@
 			</TABLE>
 		</div>
 	</div>
-<!-- formulaire d'ajout d' utilisateurs à un projet -->
-<!-- donnees du formulaire preparees dans scriptMesProjets.js -->
-	<div id="formInvitDivId" title="Inviter à un projet"> 
-		<form method="POST" id="formInvit"> 
+	<!-- formulaire d'ajout d' utilisateurs à un projet ou pour quitter le projet -->
+	<!-- donnees du formulaire preparees dans scriptMesProjets.js -->
+	<div id="formMesProjDivId"> 
+		<form method="POST" id="formMesProj"> 
 			<!-- passage des ID necessaires au traitement des donnees du formulaire -->
 			<input type="hidden" name="inputMembreId" id="inputMembreId" />
 			<input type="hidden" name="inputProjId" id="inputProjId" />
@@ -152,14 +148,12 @@
 				<label for="affProjNom">Nom du projet:</label>
 				<textarea id="affProjNom"></textarea>
 				<br>
-				<c:if test="${participant.id!=prj.chefDeProjet.id}">
-					<label for="affProjDescription">Description:</label>
-					<textarea id="affProjDescription"></textarea>
-					<br>
-				</c:if>
+				<label for="affProjDescription" class="inviteProj">Description:</label>
+				<textarea id="affProjDescription" class="inviteProj"></textarea>
+				<p class="quitProj">Etes-vous sûr de vouloir quitter le projet?</p>
 			</div>
 			<!-- affichage liste des utilisateurs -->
-			<div class="cell">
+			<div class="inviteProj">
 				<label for="inputNewMemberId">Choisir un nouveau membre: </label>
 				<select name="inputNewMemberId" id="inputNewMemberId">
 					<option value=""></option>
@@ -168,26 +162,9 @@
 					</c:forEach>
 				</select>
 			</div>
-			<input type="submit" name="invite" id="inviteDansForm" value="Inviter" />
-			<input type="submit" name="quitProjet" id="quitDansForm" value="Valider" />
+			<input type="submit" name="invite" id="inviteDansForm" value="Inviter" class="inviteProj"/>
+			<input type="submit" name="quitProjet" id="quitDansForm" value="Confirmer" class="quitProj"/>
 		</form>
 	</div>
-<!-- formulaire pour quitter un projet -->
-<!-- donnees du formulaire preparees dans scriptMesProjets.js -->
-<!--	<div id="formQuitDivId" title="Quitter le projet"> 
-		<form method="POST" id="formQuit"> 
-			<!-- passage des ID necessaires au traitement des donnees du formulaire -->
-<!--			<input type="hidden" name="inputMembreId" id="inputMembreId" />
-			<input type="hidden" name="inputProjId" id="inputProjId" />
-			<div>
-				<label for="affProjNom">Nom du projet:</label>
-				<textarea id="affProjNom"></textarea>
-				<br>
-				<p>Etes-vous sûr de vouloir quitter le projet?
-				</p>
-			</div>
-			<input type="submit" name="quitProjet" id="quitDansForm" value="Valider" />
-		</form>
-	</div> -->
 </body>
 </html>
