@@ -115,7 +115,7 @@ public class ServiceGestionCompJPA implements // ServiceGestionCompJPARemote,
 			if (relation != null) {
 				System.out.println("relation non nulle");
 				List<Possede> listRelation = //serviceGestionEcole
-						rechercherPossede(relation);
+						rechercherPossedeC(relation);
 				// on supprime toutes les relation trouvée dans la classe
 
 				// on eleve la dependance FK possede de la Table Possede
@@ -305,7 +305,7 @@ public class ServiceGestionCompJPA implements // ServiceGestionCompJPARemote,
 	
 	@Override
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public List<Possede> rechercherPossede(Possede possede) {
+	public List<Possede> rechercherPossedeC(Possede possede) {
 		System.out.println("rechercherPossede"+possede.getCompetence().getCompIntitule());
 		
 		CriteriaBuilder qb = entityManager.getCriteriaBuilder();

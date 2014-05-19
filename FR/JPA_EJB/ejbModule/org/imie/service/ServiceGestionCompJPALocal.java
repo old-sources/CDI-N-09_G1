@@ -31,7 +31,7 @@ public interface ServiceGestionCompJPALocal {
 	//void movedCompetence(Competence movedComp, Competence father);
 	public void movedCompetence(Competence movedComp);
 
-	List<Possede> rechercherPossede(Possede possede);
+	public List<Possede> rechercherPossedeC(Possede possede);
 	
 	//public void updatePropComp(PropositionComp propitToUpdate);
 	

@@ -91,7 +91,7 @@ public class ServiceGestionCompJPARemote implements	ServiceGestionCompJPALocal {
 	}
 
 	@Override
-	public List<Possede> rechercherPossede(Possede possede) {
+	public List<Possede> rechercherPossedeC(Possede possede) {
 		// TODO Auto-generated method stub
 		return null;
 	}
