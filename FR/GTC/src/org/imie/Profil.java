@@ -18,6 +18,8 @@ import model.Personne;
 import model.Possede;
 import model.Promotion;
 
+//import org.imie.service.ServiceGestionCompJPALocal;
+//import org.imie.service.ServiceGestionCompJPALocal;
 import org.imie.service.ServiceGestionEcoleJPALocal;
 
 /**
@@ -27,6 +29,7 @@ import org.imie.service.ServiceGestionEcoleJPALocal;
 public class Profil extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@EJB ServiceGestionEcoleJPALocal serviceGestionEcole;
+	//@EJB ServiceGestionCompJPALocal serviceGestionComp;
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -57,7 +60,10 @@ public class Profil extends HttpServlet {
 		
 		Possede possede = new Possede();
 		possede.setPersonne(loguedPerson);
+
+		System.out.println("RECHERCHER POSSEDE");
 		request.setAttribute("possedes", serviceGestionEcole.rechercherPossede(possede));
+		//request.setAttribute("possedes", serviceGestionComp.rechercherPossede(possede));
 		
 		System.out.println(loguedPerson.getNom());
 		
