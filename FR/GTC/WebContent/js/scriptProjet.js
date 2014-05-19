@@ -1,16 +1,16 @@
 $(document).ready(function() {
 
-	$('.onlyadmin').hide();
-	if ("${loguedPerson.role.roleId}" != 1) {
+	//affichage des elements proteges
+	$('.onlyadmin').hide();		
+	if ("${loguedPerson.role.roleId}" != 1){
 		$('.onlyadmin').show();
 	}
-	//$('.actionFormulaire').button();
 
-	var dateString = new Date("${loguedPerson.dateNaiss}");
-	$('#inputDateNaiss').datepicker({
-		defaultDate : dateString
-	});
-	$('#inputDateNaiss').val(dateString.toLocaleDateString("fr-FR"));
+//	var dateString = new Date("${loguedPerson.dateNaiss}");
+//	$('#inputDateNaiss').datepicker({
+//		defaultDate : dateString
+//	});
+//	$('#inputDateNaiss').val(dateString.toLocaleDateString("fr-FR"));
 
 	$('#formulaire').dialog({
 		autoOpen : false,
@@ -51,7 +51,6 @@ $(document).ready(function() {
 		$('#inputProjWikiCdp').val($(this).attr("data-projWikiCdp"));
 		$('#inputprojWikiMembre').val($(this).attr("data-projWikiMembre"));
 		$('#inputprojAvancement').val($(this).attr("data-projAvancement"));
-//		$('#inputPersonne').val($(this).attr("data-chefDeProjetId"));
 
 		var dateString1 = new Date($(this).attr("data-projDatedebut"));
 		$('#inputProjDatedebut').datepicker({

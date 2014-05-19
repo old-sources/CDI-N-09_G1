@@ -12,8 +12,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <base href="/GTC/" />
 <link rel=stylesheet type="text/css" href="css/style.css">
-<link href="css/south-street/jquery-ui-1.10.4.custom.css"
-	rel="stylesheet" type="text/css" />
+<link href="css/south-street/jquery-ui-1.10.4.custom.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="js/jquery-1.10.2.js"></script>
 <script type="text/javascript" src="js/jquery-ui-1.10.4.custom.js"></script>
 
@@ -25,63 +24,85 @@
 <link rel=stylesheet type="text/css"
 	href="css/jquery.dataTables.yadcf.css">
 
-	<title>Tableau de bord</title>
-	<script src="js/scriptHome.js"></script> <!-- Sources Ajax -->
+	<title>Accueil</title>
+	<script type="text/javascript">
+	$(document).ready(function() {
+		$('.onlyadmin').hide();		
+		if ("${loguedPerson.role.roleId}" != 1){
+			$('.onlyadmin').show();
+		}
+	});
+
+	</script>
+	<script src="js/scriptHome.js"></script> <!-- Sources javascript -->
 </head>
 <body>
 	<%@ include file="/WEB-INF/header.jsp"%>
-	<div id="divProfil">
-		<form method="POST" id="formPrincipale">
-
-
-
-			<input type="hidden" name="inputId" id="inputId"
-				value="${loguedPerson.id}" />
-
-
-			<div class="cell2">
-				<label for="listeProjets">projets en cours : </label>
-				
-					<TABLE id="tableProjet">
-
-						<THEAD>
-							<TR>
-								<TH>Nom du projet</TH>
-								<TH>date de début</TH>
-								<TH>date de fin</TH>
-								<TH>description</TH>
-								<TH>chef de projet</TH>
-								<TH>membres</TH>
-								<TH>avancement</TH>
-								<!-- 							<TH></TH> -->
-							</TR>
-						</THEAD>
-						<TBODY>
-							<c:forEach items="${projets}" var="prj">
-								<tr>
-									<TD><c:out value="${prj.projNom}" /></TD>
-									<TD><fmt:formatDate pattern="dd/MM/yyyy"
-											value="${prj.projDatedebut}" /></TD>
-									<TD><fmt:formatDate pattern="dd/MM/yyyy"
-											value="${prj.projDatedefin}" /></TD>
-									<TD><c:out value="${prj.projDescription}" /></TD>
-									<TD><c:out value="${prj.chefDeProjet.nom}" /></TD>
-									<TD>
-										<c:forEach items="${prj.membres}" var="participant">
-											<c:out value="${participant.prenom} ${participant.nom}" />
-											<br />
-										</c:forEach>
-									</TD>
-									<TD><c:out value="${prj.projAvancement}" /></TD>
-								</tr>
-							</c:forEach>
-						</TBODY>
-
-					</TABLE>
-			
+	<div id="divProjets">
+		<div class="cell2">
+			<label for="listeProjets">Projets en cours : </label>
+			<TABLE id="tableProjet">
+				<THEAD>
+					<TR>
+						<TH>Nom du projet</TH>
+						<TH>date de début</TH>
+						<TH>date de fin</TH>
+						<TH>description</TH>
+						<TH>chef de projet</TH>
+						<TH>membres</TH>
+						<TH>avancement</TH>
+						<TH></TH>
+					</TR>
+				</THEAD>
+				<TBODY>
+					<c:forEach items="${projets}" var="prj">
+						<tr>
+							<TD><c:out value="${prj.projNom}" /></TD>
+							<TD><fmt:formatDate pattern="dd/MM/yyyy"
+									value="${prj.projDatedebut}" /></TD>
+							<TD><fmt:formatDate pattern="dd/MM/yyyy"
+									value="${prj.projDatedefin}" /></TD>
+							<TD><c:out value="${prj.projDescription}" /></TD>
+							<TD><c:out value="${prj.chefDeProjet.nom}" /></TD>
+							<TD>
+								<c:forEach items="${prj.membres}" var="participant">
+									<c:out value="${participant.prenom} ${participant.nom}" />
+									<br />
+								</c:forEach>
+							</TD>
+							<TD>
+								<c:out value="${prj.projAvancement}" />
+							</TD>
+							<TD>
+								<BUTTON class="actionFormulairePostuler"
+									data-projId="${prj.projId}"
+									data-projNom="${prj.projNom}"
+									data-projDescription="${prj.projDescription}"
+									data-membreId="${loguedPerson.id}" >Postuler</BUTTON>
+							</TD>
+						</tr>
+					</c:forEach>
+				</TBODY>
+			</TABLE>
+		</div>
+	</div>
+	<!-- formulaire pour postuler à un projet -->
+	<!-- donnees du formulaire preparees dans scriptHome.js -->
+	<div id="formProjDivId"> 
+		<form method="POST" id="formProj"> 
+			<!-- passage des ID necessaires au traitement des donnees du formulaire -->
+			<input type="hidden" name="inputMembreId" id="inputMembreId" />
+			<input type="hidden" name="inputProjId" id="inputProjId" />
+			<div>
+				<label for="affProjNom">Nom du projet:</label>
+				<textarea id="affProjNom"></textarea>
+				<br>
+				<label for="affProjDescription">Description:</label>
+				<textarea id="affProjDescription"></textarea>
+				<p>Etes-vous sûr de vouloir postuler pour le projet?</p>
 			</div>
+			<input type="submit" name="postuler" id="postulerDansForm" value="Confirmer"/>
 		</form>
 	</div>
-
 </body>
 </html>

@@ -1,5 +1,11 @@
 $(document).ready(function() {
 
+	//affichage des elements proteges
+	$('.onlyadmin').hide();		
+	if ("${loguedPerson.role.roleId}" != 1){
+		$('.onlyadmin').show();
+	}
+
 	//masquer si liste vide
 	var list = "${projetsCdp}";
 	if (list ==  '[]') {
