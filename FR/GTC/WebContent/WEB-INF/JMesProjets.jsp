@@ -141,10 +141,17 @@
 			</TABLE>
 		</div>
 	</div>
+<<<<<<< HEAD
 <!-- formulaire d'ajout d' utilisateurs à un projet ou pour quitter le projet -->
 <!-- donnees du formulaire preparees dans scriptMesProjets.js -->
 	<div id="formMesProjDivId" title="toto" > 
 		<form method="POST" id="formMesProj"> 
+=======
+<!-- formulaire d'ajout d' utilisateurs à un projet -->
+<!-- donnees du formulaire preparees dans scriptMesProjets.js -->
+	<div id="formInvitDivId" title="Inviter à un projet"> 
+		<form method="POST" id="formInvit"> 
+>>>>>>> 05159350bc6efbe527f423450ffce54b2b674224
 			<!-- passage des ID necessaires au traitement des donnees du formulaire -->
 			<input type="hidden" name="inputMembreId" id="inputMembreId" />
 			<input type="hidden" name="inputProjId" id="inputProjId" />
@@ -152,12 +159,23 @@
 				<label for="affProjNom">Nom du projet:</label>
 				<textarea id="affProjNom"></textarea>
 				<br>
+<<<<<<< HEAD
 				<label for="affProjDescription" class="inviteProj">Description:</label>
 				<textarea id="affProjDescription" class="inviteProj"></textarea>
 				<p class="quitProj">Etes-vous sûr de vouloir quitter le projet?</p>
 			</div>
 			<!-- affichage liste des utilisateurs -->
 			<div class="cell inviteProj">
+=======
+				<c:if test="${participant.id!=prj.chefDeProjet.id}">
+					<label for="affProjDescription">Description:</label>
+					<textarea id="affProjDescription"></textarea>
+					<br>
+				</c:if>
+			</div>
+			<!-- affichage liste des utilisateurs -->
+			<div class="cell">
+>>>>>>> 05159350bc6efbe527f423450ffce54b2b674224
 				<label for="inputNewMemberId">Choisir un nouveau membre: </label>
 				<select name="inputNewMemberId" id="inputNewMemberId">
 					<option value=""></option>
@@ -166,9 +184,33 @@
 					</c:forEach>
 				</select>
 			</div>
+<<<<<<< HEAD
 			<input type="submit" name="invite" id="inviteDansForm" value="Inviter" class="inviteProj"/>
 			<input type="submit" name="quitProjet" id="quitDansForm" value="Confirmer" class="quitProj"/>
 		</form>
 	</div>
+=======
+			<input type="submit" name="invite" id="inviteDansForm" value="Inviter" />
+			<input type="submit" name="quitProjet" id="quitDansForm" value="Valider" />
+		</form>
+	</div>
+<!-- formulaire pour quitter un projet -->
+<!-- donnees du formulaire preparees dans scriptMesProjets.js -->
+<!--	<div id="formQuitDivId" title="Quitter le projet"> 
+		<form method="POST" id="formQuit"> 
+			<!-- passage des ID necessaires au traitement des donnees du formulaire -->
+<!--			<input type="hidden" name="inputMembreId" id="inputMembreId" />
+			<input type="hidden" name="inputProjId" id="inputProjId" />
+			<div>
+				<label for="affProjNom">Nom du projet:</label>
+				<textarea id="affProjNom"></textarea>
+				<br>
+				<p>Etes-vous sûr de vouloir quitter le projet?
+				</p>
+			</div>
+			<input type="submit" name="quitProjet" id="quitDansForm" value="Valider" />
+		</form>
+	</div> -->
+>>>>>>> 05159350bc6efbe527f423450ffce54b2b674224
 </body>
 </html>

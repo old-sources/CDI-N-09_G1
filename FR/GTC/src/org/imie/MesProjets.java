@@ -121,7 +121,11 @@ HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		}
 	
 		//quitter un projet
+<<<<<<< HEAD
 		String inputMemberQuit = request.getParameter("inputMembreId");
+=======
+		String inputMemberQuit = request.getParameter("inputMemberId");
+>>>>>>> 05159350bc6efbe527f423450ffce54b2b674224
 		if((request.getParameter("quitProjet") != null)
 				&(!"".equals(inputMemberQuit))){
 			Personne deserter = new Personne();
@@ -129,6 +133,7 @@ HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 			deserter = serviceGestionEcole.rechercherPersonne(deserter).get(0);
 			//suppression du membre dans la liste
 			Set<Personne> membres = updatedProjet.getMembres();
+<<<<<<< HEAD
 			System.out.println("avant suppr -----------------------------");
 			for(Personne membre : membres){
 				System.out.println(membre.getIdentConnexion());
@@ -146,6 +151,11 @@ HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 			}
 			updatedProjet.setMembres(membres);
 			System.out.println("membre pret a quitter le projet: "+ deserter.getNom());
+=======
+			membres.remove(deserter);
+			updatedProjet.setMembres(membres);
+//			System.out.println("nouveau membre pret a etre enregistre: "+ deserter.getNom());
+>>>>>>> 05159350bc6efbe527f423450ffce54b2b674224
 		}
 	
 		
@@ -153,10 +163,16 @@ HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		
 		////////////////////////////////////  delete update create  /////////////////////////////////////
 
+<<<<<<< HEAD
 		//mise a jour du projet, ajout ou suppression de membre
 		if ((request.getParameter("invite") != null)
 		||(request.getParameter("quitProjet") != null)){
 			System.out.println("MesProjets POST update");
+=======
+		//mise a jour du projet
+		if (request.getParameter("invite") != null) {
+			System.out.println("MesProjets POST invite");
+>>>>>>> 05159350bc6efbe527f423450ffce54b2b674224
 			serviceGestionProjet.updateProjet(updatedProjet);
 		}
 
