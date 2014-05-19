@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Local;
 
 import model.Competence;
+import model.Possede;
 import model.PropositionComp;
 //import model.Possede;
 
@@ -29,6 +30,8 @@ public interface ServiceGestionCompJPALocal {
 
 	//void movedCompetence(Competence movedComp, Competence father);
 	public void movedCompetence(Competence movedComp);
+
+	List<Possede> rechercherPossede(Possede possede);
 	
 	//public void updatePropComp(PropositionComp propitToUpdate);
 	

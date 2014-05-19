@@ -188,19 +188,18 @@ public class HCompetence extends HttpServlet {
 					Competence deletedCompetence = new Competence();
 					deletedCompetence.setCompId(inputCompId);
 					
-					System.out.println("delete :"+inputCompId);
+
 					if (deletedCompetence !=  null) {	
-					
+					System.out.println("on delete la :"+inputCompId);
 					serviceGestionComp.deleteCompetence(deletedCompetence);
-					} else {
-						System.out.println("byzarre"+inputCompId);
-						}
+					} 
 					
 				} catch (NumberFormatException e) {
 					// parametres non corrects : pas de suppression
 				}
 			}
 		} else {
+			System.out.println("on est dans le else");
 			Competence searchCompetences = new Competence();
 			List<Competence> foundCompetences = serviceGestionComp
 					.rechercherCompetence(searchCompetences);

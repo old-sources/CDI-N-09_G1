@@ -18,6 +18,7 @@ import javax.persistence.PersistenceContext;
 //import javax.xml.rpc.ServiceException;
 
 import model.Competence;
+import model.Possede;
 //import model.Personne;
 //import model.Possede;
 //import model.Possede;
@@ -87,6 +88,12 @@ public class ServiceGestionCompJPARemote implements	ServiceGestionCompJPALocal {
 	public void movedCompetence(Competence movedComp) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public List<Possede> rechercherPossede(Possede possede) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 //	@Override

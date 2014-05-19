@@ -266,42 +266,46 @@ public class ServiceGestionEcoleJPA implements ServiceGestionEcoleJPARemote,
 		return retour;
 	}
 
-	@Override
-	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public List<Possede> rechercherPossede(Possede possede) {
-		System.out.println("rechercherPossede");
-		CriteriaBuilder qb = entityManager.getCriteriaBuilder();
-		
-		CriteriaQuery<Possede> query = qb.createQuery(Possede.class);
-		Root<Possede> possedeRoot = query.from(Possede.class);
-
-		List<Predicate> criteria = new ArrayList<Predicate>();
-		
-		if (possede.getPossId() != null) {
-			criteria.add(qb.equal(possedeRoot.get("possId"),
-					possede.getPossId()));
-		}
-		if (possede.getCompNiveau() != null) {
-			criteria.add(qb.equal(possedeRoot.get("compNiveau"),
-					possede.getCompNiveau()));
-		}
-		if (possede.getCompetence() != null) {
-			criteria.add(qb.equal(possedeRoot.get("competence"),
-					possede.getCompetence()));
-		}
-		if (possede.getPersonne() != null) {
-			criteria.add(qb.equal(possedeRoot.get("personne"),
-					possede.getPersonne()));
-		}
-		
-		System.out.println("Fin Test possede");
-		
-		query.where(criteria.toArray(new Predicate[] {}));
-
-		List<Possede> result = entityManager.createQuery(query).getResultList();
-				
-		return result;
-	}
+//	@Override
+//	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+//	public List<Possede> rechercherPossede(Possede possede) {
+//		System.out.println("rechercherPossede"+possede.getCompetence().getCompIntitule());
+//		
+//		CriteriaBuilder qb = entityManager.getCriteriaBuilder();
+//		System.out.println("query");
+//		CriteriaQuery<Possede> query = qb.createQuery(Possede.class);
+//		System.out.println("root");
+//		Root<Possede> possedeRoot = query.from(Possede.class);
+//
+//		List<Predicate> criteria = new ArrayList<Predicate>();
+//		
+//		System.out.println("avant la recherche");
+//		if (possede.getPossId() != null) {
+//			criteria.add(qb.equal(possedeRoot.get("possId"),
+//					possede.getPossId()));
+//		}
+//		if (possede.getCompNiveau() != null) {
+//			criteria.add(qb.equal(possedeRoot.get("compNiveau"),
+//					possede.getCompNiveau()));
+//		}
+//		if (possede.getCompetence() != null) {
+//			System.out.println("on devrait passer par la");
+//			criteria.add(qb.equal(possedeRoot.get("competence"),
+//					possede.getCompetence()));
+//		}
+//		if (possede.getPersonne() != null) {
+//			criteria.add(qb.equal(possedeRoot.get("personne"),
+//					possede.getPersonne()));
+//		}
+//		
+//		System.out.println("Fin Test possede");
+//		
+//		query.where(criteria.toArray(new Predicate[] {}));
+//
+//		List<Possede> result = entityManager.createQuery(query).getResultList();
+//				
+//		return result;
+//	}
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public List<Role> rechercherRole(Role role) {

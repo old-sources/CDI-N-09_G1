@@ -7,7 +7,7 @@ import javax.xml.rpc.ServiceException;
 
 
 import model.Personne;
-import model.Possede;
+//import model.Possede;
 import model.Promotion;
 
 import model.Role;
@@ -42,7 +42,9 @@ public interface ServiceGestionEcoleJPALocal {
     
     public List<Role> rechercherRole(Role role);
 
-    public List<Possede> rechercherPossede(Possede possede);
+	//public List<Possede> rechercherPossede(Possede relation);
+
+    //public List<Possede> rechercherPossede(Possede possede);
     // ajout methodes Competence JM
 //	public List<Competence> rechercherCompetence(Competence searchCompetences);
 //	public void deleteCompetence(Competence updatedCompetence);
