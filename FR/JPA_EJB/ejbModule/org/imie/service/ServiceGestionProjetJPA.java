@@ -32,7 +32,7 @@ import model.Projet;
 public class ServiceGestionProjetJPA implements ServiceGestionProjetJPARemote,
 		ServiceGestionProjetJPALocal {
 
-	private ServiceGestionEcoleJPALocal serviceGestionEcole = new ServiceGestionEcoleJPA();
+	//private ServiceGestionEcoleJPALocal serviceGestionEcole = new ServiceGestionEcoleJPA();
 	
 	@PersistenceContext
 	private EntityManager entityManager;
