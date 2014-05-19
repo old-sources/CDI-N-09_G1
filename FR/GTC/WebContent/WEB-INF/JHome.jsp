@@ -25,14 +25,10 @@
 	href="css/jquery.dataTables.yadcf.css">
 
 	<title>Accueil</title>
+	<!-- recuperation des variables necessaires pour les scripts externes -->
 	<script type="text/javascript">
-	$(document).ready(function() {
-		$('.onlyadmin').hide();		
-		if ("${loguedPerson.role.roleId}" != 1){
-			$('.onlyadmin').show();
-		}
-	});
-
+		var _loggedUserRoleId = '${loguedPerson.role.roleId}';
+		var _loggedUserId = '${loguedPerson.id}';
 	</script>
 	<script src="js/scriptHome.js"></script> <!-- Sources javascript -->
 </head>
@@ -74,11 +70,20 @@
 								<c:out value="${prj.projAvancement}" />
 							</TD>
 							<TD>
-								<BUTTON class="actionFormulairePostuler"
-									data-projId="${prj.projId}"
-									data-projNom="${prj.projNom}"
-									data-projDescription="${prj.projDescription}"
-									data-membreId="${loguedPerson.id}" >Postuler</BUTTON>
+								<!-- ne pas afficher le bouton postuler si l'utilisateur est deja membre -->
+								<c:set var="_dejaMembre" value="false"/>
+								<c:forEach items="${prj.membres}" var="participant">
+									<c:if test="${loguedPerson.id == participant.id}">
+										<c:set var="_dejaMembre" value="true"/>
+									</c:if>
+								</c:forEach>
+								<c:if test="${!_dejaMembre}">
+									<BUTTON class="actionFormulairePostuler"
+										data-projId="${prj.projId}"
+										data-projNom="${prj.projNom}"
+										data-projDescription="${prj.projDescription}"
+										data-membreId="${loguedPerson.id}" >Postuler</BUTTON>
+								</c:if>
 							</TD>
 						</tr>
 					</c:forEach>

@@ -1,5 +1,11 @@
 $(document).ready(function() {
 
+	//affichage des elements proteges
+	$('.onlyadmin').hide();		
+	if (_loggedUserRoleId != 1){
+		$('.onlyadmin').show();
+	}
+
 	$('#tableProjet').dataTable({
 		"bJQueryUI" : true
 	}).yadcf([ {

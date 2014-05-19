@@ -27,6 +27,10 @@
 	href="css/jquery.dataTables.yadcf.css">
 
 	<title>Gestion des Projets</title>
+	<!-- recuperation des variables necessaires pour les scripts externes -->
+	<script type="text/javascript">
+		var _loggedUserRoleId = '${loguedPerson.role.roleId}';
+	</script>
 	<script src="js/scriptProjet.js"></script> <!-- Sources Ajax -->
 </head>
 <body>

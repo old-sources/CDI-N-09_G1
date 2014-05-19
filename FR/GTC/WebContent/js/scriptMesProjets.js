@@ -2,19 +2,17 @@ $(document).ready(function() {
 
 	//affichage des elements proteges
 	$('.onlyadmin').hide();		
-	if ("${loguedPerson.role.roleId}" != 1){
+	if (_loggedUserRoleId != 1){
 		$('.onlyadmin').show();
 	}
 
 	//masquer si liste vide
-	var list = "${projetsCdp}";
-	if (list ==  '[]') {
+	if (_listProjCdp ==  '[]') {
 		$('#listeProjets1').hide();
 	};
 
 	//masquer si liste vide
-	var list = "${projetsUser}";
-	if (list ==  '[]') {
+	if (_listProjMembre ==  '[]') {
 		$('#listeProjets2').hide();
 	};
 

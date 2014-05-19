@@ -26,6 +26,12 @@
 	href="css/jquery.dataTables.yadcf.css">
 
 	<title>Mes Projets</title>
+	<!-- recuperation des variables necessaires pour les scripts externes -->
+	<script type="text/javascript">
+		var _loggedUserRoleId = '${loguedPerson.role.roleId}';
+		var _listProjCdp = "${projetsCdp}";
+		var _listProjMembre = "${projetsUser}";
+	</script>
 	<script src="js/scriptMesProjets.js"></script> <!-- Sources javascript -->
 </head>
 <body>

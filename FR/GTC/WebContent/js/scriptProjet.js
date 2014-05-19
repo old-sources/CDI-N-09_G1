@@ -2,15 +2,9 @@ $(document).ready(function() {
 
 	//affichage des elements proteges
 	$('.onlyadmin').hide();		
-	if ("${loguedPerson.role.roleId}" != 1){
+	if (_loggedUserRoleId != 1){
 		$('.onlyadmin').show();
 	}
-
-//	var dateString = new Date("${loguedPerson.dateNaiss}");
-//	$('#inputDateNaiss').datepicker({
-//		defaultDate : dateString
-//	});
-//	$('#inputDateNaiss').val(dateString.toLocaleDateString("fr-FR"));
 
 	$('#formulaire').dialog({
 		autoOpen : false,
