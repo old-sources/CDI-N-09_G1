@@ -53,13 +53,15 @@ HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		List<Personne> personnes = serviceGestionEcole.rechercherPersonne(recherche);
 		if (personnes.size() == 1) {
 
+			//recuperation de la personne loguee (objet complet)
+			loguedPerson = personnes.get(0);
 			//recuperation de TOUS les projets dont la personne est chef 
-			List<Projet> projetsEnTantQueChefDeProjet = personnes.get(0).getProjetsCDP();
+			List<Projet> projetsEnTantQueChefDeProjet = loguedPerson.getProjetsCDP();
 			//passage dans la requete des projets dont la personne est chef 
 			request.setAttribute("projetsCdp", projetsEnTantQueChefDeProjet);
 			
 			//recuperation de TOUS les projets auxquels la personne participe 
-			List<Projet> projetsEnTantQueUser0 = personnes.get(0).getProjets();			
+			List<Projet> projetsEnTantQueUser0 = loguedPerson.getProjets();			
 			//ne garder dans tous les projets que ceux dont la personne n'est pas chef		
 			List<Projet>  projetsEnTantQueUser = new ArrayList<Projet>();
 			boolean dedans;
@@ -72,7 +74,12 @@ HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 					projetsEnTantQueUser.add(prj2);
 				}
 			}
+//			for(Projet proj : projetsEnTantQueUser){
+//				System.out.println(proj.getProjId().toString());
+//			}
 			request.setAttribute("projetsUser", projetsEnTantQueUser);
+//			List<Projet> test = (List<Projet>) request.getAttribute("projetsUser");
+//			System.out.println(test);
 		}
 
 		//lecture de la liste des utilisateurs pour invitation à un projet
@@ -121,11 +128,7 @@ HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		}
 	
 		//quitter un projet
-<<<<<<< HEAD
 		String inputMemberQuit = request.getParameter("inputMembreId");
-=======
-		String inputMemberQuit = request.getParameter("inputMemberId");
->>>>>>> 05159350bc6efbe527f423450ffce54b2b674224
 		if((request.getParameter("quitProjet") != null)
 				&(!"".equals(inputMemberQuit))){
 			Personne deserter = new Personne();
@@ -133,7 +136,6 @@ HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 			deserter = serviceGestionEcole.rechercherPersonne(deserter).get(0);
 			//suppression du membre dans la liste
 			Set<Personne> membres = updatedProjet.getMembres();
-<<<<<<< HEAD
 			System.out.println("avant suppr -----------------------------");
 			for(Personne membre : membres){
 				System.out.println(membre.getIdentConnexion());
@@ -151,11 +153,6 @@ HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 			}
 			updatedProjet.setMembres(membres);
 			System.out.println("membre pret a quitter le projet: "+ deserter.getNom());
-=======
-			membres.remove(deserter);
-			updatedProjet.setMembres(membres);
-//			System.out.println("nouveau membre pret a etre enregistre: "+ deserter.getNom());
->>>>>>> 05159350bc6efbe527f423450ffce54b2b674224
 		}
 	
 		
@@ -163,16 +160,10 @@ HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		
 		////////////////////////////////////  delete update create  /////////////////////////////////////
 
-<<<<<<< HEAD
 		//mise a jour du projet, ajout ou suppression de membre
 		if ((request.getParameter("invite") != null)
 		||(request.getParameter("quitProjet") != null)){
 			System.out.println("MesProjets POST update");
-=======
-		//mise a jour du projet
-		if (request.getParameter("invite") != null) {
-			System.out.println("MesProjets POST invite");
->>>>>>> 05159350bc6efbe527f423450ffce54b2b674224
 			serviceGestionProjet.updateProjet(updatedProjet);
 		}
 
