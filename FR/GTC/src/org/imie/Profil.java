@@ -67,14 +67,13 @@ public class Profil extends HttpServlet {
 		
 		System.out.println(loguedPerson.getNom());
 		
-		if (loguedPerson.getCgu()){
-			request.getRequestDispatcher("/WEB-INF/JProfil.jsp").forward(
-					request, response);
-		}else {
-			//httpServletRequest.getSession().setAttribute("authentifiedPersonne",null);
-			response.sendRedirect("/GTC/CGU");
-		}
-		
+//		if (loguedPerson.getCgu()){
+			request.getRequestDispatcher("/WEB-INF/JProfil.jsp").forward(request, response) ;
+//		}else {
+//			//httpServletRequest.getSession().setAttribute("authentifiedPersonne",null);
+//			response.sendRedirect("/GTC/CGU");
+//		}
+//		
 	}
 
 	/**

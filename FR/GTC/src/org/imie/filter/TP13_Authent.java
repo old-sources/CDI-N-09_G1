@@ -91,6 +91,7 @@ public class TP13_Authent implements Filter {
 //					Personne aut2 = new Personne();
 //					aut2=serviceGestionEcole.rechercherPersonne(searchPersonne).get(0);
 					System.out.println("login et cgu"+authPersonne.getIdentConnexion()+"  "+authPersonne.getCgu());
+					
 					if (authPersonne.getCgu()){
 						System.out.println("filtreCGUtrue");
 						httpServletResponse.sendRedirect(uri);

@@ -1,10 +1,7 @@
 package org.imie;
 
 import java.io.IOException;
-//import java.text.ParseException;
-//import java.text.SimpleDateFormat;
-//import java.util.Date;
-//import java.util.List;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -16,7 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import model.Competence;
 import model.Personne;
 
-import org.imie.service.ServiceGestionEcoleJPALocal;
+//import org.imie.service.ServiceGestionCompJPA;
+import org.imie.service.ServiceGestionCompJPALocal;
 
 /**
  * Servlet implementation class TP3_Controller ????
@@ -25,7 +23,7 @@ import org.imie.service.ServiceGestionEcoleJPALocal;
 public class HArbre extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@EJB
-	ServiceGestionEcoleJPALocal serviceGestionEcole;
+	ServiceGestionCompJPALocal serviceGestionComp;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -45,16 +43,27 @@ public class HArbre extends HttpServlet {
 		
 		System.out.println("Do get Arbre");
 		// ///////////////////////////////////// update / modifie
-		if (request.getParameter("affiche") != null) {
+		//if (request.getParameter("affiche") != null) {
 			// fonctionne pour la modif intitulé
 			// a valider pour la modif du parent ?
 			// compId non nul !!!
+			
+			// on crée un modèle vide de type compétence
+			Competence searchCompetences = new Competence();
+			
+			searchCompetences.setCompetence(null);
+			
+			// on met toutes les competences avec parent null dans foundCompetences
+			List<Competence> foundCompetences = serviceGestionComp
+					.rechercherCompetence(searchCompetences);
 
-			Competence modelCompetence = null;
-			modelCompetence.setCompetence(null);
-			//serviceGestionEcole.rechercherCompetence(modelCompetence);
+			// Affectation de la liste des enfants comme attributs
+			serviceGestionComp.setChildCompetence(foundCompetences);
+			// on a initialisé la liste de tous les enfants
+			// on la passe en paramètre à la request
+			request.setAttribute("foundCompetences", foundCompetences);
 
-		}
+		//}
 		
 		// loguedPerson passé en request
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;

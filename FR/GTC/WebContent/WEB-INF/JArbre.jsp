@@ -33,104 +33,94 @@
 	href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
 <link rel=stylesheet type="text/css"
 	href="css/jquery.dataTables.yadcf.css">
+<link href='http://fonts.googleapis.com/css?family=Capriola' rel='stylesheet' type='text/css'>
+<link href='css/arbre.css' rel='stylesheet' type='text/css'>
 
 <title>Gestion de Compétences</title>
 
-<script src="js/scriptComp.js"></script> <!-- La source qui contient le code d'envoi en Ajax -->
+<script src="js/scripComp.js"></script> <!-- La source qui contient le code d'envoi en Ajax -->
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+        $('.tree li').each(function(){
+                if($(this).children('ul').length > 0){
+                        $(this).addClass('parent');     
+                }
+        });
+        
+        $('.tree li.parent > a').click(function(){
+                $(this).parent().toggleClass('active');
+                $(this).parent().children('ul').slideToggle('fast');
+        });
+});
+        
+</script>
+
 </head>
 
 <body>
 	<%@ include file="/WEB-INF/header.jsp"%>
-	<h1>Onglet Competence (JM en cours)</h1>
+	<h1>Onglet Arbre Competence (JM en cours)</h1>
 
-	<BUTTON class="actionCreerCompetence">Créer une compétence</BUTTON>
+<body>
+<div id="wrapper">
+<h1>JQuery Tree List Demo</h1>
 
-	<!-- 	<div class="tabCompetence" id="tabComp"> celle3-->
-<!-- 	<div class="cell3" id="divProjet">  -->
-	<div class="cell" id="divComp"> 
-		<label for="listeCompétences"> Compétence école </label>
-
-		<TABLE id="tableComp">
-			<THEAD>
-				<TR><c:forEach items="${foundCompetences}" var="comp">
-				<TH><c:out value="${comp.compId}" /></TH>
-				</c:forEach>
-					<TH>Id compétence</TH>
-					<TH>Intitulé</TH>
-					<TH>Père</TH>
-					<TH>Enfants</TH>
-					<TH>Modif</TH>
-					<TH>Suppression</TH>
-					<TH>Déplacement</TH>
-				</TR>
-			</THEAD>
-			<TBODY>
-				<c:forEach items="${foundCompetences}" var="comp">
-					<tr>
-						<TD><c:out value="${comp.compId}" /></TD>
-						<TD><c:out value="${comp.compIntitule}" /> <%-- getter et setteur  automatiques JPA <c:out value="(${comp.getCompIntitule()})" />	--%>
-						</TD>
-						<TD><c:out value="${comp.competence.getCompIntitule()}" /></TD>
-						<TD><c:forEach items="${comp.competences}" var="compchild">
-								<c:out value="+ ${compchild.compIntitule}" />
-								<br>
-							</c:forEach></TD>
-
-						<TD><BUTTON class="actionFormulaireComp"
-								data-compId="${comp.compId}"
-								data-compIntitule="${comp.compIntitule}"
-								data-compParent="${comp.competence}">Modifier</BUTTON></TD>
-
-						<TD><BUTTON class="actionDeleteComp"
-								data-compId="${comp.compId}"
-								data-compIntitule="${comp.compIntitule}">Supprimer</BUTTON></TD>
-
-						<TD><BUTTON class="actionMoveComp"
-								data-compId="${comp.compId}"
-								data-compParent="${comp.competence}">Déplacer</BUTTON></TD>
-					</tr>
-				</c:forEach>
-			</TBODY>
-
-		</TABLE>
-	</div>
-
-	<div id="formCompDivId"> 
-<!-- id de la div récupérée par scriptComp -->
-<!-- passé dans actionFormulaireComp par $("#formCompDivId").dialog("open"); -->
-<!-- https://fr.wikipedia.org/wiki/Ajax_%28informatique%29 -->
-<!-- forme de la boite de dialogue -->
-		<form method="POST" id="formFormulaire"> 
-		<!-- id formFormulaire récupérée où ? nullepart -->
-		<!-- l'ID de la comp est fournie mais restera une donnée cachée -->
-			<input type="hidden" name="inputId" id="inputId" />
-			<div> <!-- Libelle -->
-				<!-- seule donnée de la compétence -->
-				<label for="inputLibelleComp">libelle :</label> <input type="text"
-					id="inputLibelleComp" name="inputLibelleComp">
-			</div> <!-- Libelle -->
+<div class="tree">
+<c:forEach items="${foundCompetences}" var="comp">
+<ul><li><a><c:out value="${comp.compIntitule}" /></a></li>
+<c:forEach items="${comp.competences}" var="compchild">
+								<li><a><c:out value="+ ${compchild.compIntitule}" /></a></li>
+								
+</c:forEach>
+</ul>
+</c:forEach>
+</div>
 
 
-			<input type="submit" name="update" id="updateDansForm"
-				value="Modifier" /> <input type="submit" name="create"
-				id="creerDansForm" value="Créer" /> <input type="submit"
-				name="delete" id="deleteDansForm" value="Supprimer" />
-		</form>
-	</div>
-
-
-	<div id="formMoveComDivId">
-		<form method="POST" id="formFormulaire2"> 
-			<input type="hidden" name="inputId" id="inputId2"/>
-			<div>
-				<!-- donnée parent de la compétence -->
-				<label for="inputLibelleParent">parent :</label> <input type="text"
-					id="inputLibelleParent" name="inputLibelleParent">
-			</div>
-
-			<input type="submit" name="move" id="moveDansForm" value="Deplacer" />
-		</form>
-	</div>
+<div class="tree">
+        <ul>
+                <li><a>First Level</a>
+                        <ul>
+                                <li><a>Second Level</a></li>
+                                <li><a>Second Level</a></li>
+                                <li><a>Second Level</a></li>
+                        </ul>
+                </li>
+                <li><a>First Level</a>
+                        <ul>
+                                <li><a>Second Level</a>
+                                        <ul>
+                                                <li><a>Third Level</a></li>
+                                                <li><a>Third Level</a></li>
+                                                <li><a>Third Level</a>
+													<ul>
+															<li><a>Fourth Level</a></li>
+															<li><a>Fourth Level</a></li>
+															<li><a>Fourth Level</a>
+																<ul>
+																		<li><a>Fifth Level</a></li>
+																		<li><a>Fifth Level</a></li>
+																		<li><a>Fifth Level</a></li>
+																</ul>
+															</li>
+													</ul>
+												</li>
+                                        </ul>
+                                </li>
+                                <li><a>Second Level</a></li>
+                        </ul>
+                </li>
+                <li><a>First Level</a>
+                        <ul>
+                                <li><a>Second Level</a></li>
+                                <li><a>Second Level</a></li>
+                        </ul>
+                </li>
+        </ul>
+</div>
+</div>
 
 </body>
 </html>

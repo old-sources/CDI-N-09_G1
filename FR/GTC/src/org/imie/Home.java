@@ -48,12 +48,12 @@ public class Home extends HttpServlet {
 		List<Projet> projets = serviceGestionProjet.rechercherProjet(new Projet());
 		request.setAttribute("projets", projets);
 		
-		if (loguedPerson.getCgu()){
+//		if (loguedPerson.getCgu()){
 			request.getRequestDispatcher("/WEB-INF/JHome.jsp").forward(
 					request, response);
-		}else {
-			response.sendRedirect("/GTC/CGU");
-		}
+//		}else {
+//			response.sendRedirect("/GTC/CGU");
+//		}
 		
 	}
 

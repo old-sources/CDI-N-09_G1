@@ -99,7 +99,7 @@ public class HCompetence extends HttpServlet {
 					.size() > 1) {
 				System.out.println("Plusieurs parents trouvés dans base ");
 			}
-			// pb reformuler
+			// pb reformuler, plusieurs parents
 			else if (serviceGestionComp.rechercherCompetence(parentCompetence)
 					.size() > 0) {
 				System.out.println("longueur : "
@@ -132,10 +132,9 @@ public class HCompetence extends HttpServlet {
 		// ///////////////////////////////////// update / modifie
 		if (request.getParameter("update") != null) {
 			// fonctionne pour la modif intitulé
-			// a valider pour la modif du parent ?
 			// compId non nul !!!
-
-			modelCompetence.setCompetence(parentCompetence);
+			
+			//modelCompetence.setCompetence(parentCompetence);
 			serviceGestionComp.updateCompetence(modelCompetence);
 
 		}
