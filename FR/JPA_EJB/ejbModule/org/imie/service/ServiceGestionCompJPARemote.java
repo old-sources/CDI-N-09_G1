@@ -96,6 +96,12 @@ public class ServiceGestionCompJPARemote implements	ServiceGestionCompJPALocal {
 		return null;
 	}
 
+	@Override
+	public Boolean addRoot(List<Competence> competences) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 //	@Override
 //	public void updatePropComp(PropositionComp propitToUpdate) {
 //		// TODO Auto-generated method stub

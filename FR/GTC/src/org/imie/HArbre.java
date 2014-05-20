@@ -49,18 +49,19 @@ public class HArbre extends HttpServlet {
 			// compId non nul !!!
 			
 			// on crée un modèle vide de type compétence
-			Competence searchCompetences = new Competence();
+			Competence searchCompetence = new Competence();
 			
-			searchCompetences.setCompetence(null);
+			searchCompetence.setCompetence(null);
 			
 			// on met toutes les competences avec parent null dans foundCompetences
 			List<Competence> foundCompetences = serviceGestionComp
-					.rechercherCompetence(searchCompetences);
+					.rechercherCompetence(searchCompetence);
 
 			// Affectation de la liste des enfants comme attributs
 			serviceGestionComp.setChildCompetence(foundCompetences);
 			// on a initialisé la liste de tous les enfants
 			// on la passe en paramètre à la request
+			serviceGestionComp.addRoot(foundCompetences);
 			request.setAttribute("foundCompetences", foundCompetences);
 
 		//}

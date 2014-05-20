@@ -52,7 +52,9 @@ public class HCompetence extends HttpServlet {
 		serviceGestionComp.setChildCompetence(foundCompetences);
 		// on a initialisé la liste de tous les enfants
 		// on la passe en paramètre à la request
+		serviceGestionComp.addRoot(foundCompetences);
 		request.setAttribute("foundCompetences", foundCompetences);
+		
 
 		// loguedPerson passé en request
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;

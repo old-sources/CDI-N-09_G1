@@ -31,7 +31,10 @@ public class ServiceGestionCompJPA implements // ServiceGestionCompJPARemote,
 
 	@PersistenceContext
 	private EntityManager entityManager;
-//	private ServiceGestionEcoleJPALocal serviceGestionEcole = new ServiceGestionEcoleJPA();
+
+	// private ServiceGestionEcoleJPALocal serviceGestionEcole = new
+	// ServiceGestionEcoleJPA();
+	// static Boolean rootexist;
 
 	// ----------------------------------------------------------
 	// JM méthodes compétences à implémenter
@@ -40,7 +43,7 @@ public class ServiceGestionCompJPA implements // ServiceGestionCompJPARemote,
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public List<Competence> rechercherCompetence(Competence comp) {
 		// searchCompetences
-		System.out.println("Entree recherche competence "
+		System.out.println("Entree recherche competence"
 				+ comp.getCompIntitule());
 		CriteriaBuilder qb = entityManager.getCriteriaBuilder();
 		CriteriaQuery<Competence> query = qb.createQuery(Competence.class);
@@ -51,15 +54,11 @@ public class ServiceGestionCompJPA implements // ServiceGestionCompJPARemote,
 			criteria.add(qb.equal(compRoot.get("compId"), comp.getCompId()));
 		}
 		if (comp.getCompIntitule() != null) {
-			System.out.println("On devrait passeer par la"
-					+ comp.getCompIntitule());
 			criteria.add(qb.equal(compRoot.get("compIntitule"),
 					comp.getCompIntitule()));
 		}
 
 		if (comp.getCompetences() != null) {
-			// criteria.add(qb.equal(compRoot.<String>get("competences"),
-			// comp.getCompetences()));
 			criteria.add(qb.equal(compRoot.<String> get("competences"),
 					comp.getCompetences()));
 		}
@@ -83,15 +82,14 @@ public class ServiceGestionCompJPA implements // ServiceGestionCompJPARemote,
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void deleteCompetence(Competence deletedCompetence) {
 		// TODO Auto-generated method stub
-		System.out.println("deleteCompetence "+ deletedCompetence.getCompId());
+		System.out.println("deleteCompetence " + deletedCompetence.getCompId());
 		if (deletedCompetence.getCompId() != null) {
 
 			// passage du monde objet au monde relationnel ?? ou juste
 			// completion de l'entité ?
 			deletedCompetence = entityManager.find(Competence.class,
 					deletedCompetence.getCompId());
-			
-			
+
 			// pere de la competence à modifier
 			Competence father = deletedCompetence.getCompetence();
 			// Liste des enfants de la compétence modifiée
@@ -114,8 +112,8 @@ public class ServiceGestionCompJPA implements // ServiceGestionCompJPARemote,
 
 			if (relation != null) {
 				System.out.println("relation non nulle");
-				List<Possede> listRelation = //serviceGestionEcole
-						rechercherPossedeC(relation);
+				List<Possede> listRelation = // serviceGestionEcole
+				rechercherPossedeC(relation);
 				// on supprime toutes les relation trouvée dans la classe
 
 				// on eleve la dependance FK possede de la Table Possede
@@ -182,6 +180,31 @@ public class ServiceGestionCompJPA implements // ServiceGestionCompJPARemote,
 			compToUpdate.setCompIntitule(updatedCompetence.getCompIntitule());
 			entityManager.merge(compToUpdate);
 		}
+	}
+
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	@Override
+	public Boolean addRoot(List<Competence> competences) {
+		Boolean rootExist = false; // static
+		System.out.println("Ajout des racines");
+		Competence root = new Competence();
+
+		if (!rootExist) {
+			root.setCompIntitule("root");
+			insertCompetence(root);
+			rootExist = true;
+			System.out.println("insertion racine base");
+		}
+
+		for (Competence compToUpdate : competences) {
+			// doit necessairement posséder un id
+			if (compToUpdate.getCompetence() == null) {
+				compToUpdate.setCompetence(root);
+				updateCompetence(compToUpdate);
+				System.out.println("ajout racine pere");
+			}
+		}
+		return rootExist;
 	}
 
 	// -------------------------------------------------------------------
@@ -302,12 +325,13 @@ public class ServiceGestionCompJPA implements // ServiceGestionCompJPARemote,
 	// // TODO Auto-generated method stub
 	//
 	// }
-	
+
 	@Override
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public List<Possede> rechercherPossedeC(Possede possede) {
-		System.out.println("rechercherPossede"+possede.getCompetence().getCompIntitule());
-		
+		System.out.println("rechercherPossede"
+				+ possede.getCompetence().getCompIntitule());
+
 		CriteriaBuilder qb = entityManager.getCriteriaBuilder();
 		System.out.println("query");
 		CriteriaQuery<Possede> query = qb.createQuery(Possede.class);
@@ -315,7 +339,7 @@ public class ServiceGestionCompJPA implements // ServiceGestionCompJPARemote,
 		Root<Possede> possedeRoot = query.from(Possede.class);
 
 		List<Predicate> criteria = new ArrayList<Predicate>();
-		
+
 		System.out.println("avant la recherche");
 		if (possede.getPossId() != null) {
 			criteria.add(qb.equal(possedeRoot.get("possId"),
@@ -334,13 +358,13 @@ public class ServiceGestionCompJPA implements // ServiceGestionCompJPARemote,
 			criteria.add(qb.equal(possedeRoot.get("personne"),
 					possede.getPersonne()));
 		}
-		
+
 		System.out.println("Fin Test possede");
-		
+
 		query.where(criteria.toArray(new Predicate[] {}));
 
 		List<Possede> result = entityManager.createQuery(query).getResultList();
-				
+
 		return result;
 	}
 
