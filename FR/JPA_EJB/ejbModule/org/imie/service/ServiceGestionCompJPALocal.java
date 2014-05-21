@@ -8,6 +8,7 @@ import model.Competence;
 import model.Possede;
 import model.PropositionComp;
 //import model.Possede;
+import model.arbre.Branche;
 
 @Local
 public interface ServiceGestionCompJPALocal {
@@ -40,6 +41,13 @@ public interface ServiceGestionCompJPALocal {
 	public List<Competence> rechercherRacines();
 
 	public Competence racineBase(Competence root);
+
+	public List<Branche> constructionArbre(List<Competence> competencesRacine,
+			Integer nivp);
+
+	public Integer tailleArbre(List<Branche> branches);
+
+	public Integer[] tailleBranche(List<Branche> branches);
 	
 //	void initRoot(); //???
 //	public Boolean addRoot();

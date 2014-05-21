@@ -72,10 +72,28 @@
 				<c:forEach items="${foundCompetences}" var="comp">
 					<ul>
 						<li><a><c:out value="${comp.compIntitule}" /></a></li>
- 						<c:forEach items="${comp.competences}" var="compchild">
- 							<li><a><c:out value="+ ${compchild.compIntitule}" /></a></li> 
+						<c:forEach items="${comp.competences}" var="compchild">
+							<li><a><c:out value="+ ${compchild.compIntitule}" /></a></li>
 
- 						</c:forEach> 
+						</c:forEach>
+					</ul>
+				</c:forEach>
+			</ul>
+		</div>
+		
+
+		<div class="tree">
+			<ul>
+				<c:forEach begin="1" end="${taille}" var="i">
+					<li><a><c:out value="${i}" /></a></li>
+					<li><a><c:out value="${foundBranches}." /></a></li>
+					<ul>
+						<c:forEach begin="1" end="${noeud[i]}" var="j">
+
+							<li><a><c:out value="${j}" /></a></li>
+							
+
+						</c:forEach>
 					</ul>
 				</c:forEach>
 			</ul>

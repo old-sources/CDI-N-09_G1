@@ -19,6 +19,7 @@ import javax.persistence.criteria.Root;
 import model.Competence;
 import model.Possede;
 import model.PropositionComp;
+import model.arbre.Branche;
 
 /**
  * Session Bean implementation class ServiceGestionEcoleJPA
@@ -214,43 +215,37 @@ public class ServiceGestionCompJPA implements // ServiceGestionCompJPARemote,
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	@Override
 	public Integer addRoot(List<Competence> competences) {
+
 		// Boolean rootExist = false; // static
-		System.out.println("////////////////////");
-		System.out.println("Ajout des racines : ADD ROOT");
 		Competence rootModel = new Competence();
 		Integer rootId = 0;
 		rootModel = racine();
-		System.out.println("Recherche des racines");
+
 		List<Competence> foundRacine = rechercherCompetence(rootModel);
 
 		if (foundRacine.size() > 0) {
 			// rootExist = true;
-			System.out.println("racine base existe : "
-					+ foundRacine.get(0).getCompId());
+
 			setChildCompetence(foundRacine);
 			rootModel = foundRacine.get(0);
 			rootId = rootModel.getCompId();
-			System.out.println("modele root crée" + rootId);
+			;
 
 		} else {
-			System.out.println("insertion racine ds base");
 			rootModel = racine();
 			// rootExist = true;
 			// rootModel = entityManager.find(Competence.class,
 			// rootModel.getCompId());
 			// rootId = rootModel.getCompId();
 
-			// if (rechercherCompetence(rootModel).isEmpty()) {
+			// if (rechercherCompetence(rootModel).isEmpty())
 			entityManager.persist(rootModel);
 			rootId = rootModel.getCompId();
-
 			// rootId = insertCompetence(rootModel);
-			System.out.println("racine inséree" + rootId);
 		}
 
 		// ajout de la racine sur les comp
 		for (Competence compToUpdate : competences) {
-			System.out.println("ajout racines pere" + compToUpdate.getCompId());
 			// doit necessairement posséder un id
 			if (compToUpdate.getCompetence() == null) {
 
@@ -258,14 +253,11 @@ public class ServiceGestionCompJPA implements // ServiceGestionCompJPARemote,
 					compToUpdate.setCompetence(rootModel);
 					// updateCompetence(compToUpdate);
 					movedCompetence(compToUpdate);
-					System.out.println("ajout fait par move");
 				}
 			}
 		}
-		
-		setChildRoot(rootModel);
 
-		System.out.println("Fin add racine" + rootId);
+		setChildRoot(rootModel);
 		// return rootExist;
 		return rootId;
 	}
@@ -275,7 +267,6 @@ public class ServiceGestionCompJPA implements // ServiceGestionCompJPARemote,
 	public void setChildRoot(Competence racine) {
 
 		// Affectation de la liste des enfants comme attributs
-
 		Competence searchCompChild = new Competence();
 		// initialisation de modèle : compétence vide
 		searchCompChild.setCompetence(racine); // affectation du père
@@ -289,7 +280,6 @@ public class ServiceGestionCompJPA implements // ServiceGestionCompJPARemote,
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	@Override
 	public Competence racine() {
-		System.out.println("utilisation du modele racine");
 		// creation du model de racine
 		Competence rootModel = new Competence();
 		rootModel.setCompIntitule("root");
@@ -373,23 +363,84 @@ public class ServiceGestionCompJPA implements // ServiceGestionCompJPARemote,
 	// --------------------------------------------------------
 	@Override
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public List<Branche> constructionArbre(List<Competence> competencesRacine,
+			Integer nivp) {
+
+		System.out.println("constructionArbre");
+		List<Branche> couple = new ArrayList<Branche>();
+		setChildCompetence(competencesRacine);
+		int nbEnfant ;
+		for (Competence comp : competencesRacine) {
+			List<Competence> listeEnfants = new ArrayList<Competence>();
+			listeEnfants = comp.getCompetences();
+			nivp = nivp + 1;
+			nbEnfant = couple.size() + 1;
+			couple.add(new Branche(comp, nivp,nbEnfant));
+			// liste enfants = comp.getCompetences()
+			constructionArbre(listeEnfants, nivp);
+		}
+		return couple;
+
+	}
+
+	// --------------------------------------------------------
+	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public Integer tailleArbre(List<Branche> branches) {
+		System.out.println("tailleArbre");
+		int taille =0;
+		for (Branche branche : branches) {
+			taille = Math.max(taille,branche.getNiv());
+		}
+		return taille;
+	}
+	
+	// --------------------------------------------------------
+	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public Integer[] tailleBranche(List<Branche> branches) {
+		System.out.println("tailleBranche");
+				
+		Integer tailleB[] = new Integer[tailleArbre(branches)];
+	
+		
+		System.out.println("tailleBranche init 0"+tailleArbre(branches));
+		for (Branche branche : branches) {
+			int niv = branche.getNiv();
+			tailleB[niv-1] = 0;
+		}
+		
+		System.out.println("tailleBranche init");
+		
+		for (Branche branche : branches) {
+			
+			int niv = branche.getNiv();
+			tailleB[niv-1] = Math.max(tailleB[niv-1],branche.getNbenfants());
+			System.out.println("boucle "+niv);
+		}
+		
+		System.out.println("Fini init");
+		
+		return tailleB;
+	}
+	
+	// --------------------------------------------------------
+	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	// public void movedCompetence(Competence movedComp, Competence father) {
 	public void movedCompetence(Competence movedCompetence) {
 		if (movedCompetence.getCompId() != null) {
-			System.out.println("//////////////////MOVE///////////////////");
+
 			// pere de la competence à modifier
 			Competence father = movedCompetence.getCompetence();
-			System.out.println("nouveau pere :");
-			System.out.println(father.getCompIntitule());
 			// passage du monde objet au monde relationnel ??
 			// juste completion entité ?
-			
+
 			// Competence model = movedCompetence;
 			// completion / synchro
 			movedCompetence = entityManager.find(Competence.class,
 					movedCompetence.getCompId());
-			System.out.println("comp modifiée "+movedCompetence.getCompId());
-			System.out.println("comp modifiée "+movedCompetence.getCompIntitule());
+
 			// rechercher si nouveau pere appartient aux enfants
 			// Liste enfants de la compétence modifiée : children
 			List<Competence> parent = new ArrayList<Competence>();
@@ -397,35 +448,27 @@ public class ServiceGestionCompJPA implements // ServiceGestionCompJPARemote,
 			parent.add(movedCompetence);
 			// initialisation des enfants des enfants
 			setChildCompetence(parent);
-			// remplissage			
+			// remplissage
 			children = parent.get(0).getCompetences();
-			
+
 			// modification des enfants, si besoin
 			Boolean testParent = true;
-			// pour tous les enfants on regarde si nouveau pere 
+			// pour tous les enfants on regarde si nouveau pere
 			// n'est pas dans la liste
 			for (Competence comp : children) {
-				
-				System.out.println("Enfant : "+comp.getCompId());
-				System.out.println("Enfant : "+comp.getCompIntitule());
-				
+
 				if (comp.getCompId() == father.getCompId()) {
 					testParent = false;
 					System.out.println("UPDATE impossible parent = enfant");
 				}
 				if ("root".equals(comp.getCompIntitule())) {
-					System.out.println("Si enfant != root");
+					System.out.println("UPDATE impossible comp = root");
 					testParent = false;
-					System.out.println("Enfant : "+movedCompetence.getCompId());
-					System.out.println("Enfant : "+movedCompetence.getCompIntitule());
-					System.out.println("Pere : "+father.getCompId());
-					System.out.println("Pere : "+father.getCompIntitule());
 				}
 			}
 
 			// enfin on merge la competence
 			if (testParent) {
-				System.out.println("UPDATE MOVE REEL");
 				movedCompetence.setCompetence(father);
 				entityManager.merge(movedCompetence);
 			}
@@ -434,6 +477,7 @@ public class ServiceGestionCompJPA implements // ServiceGestionCompJPARemote,
 
 	}
 
+	// // --------------------------------------------------------
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void deletePossede(Possede possede) {
 		if (possede.getPossId() != null) {

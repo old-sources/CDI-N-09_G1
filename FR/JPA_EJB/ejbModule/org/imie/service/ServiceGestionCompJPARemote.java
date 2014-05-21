@@ -23,6 +23,7 @@ import model.Possede;
 //import model.Possede;
 //import model.Possede;
 import model.PropositionComp;
+import model.arbre.Branche;
 
 
 /**
@@ -116,6 +117,25 @@ public class ServiceGestionCompJPARemote implements	ServiceGestionCompJPALocal {
 
 	@Override
 	public Competence racineBase(Competence root) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Branche> constructionArbre(List<Competence> competencesRacine,
+			Integer nivp) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Integer tailleArbre(List<Branche> branches) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Integer[] tailleBranche(List<Branche> branches) {
 		// TODO Auto-generated method stub
 		return null;
 	}
