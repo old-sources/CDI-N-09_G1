@@ -24,7 +24,7 @@ import model.Projet;
 //import model.Actionanotifier;
 
 /**
- * Session Bean implementation class ServiceGestionEcoleJPA
+ * Session Bean implementation class ServiceGestionProjetJPA
  */
 @Stateless(mappedName = "ServiceGestionProjet")
 @LocalBean
@@ -32,8 +32,6 @@ import model.Projet;
 public class ServiceGestionProjetJPA implements ServiceGestionProjetJPARemote,
 		ServiceGestionProjetJPALocal {
 
-	//private ServiceGestionEcoleJPALocal serviceGestionEcole = new ServiceGestionEcoleJPA();
-	
 	@PersistenceContext
 	private EntityManager entityManager;
 
@@ -72,30 +70,6 @@ public class ServiceGestionProjetJPA implements ServiceGestionProjetJPARemote,
 		return result;
 	}
 
-//	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-//	public List<Travaille> rechercherTravaille(Travaille trv) {
-//		CriteriaBuilder qb = entityManager.getCriteriaBuilder();
-//
-//		CriteriaQuery<Travaille> query = qb.createQuery(Travaille.class);
-//		Root<Travaille> trvRoot = query.from(Travaille.class);
-//
-//		List<Predicate> criteria = new ArrayList<Predicate>();
-//		if (trv.getPersonne() != null) {
-//			criteria.add(qb.equal(trvRoot.get("personne"), trv.getPersonne()));
-//		}
-//		if (trv.getProjet() != null) {
-//			criteria.add(qb.equal(trvRoot.get("projet"), trv.getProjet()));
-//		}
-//		if (trv.getTrvId() != null) {
-//			criteria.add(qb.equal(trvRoot.<String> get("trvId"), trv.getTrvId()));
-//		}
-//
-//		query.where(criteria.toArray(new Predicate[] {}));
-//		List<Travaille> result = entityManager.createQuery(query)
-//				.getResultList();
-//		return result;
-//	}
-
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public Projet insertProjet(Projet projet) {
 		Projet projet2 = new Projet();
@@ -108,7 +82,7 @@ public class ServiceGestionProjetJPA implements ServiceGestionProjetJPARemote,
 		projet2.setProjAvancement(projet.getProjAvancement());
 		projet2.setChefDeProjet(projet.getChefDeProjet());
 		//Projet: inscription du chef de projet dans la liste des membres
-		//Personne: et mise a jour de liste des projets auxquels il participe (bi-directionnalite)
+		//Personne: prevoir mise a jour de liste des projets auxquels il participe (bi-directionnalite)
 		if(projet.getChefDeProjet() != null){
 			Set<Personne> membres = new HashSet<Personne>();
 			membres.add(projet.getChefDeProjet());
@@ -130,25 +104,5 @@ public class ServiceGestionProjetJPA implements ServiceGestionProjetJPARemote,
 	public Projet updateProjet(Projet projetToUpdate) {
 		return entityManager.merge(projetToUpdate);
 	}
-
-//	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-//	public Travaille insertTravaille(Travaille travaille) {
-//		Travaille travaille2 = new Travaille();
-//		travaille2.setPersonne(travaille.getPersonne());
-//		travaille2.setProjet(travaille.getProjet());
-//		entityManager.persist(travaille2);
-//		return travaille2;
-//	}
-
-//	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-//	public void deleteTravaille(Travaille travaille) {
-//		travaille = entityManager.find(Travaille.class, travaille.getTrvId());
-//		entityManager.remove(travaille);
-//	}
-
-//	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-//	public Travaille updateTravaille(Travaille travailleToUpdate) {
-//		return entityManager.merge(travailleToUpdate);
-//	}
 
 }
