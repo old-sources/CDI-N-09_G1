@@ -10,7 +10,7 @@
 
 		<BUTTON id="afficherListeCompetences" onclick="self.location.href='/GTC/HCompetence'" style="background-color: transparent; border: 0px"><img src="/GTC/images/competences2.png" ></BUTTON>
 		
-		<BUTTON id="afficherListeCompetences" onclick="self.location.href='/GTC/HTravaille'" style="background-color: transparent; border: 0px"><img src="/GTC/images/relation2.png" ></BUTTON>
+<!-- 		<BUTTON id="afficherListeCompetences" onclick="self.location.href='/GTC/HTravaille'" style="background-color: transparent; border: 0px"><img src="/GTC/images/relation2.png" ></BUTTON> -->
 		
 		
 <c:choose>
