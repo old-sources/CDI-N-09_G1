@@ -39,53 +39,55 @@ public class HArbre extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		
-		
+
 		System.out.println("Do get Arbre");
 		// ///////////////////////////////////// update / modifie
-		//if (request.getParameter("affiche") != null) {
-			// fonctionne pour la modif intitulé
-			// a valider pour la modif du parent ?
-			// compId non nul !!!
-			
-			// on crée un modèle vide de type compétence
-			Competence searchCompetence = new Competence();
-			
-			searchCompetence.setCompetence(null);
-			
-			// on met toutes les competences avec parent null dans foundCompetences
-			List<Competence> foundCompetences = serviceGestionComp
-					.rechercherCompetence(searchCompetence);
+		// if (request.getParameter("affiche") != null) {
+		// fonctionne pour la modif intitulé
+		// a valider pour la modif du parent ?
+		// compId non nul !!!
 
-			// Affectation de la liste des enfants comme attributs
-			serviceGestionComp.setChildCompetence(foundCompetences);
-			// on a initialisé la liste de tous les enfants
-			// on la passe en paramètre à la request
-			Integer rootId = 0;
-			rootId = serviceGestionComp.addRoot(foundCompetences);
-			
-			
-			Competence searchRacine = new Competence();
-			Competence root = new Competence();
-			root.setCompId(rootId);
-			
-			root = serviceGestionComp.racineBase(root);
-			
-			searchRacine.setCompetence(root);
-			
-			
-			System.out.println("LOOK FOR RACINE");
-			List<Competence> foundRacines = serviceGestionComp.rechercherCompetence(searchRacine);
-			//searchCompetence.addCompetence(serviceGestionComp.racine());
-			
-			System.out.println("Envoie requete");
-			
-			serviceGestionComp.setChildCompetence(foundRacines);
-			request.setAttribute("foundCompetences", foundRacines);
-			
-			//request.setAttribute("foundCompetences", foundCompetences);
-		//}
+		// on crée un modèle vide de type compétence
+		Competence searchCompetence = new Competence();
+
+		searchCompetence.setCompetence(null);
+
+		// on met toutes les competences avec parent null dans foundCompetences
+		List<Competence> foundCompetences = serviceGestionComp
+				.rechercherCompetence(searchCompetence);
+
+		// Affectation de la liste des enfants comme attributs
+		serviceGestionComp.setChildCompetence(foundCompetences);
+		// on a initialisé la liste de tous les enfants
+		// on la passe en paramètre à la request
+		Integer rootId = 0;
+		rootId = serviceGestionComp.addRoot(foundCompetences);
+
+		System.out.println("Construction modele");
+		Competence searchRacine = new Competence();
+		Competence root = new Competence();
+		System.out.println("Construction modele avec id" + rootId);
+		root.setCompId(rootId);
+
+		root = serviceGestionComp.racineBase(root);
+		searchRacine.setCompetence(root);
+
+		System.out.println("LOOK FOR RACINE");
 		
+		
+		
+		List<Competence> foundRacines = serviceGestionComp
+				.rechercherCompetence(searchRacine);
+		// searchCompetence.addCompetence(serviceGestionComp.racine());
+
+		System.out.println("Envoie requete");
+
+		serviceGestionComp.setChildCompetence(foundRacines);
+		request.setAttribute("foundCompetences", foundRacines);
+
+		// request.setAttribute("foundCompetences", foundCompetences);
+		// }
+
 		// loguedPerson passé en request
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		Personne loguedPerson = new Personne();
@@ -93,24 +95,22 @@ public class HArbre extends HttpServlet {
 				"authentifiedPersonne");
 		request.setAttribute("loguedPerson", loguedPerson);
 
-		request.getRequestDispatcher("/WEB-INF/JArbre.jsp").forward(
-				request, response);
-		
+		request.getRequestDispatcher("/WEB-INF/JArbre.jsp").forward(request,
+				response);
+
 	}
-	
-	
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		
-		
+
 		System.out.println("Do post Arbre");
-		
+
 		// redirection vers DoGet
 		response.sendRedirect("/GTC/Arbre/");
-		
+
 	}
 }
