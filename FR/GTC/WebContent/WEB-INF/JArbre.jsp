@@ -61,9 +61,7 @@ $(document).ready(function(){
 
 <body>
 	<%@ include file="/WEB-INF/header.jsp"%>
-	<h1>Onglet Arbre Competence (JM en cours)</h1>
 
-<body>
 <div id="wrapper">
 <h1>JQuery Tree List Demo</h1>
 

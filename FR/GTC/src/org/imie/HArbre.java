@@ -61,9 +61,29 @@ public class HArbre extends HttpServlet {
 			serviceGestionComp.setChildCompetence(foundCompetences);
 			// on a initialisé la liste de tous les enfants
 			// on la passe en paramètre à la request
-			serviceGestionComp.addRoot(foundCompetences);
-			request.setAttribute("foundCompetences", foundCompetences);
-
+			Integer rootId = 0;
+			rootId = serviceGestionComp.addRoot(foundCompetences);
+			
+			
+			Competence searchRacine = new Competence();
+			Competence root = new Competence();
+			root.setCompId(rootId);
+			
+			root = serviceGestionComp.racineBase(root);
+			
+			searchRacine.setCompetence(root);
+			
+			
+			System.out.println("LOOK FOR RACINE");
+			List<Competence> foundRacines = serviceGestionComp.rechercherCompetence(searchRacine);
+			//searchCompetence.addCompetence(serviceGestionComp.racine());
+			
+			System.out.println("Envoie requete");
+			
+			serviceGestionComp.setChildCompetence(foundRacines);
+			request.setAttribute("foundCompetences", foundRacines);
+			
+			//request.setAttribute("foundCompetences", foundCompetences);
 		//}
 		
 		// loguedPerson passé en request

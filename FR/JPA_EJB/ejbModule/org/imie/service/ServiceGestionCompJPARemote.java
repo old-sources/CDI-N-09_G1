@@ -55,9 +55,9 @@ public class ServiceGestionCompJPARemote implements	ServiceGestionCompJPALocal {
 	}
 
 	@Override
-	public void insertCompetence(Competence updatedCompetence) {
-		// TODO Auto-generated method stub
-		
+	public Integer insertCompetence(Competence updatedCompetence) {
+		return null;
+		// TODO Auto-generated method stub	
 	}
 
 	@Override
@@ -97,7 +97,25 @@ public class ServiceGestionCompJPARemote implements	ServiceGestionCompJPALocal {
 	}
 
 	@Override
-	public Boolean addRoot(List<Competence> competences) {
+	public Integer addRoot(List<Competence> competences) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Competence racine() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Competence> rechercherRacines() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Competence racineBase(Competence root) {
 		// TODO Auto-generated method stub
 		return null;
 	}
