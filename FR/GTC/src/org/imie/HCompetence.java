@@ -52,7 +52,6 @@ public class HCompetence extends HttpServlet {
 		serviceGestionComp.setChildCompetence(foundCompetences);
 		// on a initialisé la liste de tous les enfants
 		// on la passe en paramètre à la request
-		serviceGestionComp.addRoot(foundCompetences);
 		request.setAttribute("foundCompetences", foundCompetences);
 		
 
@@ -135,7 +134,8 @@ public class HCompetence extends HttpServlet {
 		if (request.getParameter("update") != null) {
 			// fonctionne pour la modif intitulé
 			// compId non nul !!!
-			
+			System.out.println("+++++++++++++++++++++++++++++");
+			System.out.println("update");
 			//modelCompetence.setCompetence(parentCompetence);
 			serviceGestionComp.updateCompetence(modelCompetence);
 
@@ -144,9 +144,8 @@ public class HCompetence extends HttpServlet {
 		
 		// ///////////////////////////////////// update / modifie intitulé
 		if (request.getParameter("create") != null) {
-			// mettre à faux si seulement proposition
-			Boolean compValide = true;
-			modelCompetence.setCompValide(compValide);
+			System.out.println("+++++++++++++++++++++++++++++");
+			System.out.println("Create");
 			serviceGestionComp.insertCompetence(modelCompetence);
 		}
 
@@ -158,7 +157,8 @@ public class HCompetence extends HttpServlet {
 			// Boolean compValide = true;
 			// modelCompetence.setCompValide(compValide);
 			// doit avoir un ID et un pere
-
+			System.out.println("+++++++++++++++++++++++++++++");
+			System.out.println("Move");
 			if (parentCompetence != null) {
 
 				if (parentCompetence.getCompId() != null) {

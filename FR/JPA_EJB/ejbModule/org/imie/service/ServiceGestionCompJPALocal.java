@@ -18,7 +18,7 @@ public interface ServiceGestionCompJPALocal {
 	public void deleteCompetence(Competence updatedCompetence);
 	
 	//public void createCompetence(Competence modelCompetence); = insert
-	public void insertCompetence(Competence updatedCompetence);
+	public Integer insertCompetence(Competence updatedCompetence);
 	
 	public void updateCompetence(Competence updatedCompetence);
 	
@@ -33,7 +33,13 @@ public interface ServiceGestionCompJPALocal {
 
 	public List<Possede> rechercherPossedeC(Possede possede);
 
-	public Boolean addRoot(List<Competence> competences);
+	public Integer addRoot(List<Competence> competences);
+
+	public Competence racine();
+
+	public List<Competence> rechercherRacines();
+
+	public Competence racineBase(Competence root);
 	
 //	void initRoot(); //???
 //	public Boolean addRoot();

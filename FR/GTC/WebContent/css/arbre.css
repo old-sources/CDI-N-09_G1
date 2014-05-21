@@ -41,7 +41,7 @@ a{
     padding: 0 0 0 28px;
 }
 .tree li.parent > a:before {
-    background-image: url("../images/plus_minus_icons.png");
+    background-image: GTC/images/plus_minus_icons.png;
     background-position: 25px center;
     content: "";
     display: block;

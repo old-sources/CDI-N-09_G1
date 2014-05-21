@@ -43,10 +43,16 @@ public class ServiceGestionCompJPA implements // ServiceGestionCompJPARemote,
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public List<Competence> rechercherCompetence(Competence comp) {
 		// searchCompetences
-		System.out.println("Entree recherche competence"
+		// id peut etre nul ?
+		System.out.println("Entree recherche competence : "
 				+ comp.getCompIntitule());
+
+		System.out.println("creation de la query");
+
 		CriteriaBuilder qb = entityManager.getCriteriaBuilder();
 		CriteriaQuery<Competence> query = qb.createQuery(Competence.class);
+
+		System.out.println("compRoot-query");
 		Root<Competence> compRoot = query.from(Competence.class);
 		List<Predicate> criteria = new ArrayList<Predicate>();
 
@@ -64,14 +70,18 @@ public class ServiceGestionCompJPA implements // ServiceGestionCompJPARemote,
 		}
 
 		if (comp.getCompetence() != null) {
+			System.out.println("je suis ton pere"
+					+ comp.getCompetence().getCompIntitule());
 			criteria.add(qb.equal(compRoot.<String> get("competence"),
 					comp.getCompetence()));
 		}
 
+		System.out.println("prepare résultat");
 		query.where(criteria.toArray(new Predicate[] {}));
 		List<Competence> result = entityManager.createQuery(query)
 				.getResultList();
-
+		System.out.println("renvoie résultat");
+		System.out.println("-----------------");
 		return result;
 	}
 
@@ -81,69 +91,75 @@ public class ServiceGestionCompJPA implements // ServiceGestionCompJPARemote,
 	@Override
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void deleteCompetence(Competence deletedCompetence) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub 
 		System.out.println("deleteCompetence " + deletedCompetence.getCompId());
 		if (deletedCompetence.getCompId() != null) {
+			System.out.println("deleteCompetence "
+					+ deletedCompetence.getCompIntitule());
 
-			// passage du monde objet au monde relationnel ?? ou juste
-			// completion de l'entité ?
-			deletedCompetence = entityManager.find(Competence.class,
-					deletedCompetence.getCompId());
+			if (!"root".equals(deletedCompetence.getCompIntitule())) {
+				System.out.println("pas root");
+				// passage du monde objet au monde relationnel ?? ou juste
+				// completion de l'entité ?
+				deletedCompetence = entityManager.find(Competence.class,
+						deletedCompetence.getCompId());
 
-			// pere de la competence à modifier
-			Competence father = deletedCompetence.getCompetence();
-			// Liste des enfants de la compétence modifiée
-			List<Competence> children = deletedCompetence.getCompetences();
-			// modification enfants, le père devient le père de la
-			// compétence supprimée
-			for (Competence comp : children) {
-				comp.setCompetence(father); // modification onde objet
-				updateCompetence(comp); // modification coté persistance
-			}
-
-			// Recherche et suppression de toutes les relations avec cette commp
-			// creation d'un modèle vide
-			Possede relation = new Possede();
-			// on initialise le modèle de relation avec la competence à
-			// supprimer
-			relation.setCompetence(deletedCompetence);
-			// on remplie le liste de toutes les relations ayant cette
-			// compétence
-
-			if (relation != null) {
-				System.out.println("relation non nulle");
-				List<Possede> listRelation = // serviceGestionEcole
-				rechercherPossedeC(relation);
-				// on supprime toutes les relation trouvée dans la classe
-
-				// on eleve la dependance FK possede de la Table Possede
-				for (Possede rel : listRelation) {
-					// la relation rel doit necessairement posseder un Id
-					deletePossede(rel);
+				// pere de la competence à modifier
+				Competence father = deletedCompetence.getCompetence();
+				// Liste des enfants de la compétence modifiée
+				List<Competence> children = deletedCompetence.getCompetences();
+				// modification enfants, le père devient le père de la
+				// compétence supprimée
+				for (Competence comp : children) {
+					comp.setCompetence(father); // modification onde objet
+					updateCompetence(comp); // modification coté persistance
 				}
-				System.out.println("on a supprimé les relation");
+
+				// Recherche et suppression de toutes les relations avec cette
+				// commp
+				// creation d'un modèle vide
+				Possede relation = new Possede();
+				// on initialise le modèle de relation avec la competence à
+				// supprimer
+				relation.setCompetence(deletedCompetence);
+				// on remplie le liste de toutes les relations ayant cette
+				// compétence
+
+				if (relation != null) {
+					System.out.println("relation non nulle");
+					List<Possede> listRelation = // serviceGestionEcole
+					rechercherPossedeC(relation);
+					// on supprime toutes les relation trouvée dans la classe
+
+					// on eleve la dependance FK possede de la Table Possede
+					for (Possede rel : listRelation) {
+						// la relation rel doit necessairement posseder un Id
+						deletePossede(rel);
+					}
+					System.out.println("on a supprimé les relation");
+				}
+
+				System.out.println("Proposition");
+				// meme chose proposition suppression
+				PropositionComp prop = new PropositionComp();
+				prop.setCompetence(deletedCompetence);
+
+				List<PropositionComp> listProp = rechercherPropComp(prop);
+				for (PropositionComp propit : listProp) {
+					// la relation rel doit necessairement posseder un Id
+					deletePropComp(propit);
+				}
+				System.out.println("Fin suppression des propsitions");
+
+				// enfin on supprime la competence
+				entityManager.remove(deletedCompetence);
 			}
-
-			System.out.println("Proposition");
-			// meme chose proposition suppression
-			PropositionComp prop = new PropositionComp();
-			prop.setCompetence(deletedCompetence);
-
-			List<PropositionComp> listProp = rechercherPropComp(prop);
-			for (PropositionComp propit : listProp) {
-				// la relation rel doit necessairement posseder un Id
-				deletePropComp(propit);
-			}
-			System.out.println("Fin suppression des propsitions");
-
-			// enfin on supprime la competence
-			entityManager.remove(deletedCompetence);
 		}
 	}
 
 	// --------------------------------------------------------
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	private void deletePropComp(PropositionComp propcomp) {
+	public void deletePropComp(PropositionComp propcomp) {
 		// TODO Auto-generated method stub
 		System.out.println("deletePropComp");
 		if (propcomp.getIdNotif() != null) {
@@ -154,17 +170,36 @@ public class ServiceGestionCompJPA implements // ServiceGestionCompJPARemote,
 		}
 	}
 
+	// --------------------------------------------------------
 	@Override
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public void insertCompetence(Competence newCompetence) {
+	public Integer insertCompetence(Competence newCompetence) {
 		// TODO Auto-generated method stub
 		// doit necessairement posséder un pere ??
 		// if (newCompetence.getCompetence() != null)
 		// dans ce cas là, on met la compétence à la racine
-		entityManager.persist(newCompetence);
+		// mettre à faux si seulement proposition
+		Boolean compValide = true;
+
+		Integer nbInsert = 0;
+		if (rechercherCompetence(newCompetence).isEmpty()) {
+			if (!"root".equals(newCompetence.getCompIntitule())) {
+				System.out.println("**********************");
+				System.out.println("insertComp"
+						+ newCompetence.getCompIntitule());
+				newCompetence.setCompValide(compValide);
+				entityManager.persist(newCompetence);
+
+				// synchro ??
+				nbInsert = newCompetence.getCompId();
+			}
+		}
+
+		return nbInsert;
 
 	}
 
+	// -------------------------------------------------------------------
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	@Override
 	public void updateCompetence(Competence updatedCompetence) {
@@ -174,37 +209,102 @@ public class ServiceGestionCompJPA implements // ServiceGestionCompJPARemote,
 
 		// doit necessairement posséder un id
 		if (updatedCompetence.getCompId() != null) {
-			// Attention : ERROR: null value in column "comp_valide" violates
-			// not-null constraint faire ? Boolean compValide = true;
-			// updatedCompetence.setCompValide(compValide);
-			compToUpdate.setCompIntitule(updatedCompetence.getCompIntitule());
-			entityManager.merge(compToUpdate);
+			if (rechercherCompetence(updatedCompetence).isEmpty()) {
+				if (!"root".equals(updatedCompetence.getCompIntitule())) {
+					System.out.println("UPDATE REEL");
+					compToUpdate.setCompIntitule(updatedCompetence
+							.getCompIntitule());
+					entityManager.merge(compToUpdate);
+				} else {
+					System.out.println("## Pas d'update root immuable ##");
+				}
+
+			} else {
+				System.out.println("## Pas d'update existe deja ##");
+			}
+		} else {
+			System.out.println("## Pas d'update id nulle ##");
 		}
 	}
 
+	// -------------------------------------------------------------------
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	@Override
-	public Boolean addRoot(List<Competence> competences) {
-		Boolean rootExist = false; // static
+	public Integer addRoot(List<Competence> competences) {
+		// Boolean rootExist = false; // static
 		System.out.println("Ajout des racines");
-		Competence root = new Competence();
+		Competence rootModel = new Competence();
+		Integer rootId = 0;
+		rootModel = racine();
+		List<Competence> foundRacine = rechercherCompetence(rootModel);
 
-		if (!rootExist) {
-			root.setCompIntitule("root");
-			insertCompetence(root);
-			rootExist = true;
-			System.out.println("insertion racine base");
+		if (foundRacine.size() > 0) {
+			// rootExist = true;
+			System.out.println("racine base existe deja : "
+					+ foundRacine.get(0).getCompId());
+			rootModel = foundRacine.get(0);
+			rootId = rootModel.getCompId();
+		} else {
+			rootModel = racine();
+			insertCompetence(rootModel);
+			// rootExist = true;
+			System.out.println("insertion racine ds base");
+			rootId = rootModel.getCompId();
 		}
 
+		// ajout de la racine sur les comp
 		for (Competence compToUpdate : competences) {
 			// doit necessairement posséder un id
 			if (compToUpdate.getCompetence() == null) {
-				compToUpdate.setCompetence(root);
-				updateCompetence(compToUpdate);
-				System.out.println("ajout racine pere");
+				if ("root" != compToUpdate.getCompIntitule()) {
+					compToUpdate.setCompetence(rootModel);
+					// updateCompetence(compToUpdate);
+					movedCompetence(compToUpdate);
+					System.out.println("ajout racines peres");
+				}
 			}
 		}
-		return rootExist;
+		// return rootExist;
+		return rootId;
+	}
+
+	// -------------------------------------------------------------------
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	@Override
+	public Competence racine() {
+		System.out.println("utilisation du moçdele racine");
+		// creation du model de racine
+		Competence rootModel = new Competence();
+		rootModel.setCompIntitule("root");
+		rootModel.setCompValide(true);
+		// rootModel.setCompId(12);
+		return rootModel;
+	}
+
+	// -------------------------------------------------------------------
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	@Override
+	public Competence racineBase(Competence root) {
+		Competence racine = new Competence();
+		racine = entityManager.find(Competence.class, root.getCompId());
+		return racine;
+	}
+
+	// -------------------------------------------------------------------
+	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public List<Competence> rechercherRacines() {
+		System.out.println("rechercherRacines");
+		// on crée un modèle vide de type compétence
+		Competence modelCompetence = new Competence();
+		System.out.println("creation du modele à chercher");
+		modelCompetence.setCompetence(racine());
+		System.out.println("recherche des comp ayant root comme pere");
+		// renvoie la liste des racines
+		List<Competence> foundRacines = rechercherCompetence(modelCompetence);
+		System.out.println("retour liste");
+		return foundRacines;
+		// searchCompetences
 	}
 
 	// -------------------------------------------------------------------
@@ -282,11 +382,14 @@ public class ServiceGestionCompJPA implements // ServiceGestionCompJPARemote,
 				if (comp.getCompId() == father.getCompId()) {
 					testParent = false;
 				}
-
+				if (!"root".equals(comp.getCompIntitule())) {
+					testParent = false;
+				}
 			}
 
 			// enfin on supprime la competence
 			if (testParent) {
+				System.out.println("UPDATE MOVE REEL");
 				movedCompetence.setCompetence(father);
 				entityManager.merge(movedCompetence);
 			}
