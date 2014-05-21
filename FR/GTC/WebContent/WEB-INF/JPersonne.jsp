@@ -8,157 +8,53 @@
 <%@page import="java.util.Arrays"%>
 
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr"
-	dir="ltr">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr" dir="ltr">
 <head>
-
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<base href="/GTC/" />
-<link rel=stylesheet type="text/css" href="css/style.css">
-<link href="css/south-street/jquery-ui-1.10.4.custom.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="js/jquery-1.10.2.js"></script>
-<script type="text/javascript" src="js/jquery-ui-1.10.4.custom.js"></script>
-
-<script type="text/javascript" charset="utf8" src="js/jquery.dataTables.min.js"></script>
-<%-- 
-<link rel="stylesheet" type="text/css"	href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
---%>
-<link rel="stylesheet" type="text/css"	href="css/jquery.dataTables.css">
-<script type="text/javascript" charset="utf8" src="js/jquery.dataTables.yadcf.js"></script>
-<link rel=stylesheet type="text/css" href="css/jquery.dataTables.yadcf.css">
-
-<title>Menu Personnes</title>
-<SCRIPT type="text/javascript">
-	$(document)
-			.ready(
-					function() {
-						$('.onlyadmin').hide();
-						if ("${loguedPerson.role.roleId}" != 1) {
-							$('.onlyadmin').show();
-						}
-
-
-						$('#formulaire').dialog({
-							autoOpen : false,
-							show : {
-								effect : "blind",
-								duration : 1000
-							},
-							hide : {
-								effect : "blind",
-								duration : 1000
-							}
-						});
-
-						$('.actionFormulaire').on('click', function(e) {
-								$("#formulaire").dialog("open");
-								$('#inputId').val(
-										$(this).attr("data-id"));
-								$('#inputRoleId').val($(this).attr("data-roleid"));
-								$('#inputNom').val($(this).attr("data-nom"));
-								$('#inputPrenom').val($(this).attr("data-prenom"));
-								var dateString = new Date($(this)
-										.attr("data-dateNaiss"));
-								$('#inputDateNaiss').datepicker({
-									defaultDate : dateString
-								});
-								$('#inputDateNaiss').val(dateString.toLocaleDateString("fr-FR"));
-								$('#inputPromotion').val($(this).attr("data-promotionid"));
-								$('#inputPassw').attr(
-										"disabled", false);
-								$('#inputPassw').val($(this).attr("data-passw"));
-								
-								$('#inputEmail').val($(this).attr("data-email"));
-								$('#inputInfos').val($(this).attr("data-infos"));
-								$('.loginExiste').hide();
-								if (($(this).attr("data-disponibilite") == "true")|| ($(this).attr("data-disponibilite") == "TRUE")) {
-									document.getElementById('inputDisponibilite').checked = true;
-								} else {
-									document.getElementById('inputDisponibilite').checked = false;
-								};
-								$('#inputRole').val($(this).attr("data-roleId"));
-								$('#inputLogin').val($(this).attr("data-identConnexion"));
-								$('#inputLogin').attr("disabled", "disabled");
-								$('#inputIdentConnexion').val($(this).attr("data-identConnexion"));
-								$('#inputCgu').val($(this).attr("data-cgu"));
-								console.log("data-cgu vaut :"+$(this).attr("data-cgu"));
-								$('#updateDansForm').show();
-								$('#deleteDansForm').show();
-								$('#creerDansForm').hide();
-								$('#updateDansForm').attr("disabled", false);
-								$('#deleteDansForm').attr("disabled", false);
-						});
-
-						$('.actionPagePrincipaleCreer').on('click',function(e) {
-								$("#formulaire").dialog("open");
-								$('#inputNom').val("");
-								$('#inputPrenom').val("");
-								$('#inputLogin').val("");
-								$('#inputLogin').attr(
-										"disabled", false);
-								$('#inputDateNaiss').datepicker({
-									defaultDate : new Date()
-								});
-								$('#inputDateNaiss').val("01/01/1980");
-								$('#inputPromotion').val("");
-								$('#inputEmail').val("");
-								document.getElementById('inputDisponibilite').checked = true;
-								$('.loginExiste').hide();
-								$('#inputRole').val("");
-								$('#inputInfos').val("");
-								$('#inputPassw').attr(
-										"disabled", "disabled");
-								$('#inputPassw').val("p@ssword");
-								$('#inputRole').val("1");
-								$('#inputCgu').val("false");
-								$('#deleteDansForm').hide();
-								$('#deleteDansForm').attr(
-										"disabled", "disabled");
-								$('#updateDansForm').hide();
-								$('#updateDansForm').attr(
-										"disabled", "disabled");
-								$('#creerDansForm').show();
-						});
-
-						$('.actionRetourPageAdmin').on('click', function(e) {
-							document.location.href = "/GTC/Admin";
-						});
-
-						$('#tablePersonne').dataTable({
-							"bJQueryUI" : true
-						}).yadcf([]);
-
-						$('#lgdble').val("${loginDouble}");
-
-					});
-
-
-	function VerifLogin() {
-		console.log("rentré dans VerifLogin");
-		$('.loginExiste').hide();
-		var result = false;
-	
-		var listLogin = [];
-		var val;
-		<%for(Personne pers : (List<Personne>)request.getAttribute("listLogin")){%>
-			listLogin.push("<%=pers.getIdentConnexion()%>");
-		<%};%>
-		var loginEnTest = document.getElementById('inputLogin').value;
-		for ( var i = 0; i < listLogin.length; i++) {
-			if (loginEnTest == listLogin[i]) {
-				result = true;
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<base href="/GTC/" />
+	<link rel=stylesheet type="text/css" href="css/style.css">
+	<link href="css/south-street/jquery-ui-1.10.4.custom.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="js/jquery-1.10.2.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-1.10.4.custom.js"></script>
+	<script type="text/javascript" charset="utf8" src="js/jquery.dataTables.min.js"></script>
+	<link rel="stylesheet" type="text/css"	href="css/jquery.dataTables.css">
+	<script type="text/javascript" charset="utf8" src="js/jquery.dataTables.yadcf.js"></script>
+	<link rel=stylesheet type="text/css" href="css/jquery.dataTables.yadcf.css">
+	<title>Menu Personnes</title>
+	<!-- recuperation des variables necessaires pour les scripts externes -->
+	<script type="text/javascript">
+		var _loggedUserRoleId = '${loguedPerson.role.roleId}';
+	</script>
+	<script src="js/scriptPersonnes.js"></script> <!-- Sources javascript -->
+	<SCRIPT type="text/javascript">
+		$(document).ready(
+			function VerifLogin() {
+				console.log("rentré dans VerifLogin");
+				$('.loginExiste').hide();
+				var result = false;
+			
+				var listLogin = [];
+				var val;
+				<%for(Personne pers : (List<Personne>)request.getAttribute("listLogin")){%>
+					listLogin.push("<%=pers.getIdentConnexion()%>");
+				<%};%>
+				var loginEnTest = document.getElementById('inputLogin').value;
+				for ( var i = 0; i < listLogin.length; i++) {
+					if (loginEnTest == listLogin[i]) {
+						result = true;
+					}
+					;
+				}
+				;
+			
+				if (result == true) {
+					$('.loginExiste').show();
+					$('.loginExiste').val(loginEnTest + " est déja utilisé");
+				}
+				;
 			}
-			;
-		}
-		;
-
-		if (result == true) {
-			$('.loginExiste').show();
-			$('.loginExiste').val(loginEnTest + " est déja utilisé");
-		}
-		;
-	};
-</SCRIPT>
+		);
+	</SCRIPT>
 
 
 </head>

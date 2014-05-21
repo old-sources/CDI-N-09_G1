@@ -31,7 +31,7 @@
 	<script type="text/javascript">
 		var _loggedUserRoleId = '${loguedPerson.role.roleId}';
 	</script>
-	<script src="js/scriptProjet.js"></script> <!-- Sources Ajax -->
+	<script src="js/scriptProjet.js"></script> <!-- Sources javascript -->
 </head>
 <body>
 	<%@ include file="/WEB-INF/header.jsp"%>
