@@ -57,8 +57,7 @@ public class HPersonne extends HttpServlet {
 		// a faire quelque soit le pattern
 
 		Personne searchPersonne = new Personne();
-		request.setAttribute("promotions",
-				serviceGestionEcole.rechercherPromotion(new Promotion()));
+		request.setAttribute("promotions", serviceGestionEcole.rechercherPromotion(new Promotion()));
 		
 		List<Personne> foundPersonnes = serviceGestionEcole
 				.rechercherPersonne(searchPersonne);

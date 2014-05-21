@@ -105,27 +105,30 @@
 							<td><c:out value="${personne.passw}" /></td>
 							<td><c:out value="${personne.email}" /></td>
 							<td><c:out value="${personne.infos}" /></td>
-							<td><c:choose>
+							<td>
+								<c:choose>
 									<c:when test="${personne.disponibilite}">
 										<input type="checkbox" checked="checked" disabled> disponible
 									</c:when>
 									<c:otherwise>
 										<input type="checkbox" disabled>pas dispo
 									</c:otherwise>
-								</c:choose></td>
-							<td><c:forEach items="${foundTravailles}" var="trv">
-									<c:choose>
-										<c:when test="${personne.id == trv.personne.id}">
-											<c:out value="${trv.projet.projNom}" />
-										</c:when>
-									</c:choose>
+								</c:choose>
+							</td>
+							<td>
+								<c:set var="insererBr" value="false" scope="page" />
+								<c:forEach items="${personne.projets}" var="projet">
+									<c:if test="${insererBr==true}">
+										<br>
+										<c:set var="insererBr" value="false" scope="page" />
+									</c:if>
+									<c:set var="insererBr" value="true" scope="page" />
+									<c:out value="- ${projet.projNom}" />
 								</c:forEach>
 							</td>
 							<td><c:out value="${personne.role.roleIntitule}" /></td>
 							<TD><c:choose>
-									<c:when
-										test="${personne.role.roleId == 3 && loguedPerson.role.roleId==2}">
-
+									<c:when test="${personne.role.roleId == 3 && loguedPerson.role.roleId==2}">
 										<BUTTON class="actionFormulaire" disabled="disabled">Modifier</BUTTON>
 									</c:when>
 									<c:otherwise>
