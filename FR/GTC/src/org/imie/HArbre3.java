@@ -20,8 +20,8 @@ import org.imie.service.ServiceGestionCompJPALocal;
 /**
  * Servlet implementation class TP3_Controller ????
  */
-@WebServlet("/Arbre2/*")
-public class HArbre2 extends HttpServlet {
+@WebServlet("/Arbre3/*")
+public class HArbre3 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@EJB
 	ServiceGestionCompJPALocal serviceGestionComp;
@@ -29,7 +29,7 @@ public class HArbre2 extends HttpServlet {
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public HArbre2() {
+	public HArbre3() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -41,7 +41,7 @@ public class HArbre2 extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		System.out.println("Do get Arbre2");
+		System.out.println("Do get Arbre3");
 		// ///////////////////////////////////// update / modifie
 				// if (request.getParameter("affiche") != null) {
 				// fonctionne pour la modif intitulé
@@ -85,7 +85,7 @@ public class HArbre2 extends HttpServlet {
 				serviceGestionComp.setChildCompetence(foundRacines);
 				request.setAttribute("foundCompetences", foundRacines);
 				
-				request.setAttribute("node",foundCompetences);
+				request.setAttribute("node",foundRacines);
 	
 
 		// loguedPerson passé en request
@@ -95,7 +95,7 @@ public class HArbre2 extends HttpServlet {
 				"authentifiedPersonne");
 		request.setAttribute("loguedPerson", loguedPerson);
 
-		request.getRequestDispatcher("/WEB-INF/JArbre2.jsp").forward(request,
+		request.getRequestDispatcher("/WEB-INF/JArbre3.jsp").forward(request,
 				response);
 
 	}
@@ -110,7 +110,7 @@ public class HArbre2 extends HttpServlet {
 		System.out.println("Do post Arbre");
 
 		// redirection vers DoGet
-		response.sendRedirect("/GTC/Arbre2/");
+		response.sendRedirect("/GTC/Arbre3/");
 
 	}
 }

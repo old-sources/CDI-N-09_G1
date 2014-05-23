@@ -71,7 +71,7 @@
 			$("#formCompDivId").dialog("open");
 			$('#inputLibelleComp').val($(this).attr("data-compIntitule"));
 			$('#inputId').val($(this).attr('data-compId'));
-			//$('#inputLibelleParent').hide();
+			$('#inputLibelleParent').hide();
 			$('#updateDansForm').hide();
 			$('#deleteDansForm').show(); // ??
 			$('#creerDansForm').hide();
@@ -85,6 +85,7 @@
 			$('#inputId2').val($(this).attr('data-compId'));
 			$('#inputLibelleParent').val($(this).attr('data-compParent'));
 			$('#moveDansForm').show();
+			$('#inputLibelleParent').show();
 		});
 
 		$('.actionRetourPageHome').on('click', function(e) {

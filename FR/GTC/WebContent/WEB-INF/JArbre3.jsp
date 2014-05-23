@@ -79,29 +79,22 @@
 
 				<%-- node = foundRacines = liste de competences --%>
 				<c:forEach items="${node}" var="comp">
-					
-					<c:if test ="${'root' == comp.compIntitule}">
 					<p>-----RACINE-----------</p>
-					</c:if>
+
 					<ul>
-						<li><a><c:out value="+ ${comp.compIntitule}" /></a></li>
-
+						<li><a><c:out value="${comp.compIntitule}" /></a></li>
 						<c:forEach items="${comp.competences}" var="compchild">
+							<c:set var="compchild3" value="${compchild}" />
 
-							<c:set var="noeud" value="${compchild}"/>
-
-							<%@ include file="/WEB-INF/node.jsp"%>
+							<%@ include file="/WEB-INF/node3.jsp"%>
 
 						</c:forEach>
 
 					</ul>
-
 				</c:forEach>
 			</ul>
 		</div>
-		<!-- -------------------------------------------------------- -->
 
 	</div>
-	<!-- -------------------------------------------------------- -->
 </body>
 </html>

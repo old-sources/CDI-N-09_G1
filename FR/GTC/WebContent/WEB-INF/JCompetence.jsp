@@ -68,7 +68,7 @@
 						<TD><c:out value="${comp.compId}" /></TD>
 						<TD><c:out value="${comp.compIntitule}" /> <%-- getter et setteur  automatiques JPA <c:out value="(${comp.getCompIntitule()})" />	--%>
 						</TD>
-						<TD><c:out value="${comp.competence.getCompIntitule()}" /></TD>
+						<TD><c:out value="${comp.competence.compIntitule}" /></TD>
 						<TD><c:forEach items="${comp.competences}" var="compchild">
 								<c:out value="+ ${compchild.compIntitule}" />
 								<br>
@@ -77,7 +77,7 @@
 						<TD><BUTTON class="actionFormulaireComp"
 								data-compId="${comp.compId}"
 								data-compIntitule="${comp.compIntitule}"
-								data-compParent="${comp.competence}">Modifier</BUTTON></TD>
+								>Modifier</BUTTON></TD>
 
 						<TD><BUTTON class="actionDeleteComp"
 								data-compId="${comp.compId}"
@@ -85,7 +85,7 @@
 
 						<TD><BUTTON class="actionMoveComp"
 								data-compId="${comp.compId}"
-								data-compParent="${comp.competence}">Déplacer</BUTTON></TD>
+								data-compParent="${comp.competence.compIntitule}">Déplacer</BUTTON></TD>
 					</tr>
 				</c:forEach>
 			</TBODY>
