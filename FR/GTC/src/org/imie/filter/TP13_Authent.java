@@ -46,6 +46,8 @@ public class TP13_Authent implements Filter {
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
+		
+		System.out.println("Filtre etape 1");
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		HttpServletResponse httpServletResponse = (HttpServletResponse) response;
 
@@ -61,12 +63,16 @@ public class TP13_Authent implements Filter {
 		Personne searchPersonne = new Personne();
 		if (httpServletRequest.getRequestURI().contains("css") || httpServletRequest.getRequestURI().contains("png")) {
 			resourceToScan = false;
+			System.out.println("Filtre etape 2");
 		}
-		if (httpServletRequest.getRequestURI().contains("TP13")) {
+		if ((httpServletRequest.getRequestURI().contains("TP13")) || (httpServletRequest.getRequestURI().contains("Autentification"))) {
 			authentifying = true;
+			System.out.println("Filtre etape 3");
 			//Interception forcée des POST des URL contenant TP13
 			if (httpServletRequest.getMethod().equals("POST")
 					&& httpServletRequest.getParameter("valider") != null) {
+			//if (httpServletRequest.getParameter("valider") != null) {
+				System.out.println("Filtre etape 4");
 //	NK			String inputNom = request.getParameter("inputNom");
 				String inputLogin = request.getParameter("inputLogin");
 				String inputPassword = request.getParameter("inputPassword");
@@ -81,6 +87,7 @@ public class TP13_Authent implements Filter {
 					request.setAttribute("messageException", e.getMessage());
 				}
 				if (authPersonne != null) {
+					System.out.println("Filtre etape 5");
 					//AJ : en vue de mettre une redirection validation CGU  =>  if authPersonne.getfdfgdfg
 					httpServletRequest.getSession().setAttribute(
 							"authentifiedPersonne", authPersonne);
@@ -91,19 +98,21 @@ public class TP13_Authent implements Filter {
 //					Personne aut2 = new Personne();
 //					aut2=serviceGestionEcole.rechercherPersonne(searchPersonne).get(0);
 					System.out.println("login et cgu"+authPersonne.getIdentConnexion()+"  "+authPersonne.getCgu());
-					
 					if (authPersonne.getCgu()){
+						System.out.println("Filtre etape 6");
 						System.out.println("filtreCGUtrue");
 						httpServletResponse.sendRedirect(uri);
 					}else {
+						System.out.println("Filtre etape 7");
 						System.out.println("filtreCGUfalse");
 						httpServletResponse.sendRedirect("/GTC/CGU");
 					}
 					/////fin test CGU
 					//httpServletResponse.sendRedirect(uri);
 				} else {
+					System.out.println("Filtre etape 8");
 					RequestDispatcher dispatcher = request
-							.getRequestDispatcher("TP13_View");
+							.getRequestDispatcher("WEB-INF/Autentification.jsp");
 					dispatcher.forward(request, response);
 				}
 				requestInterupted = true;
@@ -112,17 +121,20 @@ public class TP13_Authent implements Filter {
 		}
 		if (httpServletRequest.getSession()
 				.getAttribute("authentifiedPersonne") != null) {
+			System.out.println("Filtre etape 9");
 			authentified = true;
 		}
 		if (!requestInterupted) {
+			System.out.println("Filtre etape 10");
 			if (!authentified && !authentifying && resourceToScan) {
 				
 				String requestParam = httpServletRequest.getQueryString()!=null?"?".concat(httpServletRequest.getQueryString().toString()):"";
 				httpServletRequest.getSession().setAttribute("originURL",
 						httpServletRequest.getRequestURL().toString().concat(requestParam));
-				httpServletResponse.sendRedirect("/GTC/TP13_Controller");
+				System.out.println("Filtre etape 11 string request = "+requestParam);
+				httpServletResponse.sendRedirect("/GTC/Autentification");
 			} else {
-				
+				System.out.println("Filtre etape 12");
 				//System.out.println("login et cgu"+aut2.getIdentConnexion()+"  "+aut2.getCgu());
 				chain.doFilter(request, response);
 				
