@@ -72,9 +72,16 @@
 								<TD><c:out value="${prj.projDescription}" /></TD>
 								<TD><c:out value="${prj.chefDeProjet.nom}" /></TD>
 								<TD>
+								<c:set var="insererBr" value="false" scope="page" />
 									<c:forEach items="${prj.membres}" var="participant">
+									<c:if test="${participant.id!=prj.chefDeProjet.id}">
+										<c:if test="${insererBr==true}">
+											<br>
+											<c:set var="insererBr" value="false" scope="page" />
+										</c:if>
 										<c:out value="${participant.prenom} ${participant.nom}" />
-										<br />
+										<c:set var="insererBr" value="true" scope="page" />
+									</c:if>
 									</c:forEach>
 								</TD>
 								<TD><c:out value="${prj.projAvancement}" /></TD>
