@@ -77,21 +77,35 @@
 			<ul>
 
 
-				<c:forEach items="${node}" var="comp"> 
+				<%-- node = foundRacines = liste de competences --%>
+				<c:forEach items="${node}" var="comp">
 					<p>-----RACINE-----------</p>
+
 					<ul>
 						<li><a><c:out value="${comp.compIntitule}" /></a></li>
-						<%-- <c:forEach items="${comp.competences}" var="compchild"> --%>
 
-						<c:set var="compchild" value="${comp}.competences" scope="session"/>
+<%-- 						<c:set var="node1" value="${comp}.competences" scope="session" /> --%>
+<%-- 						<c:set var="listcompchild" value="${compchild}.competences" --%>
+<%-- 							scope="session" /> --%>
 
-						<%-- 							<li><a><c:out value="+ ${compchild.compIntitule}" /></a></li> --%>
-						
-  							<c:set var="node1" value="${compchild}.competences" scope="session"/>
- 							<%@ include file="/WEB-INF/node.jsp"%>
-						
+						<c:forEach items="${comp.competences}" var="compchild">
+
+							<%-- <li><a><c:out value="+ ${compchild.compIntitule}" /></a></li> --%>
+
+							<c:set var="compchild3" value="${compchild}" />
+
+							<%-- boucle sur enfants inclusion fichier   scope="session" --%>
+							<%@ include file="/WEB-INF/node.jsp"%>
+
+						</c:forEach>
+
+
+						<c:forEach items="${listcompchild}" var="node2">
+							<p>enfant2</p>
+						</c:forEach>
 						<%-- 						</c:forEach> --%>
 					</ul>
+
 					<p>-----FIN RACINE---------</p>
 				</c:forEach>
 			</ul>

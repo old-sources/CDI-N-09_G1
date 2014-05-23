@@ -1,19 +1,25 @@
-<p>---------------------------------</p>
-<!-- node2 = enfant -->
-<c:forEach var="node2" items="${node1}">
+<ul>
+	<!-- <p>-------</p> -->
+	<!-- listcompchild = 1 liste d'enfants  -->
+	<%-- <c:forEach items="${listcompchild}" var="node2"> --%>
+	<p>entree fichier</p>
+	
+	<c:out value="${compchild3.compIntitule}" />
+	
+	
+	<li><a> <c:forEach items="${compchild3.competences}" var="node2">
+				
+				
+	 		<ul>
+				<li><a>
+				<c:out value="${node2.compIntitule}" />
+				<p>enfant3</p>
+				</a></li>
+				</ul>
 
-<%-- <c:forEach items="${node}" var="comp"> --%>
-<%-- 	<c:forEach items="${comp.competences}" var="compchild"> --%>
-
- 	<c:set var="compchild2" value="${node2}"/>
- 	<c:out value="${compchild2}.compIntitule" />
- 	<c:out value="${node2}.compIntitule" />
- 	<c:out value="${compchild2.compIntitule}" />
- 	
-<%--  	<c:out value="${node2.compIntitule}"/> --%>
-
-<%-- 		<li><a><c:out value="+ ${compchild.compIntitule}" /></a></li> --%>
-<%-- 		<li><a><c:out value="- ${compchild2}.compIntitule"/></a></li> --%>
-
-</c:forEach>
+			</c:forEach>
+	</a></li>
+	<p>sortie fichier</p>
+	<!-- <p>-------</p> -->
+</ul>
 <!-- http://stackoverflow.com/questions/4638653/displaying-tree-on-jsp-page -->

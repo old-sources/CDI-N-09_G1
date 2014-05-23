@@ -18,6 +18,7 @@ import javax.persistence.criteria.Root;
 
 import model.Competence;
 import model.Possede;
+
 import model.PropositionComp;
 import model.arbre.Branche;
 
@@ -73,6 +74,11 @@ public class ServiceGestionCompJPA implements // ServiceGestionCompJPARemote,
 		List<Competence> result = entityManager.createQuery(query)
 				.getResultList();
 
+		//actualisation des infos liées aux personnes participant aux projets
+		for(Competence compIt : result){
+			compIt.getCompetences().size();
+			//compIt.getCompetence().equals(null);
+		}
 		System.out.println("recherche-----------------");
 		return result;
 	}
