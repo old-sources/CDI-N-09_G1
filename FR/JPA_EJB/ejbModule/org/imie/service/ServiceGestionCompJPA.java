@@ -382,6 +382,7 @@ public class ServiceGestionCompJPA implements // ServiceGestionCompJPARemote,
 		return couple;
 
 	}
+	
 
 	// --------------------------------------------------------
 	@Override
@@ -422,6 +423,56 @@ public class ServiceGestionCompJPA implements // ServiceGestionCompJPARemote,
 		System.out.println("Fini init");
 		
 		return tailleB;
+	}
+	
+	// --------------------------------------------------------
+	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public String[][] tableauArbre(List<Branche> branches,Integer[] tailleB) {
+		
+		System.out.println("tableauArbre");
+		int nEnfantsmax = 0;
+		
+		System.out.println("calcul enfants max");
+		for (Branche branche : branches) {
+			nEnfantsmax = Math.max(nEnfantsmax,branche.getNbenfants());		
+		}
+	
+		System.out.println("Init à chaine vide");
+		String tab[][] = new String[tailleB.length][nEnfantsmax] ;
+		for (int i = 0; i < tailleB.length; i++) {
+			for (int j = 0; j < nEnfantsmax; j++) {
+				tab[i][j] = "";
+			}	
+		}
+			
+//		for (int i = 0; i < tailleB.length; i++) {
+//			for (int j = 0; j < nEnfantsmax; j++) {
+//				tab[i][j] = branche.getComp(i,j).getCompIntitule();;
+//			}	
+//		}
+		
+		System.out.println("init tableau");
+		for (Branche branche : branches) {
+			tab[branche.getNiv()-1][branche.getNbenfants()-1] = branche.getComp().getCompIntitule();
+		}
+		
+		System.out.println("retour");
+		return tab;
+	}
+	
+	// --------------------------------------------------------
+	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public int tabMax(List<Branche> branches) {
+		
+		System.out.println("tabMax");
+		int nEnfantsmax = 0;
+		
+		for (Branche branche : branches) {
+			nEnfantsmax = Math.max(nEnfantsmax,branche.getNbenfants());		
+		}
+		return nEnfantsmax;
 	}
 	
 	// --------------------------------------------------------

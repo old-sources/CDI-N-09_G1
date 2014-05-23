@@ -140,6 +140,19 @@ public class ServiceGestionCompJPARemote implements	ServiceGestionCompJPALocal {
 		return null;
 	}
 
+
+	@Override
+	public String[][] tableauArbre(List<Branche> branches, Integer[] tailleB) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int tabMax(List<Branche> branches) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 //	@Override
 //	public void updatePropComp(PropositionComp propitToUpdate) {
 //		// TODO Auto-generated method stub

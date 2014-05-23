@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.Competence;
 import model.Personne;
-import model.arbre.Branche;
+//import model.arbre.Branche;
 
 //import org.imie.service.ServiceGestionCompJPA;
 import org.imie.service.ServiceGestionCompJPALocal;
@@ -81,26 +81,39 @@ public class HArbre extends HttpServlet {
 
 		System.out.println("Envoie requete");
 
+		request.setAttribute("foundCompetences2",foundCompetences);
 		serviceGestionComp.setChildCompetence(foundRacines);
 		request.setAttribute("foundCompetences", foundRacines);
 		
-		System.out.println("Construction Arbre");
-		List<Branche> foundBranche = serviceGestionComp.constructionArbre(foundRacines,0);
+		request.setAttribute("node",foundCompetences);
 		
-		System.out.println("init Taille");
-		Integer taille = serviceGestionComp.tailleArbre(foundBranche);
-		Integer[] noeud= new Integer[taille];
-		
-		System.out.println("init Noeud"+taille);
-		noeud = serviceGestionComp.tailleBranche(foundBranche);
-		
-		
-		System.out.println("Requete 1");
-		request.setAttribute("foundBranche",foundBranche);
-		System.out.println("Requete 2 "+taille);
-		request.setAttribute("taille",taille);
-		System.out.println("Requete 3 "+noeud.length);
-		request.setAttribute("noeud",noeud);
+//		System.out.println("Construction Arbre");
+//		List<Branche> foundBranche = serviceGestionComp.constructionArbre(foundRacines,0);
+//		
+//		System.out.println("init Taille");
+//		Integer taille = serviceGestionComp.tailleArbre(foundBranche);
+//		Integer[] noeud= new Integer[taille];
+//		
+//		System.out.println("init Noeud"+taille);
+//		noeud = serviceGestionComp.tailleBranche(foundBranche);
+//		
+//		String tabRes[][] = serviceGestionComp.tableauArbre(foundBranche,noeud);
+			
+//		System.out.println("Requete 1");
+//		request.setAttribute("foundBranche",foundBranche);
+//		System.out.println("Requete 2 "+taille);
+//		request.setAttribute("taille",taille);
+//		
+//		System.out.println("Requete 3 "+noeud.length);
+//		request.setAttribute("noeud",noeud);
+//		
+//		System.out.println("Requete 4");
+//		request.setAttribute("tabRes",tabRes);
+//		
+//		int nMax = serviceGestionComp.tabMax(foundBranche);
+//		
+//		System.out.println("Requete 5");
+//		request.setAttribute("NenfantMax",nMax);
 		
 		// request.setAttribute("foundCompetences", foundCompetences);
 		// }

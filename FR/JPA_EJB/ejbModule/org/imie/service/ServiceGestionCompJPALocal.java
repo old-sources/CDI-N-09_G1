@@ -48,6 +48,10 @@ public interface ServiceGestionCompJPALocal {
 	public Integer tailleArbre(List<Branche> branches);
 
 	public Integer[] tailleBranche(List<Branche> branches);
+
+	public String[][] tableauArbre(List<Branche> branches, Integer[] tailleB);
+
+	public int tabMax(List<Branche> branches);
 	
 //	void initRoot(); //???
 //	public Boolean addRoot();
